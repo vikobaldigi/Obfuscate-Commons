@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 
 let messages = [];
 let passphrases = ["resist", "refuse", "encrypt"];
@@ -64,10 +65,90 @@ function mousePressed() {
     if (dist(mouseX, mouseY, messages[i].x, messages[i].y) < 100) {
       activeIndex = i;
       userInput = "";
+=======
+let stars;
+let connections;
+let zoom = 1, offsetX = 0, offsetY = 0;
+let dragging = false, dragStartX, dragStartY;
+let modalStar = null;
+
+function preload() {
+  stars = loadJSON('js/orion-stars.json');
+  connections = [
+    {from:"SAIPH",to:"ALNITAK"},
+    {from:"ALNITAK",to:"ALNILAM"},
+    {from:"ALNILAM",to:"MINTAKA"},
+    {from:"MINTAKA",to:"RIGEL"},
+    {from:"ALNITAK",to:"BETELGEUSE"},
+    {from:"BETELGEUSE",to:"MEISSA"},
+    {from:"MEISSA",to:"BELLATRIX"},
+    {from:"MINTAKA",to:"BELLATRIX"},
+    {from:"RIGEL",to:"SAIPH"}
+  ];
+}
+
+function setup() {
+  createCanvas(windowWidth, windowHeight);
+  calculateCenter();
+  setupModalLogic();
+}
+
+function calculateCenter(){
+  let arr = Object.values(stars);
+  let sumX=0,sumY=0;
+  arr.forEach(s=>{ sumX+=s.x; sumY+=s.y });
+  let cx=sumX/arr.length, cy=sumY/arr.length;
+  offsetX = width/2 - cx*zoom;
+  offsetY = height/2 - cy*zoom;
+}
+
+function draw() {
+  background(15);
+  translate(offsetX, offsetY);
+  scale(zoom);
+  scale(1, -1);        // flip y
+
+  // connections
+  stroke(200,150,255,50); strokeWeight(1.5);
+  connections.forEach(c=>{
+    let a=Object.values(stars).find(s=>s.name===c.from),
+        b=Object.values(stars).find(s=>s.name===c.to);
+    line(a.x,a.y,b.x,b.y);
+  });
+
+  // stars
+  noStroke(); textFont('courier');
+  Object.values(stars).forEach(s=>{
+    if(!s.major){
+      fill(180,140,240,60);
+      ellipse(s.x,s.y,3);
+    } else {
+      push(); scale(1,-1);
+      fill(255); textSize(20);
+      text(s.glyph||'✷', s.x, -s.y);
+      fill(200); textSize(10);
+      text(s.name, s.x, -s.y-20);
+      pop();
+    }
+  });
+}
+
+function mousePressed(){
+  dragStartX = mouseX-offsetX;
+  dragStartY = mouseY-offsetY;
+  dragging = true;
+
+  // click star?
+  let mx=(mouseX-offsetX)/zoom, my=-(mouseY-offsetY)/zoom;
+  for(let s of Object.values(stars)){
+    if(s.major && dist(mx,my,s.x,s.y)<16){
+      showModal(s); return;
+>>>>>>> 27cab91 (Initial commit for GitHub Pages prototype)
     }
   }
 }
 
+<<<<<<< HEAD
 function keyTyped() {
   if (activeIndex !== -1) {
     if (keyCode === BACKSPACE) {
@@ -92,3 +173,38 @@ function getPoeticMessage(i) {
   ];
   return lines[i];
 }
+=======
+function mouseDragged(){
+  if(dragging){
+    offsetX = mouseX-dragStartX;
+    offsetY = mouseY-dragStartY;
+  }
+}
+
+function mouseReleased(){ dragging=false; }
+function mouseWheel(e){
+  zoom = constrain(zoom - e.delta*0.001, 0.3, 5);
+}
+
+function setupModalLogic(){
+  let m=document.getElementById('modal'),
+      title=document.getElementById('modalStar'),
+      input=document.getElementById('modalInput'),
+      err=document.getElementById('modalError'),
+      ok=document.getElementById('modalSubmit'),
+      cancel=document.getElementById('modalCancel');
+
+  ok.onclick = ()=>{
+    if(input.value.trim().toLowerCase()===modalStar.pass){
+      window.location = `chatrooms/${modalStar.link}?key=${modalStar.pass}`;
+    } else err.style.display='block';
+  };
+  cancel.onclick = ()=>{ m.classList.add('hidden'); err.style.display='none'; };
+}
+
+function showModal(s){
+  modalStar = s;
+  document.getElementById('modalStar').innerText = s.name;
+  document.getElementById('modal').classList.remove('hidden');
+}
+>>>>>>> 27cab91 (Initial commit for GitHub Pages prototype)

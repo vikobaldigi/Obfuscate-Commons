@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Obfuscate Commons</title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      background-color: #0a0014;
+      color: #c792ea;
+      font-family: 'Courier New', monospace;
+      overflow: hidden;
+      height: 100%;
+    }
+
+    #glyphs {
+      position: absolute;
+      width: 100vw;
+      height: 100vh;
+      z-index: 0;
+    }
+
+    .glyph {
+      position: absolute;
+      color: #a78acb;
+      font-size: 1.4em;
+      pointer-events: none;
+      opacity: 0.06;
+      animation: floatGlyph 40s linear infinite;
+    }
+
+    @keyframes floatGlyph {
+      0% { transform: translateY(110vh) scale(0.9); opacity: 0.1; }
+      100% { transform: translateY(-20vh) scale(1); opacity: 0.2; }
+    }
+
+    #fog {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: 1;
+      background: radial-gradient(ellipse at 30% 30%, rgba(180,130,255,0.08), transparent 60%);
+      mix-blend-mode: lighten;
+      pointer-events: none;
+      animation: fogMove 50s ease-in-out infinite;
+      filter: blur(30px);
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fogMove {
+      0%   { background-position: 0% 0%; }
+      50%  { background-position: 50% 100%; }
+      100% { background-position: 0% 0%; }
+    }
+
+    @keyframes fadeInButton {
+      to { opacity: 1; }
+    }
+
+    #container {
+      position: relative;
+      z-index: 2;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      animation: fadeIn 2.5s ease;
+    }
+
+    h1 {
+      font-size: 2.6em;
+      color: #d5b3ff;
+      margin-bottom: 0.5em;
+      letter-spacing: 0.05em;
+      text-shadow: 0 0 6px #a78acb;
+    }
+
+    p {
+      font-size: 1.05em;
+      color: #a78acb;
+      margin: 0 2em 2em;
+      max-width: 500px;
+      line-height: 1.5;
+    }
+
+    input {
+      background: transparent;
+      border: none;
+      border-bottom: 2px solid #651fff;
+      color: #c792ea;
+      font-family: inherit;
+      font-size: 1.1em;
+      padding: 0.5em 0.2em;
+      width: 280px;
+      text-align: center;
+      outline: none;
+      transition: border-color 0.3s;
+      margin-bottom: 1.2em;
+    }
+
+    input::placeholder {
+      color: #7a65a1;
+    }
+
+    input:focus {
+      border-color: #a78acb;
+    }
+
+    #enter-btn {
+      background: none;
+      border: 1px solid #651fff;
+      color: #c792ea;
+      padding: 0.6em 1.6em;
+      cursor: pointer;
+      font-family: inherit;
+      letter-spacing: 0.1em;
+      transition: all 0.3s ease;
+      opacity: 0;
+      animation: fadeInButton 2.8s ease 2.5s forwards;
+    }
+
+    #enter-btn:hover {
+      background-color: #651fff;
+      color: #fff;
+    }
+
+    #error {
+      color: #ff537a;
+      font-size: 0.9em;
+      margin-top: 1em;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+  <div id="glyphs"></div>
+  <div id="fog"></div>
+
+  <div id="container">
+    <h1>Obfuscate Commons</h1>
+    <p>Enter the passphrase to gain access to our hidden chatroom server.</p>
+
+    <input id="access" type="text" placeholder="Passphrase" />
+    <button id="enter-btn" onclick="checkAccess()">Enter</button>
+    <div id="error">Access denied. Try again.</div>
+  </div>
+
+  <script>
+    const correctPass = "undercommons";
+
+    function checkAccess() {
+      const val = document.getElementById("access").value.trim().toLowerCase();
+      if (val === correctPass) {
+        window.location.href = `index.html?key=${encodeURIComponent(val)}`;
+      } else {
+        document.getElementById("error").style.display = "block";
+      }
+    }
+
+    document.getElementById("access")
+      .addEventListener("keypress", e => {
+        if (e.key === "Enter") checkAccess();
+      });
+
+    // Glyph animation setup
+    const glyphs = ["✶","✸","✺","✵","✷","✹","❉","✧"];
+    const gContainer = document.getElementById("glyphs");
+    for (let i = 0; i < 42; i++) {
+      const g = document.createElement("div");
+      g.classList.add("glyph");
+      g.innerText = glyphs[Math.floor(Math.random() * glyphs.length)];
+      g.style.left = Math.random() * 100 + "vw";
+      g.style.top  = Math.random() * 100 + "vh";
+      g.style.animationDuration = (30 + Math.random() * 25) + "s";
+      g.style.fontSize = (1.1 + Math.random() * 2) + "em";
+      gContainer.appendChild(g);
+    }
+
+    // Ambient audio
+    const audio = new Audio("assets/ambient.mp3");
+    audio.loop = true;
+    audio.volume = 0.3;
+    window.addEventListener("click", () => {
+      if (audio.paused) audio.play();
+    }, { once: true });
+  </script>
+</body>
+</html>

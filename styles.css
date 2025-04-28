@@ -1,0 +1,82 @@
+/* Reset & background */
+body {
+  margin: 0;
+  overflow: hidden;
+  background-color: #0d0014;
+  color: #c7b3ff;
+  font-family: 'Courier New', monospace;
+}
+
+/* p5 canvas should take full screen */
+canvas {
+  display: block;
+}
+
+/* Password Modal */
+.modal {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100vw; height: 100vh;
+  background-color: rgba(5, 0, 10, 0.92);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal.hidden {
+  display: none;
+}
+
+.modal-content {
+  background: linear-gradient(135deg, #0a0014 0%, #110019 100%);
+  border: 2px solid #8a00ff;
+  padding: 2em;
+  border-radius: 12px;
+  box-shadow: 0 0 30px #9b00ff;
+  text-align: center;
+}
+
+.modal-content h3 {
+  margin: 0 0 1em;
+  color: #b877ff;
+  font-size: 1.4em;
+}
+
+.modal-content input {
+  width: 100%;
+  padding: 0.6em;
+  background: #0b0015;
+  color: #ffddff;
+  border: 1px solid #9b4cff;
+  border-radius: 4px;
+  font-size: 1em;
+  margin-bottom: 1em;
+}
+
+.modal-buttons {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 0.5em;
+}
+
+.modal-buttons button {
+  padding: 0.5em 1.2em;
+  border: 1px solid #aa00ff;
+  background: #1a002c;
+  color: #dfc7ff;
+  cursor: pointer;
+  border-radius: 4px;
+  font-size: 0.9em;
+}
+
+.modal-buttons button:hover {
+  background: #300040;
+}
+
+#modalError {
+  margin-top: 1em;
+  color: #ff537a;
+  font-size: 0.85em;
+  display: none;
+}

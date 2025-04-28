@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>★ SAIPH Chatroom</title>
+  <link rel="stylesheet" href="fragment-style.css" />
+</head>
+<body class="fragment-wrapper">
+  <div id="unlock">
+    <div class="fragment-box">
+      <h1>★ SAIPH</h1>
+      <h2>shadow // “sword of the giant”</h2>
+      <input id="passInput" type="password" placeholder="Enter passphrase" />
+      <button id="unlockBtn">Unlock Chat</button>
+      <p id="passError" style="color:#ff537a; display:none;">Incorrect passphrase.</p>
+      <p class="back-link"><a href="index.html">← Back to Stars</a></p>
+    </div>
+  </div>
+
+  <div id="chatroom" class="fragment-box" style="display:none;">
+    <h1>★ SAIPH Chat</h1>
+    <div id="messages" style="height:300px; overflow-y:auto; background:#0b0015; padding:1em; margin-bottom:1em;"></div>
+    <textarea id="messageInput" rows="3" style="width:100%; background:#0b0015; color:#c7b3ff; border:1px solid #8a00ff;"></textarea>
+    <button id="sendBtn">Send</button>
+  </div>
+
+  <script>
+    const PASSWORD = "ashes";                     // from orion-stars.json
+
+    const params = new URLSearchParams(window.location.search);
+    const key    = (params.get("key") || "").toLowerCase();
+
+    const unlockEl  = document.getElementById("unlock");
+    const chatEl    = document.getElementById("chatroom");
+    const passError = document.getElementById("passError");
+
+    function showChat() {
+      unlockEl.style.display = "none";
+      chatEl.style.display   = "block";
+    }
+
+    if (key === PASSWORD) showChat();
+
+    document.getElementById("unlockBtn").onclick = () => {
+      const v = document.getElementById("passInput").value.trim().toLowerCase();
+      if (v === PASSWORD) showChat();
+      else              passError.style.display = "block";
+    };
+    document.getElementById("passInput").addEventListener("keydown", e => {
+      if (e.key === "Enter") document.getElementById("unlockBtn").click();
+    });
+
+    document.getElementById("sendBtn").onclick = () => {
+      const txt = document.getElementById("messageInput").value.trim();
+      if (!txt) return;
+      const m = document.createElement("div");
+      m.textContent = txt;
+      m.style.padding = "0.2em 0";
+      document.getElementById("messages").appendChild(m);
+      document.getElementById("messageInput").value = "";
+      chatEl.scrollTop = chatEl.scrollHeight;
+    };
+  </script>
+</body>
+</html>

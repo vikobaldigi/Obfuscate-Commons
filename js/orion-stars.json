@@ -1,0 +1,10 @@
+[
+  {"name":"RIGEL","x":309.16,"y":-418.13,"major":true,"link":"rigel.html","pass":"brilliance","glyph":"✷"},
+  {"name":"BETELGEUSE","x":-305.94,"y":514.69,"major":true,"link":"betelgeuse.html","pass":"ember","glyph":"✷"},
+  {"name":"BELLATRIX","x":149.3,"y":452.62,"major":true,"link":"bellatrix.html","pass":"mirage","glyph":"✷"},
+  {"name":"ALNILAM","x":-18.2,"y":-0.12,"major":true,"link":"alnilam.html","pass":"core","glyph":"✷"},
+  {"name":"ALNITAK","x":-100,"y":5,"major":true,"link":"alnitak.html","pass":"spark","glyph":"✷"},
+  {"name":"SAIPH","x":-193.41,"y":-507.28,"major":true,"link":"saiph.html","pass":"ashes","glyph":"✷"},
+  {"name":"MINTAKA","x":44.9,"y":54.05,"major":true,"link":"mintaka.html","pass":"pivot","glyph":"✷"},
+  {"name":"MEISSA","x":-2.11,"y":668.05,"major":true,"link":"meissa.html","pass":"crown","glyph":"✷"}
+]
