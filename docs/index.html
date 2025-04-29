@@ -2,26 +2,33 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Obfuscate Commons</title>
-  <!-- GLOBAL STYLESHEET -->
+  <title>Orion Archive</title>
+  <!-- point at your global CSS: -->
   <link rel="stylesheet" href="/obfuscate_commons/docs/styles.css" />
-  <!-- P5.JS LIBRARY -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.2/p5.min.js"></script>
-  <!-- SKETCH LOGIC -->
+  <!-- now load our sketch from the docs/js folder -->
   <script src="/obfuscate_commons/docs/js/sketch.js" defer></script>
 </head>
 <body>
-  <!-- Top overlay/instructions -->
+  <!-- if you want the splash to show first, you can auto-redirect:
+       (or else just drop in your canvas immediately) -->
+  <script>
+    // if we’re at the “root” of the Pages site, go to splash
+    if (location.pathname.endsWith('/obfuscate_commons/') ||
+        location.pathname.endsWith('/obfuscate_commons/docs/index.html')) {
+      location.replace('/obfuscate_commons/docs/splash.html');
+    }
+  </script>
+
   <div id="overlay">
     <h2>Orion Archive</h2>
     <p>Drag to explore. Click a star to enter a passphrase.</p>
   </div>
 
-  <!-- PASSWORD MODAL -->
   <div id="modal" class="modal hidden">
     <div class="modal-content">
       <h3 id="modalStar">Star</h3>
-      <input type="text" id="modalInput" placeholder="Enter passphrase…" />
+      <input type="text" id="modalInput" placeholder="Enter passphrase..." />
       <div class="modal-buttons">
         <button id="modalSubmit">Submit</button>
         <button id="modalCancel">Cancel</button>
