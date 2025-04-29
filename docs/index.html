@@ -3,18 +3,17 @@
 <head>
   <meta charset="UTF-8" />
   <title>Orion Archive</title>
-  <!-- point at your global CSS: -->
+  <!-- global CSS -->
   <link rel="stylesheet" href="/obfuscate_commons/docs/styles.css" />
   <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.2/p5.min.js"></script>
-  <!-- now load our sketch from the docs/js folder -->
+  <!-- our p5 sketch -->
   <script src="/obfuscate_commons/docs/js/sketch.js" defer></script>
 </head>
 <body>
-  <!-- if you want the splash to show first, you can auto-redirect:
-       (or else just drop in your canvas immediately) -->
+  <!-- on visiting the root, immediately redirect to splash -->
   <script>
-    // if we’re at the “root” of the Pages site, go to splash
     if (location.pathname.endsWith('/obfuscate_commons/') ||
+        location.pathname.endsWith('/obfuscate_commons/docs/') ||
         location.pathname.endsWith('/obfuscate_commons/docs/index.html')) {
       location.replace('/obfuscate_commons/docs/splash.html');
     }

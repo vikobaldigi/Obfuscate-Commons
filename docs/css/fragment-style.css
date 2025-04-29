@@ -1,96 +1,36 @@
 body {
-    margin: 0;
-    background-color: #0d0014;
-    color: #c7b3ff;
-    font-family: 'Courier New', monospace;
-    overflow-x: hidden;
-  }
-  
-  a {
-    color: #9a78ff;
-    text-decoration: none;
-  }
-  
-  a:hover {
-    color: #dcbfff;
-  }
-  
-  /* 💫 Fragment Box */
-  .fragment-box {
-    background: rgba(40, 10, 60, 0.9);
-    border: 1px solid #bb88ff;
-    border-radius: 12px;
-    padding: 2em 3em;
-    max-width: 500px;
-    margin: 15vh auto;
-    text-align: center;
-    box-shadow: 0 0 20px #b073ff;
-  }
-  
-  .fragment-box h1 {
-    color: #ffffff;
-    margin-top: 0;
-  }
-  
-  .fragment-box h2 {
-    color: #d9b3ff;
-    font-size: 1em;
-    margin-top: 0.5em;
-    font-weight: normal;
-  }
-  
-  .fragment-box p {
-    font-size: 0.9em;
-    color: #b9a5e5;
-    line-height: 1.6;
-    margin: 0.6em 0;
-  }
-  
-  .back-link {
-    color: #d0aaff;
-    font-size: 0.9em;
-  }
-  
-  /* 📜 Dictionary */
-  #navToggle {
-    position: fixed;
-    top: 20px;
-    right: 20px;
-    background: #1a002c;
-    color: #e6ccff;
-    border: 1px solid #b977ff;
-    padding: 0.5em 0.8em;
-    border-radius: 8px;
-    cursor: pointer;
-    z-index: 12;
-    font-size: 1em;
-    font-family: 'Courier New', monospace;
-  }
-  
-  #dictionaryPanel {
-    position: fixed;
-    top: 70px;
-    right: 20px;
-    background: rgba(50, 0, 80, 0.95);
-    border: 1px solid #9c6bff;
-    padding: 1em 1.5em;
-    border-radius: 10px;
-    display: none;
-    box-shadow: 0 0 12px #a368ff;
-    z-index: 11;
-  }
-  
-  #dictionaryPanel ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-  }
-  
-  #dictionaryPanel li {
-    margin: 0.3em 0;
-  }
-  
-  #dictionaryPanel a {
-    color: #d6b6ff;
-    font-size: 0.9em;
-  }  
+  margin: 0; background-color: #0d0014; color: #c7b3ff;
+  font-family: 'Courier New', monospace; overflow-x: hidden;
+}
+a { color:#9a78ff; text-decoration:none; }
+a:hover { color:#dcbfff; }
+
+/* Fragment box */
+.fragment-box {
+  background: rgba(40,10,60,0.9);
+  border: 1px solid #bb88ff; border-radius:12px;
+  padding:2em 3em; max-width:500px;
+  margin:15vh auto; text-align:center;
+  box-shadow:0 0 20px #b073ff;
+}
+.fragment-box h1 { color:#fff; margin-top:0; }
+.fragment-box h2 { color:#d9b3ff; font-size:1em; margin:0.5em 0;}
+.fragment-box p { font-size:.9em; color:#b9a5e5; line-height:1.6; margin:0.6em 0;}
+.back-link { color:#d0aaff; font-size:.9em; }
+
+/* Dictionary nav */
+#navToggle {
+  position:fixed; top:20px; right:20px;
+  background:#1a002c; color:#e6ccff;
+  border:1px solid #b977ff; padding:.5em .8em;
+  border-radius:8px; cursor:pointer; z-index:12;
+}
+#dictionaryPanel {
+  position:fixed; top:70px; right:20px;
+  background:rgba(50,0,80,0.95); border:1px solid #9c6bff;
+  padding:1em 1.5em; border-radius:10px; box-shadow:0 0 12px #a368ff;
+  z-index:11; display:none;
+}
+#dictionaryPanel ul { list-style:none; padding:0; margin:0; }
+#dictionaryPanel li { margin:.3em 0; }
+#dictionaryPanel a { color:#d6b6ff; font-size:.9em; }
