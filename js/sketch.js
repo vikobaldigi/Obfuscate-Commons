@@ -1,12 +1,17 @@
-let stars = [], connections = [], zoom = 1, offsetX = 0, offsetY = 0;
+let stars = {}, connections = [], zoom = 1, offsetX = 0, offsetY = 0;
 let dragging = false, dragStartX, dragStartY;
 let velocityX = 0, velocityY = 0, zoomTarget = 1, modalStar = null;
 
 function preload() {
-  // Load stars JSON
-  stars = loadJSON('js/orion-stars.json', data => {
-    console.log('Loaded stars:', data);
-  });
+  // Load raw JSON array, then convert to lookup map by star name
+  const rawStars = loadJSON('js/orion-stars.json');
+  if (Array.isArray(rawStars)) {
+    rawStars.forEach(s => stars[s.name] = s);
+  } else {
+    // if JSON was already an object
+    stars = rawStars;
+  }
+  console.log('Stars map loaded:', stars);
 
   // Define connections between major stars
   connections = [
@@ -55,12 +60,12 @@ function draw() {
   scale(zoom);
   scale(1, -1);
 
-  // Draw star connections with higher opacity & weight
-  stroke(200, 150, 255, 150);  // ~60% opacity
+  // Draw connections with better visibility
+  stroke(200, 150, 255, 150);
   strokeWeight(2);
-  connections.forEach(c => {
-    let a = stars[c.from];
-    let b = stars[c.to];
+  Object.values(connections).forEach(c => {
+    const a = stars[c.from];
+    const b = stars[c.to];
     if (a && b) line(a.x, a.y, b.x, b.y);
   });
 
@@ -92,7 +97,7 @@ function mousePressed() {
   dragging = true;
   [dragStartX, dragStartY] = [mouseX - offsetX, mouseY - offsetY];
   const mx = (mouseX - offsetX) / zoom;
-  const my = (mouseY - offsetY) / zoom * -1;
+  const my = ((mouseY - offsetY) / zoom) * -1;
   Object.values(stars).forEach(s => {
     if (s.major && dist(mx, my, s.x, s.y) < 16) showModal(s);
   });
@@ -114,7 +119,6 @@ function windowResized() {
   resizeCanvas(windowWidth, windowHeight);
 }
 
-// Modal setup and handlers
 function setupModal() {
   const modal   = select('#modal');
   const inp     = select('#modalInput');
