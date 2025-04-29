@@ -3,17 +3,17 @@ let dragging = false, dragStartX, dragStartY;
 let velocityX = 0, velocityY = 0, zoomTarget = 1, modalStar = null;
 
 function preload() {
-  stars = loadJSON('/obfuscate_commons/docs/js/orion-stars.json');
+  stars = loadJSON('/obfuscate_commons/js/orion-stars.json');
   connections = [
-    { from: "SAIPH", to: "ALNITAK" },
-    { from: "ALNITAK", to: "ALNILAM" },
-    { from: "ALNILAM", to: "MINTAKA" },
-    { from: "MINTAKA", to: "RIGEL" },
-    { from: "ALNITAK", to: "BETELGEUSE" },
-    { from: "BETELGEUSE", to: "MEISSA" },
-    { from: "MEISSA", to: "BELLATRIX" },
-    { from: "MINTAKA", to: "BELLATRIX" },
-    { from: "RIGEL", to: "SAIPH" }
+    { from: "SAIPH",      to: "ALNITAK"    },
+    { from: "ALNITAK",    to: "ALNILAM"    },
+    { from: "ALNILAM",    to: "MINTAKA"    },
+    { from: "MINTAKA",    to: "RIGEL"      },
+    { from: "ALNITAK",    to: "BETELGEUSE" },
+    { from: "BETELGEUSE", to: "MEISSA"     },
+    { from: "MEISSA",     to: "BELLATRIX"  },
+    { from: "MINTAKA",    to: "BELLATRIX"  },
+    { from: "RIGEL",      to: "SAIPH"      }
   ];
 }
 
@@ -81,15 +81,13 @@ function mouseWheel(e) { zoomTarget = constrain(zoomTarget - e.delta*0.0015, .25
 function windowResized() { resizeCanvas(windowWidth, windowHeight); }
 
 function setupModal() {
-  const modal = select('#modal'),
-        inp   = select('#modalInput'),
-        sub   = select('#modalSubmit'),
-        can   = select('#modalCancel'),
-        err   = select('#modalError');
+  const modal = select('#modal'), inp = select('#modalInput'),
+        sub = select('#modalSubmit'), can = select('#modalCancel'),
+        err = select('#modalError');
 
   sub.mousePressed(()=>{
     if (inp.value().toLowerCase() === modalStar.pass)
-      location.href = `/obfuscate_commons/docs/chatrooms/${modalStar.link}`;
+      location.href = `/obfuscate_commons/chatrooms/${modalStar.link}`;
     else err.show(), inp.value('');
   });
   can.mousePressed(()=>{
