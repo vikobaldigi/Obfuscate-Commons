@@ -3,7 +3,7 @@ let dragging = false, dragStartX, dragStartY;
 let velocityX = 0, velocityY = 0, zoomTarget = 1, modalStar = null;
 
 function preload() {
-  stars = loadJSON('obfuscate_commons/js/orion-stars.json');
+  stars = loadJSON('js/orion-stars.json');
   connections = [
     { from: "SAIPH",      to: "ALNITAK"    },
     { from: "ALNITAK",    to: "ALNILAM"    },
@@ -87,7 +87,7 @@ function setupModal() {
 
   sub.mousePressed(()=>{
     if (inp.value().toLowerCase() === modalStar.pass)
-      location.href = `/obfuscate_commons/chatrooms/${modalStar.link}`;
+      location.href = `chatrooms/${modalStar.link}`;
     else err.show(), inp.value('');
   });
   can.mousePressed(()=>{

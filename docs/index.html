@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <title>Obfuscate Commons</title>
-  <link rel="stylesheet" href="obfuscate_commons/css/styles.css">
+  <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
   <div id="glyphs"></div>
@@ -19,7 +19,6 @@
 
   <script>
     const correctPass = "undercommons";
-
     function checkAccess() {
       const val = document.getElementById("access").value.trim().toLowerCase();
       if (val === correctPass) {
@@ -28,7 +27,6 @@
         document.getElementById("error").style.display = "block";
       }
     }
-
     document.getElementById("access")
       .addEventListener("keypress", e => {
         if (e.key === "Enter") checkAccess();

@@ -1,5 +1,3 @@
-// chatroom.js — very basic in-page mock chat
-
 document.addEventListener('DOMContentLoaded',()=>{
   const form = document.getElementById('chat-form');
   const list = document.getElementById('chat-list');
