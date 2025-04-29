@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Orion Archive</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <script src="js/sketch.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.2/p5.min.js"></script>
+</head>
+<body>
+
+  <!-- 🌌 Overlay Box -->
+  <div id="overlay">
+    <h2>Orion Archive</h2>
+    <p>Drag to explore. Click a star to enter a passphrase.</p>
+  </div>
+
+  <!-- 🔐 Password Modal -->
+  <div id="modal" class="modal hidden">
+    <div class="modal-content">
+      <h3 id="modalStar">Star</h3>
+      <input type="text" id="modalInput" placeholder="Enter passphrase...">
+      <div class="modal-buttons">
+        <button id="modalSubmit">Submit</button>
+        <button id="modalCancel">Cancel</button>
+      </div>
+      <div id="modalError">Incorrect passphrase. Try again.</div>
+    </div>
+  </div>
+
+</body>
+</html>
