@@ -1,13 +1,9 @@
-// ─────────────────────────────────────
-// 📜 sketch.js for Obfuscate Commons Map
-// ─────────────────────────────────────
-
 let stars = [], connections = [], zoom = 1, offsetX = 0, offsetY = 0;
 let dragging = false, dragStartX, dragStartY;
 let velocityX = 0, velocityY = 0, zoomTarget = 1, modalStar = null;
 
 function preload() {
-  stars = loadJSON('/obfuscate_commons/docs/js/orion-stars.json');
+  stars = loadJSON('js/orion-stars.json');
   connections = [
     { from: "SAIPH",      to: "ALNITAK"    },
     { from: "ALNITAK",    to: "ALNILAM"    },
