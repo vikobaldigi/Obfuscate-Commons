@@ -1,27 +1,53 @@
-/* Reset & background */
-body {
+/* GLOBAL RESET */
+* {
   margin: 0;
-  overflow: hidden;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* BODY LAYOUT */
+body {
   background-color: #0d0014;
   color: #c7b3ff;
   font-family: 'Courier New', monospace;
+  overflow: hidden;
+  position: relative;
+  height: 100vh;
 }
 
-/* p5 canvas should take full screen */
-canvas {
-  display: block;
+/* OVERLAY BOX */
+#overlay {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  background: rgba(80, 30, 120, 0.15);
+  border: 1px solid #ab8aff;
+  border-radius: 8px;
+  padding: 1em;
+  max-width: 300px;
+  backdrop-filter: blur(4px);
+  z-index: 10;
 }
 
-/* Password Modal */
+#overlay h2 {
+  color: #e0c6ff;
+  font-size: 1.2em;
+}
+
+#overlay p {
+  color: #c6a4f9;
+  font-size: 0.9em;
+}
+
+/* MODAL */
 .modal {
   position: fixed;
-  top: 0; left: 0;
-  width: 100vw; height: 100vh;
-  background-color: rgba(5, 0, 10, 0.92);
+  inset: 0;
+  background: rgba(5, 0, 10, 0.9);
   display: flex;
-  justify-content: center;
   align-items: center;
-  z-index: 1000;
+  justify-content: center;
+  z-index: 20;
 }
 
 .modal.hidden {
@@ -29,18 +55,18 @@ canvas {
 }
 
 .modal-content {
-  background: linear-gradient(135deg, #0a0014 0%, #110019 100%);
-  border: 2px solid #8a00ff;
-  padding: 2em;
+  background: #110019;
+  border: 1px solid #8a00ff;
   border-radius: 12px;
-  box-shadow: 0 0 30px #9b00ff;
+  padding: 2em;
   text-align: center;
+  width: 300px;
+  box-shadow: 0 0 20px #7a00b8;
 }
 
 .modal-content h3 {
-  margin: 0 0 1em;
   color: #b877ff;
-  font-size: 1.4em;
+  margin-bottom: 1em;
 }
 
 .modal-content input {
@@ -50,24 +76,23 @@ canvas {
   color: #ffddff;
   border: 1px solid #9b4cff;
   border-radius: 4px;
-  font-size: 1em;
   margin-bottom: 1em;
+  font-size: 1em;
 }
 
 .modal-buttons {
   display: flex;
-  justify-content: space-around;
-  margin-top: 0.5em;
+  gap: 0.5em;
 }
 
 .modal-buttons button {
-  padding: 0.5em 1.2em;
-  border: 1px solid #aa00ff;
+  flex: 1;
+  padding: 0.5em;
   background: #1a002c;
+  border: 1px solid #aa00ff;
+  border-radius: 4px;
   color: #dfc7ff;
   cursor: pointer;
-  border-radius: 4px;
-  font-size: 0.9em;
 }
 
 .modal-buttons button:hover {
@@ -77,6 +102,10 @@ canvas {
 #modalError {
   margin-top: 1em;
   color: #ff537a;
-  font-size: 0.85em;
   display: none;
+}
+
+/* CANVAS STYLES WILL BE IN SKETCH.JS */
+canvas {
+  display: block;
 }

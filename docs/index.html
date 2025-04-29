@@ -2,28 +2,26 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Orion Archive</title>
-
-  <!-- point at styles.css in the same folder -->
-  <link rel="stylesheet" href="styles.css" />
-
-  <!-- p5 library (CDN) -->
+  <title>Obfuscate Commons</title>
+  <!-- GLOBAL STYLESHEET -->
+  <link rel="stylesheet" href="/obfuscate_commons/docs/styles.css" />
+  <!-- P5.JS LIBRARY -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.2/p5.min.js"></script>
-  <!-- your sketch, living in docs/js/sketch.js -->
-  <script src="js/sketch.js" defer></script>
+  <!-- SKETCH LOGIC -->
+  <script src="/obfuscate_commons/docs/js/sketch.js" defer></script>
 </head>
 <body>
-  <!-- 🌌 Overlay -->
+  <!-- Top overlay/instructions -->
   <div id="overlay">
     <h2>Orion Archive</h2>
     <p>Drag to explore. Click a star to enter a passphrase.</p>
   </div>
 
-  <!-- 🔐 Password Modal -->
+  <!-- PASSWORD MODAL -->
   <div id="modal" class="modal hidden">
     <div class="modal-content">
       <h3 id="modalStar">Star</h3>
-      <input id="modalInput" type="text" placeholder="Enter passphrase…" />
+      <input type="text" id="modalInput" placeholder="Enter passphrase…" />
       <div class="modal-buttons">
         <button id="modalSubmit">Submit</button>
         <button id="modalCancel">Cancel</button>
