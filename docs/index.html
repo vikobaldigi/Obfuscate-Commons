@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <title>Obfuscate Commons</title>
-  <link rel="stylesheet" href="/obfuscate_commons/css/styles.css">
+  <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
   <div id="glyphs"></div>
@@ -23,7 +23,7 @@
     function checkAccess() {
       const val = document.getElementById("access").value.trim().toLowerCase();
       if (val === correctPass) {
-        window.location.href = "/obfuscate_commons/map.html?key=" + encodeURIComponent(val);
+        window.location.href = "map.html?key=" + encodeURIComponent(val);
       } else {
         document.getElementById("error").style.display = "block";
       }
