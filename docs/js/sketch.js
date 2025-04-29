@@ -3,7 +3,7 @@ let dragging = false, dragStartX, dragStartY;
 let velocityX = 0, velocityY = 0, zoomTarget = 1, modalStar = null;
 
 function preload() {
-  stars = loadJSON('/obfuscate_commons/docs/js/orion-stars.json');
+  stars = loadJSON('/obfuscate_commons/js/orion-stars.json');
   connections = [
     { from: "SAIPH",      to: "ALNITAK"    },
     { from: "ALNITAK",    to: "ALNILAM"    },
