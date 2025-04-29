@@ -1,10 +1,222 @@
 [
-  {"name":"RIGEL","x":309.16,"y":-418.13,"major":true,"link":"rigel.html","pass":"brilliance","glyph":"✷"},
-  {"name":"BETELGEUSE","x":-305.94,"y":514.69,"major":true,"link":"betelgeuse.html","pass":"ember","glyph":"✷"},
-  {"name":"BELLATRIX","x":149.3,"y":452.62,"major":true,"link":"bellatrix.html","pass":"mirage","glyph":"✷"},
-  {"name":"ALNILAM","x":-18.2,"y":-0.12,"major":true,"link":"alnilam.html","pass":"core","glyph":"✷"},
-  {"name":"ALNITAK","x":-100,"y":5,"major":true,"link":"alnitak.html","pass":"spark","glyph":"✷"},
-  {"name":"SAIPH","x":-193.41,"y":-507.28,"major":true,"link":"saiph.html","pass":"ashes","glyph":"✷"},
-  {"name":"MINTAKA","x":44.9,"y":54.05,"major":true,"link":"mintaka.html","pass":"pivot","glyph":"✷"},
-  {"name":"MEISSA","x":-2.11,"y":668.05,"major":true,"link":"meissa.html","pass":"crown","glyph":"✷"}
+  {
+    "name": "RIGEL",
+    "x": 309.16,
+    "y": -418.13,
+    "magnitude": "",
+    "major": true,
+    "link": "rigel.html",
+    "pass": "brilliance",
+    "glyph": "✷"
+  },
+  {
+    "name": "BETELGEUSE",
+    "x": -305.94,
+    "y": 514.69,
+    "magnitude": "",
+    "major": true,
+    "link": "betelgeuse.html",
+    "pass": "ember",
+    "glyph": "✷"
+  },
+  {
+    "name": "BELLATRIX",
+    "x": 149.3,
+    "y": 452.62,
+    "magnitude": "",
+    "major": true,
+    "link": "bellatrix.html",
+    "pass": "mirage",
+    "glyph": "✷"
+  },
+  {
+    "name": "ALNILAM",
+    "x": -18.2,
+    "y": -0.12,
+    "magnitude": "",
+    "major": true,
+    "link": "alnilam.html",
+    "pass": "core",
+    "glyph": "✷"
+  },
+  {
+    "name": "ALNITAK",
+    "x": -100.0,
+    "y": 5.0,
+    "magnitude": "",
+    "major": true,
+    "link": "alnitak.html",
+    "pass": "spark",
+    "glyph": "✷"
+  },
+  {
+    "name": "SAIPH",
+    "x": -193.41,
+    "y": -507.28,
+    "magnitude": "",
+    "major": true,
+    "link": "saiph.html",
+    "pass": "ashes",
+    "glyph": "✷"
+  },
+  {
+    "name": "MINTAKA",
+    "x": 44.9,
+    "y": 54.05,
+    "magnitude": "",
+    "major": true,
+    "link": "mintaka.html",
+    "pass": "pivot",
+    "glyph": "✷"
+  },
+  {
+    "name": "MEISSA",
+    "x": -2.11,
+    "y": 668.05,
+    "magnitude": "",
+    "major": true,
+    "link": "meissa.html",
+    "pass": "crown",
+    "glyph": "✷"
+  },
+  {
+    "name": "IOT ORI",
+    "x": -6.51,
+    "y": -282.59,
+    "magnitude": "",
+    "major": false,
+    "link": "",
+    "pass": "",
+    "glyph": "·"
+  },
+  {
+    "name": "PI3 ORI",
+    "x": 684.03,
+    "y": 481.53,
+    "magnitude": "",
+    "major": false,
+    "link": "",
+    "pass": "",
+    "glyph": "·"
+  },
+  {
+    "name": "TAU ORI",
+    "x": 262.11,
+    "y": -337.48,
+    "magnitude": "",
+    "major": false,
+    "link": "",
+    "pass": "",
+    "glyph": "·"
+  },
+  {
+    "name": "PI4 ORI",
+    "x": 661.34,
+    "y": 402.15,
+    "magnitude": "",
+    "major": false,
+    "link": "",
+    "pass": "",
+    "glyph": "·"
+  },
+  {
+    "name": "PI5 ORI",
+    "x": 612.32,
+    "y": 216.13,
+    "magnitude": "",
+    "major": false,
+    "link": "",
+    "pass": "",
+    "glyph": "·"
+  },
+  {
+    "name": "PHI1 ORI",
+    "x": 2.74,
+    "y": 641.37,
+    "magnitude": "",
+    "major": false,
+    "link": "",
+    "pass": "",
+    "glyph": "·"
+  },
+  {
+    "name": "NU ORI",
+    "x": -507.83,
+    "y": 948.92,
+    "magnitude": "",
+    "major": false,
+    "link": "",
+    "pass": "",
+    "glyph": "·"
+  },
+  {
+    "name": "11 ORI",
+    "x": 476.0,
+    "y": 987.86,
+    "magnitude": "",
+    "major": false,
+    "link": "",
+    "pass": "",
+    "glyph": "·"
+  },
+  {
+    "name": "22 ORI",
+    "x": 198.54,
+    "y": 49.09,
+    "magnitude": "",
+    "major": false,
+    "link": "",
+    "pass": "",
+    "glyph": "·"
+  },
+  {
+    "name": "OMI1 ORI",
+    "x": 660.24,
+    "y": 912.02,
+    "magnitude": "",
+    "major": false,
+    "link": "",
+    "pass": "",
+    "glyph": "·"
+  },
+  {
+    "name": "74 ORI",
+    "x": -638.76,
+    "y": 796.08,
+    "magnitude": "",
+    "major": false,
+    "link": "",
+    "pass": "",
+    "glyph": "·"
+  },
+  {
+    "name": "60 ORI",
+    "x": -357.48,
+    "y": 105.0,
+    "magnitude": "",
+    "major": false,
+    "link": "",
+    "pass": "",
+    "glyph": "·"
+  },
+  {
+    "name": "16 ORI",
+    "x": 392.2,
+    "y": 658.03,
+    "magnitude": "",
+    "major": false,
+    "link": "",
+    "pass": "",
+    "glyph": "·"
+  },
+  {
+    "name": "66 ORI",
+    "x": -451.45,
+    "y": 319.38,
+    "magnitude": "",
+    "major": false,
+    "link": "",
+    "pass": "",
+    "glyph": "·"
+  }
 ]
