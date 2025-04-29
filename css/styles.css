@@ -1,3 +1,73 @@
+/* ============================================= */
+/* 1) Glyphs background                         */
+/* ============================================= */
+#glyphs {
+  position: absolute;
+  inset: 0;                  /* top:0; right:0; bottom:0; left:0; */
+  overflow: hidden;
+  pointer-events: none;      /* so clicks fall through to the form */
+  z-index: 1;
+}
+
+.glyph {
+  position: absolute;        /* now left/top take effect */
+  color: rgba(199, 179, 255, 0.2);
+  animation: float 30s linear infinite;
+}
+
+/* drift + fade animation */
+@keyframes float {
+  0%   { transform: translateY(0) rotate(0deg);   opacity: 0;   }
+  50%  { /* halfway */                            opacity: 0.7; }
+  100% { transform: translateY(-20vh) rotate(360deg); opacity: 0; }
+}
+
+/* ============================================= */
+/* 2) Centered password box                     */
+/* ============================================= */
+#container {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(20, 0, 40, 0.8);
+  padding: 2em;
+  border-radius: 8px;
+  backdrop-filter: blur(4px);
+  z-index: 2;               /* above the glyphs */
+  color: #c7b3ff;
+  text-align: center;
+}
+
+#container input {
+  width: 100%;
+  padding: 0.6em;
+  margin: 1em 0 0.5em;
+  background: #0b0015;
+  color: #ffddff;
+  border: 1px solid #9b4cff;
+  border-radius: 4px;
+}
+
+#container button {
+  width: 100%;
+  padding: 0.6em;
+  background: #1a002c;
+  color: #dfc7ff;
+  border: 1px solid #aa00ff;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+#container button:hover {
+  background: #300040;
+}
+
+#error {
+  display: none;
+  color: #ff537a;
+  margin-top: 0.5em;
+}
+
 /* GLOBAL RESET */
 * {
   margin: 0;
