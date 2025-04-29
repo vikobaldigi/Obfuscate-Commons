@@ -3,68 +3,95 @@
 /* ============================================= */
 #glyphs {
   position: absolute;
-  inset: 0;                  /* top:0; right:0; bottom:0; left:0; */
+  inset: 0;
   overflow: hidden;
-  pointer-events: none;      /* so clicks fall through to the form */
+  pointer-events: none;
   z-index: 1;
 }
 
 .glyph {
-  position: absolute;        /* now left/top take effect */
+  position: absolute;
   color: rgba(199, 179, 255, 0.2);
   animation: float 30s linear infinite;
 }
 
-/* drift + fade animation */
 @keyframes float {
   0%   { transform: translateY(0) rotate(0deg);   opacity: 0;   }
-  50%  { /* halfway */                            opacity: 0.7; }
+  50%  { opacity: 0.7; }
   100% { transform: translateY(-20vh) rotate(360deg); opacity: 0; }
 }
 
 /* ============================================= */
-/* 2) Centered password box                     */
+/* 2) Centered and Streamlined Password Box      */
 /* ============================================= */
 #container {
   position: absolute;
   top: 50%; left: 50%;
   transform: translate(-50%, -50%);
-  background: rgba(20, 0, 40, 0.8);
-  padding: 2em;
-  border-radius: 8px;
-  backdrop-filter: blur(4px);
-  z-index: 2;               /* above the glyphs */
+  background: rgba(20, 0, 40, 0.85);
+  padding: 3em 2em;
+  border-radius: 12px;
+  backdrop-filter: blur(6px);
+  z-index: 2;
   color: #c7b3ff;
   text-align: center;
+  max-width: 360px;
+  width: 90%;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5em;
+}
+
+#container h1 {
+  font-size: 2em;
+  margin: 0;
+  letter-spacing: 1px;
+  font-weight: 400;
+}
+
+#container p {
+  font-size: 1em;
+  line-height: 1.4;
+  margin: 0;
+}
+
+#container input,
+#container button {
+  font-size: 1em;
+  border-radius: 6px;
 }
 
 #container input {
-  width: 100%;
-  padding: 0.6em;
-  margin: 1em 0 0.5em;
+  padding: 0.8em;
   background: #0b0015;
   color: #ffddff;
   border: 1px solid #9b4cff;
-  border-radius: 4px;
+  outline: none;
+}
+
+#container input::placeholder {
+  color: #c7b3ff;
+  opacity: 0.7;
 }
 
 #container button {
-  width: 100%;
-  padding: 0.6em;
-  background: #1a002c;
+  padding: 0.8em;
+  background: transparent;
   color: #dfc7ff;
   border: 1px solid #aa00ff;
-  border-radius: 4px;
   cursor: pointer;
+  transition: background 0.3s, color 0.3s;
 }
 
 #container button:hover {
-  background: #300040;
+  background: #aa00ff;
+  color: #0d0014;
 }
 
 #error {
   display: none;
   color: #ff537a;
+  font-size: 0.9em;
   margin-top: 0.5em;
 }
 
