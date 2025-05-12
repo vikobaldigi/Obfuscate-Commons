@@ -1,49 +1,160 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Obfuscate Commons</title>
-  <link rel="stylesheet" href="css/styles.css">
+  <meta charset="UTF-8" />
+  <title>Digital Undercommons</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="./css/styles.css" />
+  <style>
+    body {
+      background-color: #0d0014;
+      font-family: 'Courier New', monospace;
+      color: #c7b3ff;
+      margin: 0;
+      overflow-x: hidden;
+    }
+
+    #glyphs {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    .glyph {
+      position: absolute;
+      color: rgba(199, 179, 255, 0.2);
+      animation: float 40s linear infinite;
+      font-size: 1.2em;
+    }
+
+    @keyframes float {
+      0%   { transform: translateY(0) rotate(0deg); opacity: 0; }
+      50%  { opacity: 0.7; }
+      100% { transform: translateY(-100vh) rotate(360deg); opacity: 0; }
+    }
+
+    #container {
+      position: relative;
+      z-index: 2;
+      max-width: 400px;
+      margin: 20vh auto 0;
+      background: rgba(30, 0, 60, 0.85);
+      padding: 2em;
+      border-radius: 12px;
+      border: 1px solid #aa00ff;
+      text-align: center;
+      backdrop-filter: blur(6px);
+      box-shadow: 0 0 30px #7a00b8;
+    }
+
+    #container h1 {
+      font-size: 1.8em;
+      margin-bottom: 0.5em;
+      color: #dfc7ff;
+    }
+
+    #container p {
+      font-size: 0.95em;
+      line-height: 1.5;
+      margin-bottom: 1.5em;
+      color: #bfa3ff;
+    }
+
+    #container input {
+      width: 100%;
+      padding: 0.8em;
+      background: #0b0015;
+      color: #ffddff;
+      border: 1px solid #9b4cff;
+      border-radius: 6px;
+      font-size: 1em;
+      margin-bottom: 1em;
+    }
+
+    #container button {
+      width: 100%;
+      padding: 0.8em;
+      background: transparent;
+      color: #dfc7ff;
+      border: 1px solid #aa00ff;
+      border-radius: 6px;
+      font-size: 1em;
+      cursor: pointer;
+      transition: background 0.3s, color 0.3s;
+    }
+
+    #container button:hover {
+      background: #aa00ff;
+      color: #0d0014;
+    }
+
+    #error {
+      color: #ff537a;
+      display: none;
+      font-size: 0.9em;
+      margin-top: 0.5em;
+    }
+
+    #description {
+      max-width: 600px;
+      margin: 5vh auto;
+      padding: 1.5em;
+      font-size: 0.9em;
+      line-height: 1.6;
+      color: #c4a8ff;
+      background: rgba(50, 10, 80, 0.15);
+      border: 1px solid #944cff;
+      border-radius: 10px;
+      backdrop-filter: blur(4px);
+    }
+  </style>
 </head>
 <body>
   <div id="glyphs"></div>
-  <div id="fog"></div>
 
   <div id="container">
-    <h1>Obfuscate Commons</h1>
-    <p>Enter the passphrase to gain access to our hidden chatroom server.</p>
-    <input id="access" type="text" placeholder="Passphrase" />
-    <button id="enter-btn" onclick="checkAccess()">Enter</button>
+    <h1>Digital Undercommons</h1>
+    <p>Enter the shared passkey to reveal the encrypted constellation.</p>
+    <input id="access" type="text" placeholder="Passphrase..." />
+    <button onclick="checkAccess()">Enter</button>
     <div id="error">Access denied. Try again.</div>
   </div>
 
+  <div id="description">
+    <p><strong>What is this?</strong> A hidden map of knowledge. A shared cipher of refusal. A tool for encrypted learning.</p>
+    <p><strong>Why encryption?</strong> Because privacy is a right. Because learning should be protected. Because the digital world is full of watchers, and we choose to whisper instead.</p>
+    <p><strong>How does it work?</strong> The constellation above holds keys. Each star holds a lesson in protecting yourself — through passwords, encryption, obfuscation, and resistance.</p>
+    <p>To begin, type the passphrase <code>undercommons</code>. Your journey starts in the dark.</p>
+  </div>
+
   <script>
-    const correctPass = "undercommons";
+    const glyphs = ["✶","✷","✸","✹","✺","✻","✼","✽","✾"];
+    const gContainer = document.getElementById("glyphs");
+    for (let i = 0; i < 60; i++) {
+      const g = document.createElement("div");
+      g.className = "glyph";
+      g.innerText = glyphs[Math.floor(Math.random() * glyphs.length)];
+      g.style.left = Math.random() * 100 + "vw";
+      g.style.top = Math.random() * 100 + "vh";
+      g.style.animationDuration = (30 + Math.random() * 40) + "s";
+      g.style.fontSize = (0.8 + Math.random() * 2.5) + "em";
+      gContainer.appendChild(g);
+    }
+
     function checkAccess() {
       const val = document.getElementById("access").value.trim().toLowerCase();
-      if (val === correctPass) {
-        window.location.href = "map.html?key=" + encodeURIComponent(val);
+      if (val === "undercommons") {
+        window.location.href = "./map.html?key=" + encodeURIComponent(val);
       } else {
         document.getElementById("error").style.display = "block";
       }
     }
+
     document.getElementById("access")
       .addEventListener("keypress", e => {
         if (e.key === "Enter") checkAccess();
       });
-
-    const glyphs = ["\u2736","\u2738","\u273A","\u2735","\u2737","\u2739","\u2749","\u2727"];
-    const gContainer = document.getElementById("glyphs");
-    for (let i = 0; i < 42; i++) {
-      const g = document.createElement("div");
-      g.className = "glyph";
-      g.innerText = glyphs[Math.floor(Math.random() * glyphs.length)];
-      g.style.left = Math.random()*100 + "vw";
-      g.style.top  = Math.random()*100 + "vh";
-      g.style.animationDuration = (30 + Math.random()*25) + "s";
-      g.style.fontSize = (1.1 + Math.random()*2) + "em";
-      gContainer.appendChild(g);
-    }
   </script>
 </body>
 </html>

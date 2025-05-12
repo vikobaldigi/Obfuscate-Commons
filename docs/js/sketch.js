@@ -4,7 +4,7 @@ let velocityX = 0, velocityY = 0, zoomTarget = 1, modalStar = null;
 
 function preload() {
   // Load raw JSON array, then convert to lookup map by star name
-  const rawStars = loadJSON('js/orion-stars.json');
+  const rawStars = loadJSON('./data/orion-stars.json');
   if (Array.isArray(rawStars)) {
     rawStars.forEach(s => stars[s.name] = s);
   } else {
