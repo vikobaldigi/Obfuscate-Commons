@@ -11,7 +11,7 @@
       font-family: 'Courier New', monospace;
       color: #c7b3ff;
       margin: 0;
-      overflow-x: hidden;
+      overflow: hidden;
     }
 
     #glyphs {
@@ -23,57 +23,54 @@
 
     .glyph {
       position: absolute;
-      color: rgba(199, 179, 255, 0.2);
+      color: rgba(199, 179, 255, 0.1);
       animation: float 40s linear infinite;
     }
 
     @keyframes float {
       0%   { transform: translateY(0) rotate(0deg); opacity: 0; }
-      50%  { opacity: 0.7; }
+      50%  { opacity: 0.4; }
       100% { transform: translateY(-100vh) rotate(360deg); opacity: 0; }
     }
 
-    #container {
+    .centered {
+      position: relative;
       z-index: 2;
       max-width: 400px;
-      margin: 15vh auto 2em;
-      background: rgba(30, 0, 60, 0.85);
-      padding: 2em;
-      border-radius: 12px;
-      border: 1px solid #aa00ff;
+      margin: 20vh auto;
       text-align: center;
-      backdrop-filter: blur(6px);
-      box-shadow: 0 0 30px #7a00b8;
+      padding: 2em;
+      border-radius: 16px;
+      background: rgba(25, 0, 50, 0.85);
+      border: 1px solid #aa00ff;
+      box-shadow: 0 0 40px #9c5bff66;
+      backdrop-filter: blur(8px);
     }
 
-    #container h1 {
+    h1 {
       font-size: 1.8em;
-      color: #dfc7ff;
+      color: #e0c6ff;
+      margin-bottom: 1em;
     }
 
-    #container input, #container button {
+    input, button {
       width: 100%;
-      font-size: 1em;
       padding: 0.8em;
-      border-radius: 6px;
+      font-size: 1em;
       margin: 0.5em 0;
-    }
-
-    #container input {
+      border-radius: 6px;
+      border: 1px solid #aa00ff;
       background: #0b0015;
       color: #ffddff;
-      border: 1px solid #9b4cff;
     }
 
-    #container button {
+    button {
       background: transparent;
-      color: #dfc7ff;
-      border: 1px solid #aa00ff;
-      cursor: pointer;
       transition: background 0.3s, color 0.3s;
+      cursor: pointer;
     }
 
-    #container button:hover {
+    button:hover {
       background: #aa00ff;
       color: #0d0014;
     }
@@ -81,17 +78,24 @@
     #error {
       display: none;
       color: #ff537a;
-      margin-top: 0.5em;
+      font-size: 0.9em;
     }
 
     #description {
+      opacity: 0;
+      transition: opacity 2s ease;
       max-width: 600px;
-      margin: 2em auto;
+      margin: 3em auto;
+      text-align: center;
       padding: 1.5em;
-      background: rgba(40, 10, 60, 0.25);
       border-radius: 10px;
+      background: rgba(40, 10, 60, 0.15);
       border: 1px solid #944cff;
       backdrop-filter: blur(4px);
+    }
+
+    #description.visible {
+      opacity: 1;
     }
 
     #description h2 {
@@ -100,8 +104,8 @@
     }
 
     #description p {
-      color: #c4a8ff;
       font-size: 0.9em;
+      color: #c4a8ff;
       line-height: 1.6;
     }
   </style>
@@ -109,7 +113,7 @@
 <body>
   <div id="glyphs"></div>
 
-  <div id="container">
+  <div class="centered" id="container">
     <h1>Digital Undercommons</h1>
     <input id="access" type="text" placeholder="Passphrase..." />
     <button onclick="checkAccess()">Enter</button>
@@ -152,6 +156,13 @@
 
     document.getElementById("access").addEventListener("keypress", e => {
       if (e.key === "Enter") checkAccess();
+    });
+
+    // 👁️ Reveal description after 5 seconds
+    window.addEventListener("DOMContentLoaded", () => {
+      setTimeout(() => {
+        document.getElementById("description").classList.add("visible");
+      }, 5000);
     });
   </script>
 </body>
