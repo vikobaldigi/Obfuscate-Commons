@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Digital Undercommons</title>
+  <title>Cryptos Constellation – Digital Undercommons</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="stylesheet" href="./css/styles.css" />
   <style>
@@ -11,46 +11,55 @@
       font-family: 'Courier New', monospace;
       color: #c7b3ff;
       margin: 0;
-      overflow: hidden;
+      min-height: 100vh;
+      overflow-y: auto;
     }
 
-    #glyphs {
+    #stars {
       position: fixed;
       inset: 0;
       z-index: 0;
       pointer-events: none;
     }
 
-    .glyph {
+    .star {
       position: absolute;
       color: rgba(199, 179, 255, 0.1);
-      animation: float 40s linear infinite;
+      font-size: 1.5em;
     }
 
-    @keyframes float {
-      0%   { transform: translateY(0) rotate(0deg); opacity: 0; }
-      50%  { opacity: 0.4; }
-      100% { transform: translateY(-100vh) rotate(360deg); opacity: 0; }
-    }
-
-    .centered {
+    .main-content {
       position: relative;
       z-index: 2;
-      max-width: 400px;
-      margin: 20vh auto;
-      text-align: center;
+      max-width: 800px;
+      margin: 0 auto;
       padding: 2em;
-      border-radius: 16px;
+    }
+
+    .access-panel {
       background: rgba(25, 0, 50, 0.85);
       border: 1px solid #aa00ff;
+      padding: 2em;
+      border-radius: 16px;
       box-shadow: 0 0 40px #9c5bff66;
       backdrop-filter: blur(8px);
+      max-width: 400px;
+      margin: 2em auto;
+      text-align: center;
     }
 
     h1 {
-      font-size: 1.8em;
+      font-size: 2.5em;
       color: #e0c6ff;
-      margin-bottom: 1em;
+      margin-bottom: 0.5em;
+      text-align: center;
+    }
+
+    .subtitle {
+      color: #c4a8ff;
+      text-align: center;
+      margin-bottom: 2em;
+      font-size: 1.1em;
     }
 
     input, button {
@@ -62,11 +71,12 @@
       border: 1px solid #aa00ff;
       background: #0b0015;
       color: #ffddff;
+      font-family: 'Courier New', monospace;
     }
 
     button {
       background: transparent;
-      transition: background 0.3s, color 0.3s;
+      transition: all 0.3s;
       cursor: pointer;
     }
 
@@ -79,90 +89,122 @@
       display: none;
       color: #ff537a;
       font-size: 0.9em;
+      margin-top: 1em;
     }
 
-    #description {
-      opacity: 0;
-      transition: opacity 2s ease;
-      max-width: 600px;
-      margin: 3em auto;
-      text-align: center;
-      padding: 1.5em;
-      border-radius: 10px;
+    .info-section {
       background: rgba(40, 10, 60, 0.15);
       border: 1px solid #944cff;
+      padding: 2em;
+      border-radius: 16px;
+      margin: 2em 0;
       backdrop-filter: blur(4px);
     }
 
-    #description.visible {
-      opacity: 1;
-    }
-
-    #description h2 {
-      margin-top: 1em;
+    .info-section h2 {
       color: #e1c3ff;
+      margin-top: 0;
+      font-size: 1.5em;
     }
 
-    #description p {
-      font-size: 0.9em;
+    .info-section p {
       color: #c4a8ff;
       line-height: 1.6;
+      margin: 1em 0;
+    }
+
+    .star-glyph {
+      color: #aa00ff;
+      font-size: 1.2em;
+      margin: 0 0.2em;
+    }
+
+    .highlight {
+      color: #ffddff;
+      font-weight: bold;
     }
   </style>
 </head>
 <body>
-  <div id="glyphs"></div>
+  <div id="stars"></div>
 
-  <div class="centered" id="container">
-    <h1>Digital Undercommons</h1>
-    <input id="access" type="text" placeholder="Passphrase..." />
-    <button onclick="checkAccess()">Enter</button>
-    <div id="error">Access denied. Try again.</div>
-  </div>
+  <div class="main-content">
+    <h1>Cryptos Constellation</h1>
+    <p class="subtitle">A hidden map of cryptographic knowledge in the digital undercommons</p>
 
-  <div id="description">
-    <h2>What is this?</h2>
-    <p>A hidden map of knowledge. A shared cipher of refusal. A tool for encrypted learning.</p>
+    <div class="access-panel">
+      <input id="access" type="text" placeholder="Enter passphrase..." />
+      <button onclick="checkAccess()">Enter Constellation</button>
+      <div id="error">Access denied. Try again.</div>
+    </div>
 
-    <h2>Why encryption?</h2>
-    <p>Because privacy is a right. Because learning should be protected. Because the digital world is full of watchers — and we choose to whisper instead.</p>
+    <div class="info-section">
+      <h2>What is the Cryptos Constellation?</h2>
+      <p>
+        The Cryptos Constellation is a hidden network of cryptographic knowledge, where each star represents a fundamental concept in digital security and privacy. Like stars in the night sky, these concepts are interconnected, forming a map of understanding in the digital undercommons.
+      </p>
+    </div>
 
-    <h2>How does it work?</h2>
-    <p>The constellation holds keys. Each star leads to a lesson on passwords, encryption, obfuscation, and resistance.</p>
+    <div class="info-section">
+      <h2>Why Encryption Matters</h2>
+      <p>
+        In a world of constant surveillance and data collection, encryption is our shield. It's not just about keeping secrets—it's about protecting our right to privacy, our freedom to communicate, and our ability to learn without being watched.
+      </p>
+      <p>
+        The digital undercommons is a space where knowledge flows freely but securely, where learning is protected by the very tools we study.
+      </p>
+    </div>
+
+    <div class="info-section">
+      <h2>Explore the Stars</h2>
+      <p>
+        Each star in the constellation represents a key concept:
+      </p>
+      <ul>
+        <li><span class="star-glyph">✷</span> <span class="highlight">CYPHER</span> - The core of encryption</li>
+        <li><span class="star-glyph">✷</span> <span class="highlight">KEYPAIR</span> - Public and private keys</li>
+        <li><span class="star-glyph">✷</span> <span class="highlight">DIGEST</span> - One-way data transformation</li>
+        <li><span class="star-glyph">✷</span> <span class="highlight">SIGNAL</span> - Secure communication</li>
+        <li><span class="star-glyph">✷</span> <span class="highlight">HIDDEN</span> - Steganography and concealment</li>
+      </ul>
+      <p>
+        Enter the passphrase to begin your journey through the constellation.
+      </p>
+    </div>
   </div>
 
   <script>
-    const glyphs = ["✶","✷","✸","✹","✺","✻","✼","✽"];
-    const gContainer = document.getElementById("glyphs");
-    for (let i = 0; i < 60; i++) {
-      const g = document.createElement("div");
-      g.className = "glyph";
-      g.innerText = glyphs[Math.floor(Math.random() * glyphs.length)];
-      g.style.left = Math.random() * 100 + "vw";
-      g.style.top = Math.random() * 100 + "vh";
-      g.style.animationDuration = (30 + Math.random() * 40) + "s";
-      g.style.fontSize = (0.8 + Math.random() * 2.5) + "em";
-      gContainer.appendChild(g);
+    // Create background stars
+    const stars = ["✶","✷","✸","✹","✺","✻","✼","✽"];
+    const starsContainer = document.getElementById("stars");
+    for (let i = 0; i < 150; i++) {
+      const star = document.createElement("div");
+      star.className = "star";
+      star.innerText = stars[Math.floor(Math.random() * stars.length)];
+      star.style.left = Math.random() * 100 + "vw";
+      star.style.top = Math.random() * 100 + "vh";
+      star.style.opacity = 0.1 + Math.random() * 0.2;
+      starsContainer.appendChild(star);
     }
 
     function checkAccess() {
       const val = document.getElementById("access").value.trim().toLowerCase();
       if (val === "undercommons") {
-        window.location.href = "./map.html?key=" + encodeURIComponent(val);
+        window.location.href = "./cryptos-map.html";
       } else {
-        document.getElementById("error").style.display = "block";
+        const error = document.getElementById("error");
+        error.style.display = "block";
+        setTimeout(() => {
+          error.style.display = "none";
+        }, 2000);
       }
     }
 
+    // Add enter key functionality
     document.getElementById("access").addEventListener("keypress", e => {
-      if (e.key === "Enter") checkAccess();
-    });
-
-    // 👁️ Reveal description after 5 seconds
-    window.addEventListener("DOMContentLoaded", () => {
-      setTimeout(() => {
-        document.getElementById("description").classList.add("visible");
-      }, 5000);
+      if (e.key === "Enter") {
+        checkAccess();
+      }
     });
   </script>
 </body>
