@@ -1,211 +1,90 @@
+<!-- /docs/index.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Cryptos Constellation – Digital Undercommons</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" href="./css/styles.css" />
-  <style>
-    body {
-      background-color: #0d0014;
-      font-family: 'Courier New', monospace;
-      color: #c7b3ff;
-      margin: 0;
-      min-height: 100vh;
-      overflow-y: auto;
-    }
+  <title>Obfuscate-OS v2.1</title>
 
-    #stars {
-      position: fixed;
-      inset: 0;
-      z-index: 0;
-      pointer-events: none;
-    }
-
-    .star {
-      position: absolute;
-      color: rgba(199, 179, 255, 0.1);
-      font-size: 1.5em;
-    }
-
-    .main-content {
-      position: relative;
-      z-index: 2;
-      max-width: 800px;
-      margin: 0 auto;
-      padding: 2em;
-    }
-
-    .access-panel {
-      background: rgba(25, 0, 50, 0.85);
-      border: 1px solid #aa00ff;
-      padding: 2em;
-      border-radius: 16px;
-      box-shadow: 0 0 40px #9c5bff66;
-      backdrop-filter: blur(8px);
-      max-width: 400px;
-      margin: 2em auto;
-      text-align: center;
-    }
-
-    h1 {
-      font-size: 2.5em;
-      color: #e0c6ff;
-      margin-bottom: 0.5em;
-      text-align: center;
-    }
-
-    .subtitle {
-      color: #c4a8ff;
-      text-align: center;
-      margin-bottom: 2em;
-      font-size: 1.1em;
-    }
-
-    input, button {
-      width: 100%;
-      padding: 0.8em;
-      font-size: 1em;
-      margin: 0.5em 0;
-      border-radius: 6px;
-      border: 1px solid #aa00ff;
-      background: #0b0015;
-      color: #ffddff;
-      font-family: 'Courier New', monospace;
-    }
-
-    button {
-      background: transparent;
-      transition: all 0.3s;
-      cursor: pointer;
-    }
-
-    button:hover {
-      background: #aa00ff;
-      color: #0d0014;
-    }
-
-    #error {
-      display: none;
-      color: #ff537a;
-      font-size: 0.9em;
-      margin-top: 1em;
-    }
-
-    .info-section {
-      background: rgba(40, 10, 60, 0.15);
-      border: 1px solid #944cff;
-      padding: 2em;
-      border-radius: 16px;
-      margin: 2em 0;
-      backdrop-filter: blur(4px);
-    }
-
-    .info-section h2 {
-      color: #e1c3ff;
-      margin-top: 0;
-      font-size: 1.5em;
-    }
-
-    .info-section p {
-      color: #c4a8ff;
-      line-height: 1.6;
-      margin: 1em 0;
-    }
-
-    .star-glyph {
-      color: #aa00ff;
-      font-size: 1.2em;
-      margin: 0 0.2em;
-    }
-
-    .highlight {
-      color: #ffddff;
-      font-weight: bold;
-    }
-  </style>
+  <!-- Styles -->
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/modules.css" />
+  <link rel="stylesheet" href="css/terminal.css" />
 </head>
 <body>
-  <div id="stars"></div>
+  <div class="shell">
+    <!-- Header -->
+    <header id="terminal-header">
+      <h1>Obfuscate-OS v2.1</h1>
+      <p>A modular guide for encryption, command line, and digital resistance.</p>
+    </header>
 
-  <div class="main-content">
-    <h1>Cryptos Constellation</h1>
-    <p class="subtitle">A hidden map of cryptographic knowledge in the digital undercommons</p>
-
-    <div class="access-panel">
-      <input id="access" type="text" placeholder="Enter passphrase..." />
-      <button onclick="checkAccess()">Enter Constellation</button>
-      <div id="error">Access denied. Try again.</div>
+    <!-- Theme Toggle (Centered) -->
+    <div style="text-align: center;">
+      <button id="toggle-theme">Toggle Theme</button>
     </div>
 
-    <div class="info-section">
-      <h2>What is the Cryptos Constellation?</h2>
-      <p>
-        The Cryptos Constellation is a hidden network of cryptographic knowledge, where each star represents a fundamental concept in digital security and privacy. Like stars in the night sky, these concepts are interconnected, forming a map of understanding in the digital undercommons.
-      </p>
+    <!-- View Toggle -->
+    <div id="view-toggle">
+      <button onclick="switchTo('gui')">GUI View</button>
+      <button onclick="switchTo('terminal')">Terminal View</button>
     </div>
 
-    <div class="info-section">
-      <h2>Why Encryption Matters</h2>
-      <p>
-        In a world of constant surveillance and data collection, encryption is our shield. It's not just about keeping secrets—it's about protecting our right to privacy, our freedom to communicate, and our ability to learn without being watched.
-      </p>
-      <p>
-        The digital undercommons is a space where knowledge flows freely but securely, where learning is protected by the very tools we study.
-      </p>
+    <!-- GUI Grid View -->
+    <main id="module-grid"></main>
+
+    <!-- Terminal Interface -->
+    <div id="terminal-container" style="display: none;">
+      <div id="terminal-output" style="white-space: pre-wrap; padding-bottom: 4em;"></div>
+      <form id="terminal-form">
+        <span class="prompt">$</span>
+        <input id="terminal-input" type="text" autocomplete="off" autofocus />
+        <span class="cursor">▍</span>
+      </form>
     </div>
 
-    <div class="info-section">
-      <h2>Explore the Stars</h2>
+    <!-- Footer -->
+    <footer id="site-footer">
+      <p>© 2025 Philip Kovacevic — Obfuscate-OS Project</p>
+      <p>Licensed under <a href="https://opensource.org/licenses/MIT" target="_blank">MIT License</a></p>
       <p>
-        Each star in the constellation represents a key concept:
+        <a href="https://github.com/vikobaldigi" target="_blank">GitHub</a> |
+        <a href="mailto:vikobal@protonmail.com">Email</a> |
+        <a href="https://www.vikobal.net" target="_blank">Portfolio</a>
       </p>
-      <ul>
-        <li><span class="star-glyph">✷</span> <span class="highlight">CYPHER</span> - The core of encryption</li>
-        <li><span class="star-glyph">✷</span> <span class="highlight">KEYPAIR</span> - Public and private keys</li>
-        <li><span class="star-glyph">✷</span> <span class="highlight">DIGEST</span> - One-way data transformation</li>
-        <li><span class="star-glyph">✷</span> <span class="highlight">SIGNAL</span> - Secure communication</li>
-        <li><span class="star-glyph">✷</span> <span class="highlight">HIDDEN</span> - Steganography and concealment</li>
-      </ul>
-      <p>
-        Enter the passphrase to begin your journey through the constellation.
-      </p>
-    </div>
+    </footer>
   </div>
 
+  <!-- Scripts -->
+  <script src="js/modules/module-data.js"></script>
+  <script src="js/modules/module-loader.js"></script>
+  <script src="js/filesystem.js"></script>
+  <script src="js/terminal.js"></script>
+
+  <!-- Theme Persistence & View Switching -->
   <script>
-    // Create background stars
-    const stars = ["✶","✷","✸","✹","✺","✻","✼","✽"];
-    const starsContainer = document.getElementById("stars");
-    for (let i = 0; i < 150; i++) {
-      const star = document.createElement("div");
-      star.className = "star";
-      star.innerText = stars[Math.floor(Math.random() * stars.length)];
-      star.style.left = Math.random() * 100 + "vw";
-      star.style.top = Math.random() * 100 + "vh";
-      star.style.opacity = 0.1 + Math.random() * 0.2;
-      starsContainer.appendChild(star);
+    const body = document.body;
+    const storedTheme = localStorage.getItem("theme");
+    if (storedTheme === "light") {
+      body.classList.add("light-mode");
     }
 
-    function checkAccess() {
-      const val = document.getElementById("access").value.trim().toLowerCase();
-      if (val === "undercommons") {
-        window.location.href = "./cryptos-map.html";
-      } else {
-        const error = document.getElementById("error");
-        error.style.display = "block";
-        setTimeout(() => {
-          error.style.display = "none";
-        }, 2000);
-      }
-    }
-
-    // Add enter key functionality
-    document.getElementById("access").addEventListener("keypress", e => {
-      if (e.key === "Enter") {
-        checkAccess();
-      }
+    document.getElementById("toggle-theme").addEventListener("click", () => {
+      body.classList.toggle("light-mode");
+      localStorage.setItem("theme", body.classList.contains("light-mode") ? "light" : "dark");
     });
+
+    function switchTo(mode) {
+      const grid = document.getElementById("module-grid");
+      const term = document.getElementById("terminal-container");
+      if (mode === "gui") {
+        grid.style.display = "grid";
+        term.style.display = "none";
+      } else {
+        grid.style.display = "none";
+        term.style.display = "block";
+      }
+    }
   </script>
 </body>
 </html>

@@ -1,0 +1,86 @@
+==================================================================
+                    OBFUSCATE-OS MODULE 1: CPU
+==================================================================
+
+Encryption, codebreaking, and control at the foundation of 
+digital resistance.
+
+------------------------------------------------------------------
+What Is Encryption?
+------------------------------------------------------------------
+
+Encryption is the process of encoding information so that only
+authorized parties can access it. It doesn’t hide or erase data—
+it transforms it into something unreadable to outsiders.
+
+As Brunton and Nissenbaum write in *Obfuscation*, encryption is
+a way to resist default surveillance. It's not invisibility—
+it's refusal.
+
+------------------------------------------------------------------
+From Caesar to Complexity
+------------------------------------------------------------------
+
+Early ciphers like Caesar’s used simple letter shifts. These 
+"monoalphabetic substitutions" could be broken by frequency 
+analysis.
+
+Modern cryptography (RSA, AES, ECC) relies on modular arithmetic,
+probability, and large prime factorization—designed to resist 
+brute-force attacks.
+
+See: Joshua Holden, *The Mathematics of Secrets*
+
+------------------------------------------------------------------
+Keys and Meaning
+------------------------------------------------------------------
+
+Encryption depends on a key.
+
+- Symmetric: same key for encryption and decryption
+- Asymmetric: public key locks, private key unlocks
+
+This model powers everything from secure messaging to blockchain 
+transactions.
+
+See: Katz & Lindell, *Introduction to Modern Cryptography*
+
+------------------------------------------------------------------
+Why the CPU?
+------------------------------------------------------------------
+
+The CPU executes all encryption instructions. Every command
+you run—`gpg`, `openssl`, `age`—is broken into machine-level 
+math by the processor.
+
+Understanding encryption means understanding what your machine 
+is doing behind the scenes.
+
+------------------------------------------------------------------
+Encryption and Control
+------------------------------------------------------------------
+
+Encryption is control.
+
+As Singh writes in *The Code Book*, cryptography lets people 
+decide *who* gets to know *what*, and *when*.
+
+It enables autonomy in hostile systems. It doesn't make you
+safe—but it makes you harder to predict.
+
+------------------------------------------------------------------
+Next Steps:
+------------------------------------------------------------------
+
+To continue:
+  cd cpu
+  cat sec.txt     ← Module 2: Cryptographic Failures
+
+------------------------------------------------------------------
+Suggested Reading:
+------------------------------------------------------------------
+
+- Brunton & Nissenbaum — Obfuscation
+- Joshua Holden — The Mathematics of Secrets
+- Simon Singh — The Code Book
+- Katz & Lindell — Introduction to Modern Cryptography

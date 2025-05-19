@@ -1,0 +1,69 @@
+/* /docs/css/terminal.css */
+/* Terminal-specific styling for Obfuscate-OS */
+
+#terminal-container {
+  background-color: #111;
+  color: #cabafc;
+  font-family: 'Courier New', monospace;
+  border: 1px solid #444;
+  padding: 1.5rem;
+  max-width: 800px;
+  margin: 2rem auto;
+  border-radius: 6px;
+  box-shadow: 0 0 12px rgba(185, 142, 255, 0.2);
+  transition: background 0.3s, color 0.3s;
+}
+
+#terminal-output {
+  min-height: 200px;
+  margin-bottom: 1rem;
+  white-space: pre-wrap;
+  line-height: 1.5;
+  font-size: 1rem;
+}
+
+#terminal-form {
+  display: flex;
+  align-items: center;
+  font-size: 1rem;
+  font-family: inherit;
+}
+
+#terminal-form .prompt {
+  margin-right: 0.5em;
+}
+
+#terminal-input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  color: inherit;
+  font-family: inherit;
+  font-size: 1rem;
+  outline: none;
+}
+
+#terminal-input:focus {
+  border-bottom: 1px solid var(--accent);
+}
+
+/* Light mode terminal fix */
+body.light-mode #terminal-container {
+  background-color: #f8f8ff;
+  color: #222;
+  border-color: #ccc;
+}
+
+body.light-mode #terminal-input {
+  color: #111;
+}
+
+/* Cursor blink optional */
+.cursor {
+  animation: blink 1.2s infinite;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}

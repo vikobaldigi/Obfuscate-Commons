@@ -1,0 +1,137 @@
+/* Dark Theme (Default) — retained as-is */
+:root {
+  --purple: #b98eff;
+  --bg: #000000;
+  --glow: #d9b3ff;
+  --font: 'Courier New', monospace;
+}
+
+.module-box {
+  background-color: rgba(35, 10, 55, 0.9);
+  border: 1px solid var(--purple);
+  padding: 1.5em;
+  border-radius: 8px;
+  text-align: center;
+  transition: transform 0.3s, box-shadow 0.3s;
+  box-shadow: 0 0 10px #6a2eff33;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.module-box:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 0 18px #a971ff;
+}
+
+.module-box h2 {
+  margin-bottom: 0.5em;
+  color: #d9b3ff;
+}
+
+.module-box p {
+  font-size: 0.9em;
+  color: #c7b3ff;
+}
+
+.module-box button {
+  margin-top: 1em;
+  padding: 0.5em 1.25em;
+  background: transparent;
+  border: 1px solid var(--glow);
+  color: var(--glow);
+  font-family: inherit;
+  cursor: pointer;
+}
+
+#terminal-header {
+  text-align: center;
+  margin-bottom: 2em;
+}
+
+#terminal-header h1 {
+  font-size: 2em;
+  color: var(--glow);
+  text-shadow: 0 0 6px var(--glow);
+  animation: pulse 3s infinite;
+}
+
+#terminal-output {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 1em;
+  line-height: 1.6em;
+  color: #cabafc;
+}
+
+#glossary-panel {
+  background: rgba(10, 0, 30, 0.95);
+  border: 1px solid #9e70ff;
+  padding: 1em;
+  border-radius: 8px;
+  overflow-y: auto;
+  height: fit-content;
+  box-shadow: 0 0 8px #7733cc33;
+}
+
+#glossary-panel h3 {
+  color: #e4c6ff;
+  margin-bottom: 0.5em;
+}
+
+#glossary-panel ul {
+  list-style: none;
+  padding: 0;
+  font-size: 0.85em;
+  line-height: 1.5em;
+  color: #caaaff;
+}
+
+#glossary-panel li {
+  margin-bottom: 0.3em;
+}
+
+@keyframes pulse {
+  0%, 100% { text-shadow: 0 0 5px var(--glow); }
+  50% { text-shadow: 0 0 15px var(--glow); }
+}
+
+/* ✅ Light Mode Overrides */
+body.light-mode {
+  background-color: #ffffff;
+  color: #111;
+}
+
+body.light-mode .module-box {
+  background-color: #f3f0ff;
+  color: #222;
+  border-color: #bbb;
+  box-shadow: 0 0 10px #ddddff;
+}
+
+body.light-mode .module-box h2 {
+  color: #333;
+}
+
+body.light-mode .module-box p {
+  color: #444;
+}
+
+body.light-mode .module-box button {
+  border-color: #444;
+  color: #444;
+}
+
+body.light-mode #terminal-header h1 {
+  color: #663399;
+  text-shadow: none;
+}
+
+body.light-mode #glossary-panel {
+  background: #fafafa;
+  border-color: #ccc;
+  color: #222;
+}
+
+body.light-mode #glossary-panel ul {
+  color: #333;
+}
