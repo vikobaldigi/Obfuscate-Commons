@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Blockchain & Cryptocurrency</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="../../css/style.css" />
+  <link rel="stylesheet" href="../../css/modules.css" />
+</head>
+<body>
+  <div class="shell">
+    <header id="terminal-header">
+      <h1>🔗 Blockchain & Cryptocurrency</h1>
+      <p>Decentralized systems powered by encryption and consensus.</p>
+    </header>
+
+    <main class="module-content">
+      <section>
+        <h2 class="section-heading">What Is a Blockchain?</h2>
+        <p>
+          A blockchain is a distributed database where each record is linked to the one before it using cryptographic hashes. These records, or "blocks," form an immutable chain of verified transactions that can't be altered without detection.
+        </p>
+        <p>
+          Instead of a central authority validating actions, a blockchain relies on cryptographic consensus — rules enforced by math and public agreement.
+        </p>
+      </section>
+
+      <section>
+        <h2 class="section-heading">Where Encryption Comes In</h2>
+        <p>
+          Blockchains use a mix of cryptographic techniques:
+          <ul>
+            <li><strong>Hashing</strong> (SHA-256): Ensures the integrity of each block</li>
+            <li><strong>Public-Key Cryptography</strong>: Users sign transactions with their private key</li>
+            <li><strong>Merkle Trees</strong>: Efficiently summarize large sets of transactions</li>
+          </ul>
+          These allow for secure authentication, non-repudiation, and verifiable history — without a central gatekeeper.
+        </p>
+      </section>
+
+      <section>
+        <h2 class="section-heading">Applications and Limits</h2>
+        <p>
+          From Bitcoin to Ethereum to zero-knowledge rollups, blockchains are used for money, identity, and even organizing decentralized governance (DAOs). But blockchain is not magic: it’s slow, expensive, and public by default.
+        </p>
+        <p>
+          Privacy-preserving tools like zk-SNARKs and mixers (e.g. Tornado Cash) use encryption to shield user identities — but also raise legal and ethical questions about anonymity and accountability.
+        </p>
+      </section>
+
+      <section>
+        <h2 class="section-heading">Next Steps</h2>
+        <p>To explore this module in the terminal:</p>
+        <code>cd blockchain</code><br />
+        <code>cat blockchain.txt</code>
+      </section>
+
+      <section class="sources">
+        <h3>Sources & Further Reading</h3>
+        <ul>
+          <li>Andreas Antonopoulos, <em>Mastering Bitcoin</em></li>
+          <li>Katz & Lindell, <em>Introduction to Modern Cryptography</em></li>
+          <li>ZCash, <a href="https://z.cash/technology/">zk-SNARK whitepapers</a></li>
+        </ul>
+      </section>
+
+      <footer>
+        <p><a href="../../index.html">← Back to Obfuscate-OS</a></p>
+      </footer>
+    </main>
+  </div>
+
+  <!-- JS includes -->
+  <script src="../../js/filesystem.js"></script>
+  <script src="../../js/terminal.js"></script>
+  <script>
+    if (localStorage.getItem("theme") === "light") {
+      document.body.classList.add("light-mode");
+    }
+  </script>
+</body>
+</html>

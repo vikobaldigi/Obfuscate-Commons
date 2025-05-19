@@ -39,10 +39,10 @@ window.modules = [
     button: "Open Guide"
   },
   {
-    title: "🧬 System Obfuscation",
-    desc: "Explore cold storage, disk encryption, and anti-surveillance techniques.",
-    path: "system.html",
-    button: "Open SYSTEM"
+    title: "🔗 Blockchain & Cryptocurrency",
+    desc: "How decentralization and encryption create public trust without central control.",
+    path: "modules/blockchain/blockchain.html",
+    button: "Open Blockchain"
   },
   {
     title: "🔧 Encryption Tools",

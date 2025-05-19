@@ -2,33 +2,90 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>NET – Metadata Awareness</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>NET — Metadata Awareness</title>
   <link rel="stylesheet" href="../../css/style.css" />
   <link rel="stylesheet" href="../../css/modules.css" />
 </head>
 <body>
   <div class="shell">
     <header id="terminal-header">
-      <h1>🌐 Metadata Awareness</h1>
-      <p>Who you talk to, when, how often — metadata reveals more than content.</p>
+      <h1>Metadata Awareness (NET)</h1>
+      <p>Networks, metadata, and the unseen architecture of surveillance.</p>
     </header>
 
-    <main>
+    <main class="module-content">
+
       <section>
-        <h2>What is Metadata?</h2>
-        <ul>
-          <li>Sender / recipient</li>
-          <li>Timestamps</li>
-          <li>Geolocation</li>
-          <li>Device IDs</li>
-        </ul>
-        <p>Encryption hides content. Obfuscation fights inference.</p>
+        <h2 class="section-heading">What Is Metadata?</h2>
+        <p>
+          Metadata is often defined as "data about data," but this simple definition misses its depth. Metadata is a means of simplifying complexity — a way to describe, locate, and structure information in a chaotic digital world. As Pomerantz writes, metadata is like a map: it doesn’t replace the territory, but it allows us to navigate it (Pomerantz, <em>Metadata</em>).
+        </p>
+        <p>
+          Every email you send, photo you upload, or webpage you visit carries metadata — timestamps, geolocation, file types, browser info. You might forget a phone call, but your phone carrier won’t. Metadata is persistent and invisible, and it increasingly defines the boundaries of what can be known or predicted about us.
+        </p>
       </section>
-      <a href="../../index.html">← Back to Obfuscate-OS</a>
+
+      <section>
+        <h2 class="section-heading">Networks of Metadata</h2>
+        <p>
+          Metadata doesn't exist in isolation. It's generated, exchanged, and interpreted across digital networks. Think of social media posts, surveillance systems, or academic citations — each node (person, file, post) is connected to others through metadata: who created it, when, where, on what device, in what context.
+        </p>
+        <p>
+          The structure of these networks follows patterns studied in graph theory: nodes (people, places, devices) and edges (relationships, transmissions). Network topology influences how metadata flows and who can intercept, aggregate, or manipulate it (Pomerantz, <em>Metadata</em>).
+        </p>
+      </section>
+
+      <section>
+        <h2 class="section-heading">Metadata as Surveillance Infrastructure</h2>
+        <p>
+          As the NSA scandal revealed, metadata collection can be more invasive than content surveillance. While the message of a phone call might be private, knowing who called whom, when, and how often builds a web of social and political connections. Metadata reveals networks — and thus, targets.
+        </p>
+        <p>
+          Pomerantz emphasizes that metadata has become a form of infrastructure — as essential and invisible as roads or electricity. We live in a metadata society: one that tracks, archives, and analyzes our movement through digital space (Pomerantz, <em>Metadata</em>).
+        </p>
+      </section>
+
+      <section>
+        <h2 class="section-heading">Obfuscation and Metadata Resistance</h2>
+        <p>
+          Obfuscation — the strategic production of misleading or excessive metadata — is one form of resistance. From browser plugins that generate fake searches to tools that spoof GPS locations, obfuscation clouds the signal and disrupts inference.
+        </p>
+        <p>
+          Brunton and Nissenbaum argue that in systems designed to make you legible, refusal is powerful. Metadata can be weaponized, but it can also be blurred, poisoned, or flooded. Knowing how metadata works gives you the power to decide how much of yourself to reveal (Brunton & Nissenbaum, <em>Obfuscation</em>).
+        </p>
+      </section>
+
+      <section>
+        <h2 class="section-heading">Next Steps</h2>
+        <p>To read this module in the terminal interface:</p>
+        <code>cd net</code><br/>
+        <code>cat net.txt</code>
+
+        <p>Or continue to the next visual module:</p>
+        <a href="../guide/guide.html">→ Module 4: Terminal Basics</a>
+      </section>
+
+      <section class="sources">
+        <h3>Sources & Further Reading</h3>
+        <ul>
+          <li>Jeffrey Pomerantz, <em>Metadata</em> — <a href="https://mitpress.mit.edu/9780262331197/metadata/" target="_blank">MIT Press</a></li>
+          <li>Brunton & Nissenbaum, <em>Obfuscation</em> — <a href="https://mitpress.mit.edu/9780262529860/obfuscation/" target="_blank">MIT Press</a></li>
+          <li>The Guardian, “Guide to Metadata and the NSA” — <a href="https://www.theguardian.com/technology/interactive/2013/jun/12/what-is-metadata-nsa-surveillance" target="_blank">theguardian.com</a></li>
+        </ul>
+      </section>
+
+      <footer>
+        <p><a href="../../index.html">← Back to Obfuscate-OS</a></p>
+      </footer>
+
     </main>
   </div>
+
   <script>
-    if (localStorage.getItem("theme") === "light") document.body.classList.add("light-mode");
+    if (localStorage.getItem("theme") === "light") {
+      document.body.classList.add("light-mode");
+    }
   </script>
 </body>
 </html>

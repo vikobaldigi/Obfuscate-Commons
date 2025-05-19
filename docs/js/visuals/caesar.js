@@ -1,30 +1,43 @@
-// /docs/js/visuals/caesar.js
 let caesarInput, shiftSlider, caesarOutput;
 
 function setup() {
-  const canvas = createCanvas(600, 150);
-  canvas.parent("caesar-canvas");
+  const container = select("#caesar-canvas");
+  const canvas = createCanvas(600, 160);
+  canvas.parent(container);
+  noLoop();
+
+  const label1 = createP("Plaintext:").parent(container);
+  label1.style("color", "#b98eff");
+  label1.style("font-family", "'Courier New', monospace");
 
   caesarInput = createInput("HELLO WORLD");
-  caesarInput.position(20, 20);
-  caesarInput.size(200);
+  caesarInput.parent(container);
+  caesarInput.style("width", "90%");
+  caesarInput.style("padding", "0.5em");
+  caesarInput.style("background", "#000");
+  caesarInput.style("color", "#b98eff");
+  caesarInput.style("border", "1px solid #d9b3ff");
+  caesarInput.style("font-family", "'Courier New', monospace");
+  caesarInput.input(redraw);
+
+  const label2 = createP("Shift amount (0–25):").parent(container);
+  label2.style("color", "#b98eff");
+  label2.style("font-family", "'Courier New', monospace");
 
   shiftSlider = createSlider(0, 25, 3);
-  shiftSlider.position(230, 20);
+  shiftSlider.parent(container);
+  shiftSlider.style("width", "90%");
+  shiftSlider.input(redraw);
 
-  createP("Encrypted Output:").position(20, 50);
-  caesarOutput = createP("");
-  caesarOutput.position(20, 80);
-  caesarOutput.style("font-family", "Courier New");
+  caesarOutput = createP("").parent(container);
+  caesarOutput.style("color", "#b98eff");
+  caesarOutput.style("font-family", "'Courier New', monospace");
+
+  redraw();
 }
 
 function draw() {
   background(0);
-  fill(185, 142, 255);
-  textSize(14);
-  text("Plaintext:", 20, 15);
-  text("Shift:", 230, 15);
-
   const txt = caesarInput.value().toUpperCase();
   const shift = shiftSlider.value();
   let result = "";
@@ -36,5 +49,6 @@ function draw() {
     }
     result += String.fromCharCode(c);
   }
-  caesarOutput.html(result);
+
+  caesarOutput.html("Encrypted Output: " + result);
 }

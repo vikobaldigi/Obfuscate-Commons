@@ -2,28 +2,107 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Encryption Tools</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Tools — Encryption Utilities</title>
   <link rel="stylesheet" href="../../css/style.css" />
   <link rel="stylesheet" href="../../css/modules.css" />
 </head>
 <body>
   <div class="shell">
     <header id="terminal-header">
-      <h1>🔧 Encryption Tools</h1>
-      <p>Use GPG, Tor, KeePassXC, and more to practice resistance.</p>
+      <h1>🛠️ Encryption Tools (TOOLS)</h1>
+      <p>Explore software and systems that turn theory into practice.</p>
     </header>
 
-    <main>
-      <ul>
-        <li><strong>GPG</strong> – encrypt messages or files</li>
-        <li><strong>Tor</strong> – anonymous browsing</li>
-        <li><strong>AdNauseam</strong> – ad click obfuscation</li>
-      </ul>
-      <a href="../../index.html">← Back to Obfuscate-OS</a>
+    <main class="module-content">
+
+      <section>
+        <h2 class="section-heading">Why Tools Matter</h2>
+        <p>
+          Cryptography isn’t just math — it’s software. Tools translate theory into usable systems. They define how encryption feels: easy, hard, trustworthy, opaque.
+        </p>
+        <p>
+          A good tool hides complexity without hiding control. It gives you clarity without compromise.
+        </p>
+      </section>
+
+      <section>
+        <h2 class="section-heading">Core Utilities</h2>
+        <ul>
+          <li><strong>GPG</strong>: Full-featured key management, encryption, and signing suite for files and email.</li>
+          <li><strong>age</strong>: A simpler modern alternative to GPG, focused on secure file encryption.</li>
+          <li><strong>OpenSSL</strong>: A powerful library for command-line crypto and certificate operations.</li>
+          <li><strong>Keybase</strong>: Combines identity verification, file sharing, and chat — all encrypted end-to-end.</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2 class="section-heading">Encrypted Messaging</h2>
+        <ul>
+          <li><strong>Signal</strong>: Free, open source, end-to-end encrypted calling and messaging app.</li>
+          <li><strong>Session</strong>: Decentralized Signal fork with no phone numbers or central servers.</li>
+          <li><strong>Element</strong>: Matrix-based messaging with decentralization and federation.</li>
+        </ul>
+        <p>
+          These tools make cryptography invisible to the user — but they all rely on strong key exchange and forward secrecy.
+        </p>
+      </section>
+
+      <section>
+        <h2 class="section-heading">File & Disk Encryption</h2>
+        <ul>
+          <li><strong>Veracrypt</strong>: Create encrypted volumes or encrypt whole disks.</li>
+          <li><strong>LUKS</strong>: Standard for Linux disk encryption.</li>
+          <li><strong>BitLocker / FileVault</strong>: Built-in disk encryption for Windows and macOS.</li>
+        </ul>
+        <p>
+          Encryption at rest protects your data if a device is lost or stolen. But it’s only as strong as the password used to unlock it.
+        </p>
+      </section>
+
+      <section>
+        <h2 class="section-heading">Browser and Metadata Privacy</h2>
+        <ul>
+          <li><strong>Tor Browser</strong>: Routes your traffic through a global anonymity network.</li>
+          <li><strong>Tails OS</strong>: Live operating system that routes all traffic through Tor.</li>
+          <li><strong>uBlock Origin, Privacy Badger</strong>: Prevent trackers and third-party scripts.</li>
+        </ul>
+        <p>
+          Encryption is more than scrambling text. It's about shaping the entire surface of your digital exposure.
+        </p>
+      </section>
+
+      <section>
+        <h2 class="section-heading">Next Steps</h2>
+        <p>Explore tools from the terminal:</p>
+        <code>cd crypto</code><br/>
+        <code>cat tools.txt</code>
+
+        <p>Or continue to the final module:</p>
+        <a href="ethics.html">→ Encryption Ethics</a>
+      </section>
+
+      <section class="sources">
+        <h3>Sources & Further Reading</h3>
+        <ul>
+          <li>EFF, <a href="https://ssd.eff.org/">Surveillance Self-Defense</a></li>
+          <li>age project — <a href="https://age-encryption.org/">age-encryption.org</a></li>
+          <li>GPG documentation — <a href="https://gnupg.org/">gnupg.org</a></li>
+          <li>Matrix protocol — <a href="https://matrix.org">matrix.org</a></li>
+        </ul>
+      </section>
+
+      <footer>
+        <p><a href="../../index.html">← Back to Obfuscate-OS</a></p>
+      </footer>
+
     </main>
   </div>
+
   <script>
-    if (localStorage.getItem("theme") === "light") document.body.classList.add("light-mode");
+    if (localStorage.getItem("theme") === "light") {
+      document.body.classList.add("light-mode");
+    }
   </script>
 </body>
 </html>

@@ -6,87 +6,132 @@
   <title>CPU — Learn Encryption</title>
   <link rel="stylesheet" href="../../css/style.css" />
   <link rel="stylesheet" href="../../css/modules.css" />
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.min.js"></script>
+  <style>
+    table.encryption-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1.5em 0;
+      font-size: 1em;
+      color: var(--text);
+    }
+    .encryption-table th,
+    .encryption-table td {
+      text-align: left;
+      padding: 0.75em 1em;
+    }
+    .encryption-table th {
+      color: var(--accent);
+      font-weight: bold;
+    }
+    .encryption-table tr:nth-child(even) {
+      background-color: rgba(255, 255, 255, 0.05);
+    }
+  </style>
 </head>
 <body>
   <div class="shell">
     <header id="terminal-header">
       <h1>Learn Encryption (CPU)</h1>
-      <p>Encryption, codebreaking, and control at the foundation of digital resistance.</p>
+      <p>Encryption as autonomy, not industry. Understand its roots, not just its tools.</p>
     </header>
 
     <main class="module-content">
       <section>
-        <h2 class="section-heading">What Is Encryption?</h2>
+        <h2 class="section-heading">Why Encryption?</h2>
         <p>
-          Encryption is the process of encoding information so that only authorized parties can access it. It doesn’t erase or hide data—it transforms it. In practice, encryption defines access: who gets to know what.
+          Encryption is the mechanism by which we can keep digital communication private — not just from malicious actors, but from institutions whose interests don't always align with ours. It’s about defending the boundaries of personal meaning.
         </p>
         <p>
-          As Brunton and Nissenbaum write in <em>Obfuscation</em>, encryption is a way of drawing boundaries in a system designed to flatten them. It enables refusal—not by absence, but by calculated unintelligibility.
-        </p>
-      </section>
-
-      <section>
-        <h2 class="section-heading">From Caesar to Complexity</h2>
-        <p>
-          Historical ciphers like Caesar’s—where letters are shifted—form the basis of modern encryption. In <em>The Mathematics of Secrets</em>, Holden shows how early “monoalphabetic” systems evolved into mathematical constructions that power digital security today.
-        </p>
-        <div id="caesar-canvas" style="margin: 2em 0;"></div>
-        <p>
-          Where Caesar’s cipher could be broken in seconds, algorithms like RSA or AES are backed by modular arithmetic and number theory, designed to withstand brute-force attacks and eavesdropping.
+          While often marketed for enterprise compliance or secure transactions, the real power of encryption lies in its ability to empower individuals to selectively share information — to speak securely and be heard on their own terms.
         </p>
       </section>
 
       <section>
-        <h2 class="section-heading">Keys and Meaning</h2>
+        <h2 class="section-heading">Encryption vs Obfuscation</h2>
         <p>
-          All encryption relies on <strong>keys</strong>: secrets that determine how data is scrambled and how it can be reversed. In symmetric systems, the same key locks and unlocks. In asymmetric systems, one key encrypts, and another decrypts.
-        </p>
-        <div id="key-canvas" style="margin: 2em 0;"></div>
-        <p>
-          Public key encryption, first formalized in the 1970s, makes it possible to communicate securely without pre-sharing a secret. This idea—explained in detail by Katz and Lindell—is the cornerstone of secure email, messaging apps, and blockchain authentication.
+          Encryption encodes messages so only those with the key can read them. Obfuscation, meanwhile, floods the system with misleading signals to conceal what matters. Together, they challenge the asymmetry of visibility — where we are watched, but cannot watch back.
         </p>
       </section>
 
       <section>
-        <h2 class="section-heading">Why the CPU?</h2>
+        <h2 class="section-heading">From Caesar to Surveillance</h2>
         <p>
-          Encryption happens in the mind, but it's executed by machines. Every <code>gpg</code>, <code>openssl</code>, or <code>age</code> command runs operations through your CPU. It translates abstract keys into physical silicon logic.
+          In ancient Rome, Caesar used a shift cipher to disguise military communications. It was simple: shift every letter forward in the alphabet. But it planted a seed — the idea that secrecy could be constructed, altered, resisted.
         </p>
-        <div id="cipher-canvas" style="margin: 2em 0;"></div>
         <p>
-          Modular arithmetic—the math behind most crypto algorithms—is performed millions of times per second on physical hardware. When we say “learn encryption,” we’re also learning how instructions become electric.
+          Today, encryption algorithms like RSA and AES go far beyond letter shifts. They employ mathematical complexity to shield our data from brute-force surveillance — not only by individual attackers, but by institutions that rely on patterns, metadata, and mass collection.
         </p>
       </section>
 
       <section>
-        <h2 class="section-heading">Encryption and Control</h2>
+        <h2 class="section-heading">Symmetric vs Asymmetric Encryption</h2>
         <p>
-          As Singh writes in <em>The Code Book</em>, cryptography is fundamentally about control—over identity, access, and memory. Encryption lets people maintain control over what can be known, long after a message leaves their hands.
+          Encryption schemes can be categorized into two main types, each with strengths and vulnerabilities. Understanding this distinction helps inform how we protect information.
         </p>
-        <div id="freq-canvas" style="margin: 2em 0;"></div>
+        <table class="encryption-table">
+          <thead>
+            <tr>
+              <th>Type</th>
+              <th>Key Model</th>
+              <th>Examples</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Symmetric</td>
+              <td>One shared key</td>
+              <td>AES, ChaCha20</td>
+            </tr>
+            <tr>
+              <td>Asymmetric</td>
+              <td>Public/private keypair</td>
+              <td>RSA, ECC</td>
+            </tr>
+          </tbody>
+        </table>
         <p>
-          But encryption is also political. It resists systems of surveillance, prediction, and extraction. It gives individuals, collectives, and movements the tools to determine who gets to interpret their messages—and who doesn’t.
+          Symmetric encryption is fast and well-suited for securing local files or private channels. Asymmetric encryption enables secure exchange even among strangers and forms the basis for technologies like HTTPS and encrypted messaging.
+        </p>
+      </section>
+
+      <section>
+        <h2 class="section-heading">Beyond Corporate Security</h2>
+        <p>
+          While encryption has become a buzzword for corporate cybersecurity, its roots lie in civil liberties and contested space. It is as much a tool for protecting dissent, memory, and dignity as it is for securing finance or credentials.
+        </p>
+        <p>
+          Whether you’re encrypting a personal archive, protecting community records, or experimenting with anonymous publishing — encryption matters. Not because it’s perfect, but because it reintroduces choice into data relationships.
+        </p>
+      </section>
+
+      <section>
+        <h2 class="section-heading">Frequency Analysis and Cipher Cracking</h2>
+        <p>
+          Early cryptosystems, like Caesar’s cipher or Vigenère, could be broken through pattern recognition. Frequency analysis — counting how often letters appear — was a breakthrough in cryptanalysis.
+        </p>
+        <p>
+          Modern encryption avoids these traps with randomized outputs, large keyspaces, and computational hardness. But the lesson remains: any unprotected pattern becomes a vector for inference.
         </p>
       </section>
 
       <section>
         <h2 class="section-heading">Next Steps</h2>
-        <p>Use the terminal version of this module:</p>
+        <p>Try this module in the terminal:</p>
         <code>cd cpu</code><br/>
         <code>cat cpu.txt</code>
 
-        <p>Or continue to the next module in the visual guide:</p>
+        <p>Or continue visually:</p>
         <a href="sec.html">→ Module 2: Cryptographic Failures</a>
       </section>
 
       <section class="sources">
-        <h3>Sources & Further Reading</h3>
+        <h3>Further Reading</h3>
         <ul>
-          <li>Brunton & Nissenbaum, <em>Obfuscation</em> — <a href="https://mitpress.mit.edu/9780262529860/obfuscation/" target="_blank">MIT Press</a></li>
-          <li>Holden, <em>The Mathematics of Secrets</em> — <a href="https://press.princeton.edu/books/hardcover/9780691141756/the-mathematics-of-secrets" target="_blank">Princeton University Press</a></li>
-          <li>Singh, <em>The Code Book</em> — <a href="https://simonsingh.net/books/the-code-book/" target="_blank">simonsingh.net</a></li>
-          <li>Katz & Lindell, <em>Introduction to Modern Cryptography</em> — <a href="https://www.crcpress.com/Introduction-to-Modern-Cryptography/Katz-Lindell/p/book/9780367331580" target="_blank">CRC Press</a></li>
+          <li>Brunton & Nissenbaum, <em>Obfuscation</em> — MIT Press</li>
+          <li>Singh, <em>The Code Book</em></li>
+          <li>Holden, <em>The Mathematics of Secrets</em></li>
+          <li>Katz & Lindell, <em>Introduction to Modern Cryptography</em></li>
+          <li>Rosulek, <em>The Joy of Cryptography</em></li>
         </ul>
       </section>
 
@@ -101,11 +146,5 @@
       document.body.classList.add("light-mode");
     }
   </script>
-
-  <!-- Scripts for Visuals -->
-  <script src="../../js/visuals/caesar.js"></script>
-  <script src="../../js/visuals/keyexchange.js"></script>
-  <script src="../../js/visuals/blockstream.js"></script>
-  <script src="../../js/visuals/frequency.js"></script>
 </body>
 </html>

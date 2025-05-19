@@ -2,33 +2,128 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>SEC – Cryptographic Failures</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>SEC — Cryptographic Failures</title>
   <link rel="stylesheet" href="../../css/style.css" />
   <link rel="stylesheet" href="../../css/modules.css" />
 </head>
 <body>
   <div class="shell">
     <header id="terminal-header">
-      <h1>🔐 Cryptographic Failures (SEC)</h1>
-      <p>Explore where encryption systems fail and what that teaches us.</p>
+      <h1>Cryptographic Failures (SEC)</h1>
+      <p>SEC stands for Sensitive Data Exposure — not just in theory, but in practice, across the architecture of the systems we use every day.</p>
     </header>
 
-    <main>
+    <main class="module-content">
       <section>
-        <h2>Common Failures</h2>
-        <ul>
-          <li>Weak passwords</li>
-          <li>Improper key management</li>
-          <li>Implementation bugs</li>
-          <li>Human error</li>
-        </ul>
-        <p>Obfuscation doesn't fix bad cryptography — it adds another layer of confusion.</p>
+        <h2 class="section-heading">Introduction</h2>
+        <p>
+          Encryption isn’t invincibility. This module explores the concept of <strong>cryptographic failure</strong>: not when the math fails, but when people do. These are failures of implementation, trust, key management, or assumptions — and they’re often the most common, subtle, and dangerous.
+        </p>
+        <p>
+          SEC refers to <strong>Sensitive Data Exposure</strong>, a critical entry on the <a href="https://owasp.org/Top10/A02_2021-Cryptographic_Failures/" target="_blank">OWASP Top 10</a>. It reflects how vulnerable our data is not because encryption is missing, but because it’s mishandled — stored insecurely, transmitted without care, or shielded with obsolete algorithms.
+        </p>
       </section>
-      <a href="../../index.html">← Back to Obfuscate-OS</a>
+
+      <section>
+        <h2 class="section-heading">Failures by Design, Not by Math</h2>
+        <p>
+          When encryption fails, it’s rarely because someone cracked the code. More often, the failure happens somewhere else: a misconfigured server, an outdated protocol, a forgotten certificate. As Ross Anderson reminds us in <em>Why Cryptosystems Fail</em>, the real vulnerabilities tend to come from interface design, operational shortcuts, and misplaced trust in perfect systems.
+        </p>
+        <p>
+          Systems like ATM networks or encrypted telecoms didn’t collapse under brute force — they broke under the weight of ignored warnings, poor key rotation, or insider access. These aren’t edge cases. They’re the default conditions of large-scale cryptosystems.
+        </p>
+      </section>
+
+      <section>
+        <h2 class="section-heading">Perfect Encryption, Still Compromised</h2>
+        <p>
+          Signal, one of the most secure messaging systems in the world, didn’t leak data due to a cryptographic flaw. Instead, a U.S. official mistakenly added a journalist to a secure group chat. As <em>Digital Seams</em> recounts, everything worked as intended — except the human layer. This is what Lea Kissner calls <strong>Kissner’s Law</strong>: cryptography turns many problems into <em>key management problems</em>, and those are harder than they look.
+        </p>
+        <p>
+          If someone has the key, they have the data. And if the wrong person gets added — intentionally or accidentally — no math in the world can save you.
+        </p>
+      </section>
+
+      <section>
+        <h2 class="section-heading">Misunderstanding as Vulnerability</h2>
+        <p>
+          A major encryption rollout doesn’t mean users are safe. The 2019 study <em>In Encryption We Don’t Trust</em> found that users often misunderstand what “encrypted” means. Many believe SMS is safer than WhatsApp, assume encryption is something you have to turn on manually, or think that seeing a QR code is the only way to ensure protection.
+        </p>
+        <p>
+          Usability and perception gaps are a security risk. People don’t use secure features if they don’t know what they’re for — or worse, if they don’t trust them.
+        </p>
+      </section>
+
+      <section>
+        <h2 class="section-heading">Failures at Scale</h2>
+        <p>
+          In practice, many breaches stem from outdated encryption (like SHA-1, RC4, or DES), poor randomness, or hardcoded keys. The OWASP Top 10 notes frequent problems like:
+        </p>
+        <ul>
+          <li>Data transmitted without TLS</li>
+          <li>Weak cryptographic defaults in libraries</li>
+          <li>Improper certificate validation</li>
+          <li>Storing passwords in plaintext or using broken hashes</li>
+        </ul>
+        <p>
+          Case studies like Apple’s infamous <code>goto fail;</code> SSL bug or the widespread use of insecure ECB mode in Android apps (as outlined in the <em>Cryptobugs</em> study) show that small mistakes can invalidate otherwise strong systems. Most errors don’t require deep cryptographic knowledge to fix — they require care, testing, and understanding of best practices.
+        </p>
+      </section>
+
+      <section>
+        <h2 class="section-heading">When Encrypted Phones Betray Their Owners</h2>
+        <p>
+          Soudijn et al. document how encrypted devices used by criminal networks became evidence goldmines after server seizures (e.g., EncroChat, SkyECC). In theory, these were secure. But the infrastructure was centralized, and once compromised, millions of messages were decrypted. This is a clear example of <strong>security collapsing at the seams</strong> — not because the encryption failed, but because the whole trust model did.
+        </p>
+        <p>
+          In these networks, users believed encrypted = invisible. But failure didn’t come from broken crypto — it came from overconfidence in closed ecosystems.
+        </p>
+      </section>
+
+      <section>
+        <h2 class="section-heading">Learning from Failure</h2>
+        <p>
+          Understanding cryptographic failure means learning where systems leak — not just in bits and bytes, but in assumptions, infrastructure, and social understanding. There is no perfect tool. But there are resilient ones, and knowing where they can fail is what makes them safer.
+        </p>
+        <p>
+          We don’t study cryptographic failure to undermine encryption — we study it because we believe in it.
+        </p>
+      </section>
+
+      <section>
+        <h2 class="section-heading">Next Steps</h2>
+        <p>Try this module in the terminal:</p>
+        <code>cd cpu</code><br/>
+        <code>cat sec.txt</code>
+
+        <p>Or continue visually:</p>
+        <a href="../crypto/keypair.html">→ Module 3: Keypair & Identity</a>
+      </section>
+
+      <section class="sources">
+        <h3>Further Reading</h3>
+        <ul>
+          <li>OWASP A02: <em>Cryptographic Failures</em> — <a href="https://owasp.org/Top10/A02_2021-Cryptographic_Failures/" target="_blank">owasp.org</a></li>
+          <li><em>When Encryption Works Perfectly and Still Fails</em> — Digital Seams</li>
+          <li>Dechand et al., <em>In Encryption We Don’t Trust</em> (EuroS&P, 2019)</li>
+          <li>Soudijn et al., <em>When Encryption Fails</em> — Global Crime (2022)</li>
+          <li>Ross Anderson, <em>Why Cryptosystems Fail</em></li>
+          <li>Lazar et al., <em>Cryptobugs: A Study of Real-World Crypto Failures</em> (MIT CSAIL)</li>
+          <li>Brunton & Nissenbaum, <em>Obfuscation</em></li>
+        </ul>
+      </section>
+
+      <footer>
+        <p><a href="../../index.html">← Back to Obfuscate-OS</a></p>
+      </footer>
     </main>
   </div>
+
   <script>
-    if (localStorage.getItem("theme") === "light") document.body.classList.add("light-mode");
+    if (localStorage.getItem("theme") === "light") {
+      document.body.classList.add("light-mode");
+    }
   </script>
 </body>
 </html>

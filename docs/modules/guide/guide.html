@@ -2,32 +2,67 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Terminal Guide</title>
+  <title>Terminal Basics (GUIDE)</title>
   <link rel="stylesheet" href="../../css/style.css" />
   <link rel="stylesheet" href="../../css/modules.css" />
 </head>
 <body>
   <div class="shell">
     <header id="terminal-header">
-      <h1>📖 Terminal Basics</h1>
-      <p>Learn how to use Bash-like commands in Obfuscate-OS.</p>
+      <h1>🖥️ Terminal Basics (GUIDE)</h1>
+      <p>Learn how to navigate Obfuscate-OS using Bash-style commands — and why the terminal matters.</p>
     </header>
 
-    <main>
+    <main class="module-content">
       <section>
-        <h2>Supported Commands</h2>
+        <h2 class="section-heading">Why the Terminal?</h2>
+        <p>
+          The command line interface (CLI) is minimal, powerful, and unforgiving. It demands precision — but gives you control. In Obfuscate-OS, the terminal isn’t just a way to navigate modules. It’s a space of literacy, resistance, and expression.
+        </p>
+        <p>
+          To use the terminal is to reveal structure. You see what’s hidden. You move with intent. You refuse to be guided by menus or metaphors. The shell shows the system’s skeleton.
+        </p>
+      </section>
+
+      <section>
+        <h2 class="section-heading">Supported Commands</h2>
         <ul>
-          <li><code>ls</code> – list directories</li>
-          <li><code>cd [folder]</code> – move directory</li>
-          <li><code>cat [file]</code> – read content</li>
-          <li><code>open [module]</code> – launch GUI</li>
+          <li><code>ls</code> — list files and directories in the current location</li>
+          <li><code>cd [folder]</code> — move into a subdirectory (e.g., <code>cd cpu</code>)</li>
+          <li><code>cat [file]</code> — print the contents of a plaintext file (e.g., <code>cat cpu.txt</code>)</li>
+          <li><code>open [module]</code> — open the visual version of a module (e.g., <code>open guide</code>)</li>
+          <li><code>clear</code> — reset the terminal display</li>
+          <li><code>help</code> — print a summary of available commands</li>
         </ul>
       </section>
-      <a href="../../index.html">← Back to Obfuscate-OS</a>
+
+      <section>
+        <h2 class="section-heading">Using the CLI to Learn Encryption</h2>
+        <p>
+          This interface isn’t just nostalgic. It models how encryption works — line by line, transformation by transformation. Running <code>cat cpu.txt</code> simulates how plaintext is read. Navigating to <code>cd crypto</code> reveals the file structure of concepts.
+        </p>
+        <p>
+          The terminal builds memory through repetition. It rewards curiosity. And it mirrors the logic of cryptography: access through syntax, protection through knowledge.
+        </p>
+      </section>
+
+      <section>
+        <h2 class="section-heading">Next Steps</h2>
+        <p>Try using the terminal interface directly on the homepage.</p>
+        <code>cd cpu</code><br />
+        <code>cat cpu.txt</code><br />
+        <code>open cpu</code>
+
+        <p>Or return to the main menu:</p>
+        <a href="../../index.html">← Back to Obfuscate-OS</a>
+      </section>
     </main>
   </div>
+
   <script>
-    if (localStorage.getItem("theme") === "light") document.body.classList.add("light-mode");
+    if (localStorage.getItem("theme") === "light") {
+      document.body.classList.add("light-mode");
+    }
   </script>
 </body>
 </html>

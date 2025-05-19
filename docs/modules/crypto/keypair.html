@@ -2,34 +2,112 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Key Pairs</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Keypair — Asymmetry and Trust</title>
   <link rel="stylesheet" href="../../css/style.css" />
   <link rel="stylesheet" href="../../css/modules.css" />
 </head>
 <body>
   <div class="shell">
     <header id="terminal-header">
-      <h1>🔑 Public Key Cryptography</h1>
-      <p>How asymmetric keys unlock encrypted communication and digital signatures.</p>
+      <h1>Asymmetric Encryption (KEYPAIR)</h1>
+      <p>Public and private keys — a foundational shift in trust, identity, and digital autonomy.</p>
     </header>
 
-    <main>
+    <main class="module-content">
       <section>
-        <h2>Keypair Basics</h2>
-        <ul>
-          <li>Public key: Share with others</li>
-          <li>Private key: Keep secret</li>
-        </ul>
+        <h2 class="section-heading">Why Keypairs?</h2>
         <p>
-          Encrypt with public ➜ Decrypt with private.  
-          Sign with private ➜ Verify with public.
+          In symmetric encryption, secrecy depends on a shared key — both sender and receiver must guard it. But in a world where secure, private coordination can’t always happen in advance, this model quickly breaks down.
+        </p>
+        <p>
+          Asymmetric encryption — also known as public-key cryptography — turns this problem inside out. You can make your encryption key public, freely available to the world. Anyone can use it to send you a secure message. But only you hold the corresponding private key to unlock it.
+        </p>
+        <p>
+          This isn’t just a technical advance — it’s a political and philosophical shift. Public-key systems allow people to speak securely without prior trust, without institutional mediation, and without assuming control over the network itself.
         </p>
       </section>
-      <a href="../../index.html">← Back to Obfuscate-OS</a>
+
+      <section>
+        <h2 class="section-heading">How It Works</h2>
+        <p>
+          A keypair consists of two mathematically related values:
+        </p>
+        <ul>
+          <li><strong>Public Key</strong>: Shared openly, used to encrypt messages or verify signatures.</li>
+          <li><strong>Private Key</strong>: Kept secret, used to decrypt or sign messages.</li>
+        </ul>
+        <p>
+          The math ensures that knowing the public key gives you no practical path to recover the private key. This is due to hard mathematical problems like factoring large primes (RSA), computing discrete logs (ElGamal), or solving elliptic curve equations (ECC):contentReference[oaicite:0]{index=0}.
+        </p>
+      </section>
+
+      <section>
+        <h2 class="section-heading">From Theory to Practice</h2>
+        <p>
+          When Whitfield Diffie and Martin Hellman introduced public-key cryptography in 1976, they broke open the assumption that encryption required secrecy on both ends. A year later, RSA offered a working implementation based on the intractability of factoring:contentReference[oaicite:1]{index=1}.
+        </p>
+        <p>
+          Since then, keypairs have become the backbone of secure communication. They power HTTPS, digital signatures, SSH authentication, and cryptocurrencies. They enable identity and privacy without needing to "meet first."
+        </p>
+      </section>
+
+      <section>
+        <h2 class="section-heading">The Trust Problem</h2>
+        <p>
+          Even in a public-key system, you need to know whose key you’re using. This is where things get tricky. If a malicious actor distributes a fake key pretending to be someone else, they can intercept or forge messages. That’s called a <em>man-in-the-middle</em> attack.
+        </p>
+        <p>
+          To counter this, systems rely on Public Key Infrastructure (PKI) — a bureaucratic network of certificate authorities that validate identities. But centralized trust systems raise new questions: who gets to be a certificate authority? Who audits them? And what happens when they fail?
+        </p>
+      </section>
+
+      <section>
+        <h2 class="section-heading">Lessons and Warnings</h2>
+        <p>
+          Public-key systems are powerful — but their strength lies not in magic, but in architecture. They demand good key management, critical awareness of trust models, and a clear understanding of who controls what.
+        </p>
+        <p>
+          As <em>PKC 2023</em> outlines, even minor implementation flaws can lead to full compromise. Padding errors, insecure randomness, or sloppy certificate handling can expose users even when the core math is sound:contentReference[oaicite:2]{index=2}.
+        </p>
+        <p>
+          Cryptography is not just about computation — it's about control, access, and interpretation. And like any tool, keypairs are only as protective as the systems (and people) that wield them.
+        </p>
+      </section>
+
+      <section>
+        <h2 class="section-heading">Next Steps</h2>
+        <p>Try this module in the terminal:</p>
+        <code>cd crypto</code><br/>
+        <code>cat keypair.txt</code>
+
+        <p>Or continue visually:</p>
+        <a href="cypher.html">→ Module 4: Classical and Modern Ciphers</a>
+      </section>
+
+      <section class="sources">
+        <h3>Further Reading</h3>
+        <ul>
+          <li>Diffie & Hellman, “New Directions in Cryptography” (1976)</li>
+          <li>Rivest, Shamir, Adleman, “A Method for Obtaining Digital Signatures and Public-Key Cryptosystems” (1978)</li>
+          <li><em>Introduction to Modern Cryptography</em> — Katz & Lindell</li>
+          <li><em>The Mathematics of Secrets</em> — Holden</li>
+          <li><em>Cryptography Made Simple</em> — Smart</li>
+          <li><em>Public-Key Cryptography — PKC 2023</em> — Springer LNCS</li>
+          <li><em>Encyclopedia of Cryptography and Security</em> — van Tilborg</li>
+        </ul>
+      </section>
+
+      <footer>
+        <p><a href="../../index.html">← Back to Obfuscate-OS</a></p>
+      </footer>
     </main>
   </div>
+
   <script>
-    if (localStorage.getItem("theme") === "light") document.body.classList.add("light-mode");
+    if (localStorage.getItem("theme") === "light") {
+      document.body.classList.add("light-mode");
+    }
   </script>
 </body>
 </html>

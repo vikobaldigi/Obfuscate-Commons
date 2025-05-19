@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Encryption Ethics</title>
   <link rel="stylesheet" href="../../css/style.css" />
   <link rel="stylesheet" href="../../css/modules.css" />
@@ -9,24 +10,86 @@
 <body>
   <div class="shell">
     <header id="terminal-header">
-      <h1>⚖️ Encryption Ethics</h1>
-      <p>Obfuscation is political. So are your tools.</p>
+      <h1>⚖️ Encryption Ethics (ETHICS)</h1>
+      <p>Who gets to hide, who gets to see — and what encryption makes possible.</p>
     </header>
 
-    <main>
+    <main class="module-content">
+
       <section>
-        <blockquote>
-          “Obfuscation is for those without better options.” — Brunton & Nissenbaum
-        </blockquote>
+        <h2 class="section-heading">Encryption Is Political</h2>
         <p>
-          Encryption raises hard questions: when is it ethical? When is it harmful? What risks are you masking?
+          Encryption is not neutral. It redistributes power. It decides who can speak safely, who can be surveilled, who gets to disappear.
+        </p>
+        <p>
+          Governments may frame it as a threat. Activists may rely on it to survive. Corporations may sell it as a feature while hoarding your metadata.
         </p>
       </section>
-      <a href="../../index.html">← Back to Obfuscate-OS</a>
+
+      <section>
+        <h2 class="section-heading">Privacy vs. Secrecy</h2>
+        <p>
+          Privacy is not the same as secrecy. Privacy is a boundary. Secrecy is an intention. Encryption can support both — or be misused to undermine them.
+        </p>
+        <p>
+          Whistleblowers, journalists, survivors — they need encryption to protect dignity and truth. But so do abusers, fraudsters, and regimes. The same tools serve many ends.
+        </p>
+      </section>
+
+      <section>
+        <h2 class="section-heading">Obfuscation as Protest</h2>
+        <p>
+          Not everyone can encrypt. But everyone can obfuscate. Add noise. Disrupt patterns. Confuse extractive systems.
+        </p>
+        <p>
+          As Brunton and Nissenbaum argue, obfuscation is not deception — it’s refusal. It’s a tactic of the weak against the strong. A politics of ambiguity.
+        </p>
+      </section>
+
+      <section>
+        <h2 class="section-heading">Ethical Questions to Consider</h2>
+        <ul>
+          <li>Should encryption be a universal right?</li>
+          <li>What are the costs of criminalizing secrecy?</li>
+          <li>When does secure communication become a threat?</li>
+          <li>Who designs encryption standards — and for whom?</li>
+        </ul>
+        <p>
+          Ethics isn’t just about what encryption does. It’s about who it enables, who it excludes, and what values it encodes.
+        </p>
+      </section>
+
+      <section>
+        <h2 class="section-heading">Next Steps</h2>
+        <p>Explore this module in the terminal:</p>
+        <code>cd crypto</code><br/>
+        <code>cat ethics.txt</code>
+
+        <p>Or return to the homepage:</p>
+        <a href="../../index.html">← Back to Obfuscate-OS</a>
+      </section>
+
+      <section class="sources">
+        <h3>Sources & Further Reading</h3>
+        <ul>
+          <li>Brunton & Nissenbaum, <em>Obfuscation: A User’s Guide</em> — MIT Press</li>
+          <li>Snowden, Edward. <em>Permanent Record</em></li>
+          <li>EFF — <a href="https://eff.org">eff.org</a></li>
+          <li>Gilliom & Monahan, <em>SuperVision: An Introduction to the Surveillance Society</em></li>
+        </ul>
+      </section>
+
+      <footer>
+        <p><a href="../../index.html">← Back to Obfuscate-OS</a></p>
+      </footer>
+
     </main>
   </div>
+
   <script>
-    if (localStorage.getItem("theme") === "light") document.body.classList.add("light-mode");
+    if (localStorage.getItem("theme") === "light") {
+      document.body.classList.add("light-mode");
+    }
   </script>
 </body>
 </html>

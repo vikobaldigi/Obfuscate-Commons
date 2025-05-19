@@ -1,5 +1,4 @@
 // /docs/js/terminal.js
-// Fully upgraded terminal command engine for Obfuscate-OS
 
 document.addEventListener("DOMContentLoaded", () => {
   const output = document.getElementById("terminal-output");
@@ -99,9 +98,9 @@ document.addEventListener("DOMContentLoaded", () => {
           cypher: "modules/crypto/cypher.html",
           net: "modules/net/net.html",
           guide: "modules/guide/guide.html",
-          system: "system.html",
           tools: "modules/crypto/tools.html",
-          ethics: "modules/crypto/ethics.html"
+          ethics: "modules/crypto/ethics.html",
+          blockchain: "modules/blockchain/blockchain.html"
         };
         if (!arg) result = "Usage: open [module]";
         else if (guiPaths[arg]) window.location.href = guiPaths[arg];

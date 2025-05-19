@@ -2,29 +2,111 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Cyphers</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Cypher — Symmetric Encryption</title>
   <link rel="stylesheet" href="../../css/style.css" />
   <link rel="stylesheet" href="../../css/modules.css" />
 </head>
 <body>
   <div class="shell">
     <header id="terminal-header">
-      <h1>🌀 Ciphers & Obfuscation</h1>
-      <p>From Caesar to AES — how we scramble data and hide in plain sight.</p>
+      <h1>🔒 Symmetric Ciphers (CYPHER)</h1>
+      <p>Explore shared secrets, fast locks, and the art of one-key encryption.</p>
     </header>
 
-    <main>
+    <main class="module-content">
+
       <section>
-        <h2>Classical</h2>
-        <p>Caesar Cipher, Vigenère Cipher — simple substitution techniques vulnerable to frequency analysis.</p>
-        <h2>Modern</h2>
-        <p>AES, RSA, ECC — robust, mathematically-secure encryption systems used globally today.</p>
+        <h2 class="section-heading">What Is Symmetric Encryption?</h2>
+        <p>
+          Symmetric encryption uses a single key to both encrypt and decrypt data. If you and I share the same key, I can lock the message, and you can unlock it.
+        </p>
+        <p>
+          It's simple, fast, and efficient — especially for large volumes of data. But it depends on one fragile thing: keeping that shared key secret.
+        </p>
       </section>
-      <a href="../../index.html">← Back to Obfuscate-OS</a>
+
+      <section>
+        <h2 class="section-heading">Block vs Stream</h2>
+        <p>
+          Symmetric algorithms come in two flavors:
+        </p>
+        <ul>
+          <li><strong>Block ciphers</strong> (like AES): encrypt data in fixed-size chunks. Think of it like sealing one box at a time.</li>
+          <li><strong>Stream ciphers</strong> (like ChaCha20): encrypt data bit by bit or byte by byte. Think of it like turning on a hose of encryption.</li>
+        </ul>
+        <p>
+          Both are fast and secure when used correctly. But misuse — like reusing a key or skipping padding — can crack them wide open.
+        </p>
+      </section>
+
+      <section>
+        <h2 class="section-heading">Historical Ciphers</h2>
+        <p>
+          Before AES and ChaCha, we had:
+        </p>
+        <ul>
+          <li><strong>Caesar Cipher</strong>: shift letters by a fixed amount</li>
+          <li><strong>Vigenère Cipher</strong>: cycle through multiple Caesar ciphers using a keyword</li>
+          <li><strong>Playfair, Enigma, XOR</strong>: various historical and wartime ciphers that still shape modern thought</li>
+        </ul>
+        <p>
+          These were symmetric too — same key in, same key out. Today, they're broken — but conceptually foundational.
+        </p>
+      </section>
+
+      <section>
+        <h2 class="section-heading">Modern Symmetric Standards</h2>
+        <ul>
+          <li><strong>AES (Advanced Encryption Standard)</strong>: the global standard. Fast, robust, and widely trusted.</li>
+          <li><strong>ChaCha20</strong>: a modern stream cipher designed to be fast and secure even on mobile devices.</li>
+          <li><strong>RC4, DES</strong>: older algorithms no longer considered secure.</li>
+        </ul>
+        <p>
+          Symmetric ciphers are used everywhere: disk encryption, VPNs, file storage, and messaging apps. They’re the workhorses of privacy.
+        </p>
+      </section>
+
+      <section>
+        <h2 class="section-heading">Risks and Tradeoffs</h2>
+        <p>
+          The main risk in symmetric encryption is key distribution. How do you share a key with someone securely — before you have a secure channel?
+        </p>
+        <p>
+          That’s why symmetric systems are often paired with public-key systems. You use public-key crypto to exchange the symmetric key, then switch to symmetric for speed.
+        </p>
+      </section>
+
+      <section>
+        <h2 class="section-heading">Next Steps</h2>
+        <p>Read this module in the terminal interface:</p>
+        <code>cd crypto</code><br/>
+        <code>cat cypher.txt</code>
+
+        <p>Or continue to the tools module:</p>
+        <a href="tools.html">→ Encryption Tools</a>
+      </section>
+
+      <section class="sources">
+        <h3>Sources & Further Reading</h3>
+        <ul>
+          <li>Joshua Holden, <em>The Mathematics of Secrets</em> — Princeton University Press</li>
+          <li>Nigel Smart, <em>Cryptography Made Simple</em> — Springer</li>
+          <li>Katz & Lindell, <em>Introduction to Modern Cryptography</em></li>
+        </ul>
+      </section>
+
+      <footer>
+        <p><a href="../../index.html">← Back to Obfuscate-OS</a></p>
+      </footer>
+
     </main>
   </div>
+
   <script>
-    if (localStorage.getItem("theme") === "light") document.body.classList.add("light-mode");
+    if (localStorage.getItem("theme") === "light") {
+      document.body.classList.add("light-mode");
+    }
   </script>
 </body>
 </html>

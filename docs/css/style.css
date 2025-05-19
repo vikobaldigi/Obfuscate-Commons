@@ -7,13 +7,14 @@
   --text: #b98eff;
   --accent: #d9b3ff;
   --font: 'Courier New', monospace;
+  --font-body: 'Inter', 'Helvetica Neue', sans-serif;
 }
 
 body {
   margin: 0;
   background-color: var(--bg);
   color: var(--text);
-  font-family: var(--font);
+  font-family: var(--font-body);
   min-height: 100vh;
   padding: 0;
 }
@@ -42,6 +43,7 @@ body {
   text-shadow: 0 0 8px var(--accent);
   animation: pulse 3s infinite;
   margin-bottom: 0.3em;
+  font-family: var(--font);
 }
 
 #terminal-header p {
@@ -49,6 +51,7 @@ body {
   color: var(--text);
   margin: 0;
   margin-bottom: 0.6em;
+  font-family: var(--font);
 }
 
 /* Unified Button Style */
@@ -227,6 +230,7 @@ main {
   line-height: 1.65;
   font-size: 1.05rem;
   text-align: left;
+  font-family: var(--font-body);
 }
 
 main h2,
@@ -238,6 +242,7 @@ main h2,
   border-bottom: 1px solid var(--accent);
   padding-bottom: 0.25rem;
   color: var(--accent);
+  font-family: var(--font);
 }
 
 main code {
@@ -245,6 +250,7 @@ main code {
   padding: 0.1rem 0.4rem;
   border-radius: 3px;
   font-size: 0.95rem;
+  font-family: var(--font);
 }
 
 body.light-mode main code {
@@ -258,6 +264,7 @@ main pre {
   border-left: 4px solid var(--accent);
   overflow-x: auto;
   font-size: 0.95rem;
+  font-family: var(--font);
 }
 
 body.light-mode main pre {

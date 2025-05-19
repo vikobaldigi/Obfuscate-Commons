@@ -4,40 +4,59 @@
 window.ObfuscateFS = {
   currentPath: "/",
   structure: {
-    "/": ["cpu", "crypto", "net", "guide"],
+    "/": ["cpu", "crypto", "net", "guide", "blockchain"],
     "/cpu": ["cpu.txt", "sec.txt"],
     "/crypto": ["keypair.txt", "cypher.txt", "tools.txt", "ethics.txt"],
     "/net": ["net.txt"],
-    "/guide": ["guide.txt"]
+    "/guide": ["guide.txt"],
+    "/blockchain": ["blockchain.txt"]
   },
-  files: {} // Loaded dynamically
-};
+  files: {
+    "/cpu/cpu.txt": `# Module 1: CPU — Introduction to Encryption
+Encryption turns readable data (plaintext) into unreadable noise (ciphertext).
+It allows secure communication, protects privacy, and enables authentication.
 
-// Function to load external .txt files into memory
-async function loadTextFile(path, url) {
-  try {
-    const response = await fetch(url);
-    const text = await response.text();
-    window.ObfuscateFS.files[path] = text;
-  } catch (error) {
-    console.error(`Failed to load ${url}`, error);
-    window.ObfuscateFS.files[path] = `ERROR: Could not load ${url}`;
+Try: cd crypto → cat keypair.txt`,
+
+    "/cpu/sec.txt": `# Module 2: SEC — Cryptographic Failures
+Even strong algorithms can fail if implemented poorly or used incorrectly.
+
+Try: cd net → cat net.txt`,
+
+    "/crypto/keypair.txt": `# Public-Key Cryptography
+Asymmetric encryption uses a keypair: public to encrypt, private to decrypt.
+
+Try: cd crypto → cat cypher.txt`,
+
+    "/crypto/cypher.txt": `# Symmetric Encryption
+AES, DES, and other symmetric algorithms use one shared secret key.
+
+Try: cd guide → cat guide.txt`,
+
+    "/crypto/tools.txt": `# Encryption Tools
+Explore tools like GPG, age, Veracrypt, and Signal.
+
+Try: cd crypto → cat ethics.txt`,
+
+    "/crypto/ethics.txt": `# Encryption Ethics
+Encryption shapes power. Who gets to hide, and who gets exposed?
+
+Try: cd blockchain → cat blockchain.txt`,
+
+    "/net/net.txt": `# Metadata Awareness
+Metadata reveals who talks to whom, when, and where.
+
+Try: cd guide → cat guide.txt`,
+
+    "/guide/guide.txt": `# Terminal Basics
+Learn Bash-style commands to navigate and decrypt Obfuscate-OS.
+
+Try: cd cpu → cat cpu.txt`,
+
+    "/blockchain/blockchain.txt": `# Blockchain & Cryptocurrency
+Blockchains use encryption to build trust without central authority.
+Public-key cryptography, digital signatures, and hashing power decentralized ledgers.
+
+Try: open blockchain`
   }
-}
-
-// Map CLI file paths to URLs
-const txtFiles = {
-  "/cpu/cpu.txt": "modules/cpu/cpu.txt",
-  "/cpu/sec.txt": "modules/cpu/sec.txt",
-  "/crypto/keypair.txt": "modules/crypto/keypair.txt",
-  "/crypto/cypher.txt": "modules/crypto/cypher.txt",
-  "/crypto/tools.txt": "modules/crypto/tools.txt",
-  "/crypto/ethics.txt": "modules/crypto/ethics.txt",
-  "/net/net.txt": "modules/net/net.txt",
-  "/guide/guide.txt": "modules/guide/guide.txt"
 };
-
-// Preload all text files into memory
-Object.entries(txtFiles).forEach(([path, url]) => {
-  loadTextFile(path, url);
-});
