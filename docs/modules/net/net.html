@@ -6,79 +6,107 @@
   <title>NET — Metadata Awareness</title>
   <link rel="stylesheet" href="../../css/style.css" />
   <link rel="stylesheet" href="../../css/modules.css" />
+  <link rel="stylesheet" href="../../css/animations.css" />
 </head>
 <body>
   <div class="shell">
     <header id="terminal-header">
       <h1>Metadata Awareness (NET)</h1>
-      <p>Networks, metadata, and the unseen architecture of surveillance.</p>
+      <p>Metadata is the map, not the terrain — but it’s the map that’s archived, mined, and acted upon.</p>
     </header>
 
     <main class="module-content">
-
-      <section>
+      <section class="fade-in-up">
         <h2 class="section-heading">What Is Metadata?</h2>
         <p>
-          Metadata is often defined as "data about data," but this simple definition misses its depth. Metadata is a means of simplifying complexity — a way to describe, locate, and structure information in a chaotic digital world. As Pomerantz writes, metadata is like a map: it doesn’t replace the territory, but it allows us to navigate it (Pomerantz, <em>Metadata</em>).
+          Metadata is often described as “data about data,” but this description is too shallow. As Pomerantz explains in <em>Metadata</em>,
+          metadata is a way of managing complexity — simplifying rich information into legible, extractable fragments. It structures the digital world
+          and makes it searchable, sortable, and surveillable.
         </p>
         <p>
-          Every email you send, photo you upload, or webpage you visit carries metadata — timestamps, geolocation, file types, browser info. You might forget a phone call, but your phone carrier won’t. Metadata is persistent and invisible, and it increasingly defines the boundaries of what can be known or predicted about us.
+          Your devices emit metadata constantly: timestamps, IP addresses, geolocations, file types, browsing paths.
+          These traces are rarely seen by users, but they are captured, aggregated, and analyzed across platforms.
+          Metadata isn’t just technical — it’s political. It determines who is visible, to whom, and under what conditions.
         </p>
       </section>
 
-      <section>
+      <div class="section-break"></div>
+
+      <section class="fade-in-up">
         <h2 class="section-heading">Networks of Metadata</h2>
         <p>
-          Metadata doesn't exist in isolation. It's generated, exchanged, and interpreted across digital networks. Think of social media posts, surveillance systems, or academic citations — each node (person, file, post) is connected to others through metadata: who created it, when, where, on what device, in what context.
+          Metadata flows through networks. As Pomerantz outlines using graph theory, networks are made of <em>nodes</em> (users, devices)
+          and <em>edges</em> (relationships: calls, messages, visits). Metadata lives in these edges — it describes when and how connections happen.
         </p>
         <p>
-          The structure of these networks follows patterns studied in graph theory: nodes (people, places, devices) and edges (relationships, transmissions). Network topology influences how metadata flows and who can intercept, aggregate, or manipulate it (Pomerantz, <em>Metadata</em>).
+          From Facebook to phone records, social graphs model behavior using metadata.
+          These structures are not neutral — they’re shaped by design, law, and business.
         </p>
       </section>
 
-      <section>
-        <h2 class="section-heading">Metadata as Surveillance Infrastructure</h2>
+      <div class="section-break"></div>
+
+      <section class="fade-in-up">
+        <h2 class="section-heading">Metadata as Infrastructure</h2>
         <p>
-          As the NSA scandal revealed, metadata collection can be more invasive than content surveillance. While the message of a phone call might be private, knowing who called whom, when, and how often builds a web of social and political connections. Metadata reveals networks — and thus, targets.
+          Metadata is foundational to the modern web. It powers search engines, surveillance systems, and personalization algorithms.
         </p>
         <p>
-          Pomerantz emphasizes that metadata has become a form of infrastructure — as essential and invisible as roads or electricity. We live in a metadata society: one that tracks, archives, and analyzes our movement through digital space (Pomerantz, <em>Metadata</em>).
+          Pomerantz writes that metadata “fades into the background” — it structures visibility and memory but is rarely seen.
+          It’s how we are read by machines.
+        </p>
+        <p>
+          Manovich adds that metadata feeds cultural analytics: tags, views, behaviors, paths. It’s a second layer of cultural record.
         </p>
       </section>
 
-      <section>
-        <h2 class="section-heading">Obfuscation and Metadata Resistance</h2>
+      <div class="section-break"></div>
+
+      <section class="fade-in-up">
+        <h2 class="section-heading">Surveillance and Inference</h2>
         <p>
-          Obfuscation — the strategic production of misleading or excessive metadata — is one form of resistance. From browser plugins that generate fake searches to tools that spoof GPS locations, obfuscation clouds the signal and disrupts inference.
+          The Snowden leaks revealed how metadata drives modern surveillance. “We kill people based on metadata,” said NSA director Hayden.
         </p>
         <p>
-          Brunton and Nissenbaum argue that in systems designed to make you legible, refusal is powerful. Metadata can be weaponized, but it can also be blurred, poisoned, or flooded. Knowing how metadata works gives you the power to decide how much of yourself to reveal (Brunton & Nissenbaum, <em>Obfuscation</em>).
+          It’s not what you said — it’s who you’re near, when you talk, how often. This is enough to target and infer identity.
+        </p>
+        <p>
+          Cultural institutions use this same metadata logic to infer taste, attention, and influence.
         </p>
       </section>
 
-      <section>
+      <div class="section-break"></div>
+
+      <section class="fade-in-up">
+        <h2 class="section-heading">Obfuscation as Metadata Resistance</h2>
+        <p>
+          You can’t erase metadata — but you can pollute it. Brunton and Nissenbaum propose obfuscation: misleading metadata, false patterns,
+          randomized signals. This shifts the cost of surveillance back to the observer.
+        </p>
+        <p>
+          Obfuscation isn’t erasure. It’s friction. It’s a refusal to be fully legible to systems that demand transparency without consent.
+        </p>
+      </section>
+
+      <div class="section-break"></div>
+
+      <section class="fade-in-up">
         <h2 class="section-heading">Next Steps</h2>
-        <p>To read this module in the terminal interface:</p>
-        <code>cd net</code><br/>
-        <code>cat net.txt</code>
-
-        <p>Or continue to the next visual module:</p>
-        <a href="../guide/guide.html">→ Module 4: Terminal Basics</a>
+        <a href="../guide/guide.html" class="nav-button">→ Module 6: Terminal Basics</a>
       </section>
 
       <section class="sources">
-        <h3>Sources & Further Reading</h3>
+        <h3>Further Reading</h3>
         <ul>
           <li>Jeffrey Pomerantz, <em>Metadata</em> — <a href="https://mitpress.mit.edu/9780262331197/metadata/" target="_blank">MIT Press</a></li>
           <li>Brunton & Nissenbaum, <em>Obfuscation</em> — <a href="https://mitpress.mit.edu/9780262529860/obfuscation/" target="_blank">MIT Press</a></li>
-          <li>The Guardian, “Guide to Metadata and the NSA” — <a href="https://www.theguardian.com/technology/interactive/2013/jun/12/what-is-metadata-nsa-surveillance" target="_blank">theguardian.com</a></li>
+          <li>Lev Manovich, <em>Cultural Analytics</em> — MIT Press, 2020</li>
         </ul>
       </section>
 
       <footer>
         <p><a href="../../index.html">← Back to Obfuscate-OS</a></p>
       </footer>
-
     </main>
   </div>
 

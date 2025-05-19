@@ -6,6 +6,13 @@
   <title>SEC — Cryptographic Failures</title>
   <link rel="stylesheet" href="../../css/style.css" />
   <link rel="stylesheet" href="../../css/modules.css" />
+  <link rel="stylesheet" href="../../css/animations.css" />
+  <style>
+    body { padding-top: 1em; }
+    header#terminal-header { margin-bottom: 0.5em; }
+    header#terminal-header h1 { margin-bottom: 0.2em; }
+    main.module-content { margin-top: 0.5em; }
+  </style>
 </head>
 <body>
   <div class="shell">
@@ -15,7 +22,8 @@
     </header>
 
     <main class="module-content">
-      <section>
+
+      <section class="fade-in-up">
         <h2 class="section-heading">Introduction</h2>
         <p>
           Encryption isn’t invincibility. This module explores the concept of <strong>cryptographic failure</strong>: not when the math fails, but when people do. These are failures of implementation, trust, key management, or assumptions — and they’re often the most common, subtle, and dangerous.
@@ -25,7 +33,9 @@
         </p>
       </section>
 
-      <section>
+      <div class="section-break"></div>
+
+      <section class="fade-in-up">
         <h2 class="section-heading">Failures by Design, Not by Math</h2>
         <p>
           When encryption fails, it’s rarely because someone cracked the code. More often, the failure happens somewhere else: a misconfigured server, an outdated protocol, a forgotten certificate. As Ross Anderson reminds us in <em>Why Cryptosystems Fail</em>, the real vulnerabilities tend to come from interface design, operational shortcuts, and misplaced trust in perfect systems.
@@ -35,7 +45,9 @@
         </p>
       </section>
 
-      <section>
+      <div class="section-break"></div>
+
+      <section class="fade-in-up">
         <h2 class="section-heading">Perfect Encryption, Still Compromised</h2>
         <p>
           Signal, one of the most secure messaging systems in the world, didn’t leak data due to a cryptographic flaw. Instead, a U.S. official mistakenly added a journalist to a secure group chat. As <em>Digital Seams</em> recounts, everything worked as intended — except the human layer. This is what Lea Kissner calls <strong>Kissner’s Law</strong>: cryptography turns many problems into <em>key management problems</em>, and those are harder than they look.
@@ -45,7 +57,9 @@
         </p>
       </section>
 
-      <section>
+      <div class="section-break"></div>
+
+      <section class="fade-in-up">
         <h2 class="section-heading">Misunderstanding as Vulnerability</h2>
         <p>
           A major encryption rollout doesn’t mean users are safe. The 2019 study <em>In Encryption We Don’t Trust</em> found that users often misunderstand what “encrypted” means. Many believe SMS is safer than WhatsApp, assume encryption is something you have to turn on manually, or think that seeing a QR code is the only way to ensure protection.
@@ -55,7 +69,9 @@
         </p>
       </section>
 
-      <section>
+      <div class="section-break"></div>
+
+      <section class="fade-in-up">
         <h2 class="section-heading">Failures at Scale</h2>
         <p>
           In practice, many breaches stem from outdated encryption (like SHA-1, RC4, or DES), poor randomness, or hardcoded keys. The OWASP Top 10 notes frequent problems like:
@@ -71,7 +87,9 @@
         </p>
       </section>
 
-      <section>
+      <div class="section-break"></div>
+
+      <section class="fade-in-up">
         <h2 class="section-heading">When Encrypted Phones Betray Their Owners</h2>
         <p>
           Soudijn et al. document how encrypted devices used by criminal networks became evidence goldmines after server seizures (e.g., EncroChat, SkyECC). In theory, these were secure. But the infrastructure was centralized, and once compromised, millions of messages were decrypted. This is a clear example of <strong>security collapsing at the seams</strong> — not because the encryption failed, but because the whole trust model did.
@@ -81,7 +99,9 @@
         </p>
       </section>
 
-      <section>
+      <div class="section-break"></div>
+
+      <section class="fade-in-up">
         <h2 class="section-heading">Learning from Failure</h2>
         <p>
           Understanding cryptographic failure means learning where systems leak — not just in bits and bytes, but in assumptions, infrastructure, and social understanding. There is no perfect tool. But there are resilient ones, and knowing where they can fail is what makes them safer.
@@ -91,14 +111,11 @@
         </p>
       </section>
 
-      <section>
-        <h2 class="section-heading">Next Steps</h2>
-        <p>Try this module in the terminal:</p>
-        <code>cd cpu</code><br/>
-        <code>cat sec.txt</code>
+      <div class="section-break"></div>
 
-        <p>Or continue visually:</p>
-        <a href="../crypto/keypair.html">→ Module 3: Keypair & Identity</a>
+      <section class="fade-in-up">
+        <h2 class="section-heading">Next Steps</h2>
+        <a href="../crypto/keypair.html" class="nav-button">→ Module 3: Keypair & Identity</a>
       </section>
 
       <section class="sources">

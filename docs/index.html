@@ -4,87 +4,54 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Obfuscate-OS v2.1</title>
-
+  <title>Obfuscate-OS v2.0</title>
   <!-- Styles -->
   <link rel="stylesheet" href="css/style.css" />
   <link rel="stylesheet" href="css/modules.css" />
-  <link rel="stylesheet" href="css/terminal.css" />
+  <link rel="stylesheet" href="css/animations.css" />
+  <style>
+    body {
+      padding-top: 1.5em;
+    }
+    header#terminal-header {
+      margin-bottom: 1.5em;
+    }
+    header#terminal-header h1 {
+      margin-bottom: 0.3em;
+    }
+    main#module-grid {
+      margin-top: 0.5em;
+    }
+  </style>
 </head>
 <body>
   <div class="shell">
-    <!-- Header -->
     <header id="terminal-header">
-      <h1>Obfuscate-OS v2.1</h1>
-      <p>A modular guide for encryption, command line, and digital resistance.</p>
+      <h1>Obfuscate-OS v2.0</h1>
+      <p>A modular guide for encryption, digital resistance, and metadata awareness.</p>
+      <button id="toggle-theme">Toggle Theme</button>
     </header>
 
-    <!-- Theme Toggle (Centered) -->
-    <div style="text-align: center;">
-      <button id="toggle-theme">Toggle Theme</button>
-    </div>
-
-    <!-- View Toggle -->
-    <div id="view-toggle">
-      <button onclick="switchTo('gui')">GUI View</button>
-      <button onclick="switchTo('terminal')">Terminal View</button>
-    </div>
-
-    <!-- GUI Grid View -->
     <main id="module-grid"></main>
-
-    <!-- Terminal Interface -->
-    <div id="terminal-container" style="display: none;">
-      <div id="terminal-output" style="white-space: pre-wrap; padding-bottom: 4em;"></div>
-      <form id="terminal-form">
-        <span class="prompt">$</span>
-        <input id="terminal-input" type="text" autocomplete="off" autofocus />
-        <span class="cursor">▍</span>
-      </form>
-    </div>
-
-    <!-- Footer -->
-    <footer id="site-footer">
-      <p>© 2025 Philip Kovacevic — Obfuscate-OS Project</p>
-      <p>Licensed under <a href="https://opensource.org/licenses/MIT" target="_blank">MIT License</a></p>
-      <p>
-        <a href="https://github.com/vikobaldigi" target="_blank">GitHub</a> |
-        <a href="mailto:vikobal@protonmail.com">Email</a> |
-        <a href="https://www.vikobal.net" target="_blank">Portfolio</a>
-      </p>
-    </footer>
   </div>
+
+  <footer id="site-footer">
+    <p>© 2025 Philip Kovacevic — Obfuscate-OS Project</p>
+    <p>Licensed under <a href="https://opensource.org/licenses/MIT" target="_blank">MIT License</a></p>
+    <p>
+      <a href="https://github.com/vikobaldigi" target="_blank">GitHub</a> |
+      <a href="mailto:vikobal@protonmail.com">Email</a> |
+      <a href="https://www.vikobal.net" target="_blank">Portfolio</a>
+    </p>
+  </footer>
 
   <!-- Scripts -->
   <script src="js/modules/module-data.js"></script>
   <script src="js/modules/module-loader.js"></script>
-  <script src="js/filesystem.js"></script>
-  <script src="js/terminal.js"></script>
-
-  <!-- Theme Persistence & View Switching -->
   <script>
-    const body = document.body;
-    const storedTheme = localStorage.getItem("theme");
-    if (storedTheme === "light") {
-      body.classList.add("light-mode");
-    }
-
     document.getElementById("toggle-theme").addEventListener("click", () => {
-      body.classList.toggle("light-mode");
-      localStorage.setItem("theme", body.classList.contains("light-mode") ? "light" : "dark");
+      document.body.classList.toggle("light-mode");
     });
-
-    function switchTo(mode) {
-      const grid = document.getElementById("module-grid");
-      const term = document.getElementById("terminal-container");
-      if (mode === "gui") {
-        grid.style.display = "grid";
-        term.style.display = "none";
-      } else {
-        grid.style.display = "none";
-        term.style.display = "block";
-      }
-    }
   </script>
 </body>
 </html>

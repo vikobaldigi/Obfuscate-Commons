@@ -6,7 +6,20 @@
   <title>CPU — Learn Encryption</title>
   <link rel="stylesheet" href="../../css/style.css" />
   <link rel="stylesheet" href="../../css/modules.css" />
+  <link rel="stylesheet" href="../../css/animations.css" />
   <style>
+    body {
+      padding-top: 1em;
+    }
+    header#terminal-header {
+      margin-bottom: 0.5em;
+    }
+    header#terminal-header h1 {
+      margin-bottom: 0.2em;
+    }
+    main.module-content {
+      margin-top: 0.5em;
+    }
     table.encryption-table {
       width: 100%;
       border-collapse: collapse;
@@ -36,37 +49,51 @@
     </header>
 
     <main class="module-content">
-      <section>
+      <section class="fade-in-up">
         <h2 class="section-heading">Why Encryption?</h2>
         <p>
-          Encryption is the mechanism by which we can keep digital communication private — not just from malicious actors, but from institutions whose interests don't always align with ours. It’s about defending the boundaries of personal meaning.
+          Encryption is the mechanism by which we can keep digital communication private — not just from malicious actors,
+          but from institutions whose interests don't always align with ours. It’s about defending the boundaries of personal meaning.
         </p>
         <p>
-          While often marketed for enterprise compliance or secure transactions, the real power of encryption lies in its ability to empower individuals to selectively share information — to speak securely and be heard on their own terms.
+          While often marketed for enterprise compliance or secure transactions, the real power of encryption lies in its ability
+          to empower individuals to selectively share information — to speak securely and be heard on their own terms.
         </p>
       </section>
 
-      <section>
+      <div class="section-break"></div>
+
+      <section class="fade-in-up">
         <h2 class="section-heading">Encryption vs Obfuscation</h2>
         <p>
-          Encryption encodes messages so only those with the key can read them. Obfuscation, meanwhile, floods the system with misleading signals to conceal what matters. Together, they challenge the asymmetry of visibility — where we are watched, but cannot watch back.
+          Encryption encodes messages so only those with the key can read them. Obfuscation, meanwhile, floods the system
+          with misleading signals to conceal what matters. Together, they challenge the asymmetry of visibility —
+          where we are watched, but cannot watch back.
         </p>
       </section>
 
-      <section>
+      <div class="section-break"></div>
+
+      <section class="fade-in-up">
         <h2 class="section-heading">From Caesar to Surveillance</h2>
         <p>
-          In ancient Rome, Caesar used a shift cipher to disguise military communications. It was simple: shift every letter forward in the alphabet. But it planted a seed — the idea that secrecy could be constructed, altered, resisted.
+          In ancient Rome, Caesar used a shift cipher to disguise military communications. It was simple:
+          shift every letter forward in the alphabet. But it planted a seed — the idea that secrecy could be constructed, altered, resisted.
         </p>
         <p>
-          Today, encryption algorithms like RSA and AES go far beyond letter shifts. They employ mathematical complexity to shield our data from brute-force surveillance — not only by individual attackers, but by institutions that rely on patterns, metadata, and mass collection.
+          Today, encryption algorithms like RSA and AES go far beyond letter shifts. They employ mathematical complexity to shield
+          our data from brute-force surveillance — not only by individual attackers, but by institutions that rely on patterns,
+          metadata, and mass collection.
         </p>
       </section>
 
-      <section>
+      <div class="section-break"></div>
+
+      <section class="fade-in-up">
         <h2 class="section-heading">Symmetric vs Asymmetric Encryption</h2>
         <p>
-          Encryption schemes can be categorized into two main types, each with strengths and vulnerabilities. Understanding this distinction helps inform how we protect information.
+          Encryption schemes can be categorized into two main types, each with strengths and vulnerabilities.
+          Understanding this distinction helps inform how we protect information.
         </p>
         <table class="encryption-table">
           <thead>
@@ -90,38 +117,44 @@
           </tbody>
         </table>
         <p>
-          Symmetric encryption is fast and well-suited for securing local files or private channels. Asymmetric encryption enables secure exchange even among strangers and forms the basis for technologies like HTTPS and encrypted messaging.
+          Symmetric encryption is fast and well-suited for securing local files or private channels. Asymmetric encryption enables
+          secure exchange even among strangers and forms the basis for technologies like HTTPS and encrypted messaging.
         </p>
       </section>
 
-      <section>
+      <div class="section-break"></div>
+
+      <section class="fade-in-up">
         <h2 class="section-heading">Beyond Corporate Security</h2>
         <p>
-          While encryption has become a buzzword for corporate cybersecurity, its roots lie in civil liberties and contested space. It is as much a tool for protecting dissent, memory, and dignity as it is for securing finance or credentials.
+          While encryption has become a buzzword for corporate cybersecurity, its roots lie in civil liberties and contested space.
+          It is as much a tool for protecting dissent, memory, and dignity as it is for securing finance or credentials.
         </p>
         <p>
-          Whether you’re encrypting a personal archive, protecting community records, or experimenting with anonymous publishing — encryption matters. Not because it’s perfect, but because it reintroduces choice into data relationships.
+          Whether you’re encrypting a personal archive, protecting community records, or experimenting with anonymous publishing —
+          encryption matters. Not because it’s perfect, but because it reintroduces choice into data relationships.
         </p>
       </section>
 
-      <section>
+      <div class="section-break"></div>
+
+      <section class="fade-in-up">
         <h2 class="section-heading">Frequency Analysis and Cipher Cracking</h2>
         <p>
-          Early cryptosystems, like Caesar’s cipher or Vigenère, could be broken through pattern recognition. Frequency analysis — counting how often letters appear — was a breakthrough in cryptanalysis.
+          Early cryptosystems, like Caesar’s cipher or Vigenère, could be broken through pattern recognition.
+          Frequency analysis — counting how often letters appear — was a breakthrough in cryptanalysis.
         </p>
         <p>
-          Modern encryption avoids these traps with randomized outputs, large keyspaces, and computational hardness. But the lesson remains: any unprotected pattern becomes a vector for inference.
+          Modern encryption avoids these traps with randomized outputs, large keyspaces, and computational hardness.
+          But the lesson remains: any unprotected pattern becomes a vector for inference.
         </p>
       </section>
 
-      <section>
-        <h2 class="section-heading">Next Steps</h2>
-        <p>Try this module in the terminal:</p>
-        <code>cd cpu</code><br/>
-        <code>cat cpu.txt</code>
+      <div class="section-break"></div>
 
-        <p>Or continue visually:</p>
-        <a href="sec.html">→ Module 2: Cryptographic Failures</a>
+      <section class="fade-in-up">
+        <h2 class="section-heading">Next Steps</h2>
+        <a href="sec.html" class="nav-button">→ Module 2: Cryptographic Failures</a>
       </section>
 
       <section class="sources">

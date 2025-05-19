@@ -2,65 +2,91 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Blockchain & Cryptocurrency</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Blockchain & Cryptocurrency</title>
   <link rel="stylesheet" href="../../css/style.css" />
   <link rel="stylesheet" href="../../css/modules.css" />
+  <link rel="stylesheet" href="../../css/animations.css" />
 </head>
 <body>
   <div class="shell">
     <header id="terminal-header">
       <h1>🔗 Blockchain & Cryptocurrency</h1>
-      <p>Decentralized systems powered by encryption and consensus.</p>
+      <p>Decentralized systems enforced by cryptography, consensus, and computation.</p>
     </header>
 
     <main class="module-content">
-      <section>
+
+      <section class="fade-in-up">
         <h2 class="section-heading">What Is a Blockchain?</h2>
         <p>
-          A blockchain is a distributed database where each record is linked to the one before it using cryptographic hashes. These records, or "blocks," form an immutable chain of verified transactions that can't be altered without detection.
+          A blockchain is a shared, distributed ledger composed of linked records — called blocks — each cryptographically bound to the previous.
+          Once recorded, the data inside a block cannot be changed without altering every subsequent block and gaining consensus from the network.
         </p>
         <p>
-          Instead of a central authority validating actions, a blockchain relies on cryptographic consensus — rules enforced by math and public agreement.
+          This architecture eliminates the need for a centralized authority.
+          Instead, consensus mechanisms such as Proof of Work (PoW) or Proof of Stake (PoS) verify transactions.
+          The result is a decentralized trust model: each participant independently validates the integrity of the system.
         </p>
       </section>
 
-      <section>
-        <h2 class="section-heading">Where Encryption Comes In</h2>
+      <div class="section-break"></div>
+
+      <section class="fade-in-up">
+        <h2 class="section-heading">How Cryptography Powers the Chain</h2>
+        <ul>
+          <li><strong>Hashing (SHA-256):</strong> Each block contains a hash of the previous block. This ensures tamper detection and data integrity.</li>
+          <li><strong>Public-Key Cryptography:</strong> Transactions are digitally signed using private keys. This guarantees authenticity and non-repudiation.</li>
+          <li><strong>Merkle Trees:</strong> Compact cryptographic summaries of all transactions in a block. They enable efficient verification of transaction inclusion.</li>
+        </ul>
         <p>
-          Blockchains use a mix of cryptographic techniques:
-          <ul>
-            <li><strong>Hashing</strong> (SHA-256): Ensures the integrity of each block</li>
-            <li><strong>Public-Key Cryptography</strong>: Users sign transactions with their private key</li>
-            <li><strong>Merkle Trees</strong>: Efficiently summarize large sets of transactions</li>
-          </ul>
-          These allow for secure authentication, non-repudiation, and verifiable history — without a central gatekeeper.
+          Together, these tools ensure transparency, auditability, and decentralized security.
         </p>
       </section>
 
-      <section>
-        <h2 class="section-heading">Applications and Limits</h2>
+      <div class="section-break"></div>
+
+      <section class="fade-in-up">
+        <h2 class="section-heading">Privacy in Public Chains</h2>
         <p>
-          From Bitcoin to Ethereum to zero-knowledge rollups, blockchains are used for money, identity, and even organizing decentralized governance (DAOs). But blockchain is not magic: it’s slow, expensive, and public by default.
+          Blockchains are public by design — every transaction is transparent. But advanced cryptography allows selective concealment:
         </p>
+        <ul>
+          <li><strong>zk-SNARKs:</strong> Zero-Knowledge proofs that allow you to prove something without revealing the data.</li>
+          <li><strong>zk-STARKs:</strong> A more scalable, post-quantum variant with no trusted setup.</li>
+        </ul>
         <p>
-          Privacy-preserving tools like zk-SNARKs and mixers (e.g. Tornado Cash) use encryption to shield user identities — but also raise legal and ethical questions about anonymity and accountability.
+          These technologies challenge the idea that transparency and privacy are opposites.
         </p>
       </section>
 
-      <section>
+      <div class="section-break"></div>
+
+      <section class="fade-in-up">
+        <h2 class="section-heading">Beyond Currency</h2>
+        <ul>
+          <li><strong>Smart Contracts:</strong> Code that lives on-chain and executes automatically under certain conditions.</li>
+          <li><strong>DAOs:</strong> Decentralized Autonomous Organizations — structured governance without centralized leadership.</li>
+          <li><strong>Verifiable Identity:</strong> Using the blockchain as a record of digital reputation, ownership, and credentials.</li>
+        </ul>
+        <p>
+          But blockchains are not panaceas. They introduce new attack surfaces, environmental concerns, and design tradeoffs.
+        </p>
+      </section>
+
+      <div class="section-break"></div>
+
+      <section class="fade-in-up">
         <h2 class="section-heading">Next Steps</h2>
-        <p>To explore this module in the terminal:</p>
-        <code>cd blockchain</code><br />
-        <code>cat blockchain.txt</code>
+        <a href="../crypto/tools.html" class="nav-button">→ Module 8: Encryption Tools</a>
       </section>
 
       <section class="sources">
         <h3>Sources & Further Reading</h3>
         <ul>
-          <li>Andreas Antonopoulos, <em>Mastering Bitcoin</em></li>
-          <li>Katz & Lindell, <em>Introduction to Modern Cryptography</em></li>
-          <li>ZCash, <a href="https://z.cash/technology/">zk-SNARK whitepapers</a></li>
+          <li><em>Mastering Blockchain</em>, Imran Bashir</li>
+          <li><em>Introduction to Modern Cryptography</em>, Katz & Lindell</li>
+          <li><em>Encyclopedia of Cryptography and Security</em>, van Tilborg</li>
         </ul>
       </section>
 
@@ -70,9 +96,6 @@
     </main>
   </div>
 
-  <!-- JS includes -->
-  <script src="../../js/filesystem.js"></script>
-  <script src="../../js/terminal.js"></script>
   <script>
     if (localStorage.getItem("theme") === "light") {
       document.body.classList.add("light-mode");

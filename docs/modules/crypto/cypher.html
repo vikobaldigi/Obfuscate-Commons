@@ -3,103 +3,112 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Cypher — Symmetric Encryption</title>
+  <title>CYPHER — Substitution & Secrecy</title>
   <link rel="stylesheet" href="../../css/style.css" />
   <link rel="stylesheet" href="../../css/modules.css" />
 </head>
 <body>
   <div class="shell">
     <header id="terminal-header">
-      <h1>🔒 Symmetric Ciphers (CYPHER)</h1>
-      <p>Explore shared secrets, fast locks, and the art of one-key encryption.</p>
+      <h1>Substitution Ciphers (CYPHER)</h1>
+      <p>Before cryptography was math, it was misdirection.</p>
     </header>
 
     <main class="module-content">
-
       <section>
-        <h2 class="section-heading">What Is Symmetric Encryption?</h2>
+        <h2 class="section-heading">Why Start with Ciphers?</h2>
         <p>
-          Symmetric encryption uses a single key to both encrypt and decrypt data. If you and I share the same key, I can lock the message, and you can unlock it.
+          Long before encryption relied on prime numbers or elliptic curves, it relied on language games.
+          A cipher is one of the oldest methods of obfuscation: a way to turn everyday writing into something opaque.
         </p>
         <p>
-          It's simple, fast, and efficient — especially for large volumes of data. But it depends on one fragile thing: keeping that shared key secret.
+          Substitution ciphers replace letters, symbols, or entire words with others. The message isn't deleted — just disguised.
+          This is cryptography as disguise, as camouflage. And it's where most cryptographic systems begin: with a simple trick.
         </p>
       </section>
 
       <section>
-        <h2 class="section-heading">Block vs Stream</h2>
+        <h2 class="section-heading">The Caesar Cipher</h2>
         <p>
-          Symmetric algorithms come in two flavors:
+          Julius Caesar wrote encrypted messages to his generals by shifting each letter forward three places in the alphabet.
+          <code>A → D</code>, <code>B → E</code>, <code>Z → C</code>. It's a form of what we now call a <strong>monoalphabetic substitution cipher</strong>.
         </p>
-        <ul>
-          <li><strong>Block ciphers</strong> (like AES): encrypt data in fixed-size chunks. Think of it like sealing one box at a time.</li>
-          <li><strong>Stream ciphers</strong> (like ChaCha20): encrypt data bit by bit or byte by byte. Think of it like turning on a hose of encryption.</li>
-        </ul>
         <p>
-          Both are fast and secure when used correctly. But misuse — like reusing a key or skipping padding — can crack them wide open.
+          There are only 25 possible shifts. A determined reader could simply try each one until meaning appears. Still, it introduces a key idea: <strong>ciphertext</strong> — encrypted language requiring a key.
         </p>
       </section>
 
       <section>
-        <h2 class="section-heading">Historical Ciphers</h2>
+        <h2 class="section-heading">From Substitution to Frequency</h2>
         <p>
-          Before AES and ChaCha, we had:
+          Ciphers that preserve letter frequencies — like Caesar’s — are vulnerable to <strong>frequency analysis</strong>.
+          In English, for example, <code>E</code> is the most common letter. If a ciphertext symbol appears most frequently, it's likely mapped from <code>E</code>.
         </p>
-        <ul>
-          <li><strong>Caesar Cipher</strong>: shift letters by a fixed amount</li>
-          <li><strong>Vigenère Cipher</strong>: cycle through multiple Caesar ciphers using a keyword</li>
-          <li><strong>Playfair, Enigma, XOR</strong>: various historical and wartime ciphers that still shape modern thought</li>
-        </ul>
         <p>
-          These were symmetric too — same key in, same key out. Today, they're broken — but conceptually foundational.
+          Formalized during the Islamic Golden Age, this technique became foundational to Western cryptanalysis during the Renaissance.
         </p>
       </section>
 
       <section>
-        <h2 class="section-heading">Modern Symmetric Standards</h2>
-        <ul>
-          <li><strong>AES (Advanced Encryption Standard)</strong>: the global standard. Fast, robust, and widely trusted.</li>
-          <li><strong>ChaCha20</strong>: a modern stream cipher designed to be fast and secure even on mobile devices.</li>
-          <li><strong>RC4, DES</strong>: older algorithms no longer considered secure.</li>
-        </ul>
+        <h2 class="section-heading">Polyalphabetic Illusion: Vigenère</h2>
         <p>
-          Symmetric ciphers are used everywhere: disk encryption, VPNs, file storage, and messaging apps. They’re the workhorses of privacy.
+          The Vigenère cipher uses a keyword to apply multiple Caesar-style shifts to the plaintext. If the keyword is <code>KEY</code>, the message <code>HELLO</code> becomes a scramble based on <code>K → 10</code>, <code>E → 4</code>, <code>Y → 24</code>.
+        </p>
+        <p>
+          Once thought unbreakable, it was cracked in the 1800s by identifying repeating sequences to estimate keyword length — then attacking each Caesar alphabet individually.
         </p>
       </section>
 
       <section>
-        <h2 class="section-heading">Risks and Tradeoffs</h2>
+        <h2 class="section-heading">Beyond Paper: Cipher Machines</h2>
         <p>
-          The main risk in symmetric encryption is key distribution. How do you share a key with someone securely — before you have a secure channel?
+          During the 20th century, cipher machines like <strong>Enigma</strong> and the <strong>Hagelin M-209</strong> used rotors and wheels to automate substitution.
+          Enigma had over 150 trillion settings — but failed due to poor key discipline and repeated messages.
         </p>
         <p>
-          That’s why symmetric systems are often paired with public-key systems. You use public-key crypto to exchange the symmetric key, then switch to symmetric for speed.
+          These systems showed that complexity alone doesn’t ensure security — implementation matters.
+        </p>
+      </section>
+
+      <section>
+        <h2 class="section-heading">Cipher ≠ Code</h2>
+        <p>
+          Codes substitute words or phrases; ciphers manipulate letters or bits. Codes require secrecy of a shared book. Ciphers require secrecy of a key.
+        </p>
+        <p>
+          In modern cryptography, ciphers scale. Codes do not.
+        </p>
+      </section>
+
+      <section>
+        <h2 class="section-heading">Why It Matters</h2>
+        <p>
+          These systems may seem quaint — but they illuminate core cryptographic tensions: concealment vs. legibility, randomness vs. pattern, and trust vs. tool.
+        </p>
+        <p>
+          We don’t study them to reuse them. We study them because today’s systems fail in the same ways: repetition, pattern, assumption.
         </p>
       </section>
 
       <section>
         <h2 class="section-heading">Next Steps</h2>
-        <p>Read this module in the terminal interface:</p>
-        <code>cd crypto</code><br/>
-        <code>cat cypher.txt</code>
-
-        <p>Or continue to the tools module:</p>
-        <a href="tools.html">→ Encryption Tools</a>
+        <a href="../net/net.html" class="nav-button">→ Module 5: Metadata Awareness</a>
       </section>
 
       <section class="sources">
-        <h3>Sources & Further Reading</h3>
+        <h3>Further Reading</h3>
         <ul>
-          <li>Joshua Holden, <em>The Mathematics of Secrets</em> — Princeton University Press</li>
-          <li>Nigel Smart, <em>Cryptography Made Simple</em> — Springer</li>
+          <li>Holden, <em>The Mathematics of Secrets</em> — Princeton University Press</li>
+          <li>Butler & Keeney, <em>Secret Messages: Concealment, Codes, and More</em></li>
+          <li>Smart, <em>Cryptography Made Simple</em> — Springer</li>
           <li>Katz & Lindell, <em>Introduction to Modern Cryptography</em></li>
+          <li>Tilborg, <em>Encyclopedia of Cryptography and Security</em></li>
         </ul>
       </section>
 
       <footer>
         <p><a href="../../index.html">← Back to Obfuscate-OS</a></p>
       </footer>
-
     </main>
   </div>
 
