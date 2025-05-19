@@ -1,5 +1,6 @@
 /* /docs/css/modules.css */
-/* Dark Theme (Default) — retained as-is */
+/* Core module box styles, section formatting, and nav buttons */
+
 :root {
   --purple: #b98eff;
   --bg: #000000;
@@ -28,7 +29,7 @@
   margin: 0 0 0.75em;
   font-size: 1.2rem;
   color: #d9b3ff;
-  font-family: 'Courier New', monospace;
+  font-family: var(--font);
   line-height: 1.3;
 }
 
@@ -49,6 +50,7 @@
   cursor: pointer;
 }
 
+/* Page/module header */
 #terminal-header {
   text-align: center;
   margin-bottom: 2em;
@@ -61,6 +63,7 @@
   animation: pulse 3s infinite;
 }
 
+/* Module terminal-style output */
 #terminal-output {
   max-width: 800px;
   margin: 0 auto;
@@ -69,6 +72,7 @@
   color: #cabafc;
 }
 
+/* Optional glossary panel */
 #glossary-panel {
   background: rgba(10, 0, 30, 0.95);
   border: 1px solid #9e70ff;
@@ -96,56 +100,16 @@
   margin-bottom: 0.3em;
 }
 
+/* Animation */
 @keyframes pulse {
   0%, 100% { text-shadow: 0 0 5px var(--glow); }
   50% { text-shadow: 0 0 15px var(--glow); }
 }
 
-/* ✅ Light Mode Overrides */
-body.light-mode {
-  background-color: #ffffff;
-  color: #111;
-}
-
-body.light-mode .module-box {
-  background-color: #f3f0ff;
-  color: #222;
-  border-color: #bbb;
-  box-shadow: 0 0 10px #ddddff;
-}
-
-body.light-mode .module-box h2 {
-  color: #333;
-}
-
-body.light-mode .module-box p {
-  color: #444;
-}
-
-body.light-mode .module-box button {
-  border-color: #444;
-  color: #444;
-}
-
-body.light-mode #terminal-header h1 {
-  color: #663399;
-  text-shadow: none;
-}
-
-body.light-mode #glossary-panel {
-  background: #fafafa;
-  border-color: #ccc;
-  color: #222;
-}
-
-body.light-mode #glossary-panel ul {
-  color: #333;
-}
-
-/* 🔘 Nav Button Styling for Next Steps */
+/* 🔘 Unified nav button style */
 .nav-button {
   display: inline-block;
-  margin-top: 1.25em;
+  margin: 1.25em 0.5em 0 0.5em;
   padding: 0.5em 1.25em;
   background: transparent;
   border: 1px solid var(--glow);
@@ -154,6 +118,8 @@ body.light-mode #glossary-panel ul {
   text-decoration: none;
   font-size: 1rem;
   transition: all 0.2s ease;
+  text-align: center;
+  cursor: pointer;
 }
 
 .nav-button:hover {

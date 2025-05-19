@@ -1,4 +1,3 @@
-<!-- /docs/index.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,29 +8,16 @@
   <link rel="stylesheet" href="css/style.css" />
   <link rel="stylesheet" href="css/modules.css" />
   <link rel="stylesheet" href="css/animations.css" />
-  <style>
-    body {
-      padding-top: 1.5em;
-    }
-    header#terminal-header {
-      margin-bottom: 1.5em;
-    }
-    header#terminal-header h1 {
-      margin-bottom: 0.3em;
-    }
-    main#module-grid {
-      margin-top: 0.5em;
-    }
-  </style>
 </head>
 <body>
   <div class="shell">
+    <!-- Header -->
     <header id="terminal-header">
       <h1>Obfuscate-OS v2.0</h1>
       <p>A modular guide for encryption, digital resistance, and metadata awareness.</p>
-      <button id="toggle-theme">Toggle Theme</button>
     </header>
 
+    <!-- Grid Modules -->
     <main id="module-grid"></main>
   </div>
 
@@ -48,10 +34,5 @@
   <!-- Scripts -->
   <script src="js/modules/module-data.js"></script>
   <script src="js/modules/module-loader.js"></script>
-  <script>
-    document.getElementById("toggle-theme").addEventListener("click", () => {
-      document.body.classList.toggle("light-mode");
-    });
-  </script>
 </body>
 </html>
