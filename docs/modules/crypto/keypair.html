@@ -6,68 +6,109 @@
   <title>Keypair — Asymmetry and Trust</title>
   <link rel="stylesheet" href="../../css/style.css" />
   <link rel="stylesheet" href="../../css/modules.css" />
+  <style>
+    body {
+      padding-top: 3.0em;
+    }
+    header#terminal-header {
+      margin-bottom: 0;
+      padding-bottom: 0;
+      text-align: center;
+    }
+    header#terminal-header h1 {
+      margin: 0;
+      padding: 0;
+      line-height: 1.1;
+    }
+    header#terminal-header p {
+      margin: 0;
+      padding-top: 1.0em;
+      padding-bottom: 0.5em;
+      font-size: 1.1em;
+      line-height: 1.4;
+      max-width: 42em;
+      margin-inline: auto;
+    }
+    main.module-content {
+      margin-top: 0em;
+    }
+  </style>
 </head>
 <body>
   <div class="shell">
     <header id="terminal-header">
       <h1>Asymmetric Encryption (KEYPAIR)</h1>
-      <p>Public and private keys — a foundational shift in trust, identity, and digital autonomy.</p>
+      <p>Public and private keys reshaped how we build trust online — without needing to meet first, or ask permission.</p>
     </header>
 
     <main class="module-content">
 
-      <section>
+      <section class="fade-in-up">
         <h2 class="section-heading">Why Keypairs?</h2>
         <p>
-          In symmetric encryption, secrecy depends on a shared key — both sender and receiver must guard it.
-          Asymmetric encryption turns this model inside out. Anyone can encrypt using your public key, but only you can decrypt it.
+          Symmetric encryption assumes a shared secret — sender and receiver both know the same key, and both must keep it safe.
+          That works, but only if you’ve already established trust.
         </p>
         <p>
-          This isn’t just a technical shift — it’s a political and philosophical one. Public-key systems enable
-          communication without centralized mediation.
+          Asymmetric encryption breaks that model. You can share your public key openly, and anyone can use it to send you encrypted data — but only you can decrypt it with your private key.
+          It’s a shift that makes secure communication possible without prior agreement or centralized control.
+        </p>
+        <p>
+          This isn’t just a cryptographic trick — it redefines who gets to initiate trust, and how digital identity is constructed.
         </p>
       </section>
 
-      <section>
+      <section class="fade-in-up">
         <h2 class="section-heading">How It Works</h2>
         <ul>
-          <li><strong>Public Key</strong>: Shared openly to encrypt messages or verify signatures</li>
-          <li><strong>Private Key</strong>: Kept secret to decrypt or sign</li>
+          <li><strong>Public Key:</strong> Used to encrypt messages or verify signatures. Safe to distribute.</li>
+          <li><strong>Private Key:</strong> Used to decrypt or sign. Must stay secret.</li>
         </ul>
         <p>
-          The math ensures no practical path from public to private key. RSA, ElGamal, and ECC all rely on hard problems
-          like factoring or discrete logarithms.
+          These two keys are mathematically linked — but computing the private key from the public key is infeasible if the math is sound.
+          Common algorithms include RSA (factoring), ElGamal and DSA (discrete logs), and ECC (elliptic curves).
         </p>
       </section>
 
-      <section>
-        <h2 class="section-heading">From Theory to Practice</h2>
+      <section class="fade-in-up">
+        <h2 class="section-heading">From Theory to Infrastructure</h2>
         <p>
-          Diffie and Hellman broke the assumption that secrecy required prior key exchange. RSA soon offered an implementation.
-          Today, keypairs power HTTPS, SSH, digital signatures, and cryptocurrencies.
+          In 1976, Diffie and Hellman introduced the idea of public-key exchange. RSA followed shortly after, providing the first practical implementation.
+        </p>
+        <p>
+          Today, keypairs power much of the internet: HTTPS, SSH, email signatures, cryptocurrency wallets, and secure messaging.
+          They make it possible to verify identity and confidentiality — even in open, adversarial environments.
         </p>
       </section>
 
-      <section>
+      <section class="fade-in-up">
         <h2 class="section-heading">The Trust Problem</h2>
         <p>
-          If you can’t verify whose public key you’re using, you risk interception. This is the “man-in-the-middle” problem.
+          If someone sends you a public key claiming to be from your bank, how do you know it’s legitimate?
+          This is the classic “man-in-the-middle” attack — and it’s where public-key systems start to depend on external validation.
         </p>
         <p>
-          Solutions like certificate authorities (PKI) introduce new centralization and require us to ask: who do we trust to
-          validate identity?
+          Certificate authorities (CAs) are one solution. They form the backbone of PKI (Public Key Infrastructure),
+          but they also reintroduce centralized trust — and all the risk that comes with it.
         </p>
       </section>
 
-      <section>
-        <h2 class="section-heading">Lessons and Warnings</h2>
+      <section class="fade-in-up">
+        <h2 class="section-heading">Cautionary Notes</h2>
         <p>
-          Keypairs are powerful, but not foolproof. Key reuse, padding flaws, and poor randomness can still break the system.
-          Cryptography is about implementation — not just equations.
+          Keypairs are powerful, but not perfect. The math is strong, but real-world systems still fail:
+        </p>
+        <ul>
+          <li>Reusing keys across systems can leak context</li>
+          <li>Weak randomness undermines key generation</li>
+          <li>Padding and side-channel attacks target implementation gaps</li>
+        </ul>
+        <p>
+          In practice, security depends not just on theory — but on how code gets written, shared, and maintained.
         </p>
       </section>
 
-      <section>
+      <section class="fade-in-up">
         <h2 class="section-heading">Next Steps</h2>
         <a href="cypher.html" class="nav-button">→ Module 4: Symmetric Ciphers</a>
       </section>

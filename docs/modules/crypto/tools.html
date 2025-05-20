@@ -6,6 +6,38 @@
   <title>TOOLS — Open-Source Cryptography</title>
   <link rel="stylesheet" href="../../css/style.css" />
   <link rel="stylesheet" href="../../css/modules.css" />
+  <style>
+    body {
+      padding-top: 3.0em;
+    }
+    header#terminal-header {
+      margin-bottom: 0;
+      padding-bottom: 0;
+      text-align: center;
+    }
+    header#terminal-header h1 {
+      margin: 0;
+      padding: 0;
+      line-height: 1.1;
+    }
+    header#terminal-header p {
+      margin: 0;
+      padding-top: 1.0em;
+      padding-bottom: 0.5em;
+      font-size: 1.1em;
+      line-height: 1.4;
+      max-width: 42em;
+      margin-inline: auto;
+    }
+    main.module-content {
+      margin-top: 0em;
+    }
+  </style>
+  <script>
+    if (localStorage.getItem("theme") === "light") {
+      document.body.classList.add("light-mode");
+    }
+  </script>
 </head>
 <body>
   <div class="shell">
@@ -18,59 +50,93 @@
       <section>
         <h2 class="section-heading">Why Tools Matter</h2>
         <p>
-          Encryption is not just a theory — it’s code. Algorithms are implemented in libraries that become the foundation
-          for secure apps, websites, and devices. These libraries shape how encryption is used, how it's trusted, and how it's accessed.
+          Encryption isn’t just theory — it’s implementation. Code becomes infrastructure, and infrastructure shapes possibility. 
+          These tools define how we protect speech, structure consent, and resist surveillance.
         </p>
         <p>
-          In an age where encryption is regulated, exported, licensed, or banned, open-source libraries offer something rare:
-          inspectability and autonomy.
+          Open-source libraries matter not just because they’re free — but because they’re transparent. They can be audited, improved, and forked.
+          In a world where encryption is licensed, weakened, or withheld, open tools give us the power to build protection on our own terms.
         </p>
       </section>
 
       <section>
         <h2 class="section-heading">Key Open-Source Libraries</h2>
         <ul>
-          <li><strong>OpenSSL</strong> — TLS/SSL support, symmetric and asymmetric encryption, hashing, hardware acceleration</li>
-          <li><strong>libsodium</strong> — High-level, minimalist, modern library built on NaCl primitives</li>
-          <li><strong>Botan</strong> — C++ library with ECC, RSA, GOST, and many cipher modes</li>
-          <li><strong>Bouncy Castle</strong> — Java/C# crypto APIs for mobile and enterprise applications</li>
-          <li><strong>Crypto++</strong> — Comprehensive C++ suite including legacy and bleeding-edge ciphers</li>
-          <li><strong>Libgcrypt</strong> — Used in GnuPG; emphasizes modularity and compliance</li>
+          <li><strong>OpenSSL:</strong> The backbone of HTTPS and TLS — includes symmetric, asymmetric, and hash functions with deep configuration.</li>
+          <li><strong>libsodium:</strong> Modern and minimal. Designed to avoid developer mistakes and promote safe defaults.</li>
+          <li><strong>Botan:</strong> C++ library optimized for embedded environments. Supports ECC, RSA, GOST, and more.</li>
+          <li><strong>Bouncy Castle:</strong> Java and C# libraries widely used in Android, enterprise apps, and mobile wallets.</li>
+          <li><strong>Crypto++:</strong> Research-grade C++ toolkit with support for legacy and experimental algorithms.</li>
+          <li><strong>Libgcrypt:</strong> Used by GnuPG. Modular, standards-compliant, and often deployed in Linux tools.</li>
         </ul>
       </section>
 
       <section>
         <h2 class="section-heading">Interoperability and Control</h2>
         <p>
-          Some libraries aim for compliance with standards like FIPS 140-3; others value flexibility.
+          Choosing a library isn’t just a technical decision — it’s about what you prioritize: simplicity, compatibility, speed, or resilience.
         </p>
         <ul>
-          <li><strong>Libsodium</strong> excludes RSA/MD5 in favor of safer defaults</li>
-          <li><strong>OpenSSL</strong> can be customized to support both modern and legacy modes</li>
-          <li><strong>GnuTLS</strong> is optimized for Linux network services</li>
+          <li><strong>Libsodium:</strong> Drops legacy ciphers in favor of forward-secure, misuse-resistant designs.</li>
+          <li><strong>OpenSSL:</strong> Supports everything — which makes it powerful but complex to harden.</li>
+          <li><strong>GnuTLS:</strong> Built with open-source compliance in mind — often found on public infrastructure.</li>
         </ul>
+        <p>
+          The tool you pick ends up shaping your threat model, your assumptions, and your vulnerabilities.
+        </p>
       </section>
 
       <section>
         <h2 class="section-heading">Cryptography Is Political</h2>
         <p>
-          Cryptographic libraries aren’t neutral. Their structure encodes assumptions about risk, access, and trust.
-          Open-source tools let individuals embed secrecy into their systems without centralized permission.
+          Cryptographic tools define who can speak securely — and who cannot. They structure access, visibility, and autonomy.
+          Governments regulate them. Corporations monetize them. Activists deploy them. The libraries you choose reflect values.
         </p>
         <p>
-          The decision to use a particular tool reflects more than just technical needs — it reflects a vision of who should be protected, and how.
+          Encryption isn’t just about hiding things. It’s about building spaces where surveillance can’t reach — and where vulnerable communities can collaborate, document, or dissent without being watched.
         </p>
       </section>
 
       <section>
         <h2 class="section-heading">Choosing the Right Tool</h2>
         <ul>
-          <li><strong>Command-line use:</strong> <code>gpg</code>, <code>openssl</code>, <code>age</code></li>
-          <li><strong>Web apps:</strong> <code>libsodium.js</code>, <code>WebCrypto API</code></li>
-          <li><strong>Embedded/dev use:</strong> <code>Botan</code>, <code>Crypto++</code>, <code>libsodium</code></li>
+          <li><strong>Command line:</strong> <code>gpg</code>, <code>openssl</code>, <code>age</code></li>
+          <li><strong>In-browser apps:</strong> <code>libsodium.js</code>, <code>WebCrypto API</code></li>
+          <li><strong>Embedded development:</strong> <code>Botan</code>, <code>Crypto++</code>, <code>Libgcrypt</code></li>
         </ul>
         <p>
-          The tool you choose structures the threat model you inherit — and the trust model you build.
+          These tools aren’t interchangeable. They reflect assumptions. Picking one is a political act — whether you realize it or not.
+        </p>
+      </section>
+
+      <section>
+        <h2 class="section-heading">Privacy Beyond Code: Browsers and Search</h2>
+        <p>
+          Cryptographic libraries are critical — but so are the surfaces you touch every day: your browser, your search engine, your defaults.
+        </p>
+        <p>
+          Most web infrastructure is built to extract. Even when your messages are encrypted, your patterns — clicks, queries, scrolls — are harvested.
+          Tools like these help resist that:
+        </p>
+
+        <ul>
+          <li><strong>Brave:</strong> Tracker blocking, HTTPS upgrades, and optional Tor routing.</li>
+          <li><strong>Tor Browser:</strong> Onion-routed encryption for true IP anonymity — slower, but more private.</li>
+          <li><strong>Firefox / LibreWolf:</strong> Customizable, open-source, and privacy-respecting when configured carefully.</li>
+        </ul>
+
+        <p>
+          Search engines also matter. What you search gets stored, profiled, monetized.
+        </p>
+
+        <ul>
+          <li><strong>DuckDuckGo:</strong> Private by default. Lightweight but functional.</li>
+          <li><strong>Startpage:</strong> Anonymous wrapper around Google results — no profiling.</li>
+          <li><strong>SearXNG / Mojeek:</strong> Open metasearch and independent indexing — built for privacy, not profit.</li>
+        </ul>
+
+        <p>
+          Using these tools is about more than reducing your “data exhaust.” It’s about refusing systems that turn attention into asset and behavior into product.
         </p>
       </section>
 
@@ -84,11 +150,5 @@
       </footer>
     </main>
   </div>
-
-  <script>
-    if (localStorage.getItem("theme") === "light") {
-      document.body.classList.add("light-mode");
-    }
-  </script>
 </body>
 </html>

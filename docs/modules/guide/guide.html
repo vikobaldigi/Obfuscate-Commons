@@ -7,57 +7,139 @@
   <link rel="stylesheet" href="../../css/style.css" />
   <link rel="stylesheet" href="../../css/modules.css" />
   <link rel="stylesheet" href="../../css/animations.css" />
+  <style>
+    body {
+      padding-top: 3.0em;
+    }
+    header#terminal-header {
+      margin-bottom: 0;
+      padding-bottom: 0;
+      text-align: center;
+    }
+    header#terminal-header h1 {
+      margin: 0;
+      padding: 0;
+      line-height: 1.1;
+    }
+    header#terminal-header p {
+      margin: 0;
+      padding-top: 1.0em;
+      padding-bottom: 0.5em;
+      font-size: 1.1em;
+      line-height: 1.4;
+      max-width: 42em;
+      margin-inline: auto;
+    }
+    main.module-content {
+      margin-top: 0em;
+    }
+    .command-category {
+      font-weight: bold;
+      margin-top: 1em;
+    }
+    .command-list {
+      margin: 0.5em 0 1.5em 0;
+      padding-left: 1.5em;
+    }
+  </style>
 </head>
 <body>
   <div class="shell">
     <header id="terminal-header">
       <h1>Terminal Basics (GUIDE)</h1>
-      <p>Understanding the structure, language, and purpose of the command line interface — not through commands, but concepts.</p>
+      <p>The command line is less about commands, and more about permission, access, and how machines reveal their structure.</p>
     </header>
 
     <main class="module-content">
+
       <section class="fade-in-up">
         <h2 class="section-heading">What Is a Terminal?</h2>
         <p>
-          A terminal is a text-based interface that lets users communicate directly with a computer’s operating system.
-          It bypasses graphical layers to offer raw control and visibility into system structure.
+          A terminal is a text-based interface to your computer — a place where you speak directly to the system. 
+          It predates the mouse and windows, but it still powers the backbone of servers, routers, research environments, and embedded systems.
         </p>
         <p>
-          While it may seem outdated, the terminal remains essential for developers, system administrators, and hackers alike.
-          It reveals what most interfaces obscure — the file system’s skeleton, the machine’s vocabulary, and your own agency.
+          It’s not retro. It’s revealing. The terminal lets you see what graphical interfaces conceal: the hierarchy of files, the logic of processes, and the assumptions behind your interaction.
         </p>
       </section>
-
-      <div class="section-break"></div>
 
       <section class="fade-in-up">
-        <h2 class="section-heading">Why the Terminal Matters</h2>
+        <h2 class="section-heading">Why the Terminal Still Matters</h2>
         <p>
-          Graphical interfaces are curated. They decide what is visible, clickable, or changeable. The terminal, by contrast,
-          removes that layer of interpretation. It makes your interactions explicit.
+          Graphical interfaces are designed to simplify. That makes them usable — but also limiting.
+          The terminal doesn’t simplify. It exposes. As William Shotts puts it: “The command line makes hard things possible.”
         </p>
         <p>
-          To quote <em>The Linux Command Line</em>: “GUI makes easy tasks easy, but the command line makes hard tasks possible.”
-          Understanding it isn’t just about using different tools — it’s about seeing what your system assumes, hides, or protects.
+          Learning the terminal changes how you understand the system. It gives you vocabulary — not just to use the machine, but to interrogate it.
         </p>
       </section>
-
-      <div class="section-break"></div>
 
       <section class="fade-in-up">
-        <h2 class="section-heading">Terminal as Text</h2>
+        <h2 class="section-heading">Literacy and Power</h2>
         <p>
-          The terminal isn’t just a technical tool — it’s a literacy. Knowing it changes your relationship to your machine.
-          You see directories not as folders but as nested paths. You see files as streams of characters.
-          You learn to manipulate, inspect, and transform.
+          The terminal is a language. You learn verbs like <code>ls</code>, <code>cat</code>, <code>chmod</code>. You read error messages.
+          You trace file paths, redirect streams, inspect process trees.
         </p>
         <p>
-          This is what gives the terminal its resistance quality. It’s not about nostalgia. It’s about control.
-          About seeing what GUI layers are trying to keep quiet.
+          In doing so, you stop being just a user. You become someone who can intervene — on your own system, or someone else’s.
+          That’s not just skill. That’s power.
         </p>
       </section>
 
-      <div class="section-break"></div>
+      <section class="fade-in-up">
+        <h2 class="section-heading">Core POSIX Commands</h2>
+        <p>
+          Below are some of the most widely used command-line tools defined by the POSIX standard. These commands are found across Unix, Linux, and macOS systems.
+        </p>
+
+        <div class="command-category">🔍 Inspect and Navigate</div>
+        <ul class="command-list">
+          <li><code>pwd</code> — Show current directory</li>
+          <li><code>ls</code> — List files</li>
+          <li><code>cd</code> — Change directory</li>
+          <li><code>stat</code> — File information</li>
+        </ul>
+
+        <div class="command-category">📁 File Operations</div>
+        <ul class="command-list">
+          <li><code>cp</code> — Copy files</li>
+          <li><code>mv</code> — Move/rename files</li>
+          <li><code>rm</code> — Remove files</li>
+          <li><code>touch</code> — Create a new file</li>
+        </ul>
+
+        <div class="command-category">📄 Viewing and Editing</div>
+        <ul class="command-list">
+          <li><code>cat</code> — Output file contents</li>
+          <li><code>head</code> / <code>tail</code> — View top or bottom lines</li>
+          <li><code>less</code> — Scrollable view</li>
+          <li><code>nano</code> — Basic text editor</li>
+        </ul>
+
+        <div class="command-category">⚙️ Permissions and Identity</div>
+        <ul class="command-list">
+          <li><code>chmod</code> — Change file permissions</li>
+          <li><code>chown</code> — Change file ownership</li>
+          <li><code>whoami</code> — Show current user</li>
+          <li><code>id</code> — Show user and group IDs</li>
+        </ul>
+
+        <div class="command-category">🔧 System Utilities</div>
+        <ul class="command-list">
+          <li><code>ps</code> — View running processes</li>
+          <li><code>kill</code> — Terminate a process</li>
+          <li><code>df</code> — Disk usage</li>
+          <li><code>uptime</code> — System status</li>
+        </ul>
+
+        <div class="command-category">📬 Communication and Pipes</div>
+        <ul class="command-list">
+          <li><code>echo</code> — Output a string</li>
+          <li><code>grep</code> — Search within files</li>
+          <li><code>cut</code> — Extract text by field</li>
+          <li><code>tee</code> — Output to terminal and file simultaneously</li>
+        </ul>
+      </section>
 
       <section class="fade-in-up">
         <h2 class="section-heading">Next Steps</h2>
@@ -70,6 +152,7 @@
           <li>William E. Shotts Jr., <em>The Linux Command Line</em> — No Starch Press</li>
           <li>Seymour Papert, <em>Mindstorms</em></li>
           <li>Brunton & Nissenbaum, <em>Obfuscation</em></li>
+          <li>Wikipedia contributors, <em>List of POSIX commands</em></li>
         </ul>
       </section>
 

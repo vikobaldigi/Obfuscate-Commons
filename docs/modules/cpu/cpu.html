@@ -9,16 +9,29 @@
   <link rel="stylesheet" href="../../css/animations.css" />
   <style>
     body {
-      padding-top: 1em;
+      padding-top: 3.0em;
     }
     header#terminal-header {
-      margin-bottom: 0.5em;
+      margin-bottom: 0;
+      padding-bottom: 0;
+      text-align: center;
     }
     header#terminal-header h1 {
-      margin-bottom: 0.2em;
+      margin: 0;
+      padding: 0;
+      line-height: 1.1;
+    }
+    header#terminal-header p {
+      margin: 0;
+      padding-top: 1.0em;
+      padding-bottom: 0.5em;
+      font-size: 1.1em;
+      line-height: 1.4;
+      max-width: 42em;
+      margin-inline: auto;
     }
     main.module-content {
-      margin-top: 0.5em;
+      margin-top: 0em;
     }
     table.encryption-table {
       width: 100%;
@@ -45,19 +58,19 @@
   <div class="shell">
     <header id="terminal-header">
       <h1>Learn Encryption (CPU)</h1>
-      <p>Encryption as autonomy, not industry. Understand its roots, not just its tools.</p>
+      <p>Encryption as autonomy, not industry. Learn the foundations — not just the tools, but the stakes.</p>
     </header>
 
     <main class="module-content">
       <section class="fade-in-up">
         <h2 class="section-heading">Why Encryption?</h2>
         <p>
-          Encryption is the mechanism by which we can keep digital communication private — not just from malicious actors,
-          but from institutions whose interests don't always align with ours. It’s about defending the boundaries of personal meaning.
+          Encryption is how we protect what matters in a digital world. Not just from bad actors — but from institutions that collect, monetize, or manipulate what we do online. 
+          It’s about controlling how our data moves, and who gets to see it.
         </p>
         <p>
-          While often marketed for enterprise compliance or secure transactions, the real power of encryption lies in its ability
-          to empower individuals to selectively share information — to speak securely and be heard on their own terms.
+          While corporations push encryption as a compliance feature or premium service, its roots are far older and far more personal:
+          protecting speech, sheltering dissent, and securing the right to be unreadable.
         </p>
       </section>
 
@@ -66,9 +79,11 @@
       <section class="fade-in-up">
         <h2 class="section-heading">Encryption vs Obfuscation</h2>
         <p>
-          Encryption encodes messages so only those with the key can read them. Obfuscation, meanwhile, floods the system
-          with misleading signals to conceal what matters. Together, they challenge the asymmetry of visibility —
-          where we are watched, but cannot watch back.
+          Encryption scrambles information so only someone with the right key can unlock it. Obfuscation takes a different route:
+          it overwhelms surveillance with noise — false leads, junk signals, plausible deniability.
+        </p>
+        <p>
+          Together, they don’t just hide — they challenge the idea that digital systems should always be transparent to power.
         </p>
       </section>
 
@@ -77,13 +92,12 @@
       <section class="fade-in-up">
         <h2 class="section-heading">From Caesar to Surveillance</h2>
         <p>
-          In ancient Rome, Caesar used a shift cipher to disguise military communications. It was simple:
-          shift every letter forward in the alphabet. But it planted a seed — the idea that secrecy could be constructed, altered, resisted.
+          Encryption has always been political. Julius Caesar used a crude cipher to protect military messages.
+          That impulse — to keep meaning safe — has evolved alongside empires, militaries, and mass communications.
         </p>
         <p>
-          Today, encryption algorithms like RSA and AES go far beyond letter shifts. They employ mathematical complexity to shield
-          our data from brute-force surveillance — not only by individual attackers, but by institutions that rely on patterns,
-          metadata, and mass collection.
+          Modern algorithms like RSA and AES rely on serious math to resist not just hackers, but institutional surveillance.
+          They protect against brute force, but also against the passive data collection that underwrites today’s digital economy.
         </p>
       </section>
 
@@ -92,8 +106,7 @@
       <section class="fade-in-up">
         <h2 class="section-heading">Symmetric vs Asymmetric Encryption</h2>
         <p>
-          Encryption schemes can be categorized into two main types, each with strengths and vulnerabilities.
-          Understanding this distinction helps inform how we protect information.
+          There are two core models for encryption today. Knowing the difference helps you understand how your tools work — and when they’re most useful.
         </p>
         <table class="encryption-table">
           <thead>
@@ -117,8 +130,8 @@
           </tbody>
         </table>
         <p>
-          Symmetric encryption is fast and well-suited for securing local files or private channels. Asymmetric encryption enables
-          secure exchange even among strangers and forms the basis for technologies like HTTPS and encrypted messaging.
+          Symmetric is fast and secure — as long as you already trust the person you're sharing with.
+          Asymmetric allows strangers to exchange data securely in public. Most encrypted systems use both in combination.
         </p>
       </section>
 
@@ -127,12 +140,12 @@
       <section class="fade-in-up">
         <h2 class="section-heading">Beyond Corporate Security</h2>
         <p>
-          While encryption has become a buzzword for corporate cybersecurity, its roots lie in civil liberties and contested space.
-          It is as much a tool for protecting dissent, memory, and dignity as it is for securing finance or credentials.
+          Most encryption you hear about is framed around protecting financial data or corporate secrets.
+          But the deeper purpose is about protecting people — especially those navigating vulnerable, risky, or oppressive systems.
         </p>
         <p>
-          Whether you’re encrypting a personal archive, protecting community records, or experimenting with anonymous publishing —
-          encryption matters. Not because it’s perfect, but because it reintroduces choice into data relationships.
+          Whether you're sharing sensitive research, archiving community records, or just texting without surveillance,
+          encryption gives you a choice: to decide who gets to read you, and who doesn’t.
         </p>
       </section>
 
@@ -141,12 +154,12 @@
       <section class="fade-in-up">
         <h2 class="section-heading">Frequency Analysis and Cipher Cracking</h2>
         <p>
-          Early cryptosystems, like Caesar’s cipher or Vigenère, could be broken through pattern recognition.
-          Frequency analysis — counting how often letters appear — was a breakthrough in cryptanalysis.
+          Earlier ciphers — like Caesar and Vigenère — were broken by noticing patterns.
+          Letter frequencies, common digraphs, and structure gave them away. This led to the field of cryptanalysis.
         </p>
         <p>
-          Modern encryption avoids these traps with randomized outputs, large keyspaces, and computational hardness.
-          But the lesson remains: any unprotected pattern becomes a vector for inference.
+          Modern encryption systems are built to resist these techniques — through randomized output, large key sizes, and deliberate complexity.
+          But the principle still stands: any pattern left unprotected can become a vulnerability.
         </p>
       </section>
 

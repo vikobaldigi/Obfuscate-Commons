@@ -6,92 +6,111 @@
   <title>Encryption Ethics</title>
   <link rel="stylesheet" href="../../css/style.css" />
   <link rel="stylesheet" href="../../css/modules.css" />
+  <style>
+    body {
+      padding-top: 3.0em;
+    }
+    header#terminal-header {
+      margin-bottom: 0;
+      padding-bottom: 0;
+      text-align: center;
+    }
+    header#terminal-header h1 {
+      margin: 0;
+      padding: 0;
+      line-height: 1.1;
+    }
+    header#terminal-header p {
+      margin: 0;
+      padding-top: 1.0em;
+      padding-bottom: 0.5em;
+      font-size: 1.1em;
+      line-height: 1.4;
+      max-width: 42em;
+      margin-inline: auto;
+    }
+    main.module-content {
+      margin-top: 0em;
+    }
+  </style>
 </head>
 <body>
   <div class="shell">
     <header id="terminal-header">
       <h1>⚖️ Encryption Ethics (ETHICS)</h1>
-      <p>Encryption doesn't just protect — it reshapes power. Who it shields, who it excludes, and who it enables are deeply ethical questions.</p>
+      <p>Encryption doesn’t just protect — it reshapes power. Who it shields, who it excludes, and who it enables are deeply ethical questions.</p>
     </header>
 
     <main class="module-content">
 
-      <section>
+      <section class="fade-in-up">
         <h2 class="section-heading">Why Ethics?</h2>
         <p>
           Cryptographic systems aren’t neutral. As Phillip Rogaway argues, they rearrange power: who can speak freely, who can watch, and who cannot.
-          Encryption resists surveillance — but it can also entrench secrecy for the powerful.
+          Encryption resists surveillance — but also enforces exclusion. Its use is always political, whether acknowledged or not.
         </p>
         <p>
-          Encryption protects rights — but can also shield abuse. The tension between safety and freedom lies at the heart of every encryption debate.
+          To ask how encryption works is also to ask who it works for — and who gets left behind when the tools are too opaque, too difficult, or too embedded in tech industry logic.
         </p>
       </section>
 
-      <section>
-        <h2 class="section-heading">Obfuscation as Resistance</h2>
+      <section class="fade-in-up">
+        <h2 class="section-heading">Protection vs. Obfuscation</h2>
         <p>
-          Helen Nissenbaum and Finn Brunton frame obfuscation not as deception, but as refusal — a tactic within systems that demand legibility.
-          Obfuscation disrupts surveillance by introducing noise, ambiguity, and unpredictability.
+          Not everyone needs military-grade encryption. But everyone needs some way to shield themselves from extractive visibility.
+          For some, that’s strong cryptography. For others, it’s blending in — obfuscation, noise, misdirection.
         </p>
         <p>
-          Unlike encryption, which must be precise and strong, obfuscation can be lightweight and everyday — randomized search histories,
-          spoofed locations, artificial fingerprints.
-        </p>
-      </section>
-
-      <section>
-        <h2 class="section-heading">The Dual Use Dilemma</h2>
-        <p>
-          Encryption is a dual-use technology: it protects dissent and journalism — and also organized crime.
-          This complexity is often used to argue for backdoors or government keys.
-        </p>
-        <p>
-          But “lawful access” creates structural vulnerabilities. As history shows, these weaknesses often expand beyond their intended use.
+          As Brunton and Nissenbaum remind us: “privacy” doesn’t always mean silence. Sometimes it means strategic confusion.
         </p>
       </section>
 
-      <section>
-        <h2 class="section-heading">Responsibility of Cryptographers</h2>
+      <section class="fade-in-up">
+        <h2 class="section-heading">Accessibility and Autonomy</h2>
         <p>
-          Rogaway writes that cryptographers are moral agents. What they choose to build — or not build — defines the limits of power.
-          Cryptography encodes values.
+          Many encryption tools are hard to use. Documentation is scarce. Interfaces are brittle. Even when people want to protect themselves, the barrier to entry is high.
         </p>
-        <ul>
-          <li>Design systems that prioritize autonomy over compliance</li>
-          <li>Resist funding or partnerships that embed control or bias</li>
-          <li>Build with users, not just institutions, in mind</li>
-        </ul>
+        <p>
+          That’s an ethical problem. Because if only the most technically fluent can encrypt — then protection becomes a form of privilege, not a right.
+        </p>
+        <p>
+          Making encryption accessible isn’t just UX work. It’s redistribution.
+        </p>
       </section>
 
-      <section>
-        <h2 class="section-heading">Questions to Ask</h2>
-        <ul>
-          <li>Who is allowed to encrypt — and who is excluded?</li>
-          <li>Who controls the keys?</li>
-          <li>What metadata remains exposed, and to whom?</li>
-          <li>Is trust centralized or distributed?</li>
-          <li>Who benefits most — and who is most at risk?</li>
-        </ul>
+      <section class="fade-in-up">
+        <h2 class="section-heading">Law, Violence, and Regulation</h2>
+        <p>
+          Governments often frame encryption as a threat — a way for criminals to hide. But what gets missed in that framing are the everyday people 
+          who use encryption to survive: journalists, migrants, whistleblowers, organizers.
+        </p>
+        <p>
+          When laws restrict encryption, they don’t just target bad actors. They criminalize protection itself. And they put more trust in surveillance 
+          than in the people resisting it.
+        </p>
       </section>
 
-      <section>
-        <h2 class="section-heading">Next Steps</h2>
-      </section>
-
-      <section class="sources">
-        <h3>Sources & Further Reading</h3>
-        <ul>
-          <li>Brunton & Nissenbaum, <em>Obfuscation: A User’s Guide</em> — MIT Press</li>
-          <li>Phillip Rogaway, <em>The Moral Character of Cryptographic Work</em> — Asiacrypt Lecture (2015)</li>
-          <li>Georg Thomas, <em>Privacy and Ethics in Encryption</em> — AICE 2020</li>
-        </ul>
+      <section class="fade-in-up">
+        <h2 class="section-heading">Toward an Ethical Practice</h2>
+        <p>
+          Using encryption is not a neutral act. Nor is teaching it. It’s a decision to prioritize safety over convenience, clarity over secrecy, 
+          and community over compliance.
+        </p>
+        <p>
+          We encrypt not to disappear — but to appear on our own terms.
+        </p>
       </section>
 
       <footer>
         <p><a href="../../index.html">← Back to Obfuscate-OS</a></p>
       </footer>
-
     </main>
   </div>
+
+  <script>
+    if (localStorage.getItem("theme") === "light") {
+      document.body.classList.add("light-mode");
+    }
+  </script>
 </body>
 </html>

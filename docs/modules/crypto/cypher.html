@@ -6,91 +6,123 @@
   <title>CYPHER — Substitution & Secrecy</title>
   <link rel="stylesheet" href="../../css/style.css" />
   <link rel="stylesheet" href="../../css/modules.css" />
+  <style>
+    body {
+      padding-top: 3.0em;
+    }
+    header#terminal-header {
+      margin-bottom: 0;
+      padding-bottom: 0;
+      text-align: center;
+    }
+    header#terminal-header h1 {
+      margin: 0;
+      padding: 0;
+      line-height: 1.1;
+    }
+    header#terminal-header p {
+      margin: 0;
+      padding-top: 1.0em;
+      padding-bottom: 0.5em;
+      font-size: 1.1em;
+      line-height: 1.4;
+      max-width: 42em;
+      margin-inline: auto;
+    }
+    main.module-content {
+      margin-top: 0em;
+    }
+  </style>
 </head>
 <body>
   <div class="shell">
     <header id="terminal-header">
       <h1>Substitution Ciphers (CYPHER)</h1>
-      <p>Before cryptography was math, it was misdirection.</p>
+      <p>Before encryption became mathematics, it was misdirection. Secrecy begins with substitution.</p>
     </header>
 
     <main class="module-content">
-      <section>
+      <section class="fade-in-up">
         <h2 class="section-heading">Why Start with Ciphers?</h2>
         <p>
-          Long before encryption relied on prime numbers or elliptic curves, it relied on language games.
-          A cipher is one of the oldest methods of obfuscation: a way to turn everyday writing into something opaque.
+          Long before cryptography involved prime numbers or elliptic curves, it started with everyday language.
+          Substitution ciphers are among the oldest methods of obfuscation: replacing letters or symbols to make a message unreadable to outsiders.
         </p>
         <p>
-          Substitution ciphers replace letters, symbols, or entire words with others. The message isn't deleted — just disguised.
-          This is cryptography as disguise, as camouflage. And it's where most cryptographic systems begin: with a simple trick.
+          These early systems didn’t erase meaning — they disguised it. They remind us that the core of encryption isn’t just math. It’s misalignment, resistance, and control over visibility.
         </p>
       </section>
 
-      <section>
+      <section class="fade-in-up">
         <h2 class="section-heading">The Caesar Cipher</h2>
         <p>
-          Julius Caesar wrote encrypted messages to his generals by shifting each letter forward three places in the alphabet.
-          <code>A → D</code>, <code>B → E</code>, <code>Z → C</code>. It's a form of what we now call a <strong>monoalphabetic substitution cipher</strong>.
+          Julius Caesar used a simple cipher: shift each letter three places forward. <code>A → D</code>, <code>B → E</code>, and so on.
+          This is known as a <strong>monoalphabetic substitution cipher</strong> — one alphabet, shuffled.
         </p>
         <p>
-          There are only 25 possible shifts. A determined reader could simply try each one until meaning appears. Still, it introduces a key idea: <strong>ciphertext</strong> — encrypted language requiring a key.
+          With only 25 possible shifts, it's easy to break by trial. But the idea is foundational: a method of encrypting language using a shared, secret rule — a key.
         </p>
       </section>
 
-      <section>
-        <h2 class="section-heading">From Substitution to Frequency</h2>
+      <section class="fade-in-up">
+        <h2 class="section-heading">Frequency Analysis</h2>
         <p>
-          Ciphers that preserve letter frequencies — like Caesar’s — are vulnerable to <strong>frequency analysis</strong>.
-          In English, for example, <code>E</code> is the most common letter. If a ciphertext symbol appears most frequently, it's likely mapped from <code>E</code>.
+          Ciphers like Caesar’s preserve the original structure — especially letter frequency.
+          In English, <code>E</code> is the most common letter. A frequent symbol in ciphertext often maps to it.
         </p>
         <p>
-          Formalized during the Islamic Golden Age, this technique became foundational to Western cryptanalysis during the Renaissance.
-        </p>
-      </section>
-
-      <section>
-        <h2 class="section-heading">Polyalphabetic Illusion: Vigenère</h2>
-        <p>
-          The Vigenère cipher uses a keyword to apply multiple Caesar-style shifts to the plaintext. If the keyword is <code>KEY</code>, the message <code>HELLO</code> becomes a scramble based on <code>K → 10</code>, <code>E → 4</code>, <code>Y → 24</code>.
-        </p>
-        <p>
-          Once thought unbreakable, it was cracked in the 1800s by identifying repeating sequences to estimate keyword length — then attacking each Caesar alphabet individually.
+          This technique — <strong>frequency analysis</strong> — was formalized by Arab mathematicians in the 9th century,
+          then rediscovered during the European Renaissance. It turned cryptanalysis into a science.
         </p>
       </section>
 
-      <section>
-        <h2 class="section-heading">Beyond Paper: Cipher Machines</h2>
+      <section class="fade-in-up">
+        <h2 class="section-heading">Polyalphabetic Disguise</h2>
         <p>
-          During the 20th century, cipher machines like <strong>Enigma</strong> and the <strong>Hagelin M-209</strong> used rotors and wheels to automate substitution.
-          Enigma had over 150 trillion settings — but failed due to poor key discipline and repeated messages.
+          The Vigenère cipher improves on Caesar by using a repeating keyword. Each letter of the key shifts a letter of the message.
+          With the key <code>KEY</code>, <code>HELLO</code> becomes a sequence of shifting alphabets.
         </p>
         <p>
-          These systems showed that complexity alone doesn’t ensure security — implementation matters.
-        </p>
-      </section>
-
-      <section>
-        <h2 class="section-heading">Cipher ≠ Code</h2>
-        <p>
-          Codes substitute words or phrases; ciphers manipulate letters or bits. Codes require secrecy of a shared book. Ciphers require secrecy of a key.
-        </p>
-        <p>
-          In modern cryptography, ciphers scale. Codes do not.
+          For centuries it was called “le chiffre indéchiffrable” — the indecipherable cipher — until it was broken by exploiting patterns in the repetition.
+          A longer key means less pattern, but not zero pattern.
         </p>
       </section>
 
-      <section>
-        <h2 class="section-heading">Why It Matters</h2>
+      <section class="fade-in-up">
+        <h2 class="section-heading">Machines of Obfuscation</h2>
         <p>
-          These systems may seem quaint — but they illuminate core cryptographic tensions: concealment vs. legibility, randomness vs. pattern, and trust vs. tool.
+          In the 20th century, substitution went mechanical. Devices like <strong>Enigma</strong> and the <strong>Hagelin M-209</strong>
+          used rotors and gears to automate shifting alphabets. Enigma had more than 150 trillion possible settings.
         </p>
         <p>
-          We don’t study them to reuse them. We study them because today’s systems fail in the same ways: repetition, pattern, assumption.
+          But even with that complexity, it failed — not because of math, but because of implementation: reused messages, predictable openings, operator habits.
+          Obfuscation fails when humans create patterns they don't realize they're repeating.
         </p>
       </section>
 
-      <section>
+      <section class="fade-in-up">
+        <h2 class="section-heading">Cipher vs. Code</h2>
+        <p>
+          A <strong>cipher</strong> works at the letter or bit level, rearranging form. A <strong>code</strong> substitutes whole words or phrases.
+        </p>
+        <p>
+          Codes are brittle — they require memorization or lookup tables. Ciphers are scalable, mathematical, and resilient to compression and automation.
+          Modern cryptography uses ciphers. Codes are history.
+        </p>
+      </section>
+
+      <section class="fade-in-up">
+        <h2 class="section-heading">Why It Still Matters</h2>
+        <p>
+          These early systems may feel like puzzles — but the lessons hold.
+          They show us where cryptography fails: in repetition, in shortcuts, in patterns that leak what we thought we’d hidden.
+        </p>
+        <p>
+          Substitution reminds us that secrecy is always partial — and that even the simplest disguises have consequences.
+        </p>
+      </section>
+
+      <section class="fade-in-up">
         <h2 class="section-heading">Next Steps</h2>
         <a href="../net/net.html" class="nav-button">→ Module 5: Metadata Awareness</a>
       </section>
@@ -99,7 +131,7 @@
         <h3>Further Reading</h3>
         <ul>
           <li>Holden, <em>The Mathematics of Secrets</em> — Princeton University Press</li>
-          <li>Butler & Keeney, <em>Secret Messages: Concealment, Codes, and More</em></li>
+          <li>Simon Singh, <em>The Code Book</em></li>
           <li>Smart, <em>Cryptography Made Simple</em> — Springer</li>
           <li>Katz & Lindell, <em>Introduction to Modern Cryptography</em></li>
           <li>Tilborg, <em>Encyclopedia of Cryptography and Security</em></li>
