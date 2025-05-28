@@ -7,6 +7,12 @@
   <link rel="stylesheet" href="../../css/style.css" />
   <link rel="stylesheet" href="../../css/modules.css" />
   <link rel="stylesheet" href="../../css/animations.css" />
+  <script src="../../js/glossary.js" defer></script>
+  <script>
+    if (localStorage.getItem("theme") === "light") {
+      document.documentElement.classList.add("light-mode");
+    }
+  </script>
   <style>
     body {
       padding-top: 3.0em;
@@ -33,90 +39,84 @@
     main.module-content {
       margin-top: 0em;
     }
+    .nav-button-container {
+      display: flex;
+      justify-content: center;
+      gap: 1.25em;
+      margin-top: 2em;
+      flex-wrap: wrap;
+    }
+    .nav-back {
+      width: 100%;
+      text-align: center;
+      margin-top: 1.5em;
+    }
   </style>
 </head>
 <body>
   <div class="shell">
     <header id="terminal-header">
-      <h1>Metadata Awareness (NET)</h1>
-      <p>Metadata is the map, not the terrain — but it’s the map that gets mined, monetized, and weaponized.</p>
+      <h1>Metadata Awareness <span style="color: var(--accent);">(NET)</span></h1>
+      <p>Encryption hides what you say. Metadata reveals how, when, where, and with whom — and that's often more than enough.</p>
     </header>
 
     <main class="module-content">
+
       <section class="fade-in-up">
         <h2 class="section-heading">What Is Metadata?</h2>
         <p>
-          Metadata is often described as “data about data,” but that definition misses its power.
-          As Jeffrey Pomerantz argues, metadata is how systems manage complexity — by fragmenting, labeling, and sorting information to make it searchable and actionable.
+          Metadata means “data about data” — but that phrase hides its real power. Metadata includes the time, location, device, and network used to send a message. It's not the content — it's everything around the content.
         </p>
         <p>
-          Metadata is the scaffolding of digital life. Your devices constantly emit it: timestamps, IP addresses, locations, browsing history, file types.
-          It’s the part of your activity you don’t see — but others do. And unlike content, it rarely needs to be decrypted.
-        </p>
-        <p>
-          Metadata doesn’t just describe data — it structures control: what’s visible, who gets to know, and what’s remembered.
+          Your phone call might be encrypted, but metadata reveals who you called, how long you talked, and from where. No message needed. Just patterns.
         </p>
       </section>
 
       <section class="fade-in-up">
-        <h2 class="section-heading">Metadata as Network Signal</h2>
+        <h2 class="section-heading">Why Does Metadata Matter?</h2>
         <p>
-          Think of metadata as the shape of the system. Using graph theory, Pomerantz explains how metadata lives in <em>edges</em> — the connections between nodes.
-          Not just who you are, but who you talk to. When. How often. For how long.
+          Metadata builds networks. It links people, places, and behaviors. Governments use it to track suspects. Tech companies use it to target ads. 
+          Anyone who controls metadata controls the map — not just of what you’ve done, but what you might do next.
         </p>
         <p>
-          From telecoms to social media, metadata forms <strong>behavioral graphs</strong> — maps of interaction that tell stories even without content.
-          These networks are optimized for surveillance, influence, and prediction — not for user control.
-        </p>
-      </section>
-
-      <section class="fade-in-up">
-        <h2 class="section-heading">Invisible Infrastructure</h2>
-        <p>
-          Metadata powers everything from search engines to surveillance platforms to ad tech. 
-          It’s the hidden substrate — feeding personalization algorithms, law enforcement databases, and behavioral analytics.
-        </p>
-        <p>
-          Pomerantz calls metadata “invisible infrastructure.” Manovich sees it as a second layer of cultural memory — tags, views, scroll paths, interactions.
-          This is how you’re read, indexed, and interpreted by machines.
+          As Jeffrey Pomerantz puts it, metadata is a system for managing complexity — but also for managing people.
         </p>
       </section>
 
       <section class="fade-in-up">
-        <h2 class="section-heading">Surveillance by Metadata</h2>
+        <h2 class="section-heading">Metadata as Infrastructure</h2>
         <p>
-          The NSA doesn’t need to read your messages. It knows who you called, how long you spoke, and when.
-          In leaked documents, officials put it bluntly: “We kill people based on metadata.”
+          Metadata powers everything: search engines, recommendation systems, government databases. 
+          It feeds into AI training, prediction engines, and surveillance platforms.
         </p>
         <p>
-          Metadata enables targeting — at scale. But it’s not just governments. Tech platforms use the same logic to predict behavior, serve ads, and shape public opinion.
-        </p>
-        <p>
-          Metadata isn’t neutral. It’s strategic — and it’s profitable.
+          Lev Manovich calls it the “second layer” of digital culture — the invisible layer that tracks what we click, watch, share, and skip.
         </p>
       </section>
 
       <section class="fade-in-up">
-        <h2 class="section-heading">Obfuscation as Strategy</h2>
+        <h2 class="section-heading">How Metadata Is Used</h2>
         <p>
-          You can’t delete metadata, but you can drown it. Brunton and Nissenbaum propose obfuscation: inserting noise, generating false patterns, disrupting legibility.
+          One leaked NSA document said it plainly: “We kill people based on metadata.” 
+          That’s how powerful it is. And it’s not just intelligence agencies.
         </p>
         <p>
-          Obfuscation isn’t about perfect privacy. It’s about <strong>refusing to be efficiently categorized</strong>. 
-          It’s a friction strategy — one that shifts labor back onto the system trying to know you.
-        </p>
-        <p>
-          Resistance to metadata is resistance to automated inference. You don’t have to be invisible — just unreadable.
+          Social media, phone companies, online stores — all of them collect and analyze metadata to shape what we see and how we behave.
         </p>
       </section>
 
       <section class="fade-in-up">
-        <h2 class="section-heading">Next Steps</h2>
-        <a href="../guide/guide.html" class="nav-button">→ Module 6: Terminal Basics</a>
+        <h2 class="section-heading">What Can You Do?</h2>
+        <p>
+          You can’t fully erase metadata — but you can resist it. One strategy is <span data-tooltip="Adding noise or false signals to confuse tracking systems.">obfuscation</span>.
+        </p>
+        <p>
+          As Brunton and Nissenbaum argue, the goal isn’t invisibility. It’s confusion. Hide in the crowd. Spoil the data. Refuse to be sorted easily.
+        </p>
       </section>
 
-      <section class="sources">
-        <h3>Further Reading</h3>
+      <section class="fade-in-up">
+        <h2 class="section-heading">Further Reading</h2>
         <ul>
           <li>Jeffrey Pomerantz, <em>Metadata</em> — MIT Press</li>
           <li>Brunton & Nissenbaum, <em>Obfuscation</em> — MIT Press</li>
@@ -124,16 +124,16 @@
         </ul>
       </section>
 
-      <footer>
-        <p><a href="../../index.html">← Back to Obfuscate-OS</a></p>
-      </footer>
+      <div class="nav-button-container">
+        <a href="../crypto/cypher.html" class="nav-button">← Previous Module</a>
+        <a href="../guide/guide.html" class="nav-button">Next Module →</a>
+      </div>
+
+      <div class="nav-back">
+        <a href="../../index.html" class="nav-button">← Back to Obfuscate-OS</a>
+      </div>
+
     </main>
   </div>
-
-  <script>
-    if (localStorage.getItem("theme") === "light") {
-      document.body.classList.add("light-mode");
-    }
-  </script>
 </body>
 </html>

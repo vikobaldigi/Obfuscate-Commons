@@ -3,10 +3,16 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>CPU — Learn Encryption</title>
+  <title>Learn Encryption — Obfuscate-OS</title>
   <link rel="stylesheet" href="../../css/style.css" />
   <link rel="stylesheet" href="../../css/modules.css" />
   <link rel="stylesheet" href="../../css/animations.css" />
+  <script src="../../js/glossary.js" defer></script>
+  <script>
+    if (localStorage.getItem("theme") === "light") {
+      document.documentElement.classList.add("light-mode");
+    }
+  </script>
   <style>
     body {
       padding-top: 3.0em;
@@ -33,24 +39,29 @@
     main.module-content {
       margin-top: 0em;
     }
-    table.encryption-table {
+    .nav-button-container {
+      display: flex;
+      justify-content: center;
+      gap: 1.25em;
+      margin-top: 2em;
+    }
+    .encryption-table {
       width: 100%;
       border-collapse: collapse;
       margin: 1.5em 0;
-      font-size: 1em;
-      color: var(--text);
     }
     .encryption-table th,
     .encryption-table td {
       text-align: left;
       padding: 0.75em 1em;
+      border-bottom: 1px solid #555;
     }
-    .encryption-table th {
-      color: var(--accent);
-      font-weight: bold;
+    .encryption-table thead th {
+      border-bottom: 2px solid #aaa;
+      background-color: rgba(255,255,255,0.05);
     }
-    .encryption-table tr:nth-child(even) {
-      background-color: rgba(255, 255, 255, 0.05);
+    .encryption-table tbody tr:hover {
+      background-color: rgba(255,255,255,0.03);
     }
   </style>
 </head>
@@ -62,116 +73,93 @@
     </header>
 
     <main class="module-content">
+
       <section class="fade-in-up">
         <h2 class="section-heading">Why Encryption?</h2>
         <p>
-          Encryption is how we protect what matters in a digital world. Not just from bad actors — but from institutions that collect, monetize, or manipulate what we do online. 
-          It’s about controlling how our data moves, and who gets to see it.
+          Encryption is how we defend autonomy in a digital world. It protects not just against hackers, but from surveillance, profiling, and institutional control. 
         </p>
         <p>
-          While corporations push encryption as a compliance feature or premium service, its roots are far older and far more personal:
-          protecting speech, sheltering dissent, and securing the right to be unreadable.
+          Whether you’re sharing sensitive research or just texting without being tracked, encryption gives you the power to choose who sees what.
         </p>
       </section>
 
-      <div class="section-break"></div>
+      <section class="fade-in-up">
+        <h2 class="section-heading">What Is Encryption?</h2>
+        <p>
+          At its core, encryption transforms readable text (plaintext) into unreadable data (ciphertext) using a mathematical rule and a secret key.
+        </p>
+        <p>
+          For example, Julius Caesar encrypted his military messages by shifting letters three steps forward. This early cipher was breakable — but it planted the seed for centuries of cryptographic thinking.
+        </p>
+      </section>
 
       <section class="fade-in-up">
         <h2 class="section-heading">Encryption vs Obfuscation</h2>
         <p>
-          Encryption scrambles information so only someone with the right key can unlock it. Obfuscation takes a different route:
-          it overwhelms surveillance with noise — false leads, junk signals, plausible deniability.
+          Encryption locks meaning behind a key. Obfuscation drowns meaning in noise. The first makes data unreadable without permission. The second overwhelms watchers with plausible alternatives.
         </p>
         <p>
-          Together, they don’t just hide — they challenge the idea that digital systems should always be transparent to power.
+          Both resist surveillance — not just technically, but politically.
         </p>
       </section>
 
-      <div class="section-break"></div>
-
       <section class="fade-in-up">
-        <h2 class="section-heading">From Caesar to Surveillance</h2>
+        <h2 class="section-heading">Symmetric vs. Asymmetric Encryption</h2>
         <p>
-          Encryption has always been political. Julius Caesar used a crude cipher to protect military messages.
-          That impulse — to keep meaning safe — has evolved alongside empires, militaries, and mass communications.
+          Encryption systems manage keys differently. Who holds them — and how they’re exchanged — determines how secure and usable the system is.
         </p>
-        <p>
-          Modern algorithms like RSA and AES rely on serious math to resist not just hackers, but institutional surveillance.
-          They protect against brute force, but also against the passive data collection that underwrites today’s digital economy.
-        </p>
-      </section>
 
-      <div class="section-break"></div>
-
-      <section class="fade-in-up">
-        <h2 class="section-heading">Symmetric vs Asymmetric Encryption</h2>
-        <p>
-          There are two core models for encryption today. Knowing the difference helps you understand how your tools work — and when they’re most useful.
-        </p>
         <table class="encryption-table">
           <thead>
             <tr>
-              <th>Type</th>
-              <th>Key Model</th>
-              <th>Examples</th>
+              <th style="width: 20%">Type</th>
+              <th style="width: 40%">How It Works</th>
+              <th style="width: 40%">Used In</th>
             </tr>
           </thead>
           <tbody>
             <tr>
               <td>Symmetric</td>
-              <td>One shared key</td>
-              <td>AES, ChaCha20</td>
+              <td>One shared key encrypts and decrypts</td>
+              <td>Wi-Fi, file encryption, password managers</td>
             </tr>
             <tr>
               <td>Asymmetric</td>
-              <td>Public/private keypair</td>
-              <td>RSA, ECC</td>
+              <td>Public key encrypts, private key decrypts</td>
+              <td>Secure messaging, HTTPS, digital signatures</td>
             </tr>
           </tbody>
         </table>
-        <p>
-          Symmetric is fast and secure — as long as you already trust the person you're sharing with.
-          Asymmetric allows strangers to exchange data securely in public. Most encrypted systems use both in combination.
-        </p>
-      </section>
 
-      <div class="section-break"></div>
+        <p><strong>AES</strong> (Advanced Encryption Standard) is the default cipher used to secure files, hard drives, and network traffic. It's efficient and time-tested.</p>
+        <p><strong>ChaCha20</strong> is a fast, secure alternative designed for phones and low-power devices — used by Signal and Google.</p>
+        <p><strong>RSA</strong> is a foundational public-key system that allows people to share secrets over the open internet without having met.</p>
+        <p><strong>ECC</strong> (Elliptic Curve Cryptography) offers the same protections as RSA but with smaller keys and better performance — ideal for mobile apps and blockchain systems.</p>
+      </section>
 
       <section class="fade-in-up">
         <h2 class="section-heading">Beyond Corporate Security</h2>
         <p>
-          Most encryption you hear about is framed around protecting financial data or corporate secrets.
-          But the deeper purpose is about protecting people — especially those navigating vulnerable, risky, or oppressive systems.
+          Encryption is often marketed as a way to protect your bank account. But its deeper value lies in protecting activists, artists, whistleblowers, and everyday people from overreach.
         </p>
         <p>
-          Whether you're sharing sensitive research, archiving community records, or just texting without surveillance,
-          encryption gives you a choice: to decide who gets to read you, and who doesn’t.
+          It’s a right — not a luxury.
         </p>
       </section>
-
-      <div class="section-break"></div>
 
       <section class="fade-in-up">
         <h2 class="section-heading">Frequency Analysis and Cipher Cracking</h2>
         <p>
-          Earlier ciphers — like Caesar and Vigenère — were broken by noticing patterns.
-          Letter frequencies, common digraphs, and structure gave them away. This led to the field of cryptanalysis.
+          Older ciphers like Caesar and Vigenère were broken by noticing patterns in letter frequency. This gave rise to cryptanalysis — the study of codebreaking.
         </p>
         <p>
-          Modern encryption systems are built to resist these techniques — through randomized output, large key sizes, and deliberate complexity.
-          But the principle still stands: any pattern left unprotected can become a vulnerability.
+          Modern encryption systems are built to resist these attacks using randomness, complexity, and massive keyspaces. Still, any pattern left exposed can become a vulnerability.
         </p>
       </section>
 
-      <div class="section-break"></div>
-
       <section class="fade-in-up">
-        <h2 class="section-heading">Next Steps</h2>
-        <a href="sec.html" class="nav-button">→ Module 2: Cryptographic Failures</a>
-      </section>
-
-      <section class="sources">
-        <h3>Further Reading</h3>
+        <h2 class="section-heading">Further Reading</h2>
         <ul>
           <li>Brunton & Nissenbaum, <em>Obfuscation</em> — MIT Press</li>
           <li>Singh, <em>The Code Book</em></li>
@@ -181,9 +169,11 @@
         </ul>
       </section>
 
-      <footer>
-        <p><a href="../../index.html">← Back to Obfuscate-OS</a></p>
-      </footer>
+      <div class="nav-button-container">
+        <a href="../../index.html" class="nav-button">← Back to Obfuscate-OS</a>
+        <a href="sec.html" class="nav-button">Next Module →</a>
+      </div>
+
     </main>
   </div>
 </body>

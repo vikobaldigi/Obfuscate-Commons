@@ -6,6 +6,12 @@
   <title>TOOLS — Open-Source Cryptography</title>
   <link rel="stylesheet" href="../../css/style.css" />
   <link rel="stylesheet" href="../../css/modules.css" />
+  <link rel="stylesheet" href="../../css/animations.css" />
+  <script>
+    if (localStorage.getItem("theme") === "light") {
+      document.documentElement.classList.add("light-mode");
+    }
+  </script>
   <style>
     body {
       padding-top: 3.0em;
@@ -32,122 +38,109 @@
     main.module-content {
       margin-top: 0em;
     }
-  </style>
-  <script>
-    if (localStorage.getItem("theme") === "light") {
-      document.body.classList.add("light-mode");
+    .nav-button-container {
+      display: flex;
+      justify-content: center;
+      gap: 1.25em;
+      margin-top: 2em;
+      flex-wrap: wrap;
     }
-  </script>
+    .nav-back {
+      width: 100%;
+      text-align: center;
+      margin-top: 1.5em;
+    }
+  </style>
 </head>
 <body>
   <div class="shell">
     <header id="terminal-header">
       <h1>Open-Source Crypto Tools (TOOLS)</h1>
-      <p>Libraries of secrecy. Algorithms for resistance.</p>
+      <p>Encryption tools built for users — not clouds, not platforms. Free to inspect, modify, and trust on your own terms.</p>
     </header>
 
     <main class="module-content">
       <section>
         <h2 class="section-heading">Why Tools Matter</h2>
         <p>
-          Encryption isn’t just theory — it’s implementation. Code becomes infrastructure, and infrastructure shapes possibility. 
-          These tools define how we protect speech, structure consent, and resist surveillance.
+          Encryption is only as strong as the tool you use. Whether you're messaging, storing files, or sending email — the tool shapes your risk, your power, and your privacy.
         </p>
         <p>
-          Open-source libraries matter not just because they’re free — but because they’re transparent. They can be audited, improved, and forked.
-          In a world where encryption is licensed, weakened, or withheld, open tools give us the power to build protection on our own terms.
+          These tools aren’t built for surveillance capitalism. They’re for autonomy, resistance, and everyday defense.
         </p>
       </section>
 
       <section>
-        <h2 class="section-heading">Key Open-Source Libraries</h2>
+        <h2 class="section-heading">Email & Identity</h2>
         <ul>
-          <li><strong>OpenSSL:</strong> The backbone of HTTPS and TLS — includes symmetric, asymmetric, and hash functions with deep configuration.</li>
-          <li><strong>libsodium:</strong> Modern and minimal. Designed to avoid developer mistakes and promote safe defaults.</li>
-          <li><strong>Botan:</strong> C++ library optimized for embedded environments. Supports ECC, RSA, GOST, and more.</li>
-          <li><strong>Bouncy Castle:</strong> Java and C# libraries widely used in Android, enterprise apps, and mobile wallets.</li>
-          <li><strong>Crypto++:</strong> Research-grade C++ toolkit with support for legacy and experimental algorithms.</li>
-          <li><strong>Libgcrypt:</strong> Used by GnuPG. Modular, standards-compliant, and often deployed in Linux tools.</li>
+          <li><strong>Thunderbird + Enigmail:</strong> Encrypted email via OpenPGP.</li>
+          <li><strong>Tutanota / ProtonMail:</strong> Privacy-first email services with end-to-end encryption.</li>
+          <li><strong>GPG:</strong> The classic tool for signing and encrypting data and communications.</li>
         </ul>
       </section>
 
       <section>
-        <h2 class="section-heading">Interoperability and Control</h2>
-        <p>
-          Choosing a library isn’t just a technical decision — it’s about what you prioritize: simplicity, compatibility, speed, or resilience.
-        </p>
+        <h2 class="section-heading">File Encryption & Backup</h2>
         <ul>
-          <li><strong>Libsodium:</strong> Drops legacy ciphers in favor of forward-secure, misuse-resistant designs.</li>
-          <li><strong>OpenSSL:</strong> Supports everything — which makes it powerful but complex to harden.</li>
-          <li><strong>GnuTLS:</strong> Built with open-source compliance in mind — often found on public infrastructure.</li>
+          <li><strong>VeraCrypt:</strong> Disk encryption tool — encrypts partitions or entire drives.</li>
+          <li><strong>Cryptomator:</strong> Encrypt files before syncing them to the cloud.</li>
+          <li><strong>age:</strong> Simpler alternative to GPG. Lightweight, modern, and easy to use.</li>
         </ul>
-        <p>
-          The tool you pick ends up shaping your threat model, your assumptions, and your vulnerabilities.
-        </p>
       </section>
 
       <section>
-        <h2 class="section-heading">Cryptography Is Political</h2>
-        <p>
-          Cryptographic tools define who can speak securely — and who cannot. They structure access, visibility, and autonomy.
-          Governments regulate them. Corporations monetize them. Activists deploy them. The libraries you choose reflect values.
-        </p>
-        <p>
-          Encryption isn’t just about hiding things. It’s about building spaces where surveillance can’t reach — and where vulnerable communities can collaborate, document, or dissent without being watched.
-        </p>
+        <h2 class="section-heading">Messaging & Communication</h2>
+        <ul>
+          <li><strong>Signal:</strong> End-to-end encrypted messages and calls. Open-source. Metadata-minimized.</li>
+          <li><strong>Briar:</strong> Peer-to-peer encrypted messaging — no central server, works over Bluetooth or Wi-Fi.</li>
+          <li><strong>Session:</strong> Anonymous routing over the Loki network — no phone number needed.</li>
+        </ul>
       </section>
 
       <section>
-        <h2 class="section-heading">Choosing the Right Tool</h2>
+        <h2 class="section-heading">Command Line & Scripting</h2>
         <ul>
-          <li><strong>Command line:</strong> <code>gpg</code>, <code>openssl</code>, <code>age</code></li>
-          <li><strong>In-browser apps:</strong> <code>libsodium.js</code>, <code>WebCrypto API</code></li>
-          <li><strong>Embedded development:</strong> <code>Botan</code>, <code>Crypto++</code>, <code>Libgcrypt</code></li>
+          <li><strong>gpg:</strong> Encrypt, decrypt, and sign files using OpenPGP.</li>
+          <li><strong>age:</strong> Minimal CLI encryption tool using modern crypto (X25519, ChaCha20-Poly1305).</li>
+          <li><strong>openssl:</strong> Swiss-army knife of crypto — supports TLS, ciphers, certificates, hashes.</li>
         </ul>
-        <p>
-          These tools aren’t interchangeable. They reflect assumptions. Picking one is a political act — whether you realize it or not.
-        </p>
       </section>
 
       <section>
-        <h2 class="section-heading">Privacy Beyond Code: Browsers and Search</h2>
-        <p>
-          Cryptographic libraries are critical — but so are the surfaces you touch every day: your browser, your search engine, your defaults.
-        </p>
-        <p>
-          Most web infrastructure is built to extract. Even when your messages are encrypted, your patterns — clicks, queries, scrolls — are harvested.
-          Tools like these help resist that:
-        </p>
-
+        <h2 class="section-heading">Resisting Surveillance</h2>
         <ul>
-          <li><strong>Brave:</strong> Tracker blocking, HTTPS upgrades, and optional Tor routing.</li>
-          <li><strong>Tor Browser:</strong> Onion-routed encryption for true IP anonymity — slower, but more private.</li>
-          <li><strong>Firefox / LibreWolf:</strong> Customizable, open-source, and privacy-respecting when configured carefully.</li>
+          <li><strong>Tor Browser:</strong> Anonymous browsing via onion routing.</li>
+          <li><strong>Librewolf:</strong> Hardened Firefox fork with telemetry removed.</li>
+          <li><strong>GrapheneOS:</strong> Secure Android OS with privacy-focused defaults and verified boot.</li>
         </ul>
-
-        <p>
-          Search engines also matter. What you search gets stored, profiled, monetized.
-        </p>
-
-        <ul>
-          <li><strong>DuckDuckGo:</strong> Private by default. Lightweight but functional.</li>
-          <li><strong>Startpage:</strong> Anonymous wrapper around Google results — no profiling.</li>
-          <li><strong>SearXNG / Mojeek:</strong> Open metasearch and independent indexing — built for privacy, not profit.</li>
-        </ul>
-
-        <p>
-          Using these tools is about more than reducing your “data exhaust.” It’s about refusing systems that turn attention into asset and behavior into product.
-        </p>
       </section>
 
       <section>
-        <h2 class="section-heading">Next Steps</h2>
-        <a href="ethics.html" class="nav-button">→ Module 9: Encryption Ethics</a>
+        <h2 class="section-heading">Browsers & Search</h2>
+        <ul>
+          <li><strong>Brave:</strong> Chromium-based browser with tracker blocking, HTTPS upgrades, and optional Tor tabs.</li>
+          <li><strong>DuckDuckGo:</strong> Search engine that doesn’t log queries or track users.</li>
+        </ul>
       </section>
 
-      <footer>
-        <p><a href="../../index.html">← Back to Obfuscate-OS</a></p>
-      </footer>
+      <section>
+        <h2 class="section-heading">Further Reading</h2>
+        <ul>
+          <li><em>Comparison of Cryptography Libraries</em> — Wikipedia</li>
+          <li><em>Cryptanalysis</em> — Meyer & Matyas</li>
+          <li>Schneier, <em>Applied Cryptography</em></li>
+        </ul>
+      </section>
+
+      <div class="nav-button-container">
+        <a href="../blockchain/blockchain.html" class="nav-button">← Previous Module</a>
+        <a href="ethics.html" class="nav-button">Next Module →</a>
+      </div>
+
+      <div class="nav-back">
+        <a href="../../index.html" class="nav-button">← Back to Obfuscate-OS</a>
+      </div>
+
     </main>
   </div>
 </body>

@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Caesar Cipher</title>
+  <link rel="stylesheet" href="../../css/style.css" />
+  <link rel="stylesheet" href="../../css/modules.css" />
+  <style>
+    body {
+      padding-top: 3.0em;
+    }
+    header#terminal-header {
+      text-align: center;
+    }
+    header#terminal-header h1 {
+      margin: 0;
+      padding: 0;
+      line-height: 1.2;
+    }
+    header#terminal-header p {
+      margin: 0;
+      padding-top: 1.0em;
+      font-size: 1.1em;
+      line-height: 1.4;
+      max-width: 40em;
+      margin-inline: auto;
+    }
+    main.module-content {
+      margin-top: 2em;
+      max-width: 700px;
+      margin-inline: auto;
+    }
+    .form-control {
+      margin-bottom: 1.5em;
+    }
+    label {
+      display: block;
+      font-weight: bold;
+      margin-bottom: 0.5em;
+      color: var(--accent);
+    }
+    input[type="text"], input[type="number"] {
+      width: 100%;
+      padding: 0.5em;
+      font-family: var(--font);
+      background-color: #000;
+      color: var(--text);
+      border: 1px solid var(--accent);
+    }
+    #result {
+      margin-top: 2em;
+      padding: 1em;
+      border: 1px dashed var(--accent);
+      font-family: var(--font);
+      color: var(--text);
+      white-space: pre-wrap;
+    }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <header id="terminal-header">
+      <h1>🧪 Caesar Cipher (Exercise)</h1>
+      <p>Try encrypting a message by shifting letters. Caesar was simple — and breakable — but it taught the world what a cipher could do.</p>
+    </header>
+
+    <main class="module-content">
+      <div class="form-control">
+        <label for="plaintext">Plaintext</label>
+        <input type="text" id="plaintext" value="HELLO WORLD">
+      </div>
+
+      <div class="form-control">
+        <label for="shift">Shift Amount (0–25)</label>
+        <input type="number" id="shift" min="0" max="25" value="3">
+      </div>
+
+      <div id="result">Encrypted Output: </div>
+
+      <div style="margin-top: 2em; text-align: center;">
+        <a href="index.html" class="nav-button">← Back to All Exercises</a>
+      </div>
+    </main>
+
+    <footer>
+      <p><a href="../../index.html">← Back to Obfuscate-OS</a></p>
+    </footer>
+  </div>
+
+  <script>
+    const input = document.getElementById('plaintext');
+    const shift = document.getElementById('shift');
+    const result = document.getElementById('result');
+
+    function caesarEncrypt(text, shiftAmount) {
+      return text.toUpperCase().split('').map(char => {
+        const code = char.charCodeAt(0);
+        if (code >= 65 && code <= 90) {
+          return String.fromCharCode(((code - 65 + shiftAmount) % 26) + 65);
+        }
+        return char;
+      }).join('');
+    }
+
+    function updateOutput() {
+      const text = input.value;
+      const shiftAmount = parseInt(shift.value) || 0;
+      const encrypted = caesarEncrypt(text, shiftAmount);
+      result.textContent = `Encrypted Output: ${encrypted}`;
+    }
+
+    input.addEventListener('input', updateOutput);
+    shift.addEventListener('input', updateOutput);
+    updateOutput(); // initialize
+  </script>
+</body>
+</html>

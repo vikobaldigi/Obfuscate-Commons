@@ -7,6 +7,11 @@
   <link rel="stylesheet" href="../../css/style.css" />
   <link rel="stylesheet" href="../../css/modules.css" />
   <link rel="stylesheet" href="../../css/animations.css" />
+  <script>
+    if (localStorage.getItem("theme") === "light") {
+      document.documentElement.classList.add("light-mode");
+    }
+  </script>
   <style>
     body {
       padding-top: 3.0em;
@@ -33,13 +38,25 @@
     main.module-content {
       margin-top: 0em;
     }
+    .nav-button-container {
+      display: flex;
+      justify-content: center;
+      gap: 1.25em;
+      margin-top: 2em;
+      flex-wrap: wrap;
+    }
+    .nav-back {
+      width: 100%;
+      text-align: center;
+      margin-top: 1.5em;
+    }
   </style>
 </head>
 <body>
   <div class="shell">
     <header id="terminal-header">
       <h1>🔗 Blockchain & Cryptocurrency</h1>
-      <p>Distributed systems designed to decentralize trust — and re-centralize computation.</p>
+      <p>Blockchains redistribute trust. But who controls the chains?</p>
     </header>
 
     <main class="module-content">
@@ -47,89 +64,86 @@
       <section class="fade-in-up">
         <h2 class="section-heading">What Is a Blockchain?</h2>
         <p>
-          A blockchain is a distributed ledger — a linked list of data blocks, each cryptographically tied to the one before it.
-          The chain is append-only: once data is recorded, altering it requires rewriting every block after it, plus convincing the network to accept the change.
+          A blockchain is a shared digital ledger. It records transactions in a list of blocks, where each block is locked to the one before it using a cryptographic hash.
         </p>
         <p>
-          Instead of relying on a central authority, blockchains use <strong>consensus mechanisms</strong> like Proof of Work (PoW) or Proof of Stake (PoS) to agree on state.
-          The result is a kind of trust without a middleman — but it’s not trustless. It just shifts where trust lives: into software, hardware, and incentives.
+          Once a block is added, it can’t be changed without altering every block that follows — and convincing everyone else in the network to accept the change. That’s what gives it its tamper resistance.
         </p>
       </section>
 
       <section class="fade-in-up">
-        <h2 class="section-heading">The Cryptography Behind the Chain</h2>
+        <h2 class="section-heading">Why Use It?</h2>
+        <p>
+          Blockchain systems try to avoid centralized control. Instead of trusting a single authority, participants rely on <span data-tooltip="Algorithms that let distributed systems agree on a single data value.">consensus mechanisms</span> like Proof of Work or Proof of Stake to decide what counts as truth.
+        </p>
+        <p>
+          This lets people or systems interact securely — even when they don’t know or trust each other.
+        </p>
+      </section>
+
+      <section class="fade-in-up">
+        <h2 class="section-heading">The Cryptography Underneath</h2>
         <ul>
-          <li><strong>Hashing:</strong> Each block includes a SHA-256 hash of the previous block — making tampering evident.</li>
-          <li><strong>Public-Key Signatures:</strong> Transactions are signed by private keys, proving authorship and integrity.</li>
-          <li><strong>Merkle Trees:</strong> Efficient data structures that allow for quick verification of individual transactions within a block.</li>
+          <li><strong>Hashing:</strong> Keeps blocks linked and checks for tampering.</li>
+          <li><strong>Digital Signatures:</strong> Prove who authorized a transaction.</li>
+          <li><strong>Merkle Trees:</strong> Make it possible to verify small parts of large datasets quickly.</li>
         </ul>
         <p>
-          These tools enforce integrity — but also introduce new complexity. Blockchain security isn’t just about strong math. It’s about implementation, consensus, and context.
+          These tools help ensure that data is authentic and hasn’t been changed — but only if they’re used correctly.
         </p>
       </section>
 
       <section class="fade-in-up">
-        <h2 class="section-heading">Privacy in Public Systems</h2>
+        <h2 class="section-heading">Privacy (or the Lack of It)</h2>
         <p>
-          Blockchains are transparent by design — every transaction is visible. But newer cryptographic techniques enable selective secrecy:
+          Public blockchains are transparent. Everyone can see every transaction. That’s useful for verification — but bad for privacy.
+        </p>
+        <p>
+          More advanced tools like <strong>zk-SNARKs</strong> and <strong>zk-STARKs</strong> (zero-knowledge proofs) can help by letting you prove something without revealing the details.
+        </p>
+      </section>
+
+      <section class="fade-in-up">
+        <h2 class="section-heading">Beyond Money</h2>
+        <p>
+          Cryptocurrency is just the beginning. Blockchains also support:
         </p>
         <ul>
-          <li><strong>zk-SNARKs:</strong> Zero-knowledge proofs that let you verify truth without revealing content.</li>
-          <li><strong>zk-STARKs:</strong> A scalable, quantum-resistant variant with no trusted setup.</li>
+          <li><strong>Smart Contracts:</strong> Code that runs automatically when conditions are met.</li>
+          <li><strong>DAOs:</strong> Groups that run on-chain without central leaders.</li>
+          <li><strong>Digital Identity:</strong> Verified credentials and access systems that live on-chain.</li>
         </ul>
+      </section>
+
+      <section class="fade-in-up">
+        <h2 class="section-heading">Problems and Politics</h2>
         <p>
-          These systems blur the line between transparency and privacy — offering technical solutions to social dilemmas.
+          Blockchain is often praised for decentralization. But in practice, a few actors often hold power — through tokens, mining rigs, or code control.
+        </p>
+        <p>
+          It also uses a lot of energy, can be hard to govern, and sometimes becomes a tool for speculation instead of social benefit.
         </p>
       </section>
 
       <section class="fade-in-up">
-        <h2 class="section-heading">Beyond Coins</h2>
-        <ul>
-          <li><strong>Smart Contracts:</strong> Self-executing code tied to conditions and consensus.</li>
-          <li><strong>DAOs:</strong> Decentralized Autonomous Organizations — coordinated groups governed by rules encoded on-chain.</li>
-          <li><strong>On-Chain Identity:</strong> Public credentials, reputation scores, and access control — all persistent and traceable.</li>
-        </ul>
-        <p>
-          These aren’t just financial instruments. They’re governance tools. But they also concentrate decision-making among early adopters, whales, and insiders.
-        </p>
-      </section>
-
-      <section class="fade-in-up">
-        <h2 class="section-heading">Critiques and Cautions</h2>
-        <p>
-          Blockchain isn't neutral. It encodes assumptions about trust, time, and value. It promises decentralization — but often recentralizes power through
-          token holdings, consensus monopolies, and infrastructure asymmetries.
-        </p>
-        <p>
-          Environmental impact, governance opacity, and speculative volatility remain open challenges. These are not bugs — they’re design tradeoffs.
-          Understanding them is the first step to using blockchain for public good — or resisting its capture by extractive logic.
-        </p>
-      </section>
-
-      <section class="fade-in-up">
-        <h2 class="section-heading">Next Steps</h2>
-        <a href="../crypto/tools.html" class="nav-button">→ Module 8: Encryption Tools</a>
-      </section>
-
-      <section class="sources">
-        <h3>Sources & Further Reading</h3>
+        <h2 class="section-heading">Further Reading</h2>
         <ul>
           <li>Imran Bashir, <em>Mastering Blockchain</em></li>
           <li>Katz & Lindell, <em>Introduction to Modern Cryptography</em></li>
-          <li>van Tilborg, <em>Encyclopedia of Cryptography and Security</em></li>
+          <li>Rogaway, <em>The Moral Character of Cryptographic Work</em></li>
         </ul>
       </section>
 
-      <footer>
-        <p><a href="../../index.html">← Back to Obfuscate-OS</a></p>
-      </footer>
+      <div class="nav-button-container">
+        <a href="../guide/guide.html" class="nav-button">← Previous Module</a>
+        <a href="../crypto/tools.html" class="nav-button">Next Module →</a>
+      </div>
+
+      <div class="nav-back">
+        <a href="../../index.html" class="nav-button">← Back to Obfuscate-OS</a>
+      </div>
+
     </main>
   </div>
-
-  <script>
-    if (localStorage.getItem("theme") === "light") {
-      document.body.classList.add("light-mode");
-    }
-  </script>
 </body>
 </html>

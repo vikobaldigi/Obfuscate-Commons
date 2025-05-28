@@ -6,6 +6,12 @@
   <title>Encryption Ethics</title>
   <link rel="stylesheet" href="../../css/style.css" />
   <link rel="stylesheet" href="../../css/modules.css" />
+  <link rel="stylesheet" href="../../css/animations.css" />
+  <script>
+    if (localStorage.getItem("theme") === "light") {
+      document.documentElement.classList.add("light-mode");
+    }
+  </script>
   <style>
     body {
       padding-top: 3.0em;
@@ -32,13 +38,29 @@
     main.module-content {
       margin-top: 0em;
     }
+    .nav-button-container {
+      display: flex;
+      justify-content: center;
+      gap: 1.25em;
+      margin-top: 2em;
+      flex-wrap: wrap;
+    }
+    .nav-back {
+      width: 100%;
+      text-align: center;
+      margin-top: 1.5em;
+    }
+    h3 {
+      font-size: 1.1em;
+      margin-top: 1.2em;
+    }
   </style>
 </head>
 <body>
   <div class="shell">
     <header id="terminal-header">
       <h1>⚖️ Encryption Ethics (ETHICS)</h1>
-      <p>Encryption doesn’t just protect — it reshapes power. Who it shields, who it excludes, and who it enables are deeply ethical questions.</p>
+      <p>Encryption isn’t just technical — it’s social, political, and personal. This module asks: who benefits, who’s left out, and what values shape our tools?</p>
     </header>
 
     <main class="module-content">
@@ -46,71 +68,118 @@
       <section class="fade-in-up">
         <h2 class="section-heading">Why Ethics?</h2>
         <p>
-          Cryptographic systems aren’t neutral. As Phillip Rogaway argues, they rearrange power: who can speak freely, who can watch, and who cannot.
-          Encryption resists surveillance — but also enforces exclusion. Its use is always political, whether acknowledged or not.
+          Encryption changes how we communicate, trust, and resist. But these changes have consequences. Ethics helps us ask: who gets protection, and who gets left behind?
         </p>
         <p>
-          To ask how encryption works is also to ask who it works for — and who gets left behind when the tools are too opaque, too difficult, or too embedded in tech industry logic.
+          As Phillip Rogaway wrote, cryptography is not neutral — it changes who holds power. Using or designing encryption is a political act.
         </p>
       </section>
 
       <section class="fade-in-up">
-        <h2 class="section-heading">Protection vs. Obfuscation</h2>
+        <h2 class="section-heading">Obfuscation vs. Secrecy</h2>
         <p>
-          Not everyone needs military-grade encryption. But everyone needs some way to shield themselves from extractive visibility.
-          For some, that’s strong cryptography. For others, it’s blending in — obfuscation, noise, misdirection.
+          Not everyone can use perfect encryption — and that’s okay. Obfuscation is another strategy. It doesn’t hide data completely. It makes it harder to find.
         </p>
         <p>
-          As Brunton and Nissenbaum remind us: “privacy” doesn’t always mean silence. Sometimes it means strategic confusion.
-        </p>
-      </section>
-
-      <section class="fade-in-up">
-        <h2 class="section-heading">Accessibility and Autonomy</h2>
-        <p>
-          Many encryption tools are hard to use. Documentation is scarce. Interfaces are brittle. Even when people want to protect themselves, the barrier to entry is high.
-        </p>
-        <p>
-          That’s an ethical problem. Because if only the most technically fluent can encrypt — then protection becomes a form of privilege, not a right.
-        </p>
-        <p>
-          Making encryption accessible isn’t just UX work. It’s redistribution.
+          Obfuscation works by creating noise: fake data, confusing signals, and uncertainty. It’s not about silence. It’s about surviving surveillance.
         </p>
       </section>
 
       <section class="fade-in-up">
-        <h2 class="section-heading">Law, Violence, and Regulation</h2>
+        <h2 class="section-heading">Access Is Political</h2>
         <p>
-          Governments often frame encryption as a threat — a way for criminals to hide. But what gets missed in that framing are the everyday people 
-          who use encryption to survive: journalists, migrants, whistleblowers, organizers.
+          Encryption tools like GPG and Tor are powerful — but they’re not always accessible. They’re hard to use, full of jargon, and badly documented.
         </p>
         <p>
-          When laws restrict encryption, they don’t just target bad actors. They criminalize protection itself. And they put more trust in surveillance 
-          than in the people resisting it.
+          If privacy depends on technical skill, then only the most privileged get privacy. That’s a political problem — and we can solve it with better design and better education.
         </p>
       </section>
 
       <section class="fade-in-up">
-        <h2 class="section-heading">Toward an Ethical Practice</h2>
+        <h2 class="section-heading">Law, Power, and Control</h2>
         <p>
-          Using encryption is not a neutral act. Nor is teaching it. It’s a decision to prioritize safety over convenience, clarity over secrecy, 
-          and community over compliance.
+          Governments around the world want more access to encrypted data. They pass laws to ban strong encryption, demand backdoors, or force people to unlock their devices.
         </p>
         <p>
-          We encrypt not to disappear — but to appear on our own terms.
+          These laws often don’t stop crime — they punish activists, journalists, and immigrants. When encryption becomes suspicious, privacy becomes a risk.
         </p>
       </section>
 
-      <footer>
-        <p><a href="../../index.html">← Back to Obfuscate-OS</a></p>
-      </footer>
+      <section class="fade-in-up">
+        <h2 class="section-heading">The Legal Fight Over Encryption</h2>
+        <p>
+          Encryption cases are popping up in courts across the country. These decisions shape how far governments can go — and whether your phone is still your own.
+        </p>
+        <p>
+          The law is still catching up. Judges don’t always understand how encryption works. But the big questions are clear: Can you be forced to unlock your phone? Can a company be forced to break its own security?
+        </p>
+        <p>
+          These cases matter because they shape your rights in a digital world. If encryption protects you, then weakening it puts everyone at risk.
+        </p>
+      </section>
+
+      <section class="fade-in-up">
+        <h2 class="section-heading">Important Cases You Should Know</h2>
+
+        <h3>🔓 Commonwealth v. Jones (2019)</h3>
+        <p>
+          Massachusetts ruled that if the government can prove you know your phone’s password, it can force you to unlock it. They call it a “foregone conclusion.” But that lowers the bar dangerously.
+        </p>
+
+        <h3>🧠 Eleventh Circuit Cases</h3>
+        <p>
+          These courts ruled that the government must already know what they’re looking for before they can demand access. That protects your right to stay silent — and not help build the case against you.
+        </p>
+
+        <h3>📱 Apple v. FBI (2016)</h3>
+        <p>
+          After a mass shooting, the FBI asked Apple to break into an iPhone. Apple said no — arguing that building a tool like that would hurt all users. The government eventually dropped the case.
+        </p>
+
+        <h3>📂 United States v. Hubbell (2000)</h3>
+        <p>
+          The Supreme Court said that producing documents could be a kind of testimony. Unlocking a device might count too — because it shows you control the contents.
+        </p>
+
+        <p>
+          These rulings shape how digital privacy works today — and whether encryption remains a right, or just a privilege.
+        </p>
+      </section>
+
+      <section class="fade-in-up">
+        <h2 class="section-heading">What Ethical Encryption Looks Like</h2>
+        <p>
+          Good encryption is simple, well-explained, and doesn’t rely on trust in corporations. It protects people who aren’t tech experts.
+        </p>
+        <p>
+          Most importantly, it gives control back to users. Not to companies. Not to governments.
+        </p>
+        <p>
+          To build ethical tools is to build freedom — not invisibility, but refusal.
+        </p>
+      </section>
+
+      <section class="fade-in-up">
+        <h2 class="section-heading">Further Reading</h2>
+        <ul>
+          <li>Brunton & Nissenbaum — <em>Obfuscation</em> (MIT Press)</li>
+          <li>Phillip Rogaway — <em>The Moral Character of Cryptographic Work</em></li>
+          <li>Just Security — <em>Split Over Compelled Decryption</em></li>
+          <li>U.S. DOJ v. Apple — 2016 press statements</li>
+          <li>Supreme Court — <em>United States v. Hubbell</em> (2000)</li>
+        </ul>
+      </section>
+
+      <div class="nav-button-container">
+        <a href="tools.html" class="nav-button">← Previous Module</a>
+        <a href="../algebra/algebra.html" class="nav-button">Next Module →</a>
+      </div>
+
+      <div class="nav-back">
+        <a href="../../index.html" class="nav-button">← Back to Obfuscate-OS</a>
+      </div>
+
     </main>
   </div>
-
-  <script>
-    if (localStorage.getItem("theme") === "light") {
-      document.body.classList.add("light-mode");
-    }
-  </script>
 </body>
 </html>

@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Key Exchange Visualization</title>
+  <link rel="stylesheet" href="../../css/style.css" />
+  <link rel="stylesheet" href="../../css/modules.css" />
+  <style>
+    body { padding-top: 3.0em; }
+    header#terminal-header { text-align: center; }
+    header#terminal-header h1 {
+      margin: 0; padding: 0; line-height: 1.2;
+    }
+    header#terminal-header p {
+      margin: 0; padding-top: 1.0em;
+      font-size: 1.1em; line-height: 1.4;
+      max-width: 42em; margin-inline: auto;
+    }
+    main.module-content {
+      margin-top: 2em; max-width: 800px;
+      margin-inline: auto; text-align: center;
+    }
+    svg {
+      max-width: 100%; height: auto;
+      margin-top: 1.5em;
+    }
+    .label {
+      fill: #d9b3ff;
+      font-family: 'Courier New', monospace;
+      font-size: 14px;
+    }
+    .arrow {
+      stroke: #b98eff;
+      stroke-width: 2;
+      marker-end: url(#arrowhead);
+      visibility: hidden;
+    }
+    .caption {
+      font-size: 1em;
+      margin: 1.5em auto 0 auto;
+      max-width: 40em;
+      color: var(--text);
+      font-family: var(--font);
+    }
+    .step-button {
+      margin: 1em 0;
+      padding: 0.5em 1em;
+      font-family: var(--font);
+      background-color: #111;
+      color: var(--text);
+      border: 1px solid var(--accent);
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+<div class="shell">
+  <header id="terminal-header">
+    <h1>🔐 Key Exchange (Interactive)</h1>
+    <p>Step through symmetric and asymmetric key exchange to see who holds what — and how encryption flows.</p>
+  </header>
+
+  <main class="module-content">
+    <div>
+      <button class="step-button" onclick="toggleMode()">Switch to Asymmetric</button>
+      <button class="step-button" onclick="nextStep()">Next Step</button>
+    </div>
+
+    <div id="caption" class="caption">
+      Symmetric encryption uses the same key to encrypt and decrypt. Both parties must already trust each other enough to share it.
+    </div>
+
+    <svg viewBox="0 0 600 300">
+      <defs>
+        <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+          <polygon points="0 0, 10 3.5, 0 7" fill="#b98eff"/>
+        </marker>
+      </defs>
+
+      <!-- Symmetric Key Actors -->
+      <g id="symmetric-group">
+        <text class="label" x="40" y="30">Symmetric</text>
+        <rect x="50" y="50" width="80" height="30" fill="#222" stroke="#b98eff"/>
+        <text class="label" x="60" y="70">Alice</text>
+
+        <rect x="470" y="50" width="80" height="30" fill="#222" stroke="#b98eff"/>
+        <text class="label" x="480" y="70">Bob</text>
+
+        <line id="symmetric-arrow" class="arrow" x1="130" y1="65" x2="470" y2="65" />
+      </g>
+
+      <!-- Asymmetric Key Actors -->
+      <g id="asymmetric-group" style="display: none;">
+        <text class="label" x="40" y="150">Asymmetric</text>
+        <rect x="50" y="170" width="80" height="30" fill="#222" stroke="#b98eff"/>
+        <text class="label" x="60" y="190">Alice</text>
+
+        <rect x="470" y="170" width="80" height="30" fill="#222" stroke="#b98eff"/>
+        <text class="label" x="480" y="190">Bob</text>
+
+        <line id="public-arrow" class="arrow" x1="130" y1="185" x2="470" y2="185" />
+        <line id="private-arrow" class="arrow" x1="470" y1="215" x2="130" y2="215" />
+
+        <text class="label" x="245" y="180" id="public-label" style="visibility: hidden;">Public Key → Encrypted</text>
+        <text class="label" x="245" y="230" id="private-label" style="visibility: hidden;">Private Key → Decrypted</text>
+      </g>
+    </svg>
+
+    <div style="margin-top: 2em; text-align: center;">
+      <a href="index.html" class="nav-button">← Back to All Exercises</a>
+    </div>
+  </main>
+
+  <footer>
+    <p><a href="../../index.html">← Back to Obfuscate-OS</a></p>
+  </footer>
+</div>
+
+<script>
+  let step = 0;
+  let mode = "symmetric";
+
+  const caption = document.getElementById("caption");
+  const symmetricGroup = document.getElementById("symmetric-group");
+  const asymmetricGroup = document.getElementById("asymmetric-group");
+
+  const symmetricArrow = document.getElementById("symmetric-arrow");
+  const publicArrow = document.getElementById("public-arrow");
+  const privateArrow = document.getElementById("private-arrow");
+  const publicLabel = document.getElementById("public-label");
+  const privateLabel = document.getElementById("private-label");
+
+  function reset() {
+    step = 0;
+    symmetricArrow.style.visibility = "hidden";
+    publicArrow.style.visibility = "hidden";
+    privateArrow.style.visibility = "hidden";
+    publicLabel.style.visibility = "hidden";
+    privateLabel.style.visibility = "hidden";
+
+    caption.innerText = mode === "symmetric"
+      ? "Symmetric encryption uses the same key to encrypt and decrypt. Both parties must already trust each other enough to share it."
+      : "Asymmetric encryption uses a public key to encrypt and a private key to decrypt. Only one side needs to trust the other's public key.";
+  }
+
+  function nextStep() {
+    if (mode === "symmetric") {
+      if (step === 0) {
+        symmetricArrow.style.visibility = "visible";
+        caption.innerText = "Step 1: Alice and Bob already share a secret key.";
+      } else {
+        caption.innerText = "Step 2: Alice encrypts a message using the shared key; Bob decrypts it using the same key.";
+      }
+    } else {
+      if (step === 0) {
+        publicArrow.style.visibility = "visible";
+        publicLabel.style.visibility = "visible";
+        caption.innerText = "Step 1: Alice encrypts a message with Bob’s public key.";
+      } else {
+        privateArrow.style.visibility = "visible";
+        privateLabel.style.visibility = "visible";
+        caption.innerText = "Step 2: Bob decrypts it with his private key. Alice never needs to know it.";
+      }
+    }
+    step++;
+  }
+
+  function toggleMode() {
+    mode = mode === "symmetric" ? "asymmetric" : "symmetric";
+
+    symmetricGroup.style.display = mode === "symmetric" ? "inline" : "none";
+    asymmetricGroup.style.display = mode === "asymmetric" ? "inline" : "none";
+
+    document.querySelector(".step-button").innerText =
+      mode === "symmetric" ? "Switch to Asymmetric" : "Switch to Symmetric";
+
+    reset();
+  }
+
+  reset();
+</script>
+</body>
+</html>

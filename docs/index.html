@@ -4,20 +4,17 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Obfuscate-OS v2.0</title>
-  <!-- Styles -->
   <link rel="stylesheet" href="css/style.css" />
   <link rel="stylesheet" href="css/modules.css" />
   <link rel="stylesheet" href="css/animations.css" />
 </head>
 <body>
   <div class="shell">
-    <!-- Header -->
     <header id="terminal-header">
       <h1>Obfuscate-OS v2.0</h1>
       <p>A modular guide for encryption, digital resistance, and metadata awareness.</p>
     </header>
 
-    <!-- Grid Modules -->
     <main id="module-grid"></main>
   </div>
 
@@ -31,8 +28,30 @@
     </p>
   </footer>
 
-  <!-- Scripts -->
+  <!-- Working Scripts -->
   <script src="js/modules/module-data.js"></script>
-  <script src="js/modules/module-loader.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const grid = document.getElementById("module-grid");
+      if (!grid || !window.modules || !Array.isArray(window.modules)) return;
+
+      window.modules.forEach(mod => {
+        const card = document.createElement("div");
+        card.className = "module-box";
+
+        if (mod.center) {
+          card.classList.add("centered-module");
+        }
+
+        card.innerHTML = `
+          <h2>${mod.title}</h2>
+          <p>${mod.desc}</p>
+          <a href="${mod.path}" class="nav-button">${mod.button}</a>
+        `;
+
+        grid.appendChild(card);
+      });
+    });
+  </script>
 </body>
 </html>

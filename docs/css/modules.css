@@ -40,7 +40,8 @@
   line-height: 1.6;
 }
 
-.module-box button {
+.module-box button,
+.module-box a.nav-button {
   margin-top: 1em;
   padding: 0.5em 1.25em;
   background: transparent;
@@ -48,9 +49,26 @@
   color: var(--glow);
   font-family: inherit;
   cursor: pointer;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 1rem;
 }
 
-/* Page/module header */
+.centered-module {
+  grid-column: 1 / -1;
+  justify-self: center;
+  margin: 2em auto;
+}
+
+#exercise-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2em;
+  justify-items: center;
+  width: 100%;
+  padding-bottom: 3em;
+}
+
 #terminal-header {
   text-align: center;
   margin-bottom: 2em;
@@ -63,50 +81,15 @@
   animation: pulse 3s infinite;
 }
 
-/* Module terminal-style output */
-#terminal-output {
-  max-width: 800px;
-  margin: 0 auto;
-  padding: 1em;
-  line-height: 1.6em;
-  color: #cabafc;
+#terminal-header p {
+  max-width: 42em;
+  margin-inline: auto;
+  font-size: 1.1em;
+  line-height: 1.5;
+  padding-top: 1em;
+  padding-bottom: 0.5em;
 }
 
-/* Optional glossary panel */
-#glossary-panel {
-  background: rgba(10, 0, 30, 0.95);
-  border: 1px solid #9e70ff;
-  padding: 1em;
-  border-radius: 8px;
-  overflow-y: auto;
-  height: fit-content;
-  box-shadow: 0 0 8px #7733cc33;
-}
-
-#glossary-panel h3 {
-  color: #e4c6ff;
-  margin-bottom: 0.5em;
-}
-
-#glossary-panel ul {
-  list-style: none;
-  padding: 0;
-  font-size: 0.85em;
-  line-height: 1.5em;
-  color: #caaaff;
-}
-
-#glossary-panel li {
-  margin-bottom: 0.3em;
-}
-
-/* Animation */
-@keyframes pulse {
-  0%, 100% { text-shadow: 0 0 5px var(--glow); }
-  50% { text-shadow: 0 0 15px var(--glow); }
-}
-
-/* 🔘 Unified nav button style */
 .nav-button {
   display: inline-block;
   margin: 1.25em 0.5em 0 0.5em;
@@ -125,4 +108,24 @@
 .nav-button:hover {
   background-color: var(--glow);
   color: #000;
+}
+
+#site-footer {
+  text-align: center;
+  font-size: 0.85em;
+  color: #aaa;
+  border-top: 1px solid #333;
+  padding: 1.5em 1em 1em;
+  margin-top: 2em;
+  width: 100%;
+}
+
+#site-footer a {
+  color: var(--glow);
+  text-decoration: none;
+  margin: 0 0.5em;
+}
+
+#site-footer a:hover {
+  text-decoration: underline;
 }

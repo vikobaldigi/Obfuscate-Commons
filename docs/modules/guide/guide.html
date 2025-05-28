@@ -7,6 +7,12 @@
   <link rel="stylesheet" href="../../css/style.css" />
   <link rel="stylesheet" href="../../css/modules.css" />
   <link rel="stylesheet" href="../../css/animations.css" />
+  <script src="../../js/glossary.js" defer></script>
+  <script>
+    if (localStorage.getItem("theme") === "light") {
+      document.documentElement.classList.add("light-mode");
+    }
+  </script>
   <style>
     body {
       padding-top: 3.0em;
@@ -41,13 +47,25 @@
       margin: 0.5em 0 1.5em 0;
       padding-left: 1.5em;
     }
+    .nav-button-container {
+      display: flex;
+      justify-content: center;
+      gap: 1.25em;
+      margin-top: 2em;
+      flex-wrap: wrap;
+    }
+    .nav-back {
+      width: 100%;
+      text-align: center;
+      margin-top: 1.5em;
+    }
   </style>
 </head>
 <body>
   <div class="shell">
     <header id="terminal-header">
-      <h1>Terminal Basics (GUIDE)</h1>
-      <p>The command line is less about commands, and more about permission, access, and how machines reveal their structure.</p>
+      <h1>Terminal Basics <span style="color: var(--accent);">(GUIDE)</span></h1>
+      <p>The terminal isn't outdated — it's fundamental. Learn to read the system beneath the surface.</p>
     </header>
 
     <main class="module-content">
@@ -55,117 +73,109 @@
       <section class="fade-in-up">
         <h2 class="section-heading">What Is a Terminal?</h2>
         <p>
-          A terminal is a text-based interface to your computer — a place where you speak directly to the system. 
-          It predates the mouse and windows, but it still powers the backbone of servers, routers, research environments, and embedded systems.
+          A terminal is a direct line of communication with your computer. It accepts typed commands, giving you full access to the underlying system.
         </p>
         <p>
-          It’s not retro. It’s revealing. The terminal lets you see what graphical interfaces conceal: the hierarchy of files, the logic of processes, and the assumptions behind your interaction.
+          Unlike a graphical interface, it doesn’t hide complexity — it reveals it. From servers to cybersecurity to data science, the terminal remains central to serious computing work.
         </p>
       </section>
 
       <section class="fade-in-up">
-        <h2 class="section-heading">Why the Terminal Still Matters</h2>
+        <h2 class="section-heading">Why Use It?</h2>
         <p>
-          Graphical interfaces are designed to simplify. That makes them usable — but also limiting.
-          The terminal doesn’t simplify. It exposes. As William Shotts puts it: “The command line makes hard things possible.”
+          GUIs (Graphical User Interfaces) are easy. But the terminal is powerful. It lets you automate tasks, navigate faster, and understand exactly what your computer is doing.
         </p>
         <p>
-          Learning the terminal changes how you understand the system. It gives you vocabulary — not just to use the machine, but to interrogate it.
-        </p>
-      </section>
-
-      <section class="fade-in-up">
-        <h2 class="section-heading">Literacy and Power</h2>
-        <p>
-          The terminal is a language. You learn verbs like <code>ls</code>, <code>cat</code>, <code>chmod</code>. You read error messages.
-          You trace file paths, redirect streams, inspect process trees.
-        </p>
-        <p>
-          In doing so, you stop being just a user. You become someone who can intervene — on your own system, or someone else’s.
-          That’s not just skill. That’s power.
+          The more control you want over your digital tools, the more the terminal matters. It’s how professionals manage infrastructure and build systems from the ground up.
         </p>
       </section>
 
       <section class="fade-in-up">
-        <h2 class="section-heading">Core POSIX Commands</h2>
+        <h2 class="section-heading">What You’ll Learn</h2>
         <p>
-          Below are some of the most widely used command-line tools defined by the POSIX standard. These commands are found across Unix, Linux, and macOS systems.
+          This module introduces essential terminal commands, grouped by their purpose. These work across most Unix-like systems (Linux, macOS, etc.).
         </p>
+        <p>
+          These commands aren't just syntax. They're a vocabulary for speaking directly to the machine.
+        </p>
+      </section>
+
+      <section class="fade-in-up">
+        <h2 class="section-heading">Core Commands</h2>
 
         <div class="command-category">🔍 Inspect and Navigate</div>
         <ul class="command-list">
           <li><code>pwd</code> — Show current directory</li>
-          <li><code>ls</code> — List files</li>
+          <li><code>ls</code> — List files and folders</li>
           <li><code>cd</code> — Change directory</li>
-          <li><code>stat</code> — File information</li>
+          <li><code>stat</code> — View file metadata</li>
         </ul>
 
-        <div class="command-category">📁 File Operations</div>
+        <div class="command-category">📁 File Management</div>
         <ul class="command-list">
           <li><code>cp</code> — Copy files</li>
-          <li><code>mv</code> — Move/rename files</li>
-          <li><code>rm</code> — Remove files</li>
-          <li><code>touch</code> — Create a new file</li>
+          <li><code>mv</code> — Move or rename files</li>
+          <li><code>rm</code> — Delete files</li>
+          <li><code>touch</code> — Create new empty file</li>
         </ul>
 
-        <div class="command-category">📄 Viewing and Editing</div>
+        <div class="command-category">📄 View and Edit</div>
         <ul class="command-list">
-          <li><code>cat</code> — Output file contents</li>
-          <li><code>head</code> / <code>tail</code> — View top or bottom lines</li>
-          <li><code>less</code> — Scrollable view</li>
-          <li><code>nano</code> — Basic text editor</li>
+          <li><code>cat</code> — Display file contents</li>
+          <li><code>head</code> / <code>tail</code> — View start or end of file</li>
+          <li><code>less</code> — Scroll through text</li>
+          <li><code>nano</code> — Edit files in terminal</li>
         </ul>
 
-        <div class="command-category">⚙️ Permissions and Identity</div>
+        <div class="command-category">🔐 Permissions</div>
         <ul class="command-list">
-          <li><code>chmod</code> — Change file permissions</li>
+          <li><code>chmod</code> — Change access rights</li>
           <li><code>chown</code> — Change file ownership</li>
+        </ul>
+
+        <div class="command-category">👤 Identity</div>
+        <ul class="command-list">
           <li><code>whoami</code> — Show current user</li>
           <li><code>id</code> — Show user and group IDs</li>
         </ul>
 
-        <div class="command-category">🔧 System Utilities</div>
+        <div class="command-category">⚙️ System Monitoring</div>
         <ul class="command-list">
-          <li><code>ps</code> — View running processes</li>
-          <li><code>kill</code> — Terminate a process</li>
-          <li><code>df</code> — Disk usage</li>
-          <li><code>uptime</code> — System status</li>
+          <li><code>ps</code> — List active processes</li>
+          <li><code>kill</code> — Stop a process</li>
+          <li><code>df</code> — Disk space usage</li>
+          <li><code>uptime</code> — System load info</li>
         </ul>
 
-        <div class="command-category">📬 Communication and Pipes</div>
+        <div class="command-category">📬 Data Streams</div>
         <ul class="command-list">
-          <li><code>echo</code> — Output a string</li>
-          <li><code>grep</code> — Search within files</li>
-          <li><code>cut</code> — Extract text by field</li>
-          <li><code>tee</code> — Output to terminal and file simultaneously</li>
+          <li><code>echo</code> — Output text</li>
+          <li><code>grep</code> — Search text</li>
+          <li><code>cut</code> — Extract text columns</li>
+          <li><code>tee</code> — Send output to file and screen</li>
         </ul>
       </section>
 
       <section class="fade-in-up">
-        <h2 class="section-heading">Next Steps</h2>
-        <a href="../blockchain/blockchain.html" class="nav-button">→ Module 7: Blockchain & Cryptocurrency</a>
-      </section>
-
-      <section class="sources">
-        <h3>Further Reading</h3>
+        <h2 class="section-heading">Further Reading</h2>
         <ul>
           <li>William E. Shotts Jr., <em>The Linux Command Line</em> — No Starch Press</li>
           <li>Seymour Papert, <em>Mindstorms</em></li>
           <li>Brunton & Nissenbaum, <em>Obfuscation</em></li>
-          <li>Wikipedia contributors, <em>List of POSIX commands</em></li>
+          <li>Wikipedia, <em>POSIX Commands</em></li>
         </ul>
       </section>
 
-      <footer>
-        <p><a href="../../index.html">← Back to Obfuscate-OS</a></p>
-      </footer>
+      <div class="nav-button-container">
+        <a href="../net/net.html" class="nav-button">← Previous Module</a>
+        <a href="../blockchain/blockchain.html" class="nav-button">Next Module →</a>
+      </div>
+
+      <div class="nav-back">
+        <a href="../../index.html" class="nav-button">← Back to Obfuscate-OS</a>
+      </div>
+
     </main>
   </div>
-
-  <script>
-    if (localStorage.getItem("theme") === "light") {
-      document.body.classList.add("light-mode");
-    }
-  </script>
 </body>
 </html>

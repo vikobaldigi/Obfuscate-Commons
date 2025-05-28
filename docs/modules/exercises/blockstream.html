@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Block vs Stream Ciphers</title>
+  <link rel="stylesheet" href="../../css/style.css" />
+  <link rel="stylesheet" href="../../css/modules.css" />
+  <style>
+    body {
+      padding-top: 3.0em;
+    }
+    header#terminal-header {
+      text-align: center;
+    }
+    header#terminal-header h1 {
+      margin: 0;
+      padding: 0;
+      line-height: 1.2;
+    }
+    header#terminal-header p {
+      margin: 0;
+      padding-top: 1.0em;
+      font-size: 1.1em;
+      line-height: 1.4;
+      max-width: 40em;
+      margin-inline: auto;
+    }
+    main.module-content {
+      margin-top: 2em;
+      max-width: 800px;
+      margin-inline: auto;
+      text-align: center;
+    }
+    canvas {
+      display: block;
+      margin: 2em auto;
+      border: 1px solid var(--accent);
+      background-color: #000;
+    }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <header id="terminal-header">
+      <h1>📦 Block vs Stream Ciphers (Exercise)</h1>
+      <p>Block ciphers encrypt data in fixed-size chunks. Stream ciphers encrypt continuously, one bit or byte at a time. Watch how data flows through each.</p>
+    </header>
+
+    <main class="module-content">
+      <canvas id="cipherCanvas" width="600" height="250"></canvas>
+
+      <div style="margin-top: 2em; text-align: center;">
+        <a href="index.html" class="nav-button">← Back to All Exercises</a>
+      </div>
+    </main>
+
+    <footer>
+      <p><a href="../../index.html">← Back to Obfuscate-OS</a></p>
+    </footer>
+  </div>
+
+  <script>
+    const canvas = document.getElementById('cipherCanvas');
+    const ctx = canvas.getContext('2d');
+
+    let blockOffset = 0;
+    let streamOffset = 0;
+
+    function draw() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.font = "14px Courier New";
+      ctx.fillStyle = "#fff";
+      ctx.fillText("Block Cipher", 50, 40);
+      ctx.fillText("Stream Cipher", 50, 160);
+
+      // Block Cipher
+      ctx.fillStyle = "#b98eff";
+      ctx.fillRect(blockOffset, 60, 120, 40);
+
+      // Stream Cipher
+      ctx.fillStyle = "#d9b3ff";
+      for (let i = 0; i < 5; i++) {
+        let x = (streamOffset + i * 30) % canvas.width;
+        ctx.fillRect(x, 180, 20, 20);
+      }
+
+      blockOffset += 1;
+      streamOffset += 2;
+
+      if (blockOffset > canvas.width + 120) blockOffset = -120;
+      if (streamOffset > canvas.width + 60) streamOffset = 0;
+
+      requestAnimationFrame(draw);
+    }
+
+    draw();
+  </script>
+</body>
+</html>

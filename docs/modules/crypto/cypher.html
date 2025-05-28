@@ -3,9 +3,16 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>CYPHER — Substitution & Secrecy</title>
+  <title>Substitution Ciphers — Obfuscate-OS</title>
   <link rel="stylesheet" href="../../css/style.css" />
   <link rel="stylesheet" href="../../css/modules.css" />
+  <link rel="stylesheet" href="../../css/animations.css" />
+  <script src="../../js/glossary.js" defer></script>
+  <script>
+    if (localStorage.getItem("theme") === "light") {
+      document.documentElement.classList.add("light-mode");
+    }
+  </script>
   <style>
     body {
       padding-top: 3.0em;
@@ -32,122 +39,109 @@
     main.module-content {
       margin-top: 0em;
     }
+    .nav-button-container {
+      display: flex;
+      justify-content: center;
+      gap: 1.25em;
+      margin-top: 2em;
+      flex-wrap: wrap;
+    }
+    .nav-back {
+      width: 100%;
+      text-align: center;
+      margin-top: 1.5em;
+    }
   </style>
 </head>
 <body>
   <div class="shell">
     <header id="terminal-header">
-      <h1>Substitution Ciphers (CYPHER)</h1>
-      <p>Before encryption became mathematics, it was misdirection. Secrecy begins with substitution.</p>
+      <h1>Substitution Ciphers <span style="color: var(--accent);">(CYPHER)</span></h1>
+      <p>Before encryption was math, it was misdirection. This module explores the roots of secrecy: substitution.</p>
     </header>
 
     <main class="module-content">
+
       <section class="fade-in-up">
-        <h2 class="section-heading">Why Start with Ciphers?</h2>
+        <h2 class="section-heading">Why Start with Substitution?</h2>
         <p>
-          Long before cryptography involved prime numbers or elliptic curves, it started with everyday language.
-          Substitution ciphers are among the oldest methods of obfuscation: replacing letters or symbols to make a message unreadable to outsiders.
+          The earliest forms of encryption weren’t based on computers or complex algorithms. They relied on swapping one letter or symbol for another to confuse anyone reading the message.
         </p>
         <p>
-          These early systems didn’t erase meaning — they disguised it. They remind us that the core of encryption isn’t just math. It’s misalignment, resistance, and control over visibility.
+          Substitution ciphers are easy to understand and easy to break — but they introduce a key idea: secrecy through transformation.
         </p>
       </section>
 
       <section class="fade-in-up">
         <h2 class="section-heading">The Caesar Cipher</h2>
         <p>
-          Julius Caesar used a simple cipher: shift each letter three places forward. <code>A → D</code>, <code>B → E</code>, and so on.
-          This is known as a <strong>monoalphabetic substitution cipher</strong> — one alphabet, shuffled.
+          Named after Julius Caesar, this cipher shifts each letter in a message by a fixed number. If the shift is 3, <code>A</code> becomes <code>D</code>, <code>B</code> becomes <code>E</code>, and so on.
         </p>
         <p>
-          With only 25 possible shifts, it's easy to break by trial. But the idea is foundational: a method of encrypting language using a shared, secret rule — a key.
+          It only has 25 possible shifts, so it can be broken easily by trying them all. Still, it planted the seed for modern encryption: using a shared secret rule to protect a message.
         </p>
       </section>
 
       <section class="fade-in-up">
-        <h2 class="section-heading">Frequency Analysis</h2>
+        <h2 class="section-heading">Why Substitution Breaks</h2>
         <p>
-          Ciphers like Caesar’s preserve the original structure — especially letter frequency.
-          In English, <code>E</code> is the most common letter. A frequent symbol in ciphertext often maps to it.
+          Even if the letters are scrambled, the frequencies of characters don’t change. In English, <code>E</code> shows up more than any other letter.
         </p>
         <p>
-          This technique — <strong>frequency analysis</strong> — was formalized by Arab mathematicians in the 9th century,
-          then rediscovered during the European Renaissance. It turned cryptanalysis into a science.
+          This leak of information is called <strong>frequency analysis</strong> — and it turns basic ciphers into puzzles anyone can solve with enough data.
         </p>
       </section>
 
       <section class="fade-in-up">
-        <h2 class="section-heading">Polyalphabetic Disguise</h2>
+        <h2 class="section-heading">Vigenère and Repeating Keys</h2>
         <p>
-          The Vigenère cipher improves on Caesar by using a repeating keyword. Each letter of the key shifts a letter of the message.
-          With the key <code>KEY</code>, <code>HELLO</code> becomes a sequence of shifting alphabets.
+          The Vigenère cipher uses a keyword to apply different Caesar shifts across the message. The keyword repeats, making each letter shift differently.
         </p>
         <p>
-          For centuries it was called “le chiffre indéchiffrable” — the indecipherable cipher — until it was broken by exploiting patterns in the repetition.
-          A longer key means less pattern, but not zero pattern.
+          This was harder to break — but not impossible. The repeating pattern gives attackers a foothold. It shows how even complex systems can reveal themselves if the pattern is reused.
         </p>
       </section>
 
       <section class="fade-in-up">
-        <h2 class="section-heading">Machines of Obfuscation</h2>
+        <h2 class="section-heading">Mechanical Substitution</h2>
         <p>
-          In the 20th century, substitution went mechanical. Devices like <strong>Enigma</strong> and the <strong>Hagelin M-209</strong>
-          used rotors and gears to automate shifting alphabets. Enigma had more than 150 trillion possible settings.
+          In the 20th century, machines like the <strong>Enigma</strong> cipher added moving parts to the process. These machines could scramble messages in billions of ways.
         </p>
         <p>
-          But even with that complexity, it failed — not because of math, but because of implementation: reused messages, predictable openings, operator habits.
-          Obfuscation fails when humans create patterns they don't realize they're repeating.
+          But when operators reused settings or sent predictable messages, even this was cracked. The lesson? Tools don’t protect us if humans create patterns.
         </p>
       </section>
 
       <section class="fade-in-up">
-        <h2 class="section-heading">Cipher vs. Code</h2>
+        <h2 class="section-heading">Code vs. Cipher</h2>
         <p>
-          A <strong>cipher</strong> works at the letter or bit level, rearranging form. A <strong>code</strong> substitutes whole words or phrases.
+          A <strong>code</strong> replaces whole words or phrases. A <strong>cipher</strong> changes letters or bits. Codes need lookup tables. Ciphers follow mathematical rules.
         </p>
         <p>
-          Codes are brittle — they require memorization or lookup tables. Ciphers are scalable, mathematical, and resilient to compression and automation.
-          Modern cryptography uses ciphers. Codes are history.
-        </p>
-      </section>
-
-      <section class="fade-in-up">
-        <h2 class="section-heading">Why It Still Matters</h2>
-        <p>
-          These early systems may feel like puzzles — but the lessons hold.
-          They show us where cryptography fails: in repetition, in shortcuts, in patterns that leak what we thought we’d hidden.
-        </p>
-        <p>
-          Substitution reminds us that secrecy is always partial — and that even the simplest disguises have consequences.
+          In modern cryptography, ciphers rule. They’re faster, safer, and easier to automate.
         </p>
       </section>
 
       <section class="fade-in-up">
-        <h2 class="section-heading">Next Steps</h2>
-        <a href="../net/net.html" class="nav-button">→ Module 5: Metadata Awareness</a>
-      </section>
-
-      <section class="sources">
-        <h3>Further Reading</h3>
+        <h2 class="section-heading">Further Reading</h2>
         <ul>
-          <li>Holden, <em>The Mathematics of Secrets</em> — Princeton University Press</li>
+          <li>Holden, <em>The Mathematics of Secrets</em></li>
           <li>Simon Singh, <em>The Code Book</em></li>
-          <li>Smart, <em>Cryptography Made Simple</em> — Springer</li>
+          <li>Smart, <em>Cryptography Made Simple</em></li>
           <li>Katz & Lindell, <em>Introduction to Modern Cryptography</em></li>
-          <li>Tilborg, <em>Encyclopedia of Cryptography and Security</em></li>
         </ul>
       </section>
 
-      <footer>
-        <p><a href="../../index.html">← Back to Obfuscate-OS</a></p>
-      </footer>
+      <div class="nav-button-container">
+        <a href="keypair.html" class="nav-button">← Previous Module</a>
+        <a href="../net/net.html" class="nav-button">Next Module →</a>
+      </div>
+
+      <div class="nav-back">
+        <a href="../../index.html" class="nav-button">← Back to Obfuscate-OS</a>
+      </div>
+
     </main>
   </div>
-
-  <script>
-    if (localStorage.getItem("theme") === "light") {
-      document.body.classList.add("light-mode");
-    }
-  </script>
 </body>
 </html>

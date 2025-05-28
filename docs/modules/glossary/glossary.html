@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Obfuscate-OS Glossary</title>
+  <link rel="stylesheet" href="../../css/style.css" />
+  <link rel="stylesheet" href="../../css/modules.css" />
+  <style>
+    body {
+      padding-top: 3.0em;
+    }
+    header#terminal-header {
+      margin-bottom: 0;
+      padding-bottom: 0;
+      text-align: center;
+    }
+    header#terminal-header h1 {
+      margin: 0;
+      padding: 0;
+      line-height: 1.1;
+    }
+    header#terminal-header p {
+      margin: 0;
+      padding-top: 1.0em;
+      padding-bottom: 0.5em;
+      font-size: 1.1em;
+      line-height: 1.4;
+      max-width: 42em;
+      margin-inline: auto;
+    }
+    main.module-content {
+      margin-top: 0em;
+      max-width: 800px;
+      margin-inline: auto;
+      font-family: var(--font);
+      color: #e2d3ff;
+      line-height: 1.6em;
+    }
+    #search-box {
+      display: block;
+      width: 100%;
+      max-width: 400px;
+      margin: 2em auto 1em;
+      padding: 0.5em 1em;
+      font-family: var(--font);
+      font-size: 1em;
+      background-color: #1a082d;
+      border: 1px solid #9f70ff;
+      color: #e2d3ff;
+      border-radius: 6px;
+    }
+    dl {
+      margin-top: 2em;
+    }
+    dt {
+      font-weight: bold;
+      font-size: 1.05em;
+      margin-top: 1.25em;
+      color: #d9b3ff;
+      letter-spacing: 0.03em;
+    }
+    dd {
+      margin-left: 1em;
+      margin-bottom: 0.75em;
+      color: #cabafc;
+      font-size: 0.95em;
+    }
+    .nav-button-container {
+      text-align: center;
+      margin-top: 3em;
+    }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <header id="terminal-header">
+      <h1>Glossary of Terms</h1>
+      <p>Key terms and concepts introduced throughout Obfuscate-OS.</p>
+    </header>
+
+    <main class="module-content">
+      <input type="text" id="search-box" placeholder="Search terms..." onkeyup="filterGlossary()" />
+
+      <dl id="glossary-list">
+        <dt>Asymmetric Encryption</dt>
+        <dd>A form of encryption that uses a public/private key pair. The encryption key can be widely shared (public), while the decryption key must be kept private. This model enables secure communication without needing a shared secret in advance — solving the key distribution problem.</dd>
+
+        <dt>Block Cipher</dt>
+        <dd>A method of encrypting data in fixed-size blocks (e.g., AES) rather than as a continuous stream.</dd>
+
+        <dt>Blockchain</dt>
+        <dd>A distributed ledger of cryptographically linked data blocks, maintained across multiple systems without a central authority.</dd>
+
+        <dt>Command-Line Interface (CLI)</dt>
+        <dd>A text-based interface used to interact with a computer system by entering commands.</dd>
+
+        <dt>Encryption</dt>
+        <dd>The process of converting readable data into ciphertext to prevent unauthorized access.</dd>
+
+        <dt>Hash Function</dt>
+        <dd>A mathematical function that converts data into a fixed-length hash. Used for verification and integrity checking.</dd>
+
+        <dt>Keypair</dt>
+        <dd>In asymmetric cryptography, a pair of mathematically related keys — one public, one private.</dd>
+
+        <dt>Metadata</dt>
+        <dd>Metadata is data about data — like who sent a message, when, from where, and to whom. It structures visibility and is often more revealing than content itself. Surveillance systems rely on metadata to model relationships and behaviors.</dd>
+
+        <dt>Obfuscation</dt>
+        <dd>Obfuscation is the deliberate addition of misleading, noisy, or ambiguous information to confuse surveillance or analysis. It resists clarity by flooding systems with plausible alternatives — buying time, hiding meaning, or resisting profiling.</dd>
+
+        <dt>POSIX</dt>
+        <dd>A family of standards for maintaining compatibility between operating systems. Includes a common set of command-line tools.</dd>
+
+        <dt>Public-Key Cryptography</dt>
+        <dd>Public-key (or asymmetric) cryptography enables anyone to encrypt a message using a recipient's public key, but only the recipient can decrypt it with their private key. This unlocks secure, decentralized communication, digital signatures, and modern protocols like HTTPS.</dd>
+
+        <dt>Smart Contract</dt>
+        <dd>Self-executing code stored on a blockchain that runs when predefined conditions are met.</dd>
+
+        <dt>Stream Cipher</dt>
+        <dd>Encrypts data one bit or byte at a time, often used in real-time applications.</dd>
+
+        <dt>Symmetric Encryption</dt>
+        <dd>A cryptographic system where the same key is used for both encryption and decryption. It's fast and efficient, but it requires secure key sharing ahead of time. Examples include AES and ChaCha20.</dd>
+
+        <dt>Terminal</dt>
+        <dd>A text-based environment for controlling an operating system, offering direct system access beyond graphical interfaces.</dd>
+      </dl>
+
+      <div class="nav-button-container">
+        <a href="../../index.html" class="nav-button">← Back to Obfuscate-OS</a>
+      </div>
+    </main>
+  </div>
+
+  <script>
+    function filterGlossary() {
+      const input = document.getElementById("search-box").value.toLowerCase();
+      const glossary = document.getElementById("glossary-list");
+      const terms = glossary.getElementsByTagName("dt");
+      const defs = glossary.getElementsByTagName("dd");
+
+      for (let i = 0; i < terms.length; i++) {
+        const text = terms[i].textContent.toLowerCase();
+        const match = text.includes(input);
+        terms[i].style.display = match ? "block" : "none";
+        defs[i].style.display = match ? "block" : "none";
+      }
+    }
+  </script>
+</body>
+</html>

@@ -7,6 +7,12 @@
   <link rel="stylesheet" href="../../css/style.css" />
   <link rel="stylesheet" href="../../css/modules.css" />
   <link rel="stylesheet" href="../../css/animations.css" />
+  <script src="../../js/glossary.js" defer></script>
+  <script>
+    if (localStorage.getItem("theme") === "light") {
+      document.documentElement.classList.add("light-mode");
+    }
+  </script>
   <style>
     body {
       padding-top: 3.0em;
@@ -33,145 +39,113 @@
     main.module-content {
       margin-top: 0em;
     }
+    .nav-button-container {
+      display: flex;
+      justify-content: center;
+      gap: 1.25em;
+      margin-top: 2em;
+      flex-wrap: wrap;
+    }
+    .nav-back {
+      width: 100%;
+      text-align: center;
+      margin-top: 1.5em;
+    }
   </style>
 </head>
 <body>
   <div class="shell">
     <header id="terminal-header">
       <h1>Cryptographic Failures <span style="color: var(--accent);">(SEC)</span></h1>
-      <p>
-        SEC stands for <strong>Sensitive Data Exposure</strong> — not just theoretically, but in the way systems fail all around us.
-      </p>
+      <p>Why encryption breaks — and what that tells us about the systems we trust.</p>
     </header>
 
     <main class="module-content">
 
       <section class="fade-in-up">
-        <h2 class="section-heading">What This Module Covers</h2>
+        <h2 class="section-heading">From Theory to Reality</h2>
         <p>
-          Cryptography doesn't usually fail because someone breaks the math. It fails in the seams — between users and software, protocols and infrastructure. 
-          This module explores real-world examples of how encryption breaks down in practice, despite working “perfectly” in theory.
+          In the last module, we learned what encryption is: a way to turn readable data into unreadable noise — unless you have the key.
+          But just because something is encrypted doesn’t mean it’s safe. In practice, encryption fails all the time.
+          Not because the math is wrong. But because people — and the systems we build — make mistakes.
         </p>
         <p>
-          SEC refers to <strong>Sensitive Data Exposure</strong>, a top vulnerability on the <a href="https://owasp.org/Top10/A02_2021-Cryptographic_Failures/" target="_blank">OWASP Top 10</a>. 
-          But we’re not just looking at technical missteps. We're asking: why do these failures keep happening, and what do they reveal about our systems?
-        </p>
-      </section>
-
-      <div class="section-break"></div>
-
-      <section class="fade-in-up">
-        <h2 class="section-heading">Failure Isn’t in the Math</h2>
-        <p>
-          Ross Anderson’s <em>Why Cryptosystems Fail</em> made the case that most cryptographic breakdowns aren’t cryptanalytic. 
-          They’re about bad key handling, poor assumptions, or failures in how people use the system. 
-          We still see that everywhere — in outdated protocols, bad certificate validation, and insecure defaults that go unnoticed until there’s a breach.
-        </p>
-        <p>
-          Systems fail when they trust too much: a server not using TLS, a site storing passwords in plaintext, an app hardcoding its encryption key. 
-          These aren’t rare exceptions — they’re common practice.
+          This module is about those mistakes. What happens when encryption “works” — and still lets you down.
         </p>
       </section>
 
-      <div class="section-break"></div>
-
       <section class="fade-in-up">
-        <h2 class="section-heading">When Everything “Works” — and Still Fails</h2>
+        <h2 class="section-heading">It’s Not the Math</h2>
         <p>
-          As <em>Digital Seams</em> documents, a secure messaging group leaked not because encryption broke, but because someone added the wrong person to the chat. 
-          The system worked exactly as designed — the failure was human, procedural, and infrastructural.
-        </p>
-        <p>
-          These kinds of breakdowns aren’t rare. They’re structural. They remind us that encryption depends on people, not just protocols — 
-          and that any design that ignores human factors is already compromised.
-        </p>
-      </section>
-
-      <div class="section-break"></div>
-
-      <section class="fade-in-up">
-        <h2 class="section-heading">Misuse and Misunderstanding</h2>
-        <p>
-          In <em>In Encryption We Don’t Trust</em>, researchers found that even after WhatsApp adopted end-to-end encryption, most users didn’t trust it — or understand it. 
-          Some thought encryption had to be turned on. Others believed SMS was safer. Many ignored the messages entirely.
-        </p>
-        <p>
-          A security feature only works when people use it — and know what it’s doing. Misunderstanding creates gaps in protection, and those gaps are often the first thing exploited.
-        </p>
-      </section>
-
-      <div class="section-break"></div>
-
-      <section class="fade-in-up">
-        <h2 class="section-heading">What the Data Tells Us</h2>
-        <p>
-          The <em>Cryptobugs</em> study from MIT CSAIL found that the vast majority of cryptographic failures come not from breaking algorithms, but from how they’re used. 
-          Misuse of libraries, insecure defaults, and unvetted code integrations lead to real-world vulnerabilities.
+          Most cryptographic failures don’t come from someone breaking the cipher.
+          They come from what Ross Anderson famously called “the seams” — the places where encryption meets real-world infrastructure.
         </p>
         <ul>
-          <li>Broken or deprecated algorithms (RC4, SHA-1, DES)</li>
-          <li>Hardcoded or default keys in production code</li>
-          <li>Missing certificate validation in SSL/TLS</li>
+          <li>Using strong encryption, but sending the data over an insecure network</li>
+          <li>Forgetting to verify a certificate before trusting it</li>
+          <li>Using outdated or broken algorithms like <span data-tooltip="A 1970s-era encryption method now considered insecure.">DES</span> or <span data-tooltip="A hash algorithm vulnerable to collision attacks.">MD5</span></li>
+          <li>Hardcoding the encryption key into an app for anyone to find</li>
         </ul>
         <p>
-          These aren’t obscure bugs. They’re found in public infrastructure, mobile apps, and consumer tools — because encryption is hard to use right, even when it’s available.
+          These aren’t fringe cases. They’re common — and they happen because software is built by humans, in a rush, under pressure, and often without a deep understanding of cryptography.
         </p>
       </section>
-
-      <div class="section-break"></div>
 
       <section class="fade-in-up">
-        <h2 class="section-heading">Secure Systems That Still Leak</h2>
+        <h2 class="section-heading">What Breaks in the Wild</h2>
+        <p>Let’s look at a few well-known examples:</p>
+        <ul>
+          <li><strong>Apple's “goto fail” bug</strong> (2014): One extra line of code accidentally disabled certificate validation in macOS and iOS.</li>
+          <li><strong>Debian OpenSSL</strong> (2006–2008): A cleanup patch removed key randomness, generating predictable keys for two years.</li>
+          <li><strong>Android APK vulnerability</strong> (2013): A bug allowed malicious apps to be signed with a legitimate key.</li>
+        </ul>
         <p>
-          Soudijn et al.’s <em>When Encryption Fails</em> documents cases like EncroChat, where encrypted phones were compromised not through crypto, but through infrastructure. 
-          Once the servers were captured, millions of messages were exposed.
-        </p>
-        <p>
-          Encryption doesn’t exist in a vacuum. It lives inside ecosystems — platforms, protocols, user decisions. And when one layer breaks, the illusion of security does too.
+          These bugs weren’t obscure. They were live in billions of devices. And all of them involved systems that were supposedly “secure.”
         </p>
       </section>
-
-      <div class="section-break"></div>
 
       <section class="fade-in-up">
-        <h2 class="section-heading">Failure Is How We Learn</h2>
+        <h2 class="section-heading">When People Don’t Trust the Tools</h2>
         <p>
-          If we want to build better cryptographic systems, we need to study where they break — not just at the edges, but at the core.
+          Even when encryption is available, people might not use it — or trust it.
+          In one study, users of WhatsApp (which offers end-to-end encryption) thought they had to turn it on manually, or believed SMS was more secure.
         </p>
         <p>
-          Studying failure is not an attack on encryption. It’s an investment in real security. 
-          Because systems that learn are the only ones that improve.
+          A tool that isn’t understood is a tool that won’t be used well. This is one of the most consistent causes of failure in digital security: the design forgets that humans are part of the system.
         </p>
       </section>
-
-      <div class="section-break"></div>
 
       <section class="fade-in-up">
-        <h2 class="section-heading">Next Steps</h2>
-        <a href="../crypto/keypair.html" class="nav-button">→ Module 3: Keypair & Identity</a>
+        <h2 class="section-heading">The Big Lesson</h2>
+        <p>
+          Encryption doesn’t guarantee safety — it <em>enables</em> safety. Whether it works depends on everything around it: the infrastructure, the defaults, the code, and the people.
+        </p>
+        <p>
+          That’s why this module matters: it teaches us that security isn’t just technical — it’s political, social, and deeply human.
+        </p>
       </section>
 
-      <section class="sources">
-        <h3>Further Reading</h3>
+      <section class="fade-in-up">
+        <h2 class="section-heading">Further Reading</h2>
         <ul>
           <li>Ross Anderson, <em>Why Cryptosystems Fail</em></li>
-          <li>David Lazar et al., <em>Cryptobugs</em> (MIT CSAIL)</li>
-          <li>Soudijn et al., <em>When Encryption Fails</em> — Global Crime (2022)</li>
+          <li><em>Cryptobugs</em> — MIT CSAIL</li>
           <li><em>When Encryption Works Perfectly and Still Fails</em> — Digital Seams</li>
-          <li>Dechand et al., <em>In Encryption We Don’t Trust</em> — IEEE EuroS&P (2019)</li>
+          <li>Soudijn et al., <em>When Encryption Fails</em></li>
+          <li>Green & Smith, <em>Why Does Cryptographic Software Fail?</em></li>
         </ul>
       </section>
 
-      <footer>
-        <p><a href="../../index.html">← Back to Obfuscate-OS</a></p>
-      </footer>
+      <div class="nav-button-container">
+        <a href="cpu.html" class="nav-button">← Previous Module</a>
+        <a href="../crypto/keypair.html" class="nav-button">Next Module →</a>
+      </div>
+
+      <div class="nav-back">
+        <a href="../../index.html" class="nav-button">← Back to Obfuscate-OS</a>
+      </div>
+
     </main>
   </div>
-
-  <script>
-    if (localStorage.getItem("theme") === "light") {
-      document.body.classList.add("light-mode");
-    }
-  </script>
 </body>
 </html>

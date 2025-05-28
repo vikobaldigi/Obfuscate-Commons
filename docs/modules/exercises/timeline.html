@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Encryption Timeline — Obfuscate-OS</title>
+  <link rel="stylesheet" href="../../css/style.css" />
+  <link rel="stylesheet" href="../../css/modules.css" />
+  <script src="https://d3js.org/d3.v7.min.js"></script>
+  <style>
+    body {
+      padding-top: 3em;
+    }
+    main.module-content {
+      overflow-x: auto;
+      padding-bottom: 2em;
+    }
+    #timeline-container {
+      width: 100%;
+      overflow-x: scroll;
+    }
+    svg {
+      width: 4000px;
+      height: 440px;
+    }
+    .event-circle {
+      stroke: var(--bg);
+      stroke-width: 2px;
+      cursor: pointer;
+    }
+    .label-text, .event-title {
+      font-family: var(--font);
+      fill: var(--text);
+      font-size: 0.9em;
+    }
+    .event-title {
+      fill: var(--accent);
+      font-size: 0.85em;
+      text-anchor: middle;
+    }
+    .legend {
+      font-family: var(--font);
+      font-size: 0.85em;
+      margin-bottom: 1em;
+      text-align: center;
+      color: var(--text);
+    }
+    .legend span {
+      display: inline-block;
+      margin-right: 1.5em;
+      font-size: 0.9em;
+    }
+    .legend-dot {
+      width: 12px;
+      height: 12px;
+      display: inline-block;
+      border-radius: 50%;
+      margin-right: 0.5em;
+      vertical-align: middle;
+    }
+    .nav-section {
+      text-align: center;
+      margin-top: 2em;
+    }
+    #modal {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(20, 10, 30, 0.85);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 999;
+    }
+    #modal-content {
+      background: #111;
+      border: 1px solid #9e70ff;
+      padding: 2em;
+      border-radius: 8px;
+      width: 90%; max-width: 500px;
+    }
+    #modal-close {
+      margin-top: 1em;
+      background: none;
+      color: #d9b3ff;
+      border: 1px solid #d9b3ff;
+      padding: 0.5em 1em;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+<div class="shell">
+  <header id="terminal-header">
+    <h1>📜 Encryption Timeline</h1>
+    <p>From Caesar to post-quantum: key moments in encryption history.</p>
+  </header>
+  <div class="legend">
+    <span><span class="legend-dot" style="background:#b98eff;"></span>Innovation</span>
+    <span><span class="legend-dot" style="background:#ff4d4d;"></span>Conflict</span>
+    <span><span class="legend-dot" style="background:#4da6ff;"></span>Surveillance</span>
+    <span><span class="legend-dot" style="background:#ffd966;"></span>Expose</span>
+    <span><span class="legend-dot" style="background:#ff9900;"></span>Legislation</span>
+  </div>
+  <main class="module-content">
+    <div id="timeline-container"><svg id="timeline"></svg></div>
+  </main>
+  <div class="nav-section"><a href="index.html" class="nav-button">← Back to All Exercises</a></div>
+  <footer><p><a href="../../index.html">← Back to Obfuscate-OS</a></p></footer>
+</div>
+<!-- Modal -->
+<div id="modal">
+  <div id="modal-content">
+    <h2 id="modal-title">Title</h2>
+    <p id="modal-desc">Description</p>
+    <button id="modal-close">Close</button>
+  </div>
+</div>
+
+<script>
+const data = [
+  { year: -50, title: "Caesar Cipher", desc: "Julius Caesar uses a simple shift cipher to protect military messages.", type: "innovation" },
+  { year: 850, title: "Al-Kindi's Cryptanalysis", desc: "Develops frequency analysis to crack monoalphabetic ciphers.", type: "innovation" },
+  { year: 1467, title: "Alberti Cipher Wheel", desc: "Leon Battista Alberti creates the first polyalphabetic cipher device.", type: "innovation" },
+  { year: 1586, title: "Vigenère Cipher Described", desc: "Bellaso's polyalphabetic cipher becomes widely known.", type: "innovation" },
+  { year: 1795, title: "Jefferson Disk", desc: "Thomas Jefferson invents a cipher wheel similar to later military devices.", type: "innovation" },
+  { year: 1860, title: "Playfair Cipher", desc: "First digraph substitution cipher used by British forces.", type: "innovation" },
+  { year: 1918, title: "ADFGVX Cipher", desc: "German cipher combining substitution and transposition during WWI.", type: "innovation" },
+  { year: 1923, title: "Enigma Patented", desc: "German engineer patents the Enigma machine.", type: "innovation" },
+  { year: 1940, title: "Enigma Broken", desc: "Allied cryptanalysts at Bletchley Park break German Enigma.", type: "expose" },
+  { year: 1943, title: "Colossus Built", desc: "First digital computer built to break Lorenz cipher.", type: "innovation" },
+  { year: 1970, title: "DES Proposed", desc: "IBM develops the Data Encryption Standard, later adopted by US govt.", type: "legislation" },
+  { year: 1976, title: "Diffie-Hellman", desc: "First public key exchange system introduced.", type: "innovation" },
+  { year: 1977, title: "RSA Algorithm", desc: "Revolutionary public key cryptosystem using factoring.", type: "innovation" },
+  { year: 1987, title: "Clipper Chip", desc: "NSA proposes hardware encryption with government backdoors.", type: "surveillance" },
+  { year: 1991, title: "PGP Released", desc: "Phil Zimmermann releases Pretty Good Privacy for email encryption.", type: "innovation" },
+  { year: 1993, title: "Crypto Wars Begin", desc: "Legal battles over export of strong cryptography begin.", type: "conflict" },
+  { year: 2000, title: "AES Adopted", desc: "Advanced Encryption Standard replaces DES.", type: "innovation" },
+  { year: 2013, title: "Snowden Expose", desc: "Leaked documents expose NSA surveillance programs.", type: "expose" },
+  { year: 2016, title: "Apple vs FBI", desc: "Apple refuses FBI's request to unlock encrypted iPhone.", type: "conflict" },
+  { year: 2019, title: "ZK Proofs Rise", desc: "Zero-knowledge proofs see wide adoption in privacy and security.", type: "innovation" },
+  { year: 2020, title: "EARN IT Act", desc: "Proposed legislation threatens end-to-end encryption.", type: "legislation" },
+  { year: 2022, title: "EU Interop Mandates", desc: "EU mandates secure messaging interoperability.", type: "legislation" },
+  { year: 2023, title: "Post-Quantum Finalists", desc: "NIST announces quantum-safe algorithm finalists.", type: "innovation" },
+  { year: 2030, title: "PQ Crypto in Browsers", desc: "Projected standardization of post-quantum encryption in mainstream apps.", type: "innovation" }
+];
+
+const colorMap = {
+  innovation: "#b98eff",
+  conflict: "#ff4d4d",
+  surveillance: "#4da6ff",
+  expose: "#ffd966",
+  legislation: "#ff9900"
+};
+
+const margin = { top: 80, right: 40, bottom: 120, left: 40 };
+const width = 3800 - margin.left - margin.right;
+const height = 320;
+
+const svg = d3.select("#timeline")
+  .attr("viewBox", `0 0 ${width + margin.left + margin.right} ${height + margin.top}`)
+  .append("g")
+  .attr("transform", `translate(${margin.left},${margin.top})`);
+
+const x = d3.scalePoint()
+  .domain(data.map((d, i) => i))
+  .range([0, width])
+  .padding(1);
+
+svg.append("line")
+  .attr("x1", x(0))
+  .attr("x2", x(data.length - 1))
+  .attr("y1", height / 2)
+  .attr("y2", height / 2)
+  .attr("stroke", "#666")
+  .attr("stroke-width", 1.5);
+
+svg.selectAll("text.title")
+  .data(data)
+  .enter()
+  .append("text")
+  .attr("class", "event-title")
+  .attr("x", (d, i) => x(i))
+  .attr("y", (d, i) => i % 2 === 0 ? height / 2 - 40 : height / 2 + 50)
+  .text(d => d.title);
+
+svg.selectAll("circle")
+  .data(data)
+  .enter()
+  .append("circle")
+  .attr("cx", (d, i) => x(i))
+  .attr("cy", height / 2)
+  .attr("r", 8)
+  .attr("class", "event-circle")
+  .attr("fill", d => colorMap[d.type])
+  .on("click", (event, d) => {
+    document.getElementById("modal-title").textContent = `${d.year}: ${d.title}`;
+    document.getElementById("modal-desc").textContent = d.desc;
+    document.getElementById("modal").style.display = "flex";
+  });
+
+svg.selectAll("text.year-label")
+  .data(data)
+  .enter()
+  .append("text")
+  .attr("class", "label-text")
+  .attr("x", (d, i) => x(i))
+  .attr("y", height / 2 + 25)
+  .attr("text-anchor", "middle")
+  .text(d => d.year);
+
+document.getElementById("modal-close").addEventListener("click", () => {
+  document.getElementById("modal").style.display = "none";
+});
+</script>
+</body>
+</html>
