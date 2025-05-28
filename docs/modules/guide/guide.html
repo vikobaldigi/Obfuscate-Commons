@@ -14,19 +14,13 @@
     }
   </script>
   <style>
-    body {
-      padding-top: 3.0em;
-    }
+    body { padding-top: 3.0em; }
     header#terminal-header {
       margin-bottom: 0;
       padding-bottom: 0;
       text-align: center;
     }
-    header#terminal-header h1 {
-      margin: 0;
-      padding: 0;
-      line-height: 1.1;
-    }
+    header#terminal-header h1 { margin: 0; padding: 0; line-height: 1.1; }
     header#terminal-header p {
       margin: 0;
       padding-top: 1.0em;
@@ -46,6 +40,11 @@
     .command-list {
       margin: 0.5em 0 1.5em 0;
       padding-left: 1.5em;
+    }
+    pre code {
+      background-color: rgba(255,255,255,0.06);
+      padding: 0.2em 0.5em;
+      display: inline-block;
     }
     .nav-button-container {
       display: flex;
@@ -77,6 +76,15 @@
         </p>
         <p>
           Unlike a graphical interface, it doesn’t hide complexity — it reveals it. From servers to cybersecurity to data science, the terminal remains central to serious computing work.
+        </p>
+      </section>
+
+      <section class="fade-in-up">
+        <h2 class="section-heading">How to Open the Terminal</h2>
+        <p>
+          On <strong>macOS</strong>: use <strong>Spotlight Search</strong> and type <code>Terminal</code>.<br>
+          On <strong>Linux</strong>: press <code>Ctrl + Alt + T</code> or find “Terminal” in your app menu.<br>
+          On <strong>Windows</strong>: install <a href="https://learn.microsoft.com/en-us/windows/wsl/" target="_blank">WSL</a> and use Ubuntu or Windows Terminal.
         </p>
       </section>
 
@@ -154,15 +162,30 @@
           <li><code>cut</code> — Extract text columns</li>
           <li><code>tee</code> — Send output to file and screen</li>
         </ul>
+
+        <p><strong>Example:</strong> To list files in your current directory, type:</p>
+        <pre><code>$ ls</code></pre>
+      </section>
+
+      <section class="fade-in-up">
+        <h2 class="section-heading">Relative vs Absolute Paths</h2>
+        <p>
+          An <strong>absolute path</strong> starts from the root directory and includes the full location.<br>
+          A <strong>relative path</strong> starts from your current directory.
+        </p>
+        <ul>
+          <li><code>/home/user/documents/report.txt</code> — absolute path</li>
+          <li><code>../images/photo.jpg</code> — relative path (up one folder, then into "images")</li>
+        </ul>
       </section>
 
       <section class="fade-in-up">
         <h2 class="section-heading">Further Reading</h2>
         <ul>
           <li>William E. Shotts Jr., <em>The Linux Command Line</em> — No Starch Press</li>
+          <li>MDN Web Docs: <a href="https://developer.mozilla.org/en-US/docs/Learn_web_development/Getting_started/Environment_setup/Command_line" target="_blank">Terminal Setup and Basics</a></li>
           <li>Seymour Papert, <em>Mindstorms</em></li>
           <li>Brunton & Nissenbaum, <em>Obfuscation</em></li>
-          <li>Wikipedia, <em>POSIX Commands</em></li>
         </ul>
       </section>
 

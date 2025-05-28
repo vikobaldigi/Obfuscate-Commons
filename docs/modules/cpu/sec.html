@@ -7,7 +7,7 @@
   <link rel="stylesheet" href="../../css/style.css" />
   <link rel="stylesheet" href="../../css/modules.css" />
   <link rel="stylesheet" href="../../css/animations.css" />
-  <script src="../../js/glossary.js" defer></script>
+  <script src="../../js/modules/glossary.js" defer></script>
   <script>
     if (localStorage.getItem("theme") === "light") {
       document.documentElement.classList.add("light-mode");
@@ -77,8 +77,8 @@
       <section class="fade-in-up">
         <h2 class="section-heading">It’s Not the Math</h2>
         <p>
-          Most cryptographic failures don’t come from someone breaking the cipher.
-          They come from what Ross Anderson famously called “the seams” — the places where encryption meets real-world infrastructure.
+          Most <a href="../glossary/glossary.html#cryptographic-failure">cryptographic failures</a> don’t come from someone breaking the cipher.
+          They come from what Ross Anderson famously called “the seams” — the places where encryption meets real-world <a href="../glossary/glossary.html#infrastructure">infrastructure</a>.
         </p>
         <ul>
           <li>Using strong encryption, but sending the data over an insecure network</li>
