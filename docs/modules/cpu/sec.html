@@ -4,19 +4,18 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>SEC — Cryptographic Failures</title>
+  <meta name="module" content="sec" />
   <link rel="stylesheet" href="../../css/style.css" />
   <link rel="stylesheet" href="../../css/modules.css" />
   <link rel="stylesheet" href="../../css/animations.css" />
-  <script src="../../js/modules/glossary.js" defer></script>
   <script>
     if (localStorage.getItem("theme") === "light") {
       document.documentElement.classList.add("light-mode");
     }
   </script>
+  <script src="../../js/modules/glossary.js" defer></script>
   <style>
-    body {
-      padding-top: 3.0em;
-    }
+    body { padding-top: 3.0em; }
     header#terminal-header {
       margin-bottom: 0;
       padding-bottom: 0;
@@ -38,6 +37,49 @@
     }
     main.module-content {
       margin-top: 0em;
+    }
+    details {
+      max-width: 640px;
+      margin: 1.5em auto;
+      border: 1px solid #9f70ff;
+      border-radius: 8px;
+      background-color: #1a002a;
+      overflow: hidden;
+    }
+    details summary {
+      display: flex;
+      align-items: center;
+      gap: 0.5em;
+      padding: 0.65em 1em;
+      font-size: 0.95em;
+      font-weight: 500;
+      background-color: #2b0055;
+      color: #e2d3ff;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.2s ease;
+    }
+    details[open] summary {
+      border-bottom-left-radius: 0;
+      border-bottom-right-radius: 0;
+      background-color: #3c0d6c;
+    }
+    details summary::before {
+      content: "➤";
+      font-size: 0.85em;
+      transform: rotate(0deg);
+      transition: transform 0.2s ease;
+    }
+    details[open] summary::before {
+      transform: rotate(90deg);
+    }
+    details p {
+      background-color: #26003d;
+      margin: 0;
+      padding: 1em 1.25em;
+      color: #cabafc;
+      font-size: 0.92em;
+      line-height: 1.55;
     }
     .nav-button-container {
       display: flex;
@@ -77,13 +119,13 @@
       <section class="fade-in-up">
         <h2 class="section-heading">It’s Not the Math</h2>
         <p>
-          Most <a href="../glossary/glossary.html#cryptographic-failure">cryptographic failures</a> don’t come from someone breaking the cipher.
-          They come from what Ross Anderson famously called “the seams” — the places where encryption meets real-world <a href="../glossary/glossary.html#infrastructure">infrastructure</a>.
+          Most cryptographic failures don’t come from someone breaking the cipher.
+          They come from what Ross Anderson famously called “the seams” — the places where encryption meets real-world infrastructure.
         </p>
         <ul>
           <li>Using strong encryption, but sending the data over an insecure network</li>
           <li>Forgetting to verify a certificate before trusting it</li>
-          <li>Using outdated or broken algorithms like <span data-tooltip="A 1970s-era encryption method now considered insecure.">DES</span> or <span data-tooltip="A hash algorithm vulnerable to collision attacks.">MD5</span></li>
+          <li>Using outdated or broken algorithms like DES or MD5</li>
           <li>Hardcoding the encryption key into an app for anyone to find</li>
         </ul>
         <p>
@@ -95,9 +137,38 @@
         <h2 class="section-heading">What Breaks in the Wild</h2>
         <p>Let’s look at a few well-known examples:</p>
         <ul>
-          <li><strong>Apple's “goto fail” bug</strong> (2014): One extra line of code accidentally disabled certificate validation in macOS and iOS.</li>
-          <li><strong>Debian OpenSSL</strong> (2006–2008): A cleanup patch removed key randomness, generating predictable keys for two years.</li>
-          <li><strong>Android APK vulnerability</strong> (2013): A bug allowed malicious apps to be signed with a legitimate key.</li>
+          <li>
+            <strong>Apple's “goto fail” bug</strong> (2014): A duplicated line of code in Apple’s SSL/TLS implementation caused the certificate check to always succeed — even if the signature was invalid.
+            [<a href="https://www.wired.com/story/apple-goto-fail-bug/" target="_blank">Wired</a>,
+            <a href="https://www.blackducksoftware.com/blog/understanding-apple-goto-fail-vulnerability-2" target="_blank">Black Duck</a>]
+            <details><summary>Read more</summary>
+              <p>
+                The flaw stemmed from an extra <code>goto fail;</code> line in Apple’s SSLVerifySignedServerKeyExchange function. This caused the function to exit early — skipping critical certificate signature checks. The bug went unnoticed for months, despite Apple's reputation for strong security, and was live in both iOS and macOS.
+              </p>
+            </details>
+          </li>
+
+          <li>
+            <strong>Debian OpenSSL vulnerability</strong> (2006–2008): A well-intentioned cleanup in Debian’s version of OpenSSL accidentally disabled entropy sources, making all cryptographic keys generated during this time dangerously predictable.
+            [<a href="https://www.debian.org/security/2008/dsa-1571" target="_blank">Debian Advisory</a>,
+            <a href="https://people.csail.mit.edu/silvio/Research/rsc-debian-openssl.pdf" target="_blank">RSC Lessons</a>]
+            <details><summary>Read more</summary>
+              <p>
+                The problem began when a Debian maintainer commented out just two lines of code in OpenSSL’s random number generator. This removed the primary entropy source. As a result, keys generated during this two-year period were easily guessable.
+              </p>
+            </details>
+          </li>
+
+          <li>
+            <strong>Android APK signature bypass</strong> (2013): A flaw in how Android verified APK files (Android Package Kits — the file format used to distribute and install apps) allowed attackers to inject malicious code without invalidating the app's cryptographic signature.
+            [<a href="https://www.sonicwall.com/blog/android-security-bypass-vulnerability-dec-6-2013/" target="_blank">SonicWall</a>,
+            <a href="https://nvd.nist.gov/vuln/detail/CVE-2013-6792" target="_blank">NVD</a>]
+            <details><summary>Read more</summary>
+              <p>
+                The vulnerability exploited differences in how APK files were parsed during signature check vs. installation. Attackers could inject malicious code while still passing signature validation.
+              </p>
+            </details>
+          </li>
         </ul>
         <p>
           These bugs weren’t obscure. They were live in billions of devices. And all of them involved systems that were supposedly “secure.”
@@ -107,11 +178,10 @@
       <section class="fade-in-up">
         <h2 class="section-heading">When People Don’t Trust the Tools</h2>
         <p>
-          Even when encryption is available, people might not use it — or trust it.
-          In one study, users of WhatsApp (which offers end-to-end encryption) thought they had to turn it on manually, or believed SMS was more secure.
+          Even when encryption is available, people might not use it — or trust it. In one study, users of WhatsApp thought they had to turn on encryption manually.
         </p>
         <p>
-          A tool that isn’t understood is a tool that won’t be used well. This is one of the most consistent causes of failure in digital security: the design forgets that humans are part of the system.
+          A tool that isn’t understood is a tool that won’t be used well. This is one of the most consistent causes of failure in digital security.
         </p>
       </section>
 
@@ -119,9 +189,6 @@
         <h2 class="section-heading">The Big Lesson</h2>
         <p>
           Encryption doesn’t guarantee safety — it <em>enables</em> safety. Whether it works depends on everything around it: the infrastructure, the defaults, the code, and the people.
-        </p>
-        <p>
-          That’s why this module matters: it teaches us that security isn’t just technical — it’s political, social, and deeply human.
         </p>
       </section>
 
@@ -137,7 +204,7 @@
       </section>
 
       <div class="nav-button-container">
-        <a href="cpu.html" class="nav-button">← Previous Module</a>
+        <a href="../cpu/cpu.html" class="nav-button">← Previous Module</a>
         <a href="../crypto/keypair.html" class="nav-button">Next Module →</a>
       </div>
 

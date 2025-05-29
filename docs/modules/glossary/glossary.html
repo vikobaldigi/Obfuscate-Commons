@@ -7,13 +7,19 @@
   <link rel="stylesheet" href="../../css/style.css" />
   <link rel="stylesheet" href="../../css/modules.css" />
   <style>
-    body { padding-top: 3.0em; }
+    body {
+      padding-top: 3.0em;
+    }
     header#terminal-header {
       margin-bottom: 0;
       padding-bottom: 0;
       text-align: center;
     }
-    header#terminal-header h1 { margin: 0; padding: 0; line-height: 1.1; }
+    header#terminal-header h1 {
+      margin: 0;
+      padding: 0;
+      line-height: 1.1;
+    }
     header#terminal-header p {
       margin: 0;
       padding-top: 1.0em;
@@ -44,7 +50,9 @@
       color: #e2d3ff;
       border-radius: 6px;
     }
-    dl { margin-top: 2em; }
+    dl {
+      margin-top: 2em;
+    }
     dt {
       font-weight: bold;
       font-size: 1.05em;
@@ -266,10 +274,13 @@
   <script>
     function filterGlossary() {
       const input = document.getElementById("search-box").value.toLowerCase();
-      const terms = document.querySelectorAll("dt, dd");
-      terms.forEach(el => {
-        const text = el.textContent.toLowerCase();
-        el.style.display = text.includes(input) ? "block" : "none";
+      const terms = document.querySelectorAll("dt");
+
+      terms.forEach(dt => {
+        const dd = dt.nextElementSibling;
+        const match = dt.textContent.toLowerCase().includes(input);
+        dt.style.display = match ? "block" : "none";
+        if (dd) dd.style.display = match ? "block" : "none";
       });
     }
 

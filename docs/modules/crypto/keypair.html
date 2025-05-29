@@ -7,25 +7,29 @@
   <link rel="stylesheet" href="../../css/style.css" />
   <link rel="stylesheet" href="../../css/modules.css" />
   <link rel="stylesheet" href="../../css/animations.css" />
-  <script src="../../js/glossary.js" defer></script>
+
   <script>
+    // ✅ Define glossary terms relevant to this page
+    window.allowedGlossaryTerms = [
+      "keypair",
+      "public-key cryptography",
+      "digital signature",
+      "certificate authority",
+      "man-in-the-middle"
+    ];
     if (localStorage.getItem("theme") === "light") {
       document.documentElement.classList.add("light-mode");
     }
   </script>
+  <script src="../../js/modules/glossary.js" defer></script>
+
   <style>
-    body {
-      padding-top: 3.0em;
-    }
+    body { padding-top: 3.0em; }
     header#terminal-header {
-      margin-bottom: 0;
-      padding-bottom: 0;
-      text-align: center;
+      margin-bottom: 0; padding-bottom: 0; text-align: center;
     }
     header#terminal-header h1 {
-      margin: 0;
-      padding: 0;
-      line-height: 1.1;
+      margin: 0; padding: 0; line-height: 1.1;
     }
     header#terminal-header p {
       margin: 0;
@@ -36,9 +40,7 @@
       max-width: 42em;
       margin-inline: auto;
     }
-    main.module-content {
-      margin-top: 0em;
-    }
+    main.module-content { margin-top: 0em; }
     .nav-button-container {
       display: flex;
       justify-content: center;
@@ -85,7 +87,7 @@
           With a keypair, you don’t need to secretly exchange passwords ahead of time. You just publish your public key.
         </p>
         <p>
-          Anyone can encrypt a message to you, but only you can read it. That’s how HTTPS secures your connection to websites. It’s how Signal secures your chats.
+          Anyone can encrypt a message to you, but only you can read it. That’s how public-key cryptography works. It’s how Signal secures your chats.
         </p>
       </section>
 
@@ -105,7 +107,7 @@
           If someone sends you a public key and says, “This is your bank,” how do you know it’s true?
         </p>
         <p>
-          This is called a <span data-tooltip="When someone secretly intercepts or alters communication between two people.">man-in-the-middle attack</span>. To defend against it, we use things like certificate authorities (CAs) — trusted organizations that vouch for keys. But they reintroduce centralized control.
+          This is called a man-in-the-middle attack. To defend against it, we use things like certificate authorities — trusted organizations that vouch for keys. But they reintroduce centralized control.
         </p>
       </section>
 
