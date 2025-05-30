@@ -3,216 +3,1084 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>SEC — Cryptographic Failures</title>
+  <title>Cryptographic Failures — Obfuscate-OS v3.0</title>
   <meta name="module" content="sec" />
-  <link rel="stylesheet" href="../../css/style.css" />
-  <link rel="stylesheet" href="../../css/modules.css" />
-  <link rel="stylesheet" href="../../css/animations.css" />
-  <script>
-    if (localStorage.getItem("theme") === "light") {
-      document.documentElement.classList.add("light-mode");
-    }
-  </script>
-  <script src="../../js/modules/glossary.js" defer></script>
+  
   <style>
-    body { padding-top: 3.0em; }
-    header#terminal-header {
-      margin-bottom: 0;
-      padding-bottom: 0;
-      text-align: center;
+    :root {
+      /* Professional Color System - Exact Copy from Index */
+      --primary: #6366f1;
+      --primary-light: #818cf8;
+      --primary-dark: #4f46e5;
+      --secondary: #8b5cf6;
+      --accent: #06b6d4;
+      --success: #10b981;
+      --warning: #f59e0b;
+      --error: #ef4444;
+      
+      /* Neutral Palette */
+      --gray-50: #f9fafb;
+      --gray-100: #f3f4f6;
+      --gray-200: #e5e7eb;
+      --gray-300: #d1d5db;
+      --gray-400: #9ca3af;
+      --gray-500: #6b7280;
+      --gray-600: #4b5563;
+      --gray-700: #374151;
+      --gray-800: #1f2937;
+      --gray-900: #111827;
+      
+      /* Dark Theme */
+      --bg-primary: #0f172a;
+      --bg-secondary: #1e293b;
+      --bg-tertiary: #334155;
+      --surface: rgba(255, 255, 255, 0.05);
+      --surface-hover: rgba(255, 255, 255, 0.1);
+      --border: rgba(255, 255, 255, 0.1);
+      --border-hover: rgba(255, 255, 255, 0.2);
+      
+      /* Text */
+      --text-primary: #ffffff;
+      --text-secondary: #cbd5e1;
+      --text-muted: #94a3b8;
+      
+      /* Shadows */
+      --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+      --shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+      --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+      --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+      --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+      
+      /* Typography */
+      --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+      --font-mono: 'JetBrains Mono', 'Fira Code', 'SF Mono', Consolas, monospace;
+      
+      /* Spacing */
+      --spacing-xs: 0.25rem;
+      --spacing-sm: 0.5rem;
+      --spacing-md: 1rem;
+      --spacing-lg: 1.5rem;
+      --spacing-xl: 2rem;
+      --spacing-2xl: 3rem;
+      
+      /* Border Radius */
+      --radius-sm: 0.25rem;
+      --radius: 0.5rem;
+      --radius-md: 0.75rem;
+      --radius-lg: 1rem;
+      --radius-xl: 1.5rem;
+      
+      /* Transitions */
+      --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+      --transition: 250ms cubic-bezier(0.4, 0, 0.2, 1);
+      --transition-slow: 350ms cubic-bezier(0.4, 0, 0.2, 1);
     }
-    header#terminal-header h1 {
+
+    /* Reset & Base */
+    *, *::before, *::after {
+      box-sizing: border-box;
       margin: 0;
       padding: 0;
-      line-height: 1.1;
     }
-    header#terminal-header p {
-      margin: 0;
-      padding-top: 1.0em;
-      padding-bottom: 0.5em;
-      font-size: 1.1em;
-      line-height: 1.4;
-      max-width: 42em;
-      margin-inline: auto;
+
+    html {
+      scroll-behavior: smooth;
+      background: var(--bg-primary);
+      height: 100%;
     }
-    main.module-content {
-      margin-top: 0em;
+
+    body {
+      font-family: var(--font-sans);
+      line-height: 1.6;
+      color: var(--text-primary);
+      background: 
+        radial-gradient(circle at 20% 30%, rgba(99, 102, 241, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 80% 70%, rgba(139, 92, 246, 0.08) 0%, transparent 50%),
+        radial-gradient(circle at 50% 50%, rgba(6, 182, 212, 0.05) 0%, transparent 50%),
+        var(--bg-primary);
+      min-height: 100vh;
+      overflow-x: hidden;
+      background-attachment: fixed;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
     }
-    details {
-      max-width: 640px;
-      margin: 1.5em auto;
-      border: 1px solid #9f70ff;
-      border-radius: 8px;
-      background-color: #1a002a;
+
+    /* Container System */
+    .container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 var(--spacing-xl);
+    }
+
+    /* Header */
+    .header {
+      padding: var(--spacing-2xl) 0 var(--spacing-xl);
+      text-align: center;
+      position: relative;
+    }
+
+    .header::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100%;
+      height: 100%;
+      background: 
+        radial-gradient(ellipse at center, rgba(239, 68, 68, 0.08) 0%, transparent 70%);
+      z-index: -1;
+    }
+
+    .title {
+      position: relative;
+      font-size: clamp(3rem, 8vw, 4rem);
+      font-weight: 900;
+      color: var(--text-primary);
+      margin-bottom: var(--spacing-md);
+      letter-spacing: -0.02em;
+      font-family: var(--font-sans);
+      display: inline-block;
+    }
+
+    .title-text {
+      background: linear-gradient(135deg, 
+        var(--text-primary) 0%, 
+        var(--error) 40%, 
+        var(--warning) 80%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .subtitle {
+      font-size: 1.25rem;
+      color: var(--text-secondary);
+      max-width: 600px;
+      margin: 0 auto var(--spacing-2xl);
+      font-weight: 400;
+    }
+
+    /* Content Sections */
+    .content {
+      padding: var(--spacing-2xl) 0;
+    }
+
+    .section {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-xl);
+      padding: var(--spacing-2xl);
+      margin-bottom: var(--spacing-2xl);
+      transition: all var(--transition);
+      position: relative;
       overflow: hidden;
+      backdrop-filter: blur(12px);
+      box-shadow: var(--shadow-lg);
     }
-    details summary {
+
+    .section::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, transparent, var(--error), transparent);
+      opacity: 0;
+      transition: opacity var(--transition);
+    }
+
+    .section:hover {
+      transform: translateY(-8px);
+      background: var(--surface-hover);
+      border-color: var(--border-hover);
+      box-shadow: var(--shadow-xl), 0 0 0 1px rgba(239, 68, 68, 0.2);
+    }
+
+    .section:hover::before {
+      opacity: 1;
+    }
+
+    .section-title {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: var(--spacing-lg);
+      font-family: var(--font-sans);
+      position: relative;
+      padding-bottom: var(--spacing-sm);
+      border-bottom: 2px solid var(--border);
+    }
+
+    .section-title::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      width: 60px;
+      height: 2px;
+      background: var(--error);
+      border-radius: var(--radius-sm);
+    }
+
+    .section p {
+      color: var(--text-secondary);
+      margin-bottom: var(--spacing-lg);
+      line-height: 1.7;
+      font-size: 1.05rem;
+    }
+
+    .section p:last-child {
+      margin-bottom: 0;
+    }
+
+    /* Enhanced Case Studies */
+    .case-study {
+      background: linear-gradient(135deg, 
+        rgba(239, 68, 68, 0.1), 
+        rgba(245, 158, 11, 0.08));
+      border: 2px solid rgba(239, 68, 68, 0.2);
+      border-radius: var(--radius-xl);
+      margin: var(--spacing-xl) 0;
+      overflow: hidden;
+      backdrop-filter: blur(16px);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .case-study:hover {
+      border-color: rgba(239, 68, 68, 0.4);
+      box-shadow: 
+        var(--shadow-xl), 
+        0 0 0 1px rgba(239, 68, 68, 0.3),
+        0 0 40px rgba(239, 68, 68, 0.15);
+    }
+
+    .case-study-header {
+      background: linear-gradient(135deg, var(--error), #dc2626);
+      color: #ffffff;
+      padding: var(--spacing-lg) var(--spacing-xl);
+      font-weight: 700;
+      font-size: 1.125rem;
+      font-family: var(--font-sans);
       display: flex;
       align-items: center;
-      gap: 0.5em;
-      padding: 0.65em 1em;
-      font-size: 0.95em;
-      font-weight: 500;
-      background-color: #2b0055;
-      color: #e2d3ff;
-      border-radius: 8px;
+      gap: var(--spacing-sm);
       cursor: pointer;
-      transition: background-color 0.2s ease;
+      transition: all var(--transition);
     }
-    details[open] summary {
-      border-bottom-left-radius: 0;
-      border-bottom-right-radius: 0;
-      background-color: #3c0d6c;
+
+    .case-study-header:hover {
+      background: linear-gradient(135deg, #dc2626, #b91c1c);
     }
-    details summary::before {
-      content: "➤";
-      font-size: 0.85em;
-      transform: rotate(0deg);
-      transition: transform 0.2s ease;
+
+    .case-study-header::before {
+      content: '⚠️';
+      font-size: 1.2em;
     }
-    details[open] summary::before {
-      transform: rotate(90deg);
+
+    .case-study-header::after {
+      content: '▼';
+      margin-left: auto;
+      font-size: 0.8em;
+      transition: transform var(--transition);
     }
-    details p {
-      background-color: #26003d;
+
+    .case-study[open] .case-study-header::after {
+      transform: rotate(180deg);
+    }
+
+    .case-study-content {
+      padding: var(--spacing-xl);
+      background: rgba(0, 0, 0, 0.2);
+    }
+
+    .case-study-content p {
       margin: 0;
-      padding: 1em 1.25em;
-      color: #cabafc;
-      font-size: 0.92em;
-      line-height: 1.55;
+      color: var(--text-secondary);
+      line-height: 1.6;
     }
-    .nav-button-container {
+
+    .case-study-content code {
+      background: rgba(239, 68, 68, 0.2);
+      color: var(--error);
+      padding: var(--spacing-xs) var(--spacing-sm);
+      border-radius: var(--radius-sm);
+      font-family: var(--font-mono);
+      border: 1px solid rgba(239, 68, 68, 0.3);
+      font-weight: 600;
+      font-size: 0.9rem;
+    }
+
+    /* Lists */
+    .section ul {
+      list-style: none;
+      padding: 0;
+      margin: var(--spacing-lg) 0;
+    }
+
+    .section li {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: var(--spacing-md) var(--spacing-lg);
+      margin-bottom: var(--spacing-sm);
+      color: var(--text-secondary);
+      transition: all var(--transition-fast);
+      position: relative;
+      padding-left: var(--spacing-2xl);
+    }
+
+    .section li::before {
+      content: '⚡';
+      position: absolute;
+      left: var(--spacing-lg);
+      color: var(--error);
+      font-weight: bold;
+    }
+
+    .section li:hover {
+      background: var(--surface-hover);
+      border-color: var(--border-hover);
+      transform: translateX(4px);
+    }
+
+    .section li strong {
+      color: var(--error);
+      font-weight: 700;
+    }
+
+    /* CONSISTENT GLOSSARY LINKS - SAME AS CPU MODULE */
+    .glossary-link {
+      color: var(--primary-light);
+      text-decoration: none;
+      padding: var(--spacing-xs) var(--spacing-sm);
+      border-radius: var(--radius-sm);
+      background: rgba(99, 102, 241, 0.1);
+      border: 1px solid rgba(99, 102, 241, 0.2);
+      transition: all var(--transition-fast);
+      font-weight: 600;
+      display: inline-block;
+      margin: 0 0.125rem;
+    }
+
+    .glossary-link:hover {
+      background: rgba(99, 102, 241, 0.2);
+      border-color: var(--primary);
+      transform: translateY(-1px);
+      box-shadow: var(--shadow-sm);
+    }
+
+    /* External Links - Used in case studies for citations */
+    .external-link {
+      color: var(--primary-light);
+      text-decoration: none;
+      padding: var(--spacing-xs) var(--spacing-sm);
+      border-radius: var(--radius-sm);
+      background: rgba(99, 102, 241, 0.1);
+      border: 1px solid rgba(99, 102, 241, 0.2);
+      transition: all var(--transition-fast);
+      font-weight: 600;
+      display: inline-block;
+      margin: 0 0.125rem;
+      font-size: 0.875rem;
+    }
+
+    .external-link:hover {
+      background: rgba(99, 102, 241, 0.2);
+      border-color: var(--primary);
+      transform: translateY(-1px);
+      box-shadow: var(--shadow-sm);
+    }
+
+    /* Callout */
+    .callout {
+      background: linear-gradient(135deg, 
+        rgba(239, 68, 68, 0.1), 
+        rgba(245, 158, 11, 0.08));
+      border-left: 4px solid var(--error);
+      padding: var(--spacing-xl);
+      margin: var(--spacing-xl) 0;
+      border-radius: 0 var(--radius-lg) var(--radius-lg) 0;
+      font-style: italic;
+      color: var(--text-primary);
+      font-size: 1.125rem;
+      font-weight: 500;
+      backdrop-filter: blur(12px);
+      box-shadow: var(--shadow-md);
+    }
+
+    /* Navigation */
+    .nav-container {
       display: flex;
       justify-content: center;
-      gap: 1.25em;
-      margin-top: 2em;
+      gap: var(--spacing-lg);
+      margin: var(--spacing-2xl) 0;
       flex-wrap: wrap;
     }
-    .nav-back {
-      width: 100%;
-      text-align: center;
-      margin-top: 1.5em;
+
+    .nav-button {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--spacing-sm);
+      background: var(--primary);
+      color: white;
+      padding: var(--spacing-lg) var(--spacing-xl);
+      border: none;
+      border-radius: var(--radius);
+      font-weight: 600;
+      text-decoration: none;
+      transition: all var(--transition-fast);
+      font-size: 1rem;
+      font-family: var(--font-sans);
+    }
+
+    .nav-button:hover {
+      background: var(--primary-dark);
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .nav-button:active {
+      transform: translateY(0);
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .container {
+        padding: 0 var(--spacing-md);
+      }
+      
+      .section {
+        padding: var(--spacing-xl);
+        margin-bottom: var(--spacing-xl);
+      }
+      
+      .nav-container {
+        flex-direction: column;
+        align-items: center;
+        gap: var(--spacing-md);
+      }
+      
+      .nav-button {
+        width: 100%;
+        max-width: 300px;
+        justify-content: center;
+      }
+      
+      .case-study-header {
+        padding: var(--spacing-md) var(--spacing-lg);
+        font-size: 1rem;
+      }
+      
+      .case-study-content {
+        padding: var(--spacing-lg);
+      }
+    }
+
+    /* Focus States */
+    .section:focus-visible {
+      outline: 2px solid var(--error);
+      outline-offset: 2px;
+    }
+
+    .nav-button:focus-visible {
+      outline: 2px solid var(--primary-light);
+      outline-offset: 2px;
+    }
+
+    .glossary-link:focus-visible,
+    .external-link:focus-visible {
+      outline: 2px solid var(--primary);
+      outline-offset: 2px;
+    }
+
+    /* Selection */
+    ::selection {
+      background: rgba(239, 68, 68, 0.3);
+      color: var(--text-primary);
+    }
+
+    /* Scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: var(--bg-secondary);
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: var(--gray-600);
+      border-radius: var(--radius);
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: var(--gray-500);
+    }
+
+    /* Loading Animation */
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .section {
+      animation: fadeInUp 0.6s ease-out;
+    }
+
+    .section:nth-child(1) { animation-delay: 0.1s; }
+    .section:nth-child(2) { animation-delay: 0.2s; }
+    .section:nth-child(3) { animation-delay: 0.3s; }
+    .section:nth-child(4) { animation-delay: 0.4s; }
+    .section:nth-child(5) { animation-delay: 0.5s; }
+    .section:nth-child(6) { animation-delay: 0.6s; }
+    .section:nth-child(7) { animation-delay: 0.7s; }
+    .section:nth-child(8) { animation-delay: 0.8s; }
+
+    /* Performance */
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+
+    /* High contrast */
+    @media (prefers-contrast: high) {
+      .section {
+        border-width: 2px;
+      }
     }
   </style>
 </head>
 <body>
-  <div class="shell">
-    <header id="terminal-header">
-      <h1>Cryptographic Failures <span style="color: var(--accent);">(SEC)</span></h1>
-      <p>Why encryption breaks — and what that tells us about the systems we trust.</p>
+  <div class="container">
+    <header class="header">
+      <h1 class="title">
+        <span class="title-text">Cryptographic Failures</span>
+      </h1>
+      <p class="subtitle">Why encryption breaks — and what that tells us about the systems we trust.</p>
     </header>
 
-    <main class="module-content">
-
-      <section class="fade-in-up">
-        <h2 class="section-heading">From Theory to Reality</h2>
+    <main class="content">
+      <section class="section">
+        <h2 class="section-title">From Theory to Reality</h2>
         <p>
-          In the last module, we learned what encryption is: a way to turn readable data into unreadable noise — unless you have the key.
-          But just because something is encrypted doesn’t mean it’s safe. In practice, encryption fails all the time.
+          In the last module, we learned what <a href="../glossary/glossary.html#encryption" class="glossary-link">encryption</a> is: a way to turn readable data into unreadable noise — unless you have the key.
+          But just because something is encrypted doesn't mean it's safe. In practice, encryption fails all the time.
           Not because the math is wrong. But because people — and the systems we build — make mistakes.
         </p>
         <p>
-          This module is about those mistakes. What happens when encryption “works” — and still lets you down.
+          This module is about those mistakes. What happens when encryption "works" — and still lets you down.
         </p>
+        <div class="callout">
+          Most <a href="../glossary/glossary.html#cryptographic-failure" class="glossary-link">cryptographic failures</a> happen at the seams where encryption meets real-world <a href="../glossary/glossary.html#infrastructure" class="glossary-link">infrastructure</a>.
+        </div>
       </section>
 
-      <section class="fade-in-up">
-        <h2 class="section-heading">It’s Not the Math</h2>
+      <section class="section">
+        <h2 class="section-title">It's Not the Math</h2>
         <p>
-          Most cryptographic failures don’t come from someone breaking the cipher.
-          They come from what Ross Anderson famously called “the seams” — the places where encryption meets real-world infrastructure.
+          Most cryptographic failures don't come from someone breaking the <a href="../glossary/glossary.html#cipher" class="glossary-link">cipher</a>.
+          They come from what Ross Anderson famously called "the seams" — the places where encryption meets real-world infrastructure.
         </p>
         <ul>
           <li>Using strong encryption, but sending the data over an insecure network</li>
           <li>Forgetting to verify a certificate before trusting it</li>
-          <li>Using outdated or broken algorithms like DES or MD5</li>
+          <li>Using outdated or broken algorithms like <a href="../glossary/glossary.html#des" class="glossary-link">DES</a> or <a href="../glossary/glossary.html#md5" class="glossary-link">MD5</a></li>
           <li>Hardcoding the encryption key into an app for anyone to find</li>
         </ul>
         <p>
-          These aren’t fringe cases. They’re common — and they happen because software is built by humans, in a rush, under pressure, and often without a deep understanding of cryptography.
+          These aren't fringe cases. They're common — and they happen because software is built by humans, in a rush, under pressure, and often without a deep understanding of cryptography.
         </p>
       </section>
 
-      <section class="fade-in-up">
-        <h2 class="section-heading">What Breaks in the Wild</h2>
-        <p>Let’s look at a few well-known examples:</p>
-        <ul>
-          <li>
-            <strong>Apple's “goto fail” bug</strong> (2014): A duplicated line of code in Apple’s SSL/TLS implementation caused the certificate check to always succeed — even if the signature was invalid.
-            [<a href="https://www.wired.com/story/apple-goto-fail-bug/" target="_blank">Wired</a>,
-            <a href="https://www.blackducksoftware.com/blog/understanding-apple-goto-fail-vulnerability-2" target="_blank">Black Duck</a>]
-            <details><summary>Read more</summary>
-              <p>
-                The flaw stemmed from an extra <code>goto fail;</code> line in Apple’s SSLVerifySignedServerKeyExchange function. This caused the function to exit early — skipping critical certificate signature checks. The bug went unnoticed for months, despite Apple's reputation for strong security, and was live in both iOS and macOS.
-              </p>
-            </details>
-          </li>
+      <section class="section">
+        <h2 class="section-title">What Breaks in the Wild</h2>
+        <p>Let's look at a few well-known examples:</p>
+        
+        <details class="case-study">
+          <summary class="case-study-header">Apple's "goto fail" Bug (2014)</summary>
+          <div class="case-study-content">
+            <p>
+              A duplicated line of code in Apple's SSL/TLS implementation caused the certificate check to always succeed — even if the signature was invalid.
+              [<a href="https://www.wired.com/story/apple-goto-fail-bug/" class="external-link" target="_blank">Wired</a>,
+              <a href="https://www.blackducksoftware.com/blog/understanding-apple-goto-fail-vulnerability-2" class="external-link" target="_blank">Black Duck</a>]
+            </p>
+            <p style="margin-top: var(--spacing-lg);">
+              The flaw stemmed from an extra <code>goto fail;</code> line in Apple's SSLVerifySignedServerKeyExchange function. This caused the function to exit early — skipping critical certificate signature checks. The bug went unnoticed for months, despite Apple's reputation for strong security, and was live in both iOS and macOS.
+            </p>
+          </div>
+        </details>
 
-          <li>
-            <strong>Debian OpenSSL vulnerability</strong> (2006–2008): A well-intentioned cleanup in Debian’s version of OpenSSL accidentally disabled entropy sources, making all cryptographic keys generated during this time dangerously predictable.
-            [<a href="https://www.debian.org/security/2008/dsa-1571" target="_blank">Debian Advisory</a>,
-            <a href="https://people.csail.mit.edu/silvio/Research/rsc-debian-openssl.pdf" target="_blank">RSC Lessons</a>]
-            <details><summary>Read more</summary>
-              <p>
-                The problem began when a Debian maintainer commented out just two lines of code in OpenSSL’s random number generator. This removed the primary entropy source. As a result, keys generated during this two-year period were easily guessable.
-              </p>
-            </details>
-          </li>
+        <details class="case-study">
+          <summary class="case-study-header">Debian OpenSSL Vulnerability (2006–2008)</summary>
+          <div class="case-study-content">
+            <p>
+              A well-intentioned cleanup in Debian's version of OpenSSL accidentally disabled entropy sources, making all cryptographic keys generated during this time dangerously predictable.
+              [<a href="https://www.debian.org/security/2008/dsa-1571" class="external-link" target="_blank">Debian Advisory</a>,
+              <a href="https://people.csail.mit.edu/silvio/Research/rsc-debian-openssl.pdf" class="external-link" target="_blank">RSC Lessons</a>]
+            </p>
+            <p style="margin-top: var(--spacing-lg);">
+              The problem began when a Debian maintainer commented out just two lines of code in OpenSSL's random number generator. This removed the primary entropy source. As a result, keys generated during this two-year period were easily guessable.
+            </p>
+          </div>
+        </details>
 
-          <li>
-            <strong>Android APK signature bypass</strong> (2013): A flaw in how Android verified APK files (Android Package Kits — the file format used to distribute and install apps) allowed attackers to inject malicious code without invalidating the app's cryptographic signature.
-            [<a href="https://www.sonicwall.com/blog/android-security-bypass-vulnerability-dec-6-2013/" target="_blank">SonicWall</a>,
-            <a href="https://nvd.nist.gov/vuln/detail/CVE-2013-6792" target="_blank">NVD</a>]
-            <details><summary>Read more</summary>
-              <p>
-                The vulnerability exploited differences in how APK files were parsed during signature check vs. installation. Attackers could inject malicious code while still passing signature validation.
-              </p>
-            </details>
-          </li>
+        <details class="case-study">
+          <summary class="case-study-header">Android APK Signature Bypass (2013)</summary>
+          <div class="case-study-content">
+            <p>
+              A flaw in how Android verified APK files (Android Package Kits — the file format used to distribute and install apps) allowed attackers to inject malicious code without invalidating the app's cryptographic signature.
+              [<a href="https://www.sonicwall.com/blog/android-security-bypass-vulnerability-dec-6-2013/" class="external-link" target="_blank">SonicWall</a>,
+              <a href="https://nvd.nist.gov/vuln/detail/CVE-2013-6792" class="external-link" target="_blank">NVD</a>]
+            </p>
+            <p style="margin-top: var(--spacing-lg);">
+              The vulnerability exploited differences in how APK files were parsed during signature check vs. installation. Attackers could inject malicious code while still passing signature validation.
+            </p>
+          </div>
+        </details>
+
+        <p style="margin-top: var(--spacing-xl);">
+          These bugs weren't obscure. They were live in billions of devices. And all of them involved systems that were supposedly "secure."
+        </p>
+      </section>
+
+      <section class="section">
+        <h2 class="section-title">When People Don't Trust the Tools</h2>
+        <p>
+          Even when encryption is available, people might not use it — or <a href="../glossary/glossary.html#trust" class="glossary-link">trust</a> it. In one study, users of WhatsApp thought they had to turn on encryption manually.
+        </p>
+        <p>
+          A tool that isn't understood is a tool that won't be used well. This is one of the most consistent causes of failure in digital security.
+        </p>
+      </section>
+
+      <section class="section">
+        <h2 class="section-title">The Big Lesson</h2>
+        <p>
+          Encryption doesn't guarantee safety — it <em>enables</em> safety. Whether it works depends on everything around it: the infrastructure, the defaults, the code, and the people.
+        </p>
+        <p>
+          The history of cryptographic failure teaches us that implementation matters as much as mathematical theory. Perfect encryption in an imperfect system is still vulnerable.
+        </p>
+      </section>
+
+      <section class="section">
+        <h2 class="section-title">Further Reading</h2>
+        <ul style="list-style: none; padding: 0;">
+          <li style="margin: 1em 0;">📚 Ross Anderson, <em>Why Cryptosystems Fail</em></li>
+          <li style="margin: 1em 0;">🔬 <em>Cryptobugs</em> — MIT CSAIL</li>
+          <li style="margin: 1em 0;">🔍 <em>When Encryption Works Perfectly and Still Fails</em> — Digital Seams</li>
+          <li style="margin: 1em 0;">📖 Soudijn et al., <em>When Encryption Fails</em></li>
+          <li style="margin: 1em 0;">⚡ Green & Smith, <em>Why Does Cryptographic Software Fail?</em></li>
         </ul>
-        <p>
-          These bugs weren’t obscure. They were live in billions of devices. And all of them involved systems that were supposedly “secure.”
-        </p>
       </section>
 
-      <section class="fade-in-up">
-        <h2 class="section-heading">When People Don’t Trust the Tools</h2>
-        <p>
-          Even when encryption is available, people might not use it — or trust it. In one study, users of WhatsApp thought they had to turn on encryption manually.
-        </p>
-        <p>
-          A tool that isn’t understood is a tool that won’t be used well. This is one of the most consistent causes of failure in digital security.
-        </p>
-      </section>
-
-      <section class="fade-in-up">
-        <h2 class="section-heading">The Big Lesson</h2>
-        <p>
-          Encryption doesn’t guarantee safety — it <em>enables</em> safety. Whether it works depends on everything around it: the infrastructure, the defaults, the code, and the people.
-        </p>
-      </section>
-
-      <section class="fade-in-up">
-        <h2 class="section-heading">Further Reading</h2>
-        <ul>
-          <li>Ross Anderson, <em>Why Cryptosystems Fail</em></li>
-          <li><em>Cryptobugs</em> — MIT CSAIL</li>
-          <li><em>When Encryption Works Perfectly and Still Fails</em> — Digital Seams</li>
-          <li>Soudijn et al., <em>When Encryption Fails</em></li>
-          <li>Green & Smith, <em>Why Does Cryptographic Software Fail?</em></li>
-        </ul>
-      </section>
-
-      <div class="nav-button-container">
-        <a href="../cpu/cpu.html" class="nav-button">← Previous Module</a>
-        <a href="../crypto/keypair.html" class="nav-button">Next Module →</a>
+      <div class="nav-container">
+        <a href="cpu.html" class="nav-button">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+            <path d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0zM4.5 7.5a.5.5 0 0 0 0 1h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H4.5z"/>
+          </svg>
+          Previous Module
+        </a>
+        <a href="../crypto/keypair.html" class="nav-button">
+          Next Module
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+            <path d="M3.5 8a.5.5 0 0 1 .5-.5h6.793L8.146 5.854a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.793 8.5H4a.5.5 0 0 1-.5-.5z"/>
+          </svg>
+        </a>
       </div>
 
-      <div class="nav-back">
-        <a href="../../index.html" class="nav-button">← Back to Obfuscate-OS</a>
+      <div style="text-align: center; margin-top: var(--spacing-xl);">
+        <a href="../../index.html" class="nav-button">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+            <path d="M8.707 1.5a1 1 0 0 0-1.414 0L2.343 6.45a.5.5 0 0 0 .707.707L8 2.207l4.95 4.95a.5.5 0 0 0 .707-.707L8.707 1.5z"/>
+          </svg>
+          Back to Obfuscate-OS
+        </a>
       </div>
 
     </main>
   </div>
+
+  <script src="../../js/modules/glossary.js" defer></script>
+  <script>
+    // Enhanced SEC Module with Professional Commercial Styling & Consistent Glossary Links
+    document.addEventListener('DOMContentLoaded', function() {
+      console.log('[sec-v3] Professional SEC module loading...');
+
+      // Enhanced interactions
+      function enhanceInteractions() {
+        // Section hover effects
+        document.querySelectorAll('.section').forEach(section => {
+          section.addEventListener('mouseenter', function() {
+            this.style.transform = 'translateY(-8px)';
+          });
+          
+          section.addEventListener('mouseleave', function() {
+            this.style.transform = 'translateY(0)';
+          });
+        });
+
+        // Case study interactions
+        document.querySelectorAll('.case-study').forEach(caseStudy => {
+          const header = caseStudy.querySelector('.case-study-header');
+          
+          header.addEventListener('click', function() {
+            const isOpen = caseStudy.hasAttribute('open');
+            
+            // Pulse animation
+            this.style.transform = 'scale(0.98)';
+            setTimeout(() => {
+              this.style.transform = 'scale(1)';
+            }, 150);
+            
+            // Toggle state
+            if (isOpen) {
+              caseStudy.removeAttribute('open');
+            } else {
+              caseStudy.setAttribute('open', '');
+            }
+          });
+          
+          caseStudy.addEventListener('mouseenter', function() {
+            this.style.transform = 'translateY(-4px)';
+          });
+          
+          caseStudy.addEventListener('mouseleave', function() {
+            this.style.transform = 'translateY(0)';
+          });
+        });
+
+        // Enhanced glossary and external link interactions - CONSISTENT WITH CPU
+        document.querySelectorAll('.glossary-link, .external-link').forEach(link => {
+          if (link.classList.contains('external-link')) {
+            link.setAttribute('rel', 'noopener noreferrer');
+          }
+          
+          const term = link.textContent.trim();
+          const linkType = link.classList.contains('glossary-link') ? 'glossary term' : 'external reference';
+          link.setAttribute('aria-label', `Learn more about ${term} - ${linkType}`);
+          link.setAttribute('title', `View ${term} information`);
+          
+          // Smart prefetching
+          link.addEventListener('mouseenter', function() {
+            if (!this.dataset.prefetched) {
+              const prefetchLink = document.createElement('link');
+              prefetchLink.rel = 'prefetch';
+              prefetchLink.href = this.href;
+              document.head.appendChild(prefetchLink);
+              this.dataset.prefetched = 'true';
+            }
+          });
+        });
+
+        // List item interactions
+        document.querySelectorAll('.section li').forEach(item => {
+          item.style.cursor = 'pointer';
+          
+          item.addEventListener('click', function() {
+            // Pulse effect
+            this.style.transform = 'scale(0.98)';
+            setTimeout(() => {
+              this.style.transform = 'translateX(4px)';
+            }, 150);
+          });
+        });
+      }
+
+      // Keyboard navigation
+      function setupKeyboardNavigation() {
+        document.addEventListener('keydown', function(event) {
+          // Alt + N for next module
+          if (event.altKey && event.key === 'n') {
+            event.preventDefault();
+            const nextButton = document.querySelector('a[href*="keypair.html"]');
+            if (nextButton) {
+              nextButton.click();
+            }
+          }
+          
+          // Alt + P for previous module
+          if (event.altKey && event.key === 'p') {
+            event.preventDefault();
+            const prevButton = document.querySelector('a[href*="cpu.html"]');
+            if (prevButton) {
+              prevButton.click();
+            }
+          }
+          
+          // Alt + H for home
+          if (event.altKey && event.key === 'h') {
+            event.preventDefault();
+            const homeButton = document.querySelector('a[href*="index.html"]');
+            if (homeButton) {
+              homeButton.click();
+            }
+          }
+          
+          // Escape to scroll to top
+          if (event.key === 'Escape') {
+            event.preventDefault();
+            window.scrollTo({ 
+              top: 0, 
+              behavior: 'smooth' 
+            });
+          }
+          
+          // Ctrl/Cmd + K for glossary
+          if ((event.ctrlKey || event.metaKey) && event.key === 'k') {
+            event.preventDefault();
+            window.open('../glossary/glossary.html', '_blank');
+          }
+
+          // Number keys to focus sections
+          if (event.key >= '1' && event.key <= '9') {
+            const sections = document.querySelectorAll('.section');
+            const index = parseInt(event.key) - 1;
+            if (sections[index]) {
+              event.preventDefault();
+              sections[index].scrollIntoView({ 
+                behavior: 'smooth', 
+                block: 'center' 
+              });
+              sections[index].focus();
+            }
+          }
+
+          // Space to toggle case studies
+          if (event.key === ' ' && event.target.classList.contains('case-study-header')) {
+            event.preventDefault();
+            event.target.click();
+          }
+        });
+      }
+
+      // Intersection Observer for animations
+      function setupAnimations() {
+        const observerOptions = {
+          threshold: 0.1,
+          rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach((entry, index) => {
+            if (entry.isIntersecting) {
+              setTimeout(() => {
+                entry.target.style.opacity = '1';
+                entry.target.style.transform = 'translateY(0)';
+                entry.target.classList.add('visible');
+              }, index * 100);
+            }
+          });
+        }, observerOptions);
+
+        // Observe all sections and case studies
+        document.querySelectorAll('.section, .case-study').forEach(element => {
+          observer.observe(element);
+        });
+      }
+
+      // Performance monitoring
+      function setupPerformanceMonitoring() {
+        if ('performance' in window) {
+          window.addEventListener('load', function() {
+            setTimeout(() => {
+              const perfData = performance.getEntriesByType('navigation')[0];
+              if (perfData) {
+                const loadTime = perfData.loadEventEnd - perfData.loadEventStart;
+                console.log(`[sec-v3] Page loaded in ${loadTime.toFixed(2)}ms`);
+              }
+            }, 0);
+          });
+        }
+
+        // Preload next page
+        const nextPageLink = document.querySelector('a[href*="keypair.html"]');
+        if (nextPageLink) {
+          const link = document.createElement('link');
+          link.rel = 'prefetch';
+          link.href = nextPageLink.href;
+          document.head.appendChild(link);
+        }
+      }
+
+      // Accessibility enhancements
+      function setupAccessibility() {
+        // Focus management for consistent styling
+        document.addEventListener('focusin', function(event) {
+          if (event.target.classList.contains('glossary-link') || event.target.classList.contains('external-link')) {
+            event.target.style.outline = '2px solid var(--primary)';
+            event.target.style.outlineOffset = '2px';
+          }
+        });
+        
+        document.addEventListener('focusout', function(event) {
+          if (event.target.classList.contains('glossary-link') || event.target.classList.contains('external-link')) {
+            event.target.style.outline = '';
+            event.target.style.outlineOffset = '';
+          }
+        });
+
+        // Case study accessibility
+        document.querySelectorAll('.case-study').forEach(caseStudy => {
+          const header = caseStudy.querySelector('.case-study-header');
+          header.setAttribute('role', 'button');
+          header.setAttribute('tabindex', '0');
+          header.setAttribute('aria-expanded', 'false');
+          
+          const observer = new MutationObserver(function(mutations) {
+            mutations.forEach(function(mutation) {
+              if (mutation.type === 'attributes' && mutation.attributeName === 'open') {
+                const isOpen = caseStudy.hasAttribute('open');
+                header.setAttribute('aria-expanded', isOpen.toString());
+              }
+            });
+          });
+          
+          observer.observe(caseStudy, { attributes: true });
+        });
+
+        // Reduced motion support
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+          document.body.classList.add('reduced-motion');
+          const style = document.createElement('style');
+          style.textContent = `
+            .reduced-motion * {
+              animation-duration: 0.01ms !important;
+              animation-iteration-count: 1 !important;
+              transition-duration: 0.01ms !important;
+            }
+          `;
+          document.head.appendChild(style);
+        }
+
+        // High contrast support
+        if (window.matchMedia('(prefers-contrast: high)').matches) {
+          document.body.classList.add('high-contrast');
+        }
+      }
+
+      // Error handling
+      function setupErrorHandling() {
+        window.addEventListener('error', function(event) {
+          console.warn('[sec-v3] JavaScript error caught:', event.error?.message || event.message);
+        });
+
+        window.addEventListener('unhandledrejection', function(event) {
+          console.warn('[sec-v3] Unhandled promise rejection:', event.reason);
+        });
+      }
+
+      // Initialize all enhancements
+      function initialize() {
+        try {
+          enhanceInteractions();
+          setupKeyboardNavigation();
+          setupAnimations();
+          setupPerformanceMonitoring();
+          setupAccessibility();
+          setupErrorHandling();
+
+          console.log('[sec-v3] Professional SEC module loaded successfully');
+          console.log('[sec-v3] Features: consistent glossary styling, commercial design, case study interactions');
+          console.log('[sec-v3] Keyboard shortcuts: Alt+N (next), Alt+P (prev), Alt+H (home), Esc (top), Ctrl+K (glossary), 1-9 (sections)');
+          
+          // Mark as fully loaded
+          document.body.classList.add('sec-v3-professional');
+          
+        } catch (error) {
+          console.error('[sec-v3] Initialization error:', error);
+        }
+      }
+
+      // Export utilities to global scope
+      window.ObfuscateOS = window.ObfuscateOS || {};
+      Object.assign(window.ObfuscateOS, {
+        version: '3.0-professional',
+        module: 'sec',
+        scrollToTop: () => window.scrollTo({ top: 0, behavior: 'smooth' }),
+        scrollToSection: (index) => {
+          const sections = document.querySelectorAll('.section');
+          if (sections[index]) {
+            sections[index].scrollIntoView({ 
+              behavior: 'smooth', 
+              block: 'center' 
+            });
+            sections[index].focus();
+          }
+        },
+        toggleCaseStudy: (index) => {
+          const caseStudies = document.querySelectorAll('.case-study');
+          if (caseStudies[index]) {
+            const header = caseStudies[index].querySelector('.case-study-header');
+            header.click();
+          }
+        },
+        toggleAccessibility: () => {
+          document.body.classList.toggle('accessibility-mode');
+          console.log('[sec-v3] Accessibility mode toggled');
+        },
+        getPerformanceMetrics: () => {
+          if ('performance' in window) {
+            return {
+              navigation: performance.getEntriesByType('navigation')[0],
+              resources: performance.getEntriesByType('resource'),
+              measures: performance.getEntriesByType('measure')
+            };
+          }
+          return null;
+        },
+        enableDebugMode: () => {
+          document.body.classList.add('debug-mode');
+          console.log('[sec-v3] Debug mode enabled');
+        }
+      });
+
+      // Start initialization
+      initialize();
+    });
+
+    // Auto-save scroll position
+    window.addEventListener('beforeunload', function() {
+      sessionStorage.setItem('sec-scroll-position', window.pageYOffset);
+    });
+
+    window.addEventListener('load', function() {
+      const savedScroll = sessionStorage.getItem('sec-scroll-position');
+      if (savedScroll) {
+        window.scrollTo(0, parseInt(savedScroll));
+        sessionStorage.removeItem('sec-scroll-position');
+      }
+    });
+
+    // Global keyboard shortcuts info
+    console.log(`
+    ⚠️ Obfuscate-OS SEC Module v3.0 Professional
+    
+    📋 Keyboard Shortcuts:
+    • Alt + N: Next Module
+    • Alt + P: Previous Module  
+    • Alt + H: Home
+    • Escape: Scroll to Top
+    • Ctrl/Cmd + K: Open Glossary
+    • 1-9: Jump to Section
+    • Space: Toggle Case Study (when focused)
+    
+    🎨 Professional commercial design system applied
+    🔗 Consistent glossary link styling with CPU module
+    ⚡ Performance optimized with smart prefetching
+    🎯 Enhanced case study interactions
+    `);
+  </script>
 </body>
 </html>

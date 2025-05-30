@@ -3,137 +3,1113 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Keypair — Asymmetry and Trust</title>
-  <!-- Tell glossary.js which module we’re in -->
+  <title>Public-Key Cryptography — Obfuscate-OS v3.0</title>
   <meta name="module" content="keypair" />
-
-  <link rel="stylesheet" href="../../css/style.css" />
-  <link rel="stylesheet" href="../../css/modules.css" />
-  <link rel="stylesheet" href="../../css/animations.css" />
-
-  <!-- load the unified glossary.js that uses termOwnership + meta["module"] -->
-  <script src="../../js/modules/glossary.js" defer></script>
-
+  
   <style>
-    body { padding-top: 3.0em; }
-    header#terminal-header {
-      margin-bottom: 0; padding-bottom: 0; text-align: center;
+    :root {
+      /* Professional Color System - Exact Copy from Index */
+      --primary: #6366f1;
+      --primary-light: #818cf8;
+      --primary-dark: #4f46e5;
+      --secondary: #8b5cf6;
+      --accent: #06b6d4;
+      --success: #10b981;
+      --warning: #f59e0b;
+      --error: #ef4444;
+      
+      /* Neutral Palette */
+      --gray-50: #f9fafb;
+      --gray-100: #f3f4f6;
+      --gray-200: #e5e7eb;
+      --gray-300: #d1d5db;
+      --gray-400: #9ca3af;
+      --gray-500: #6b7280;
+      --gray-600: #4b5563;
+      --gray-700: #374151;
+      --gray-800: #1f2937;
+      --gray-900: #111827;
+      
+      /* Dark Theme */
+      --bg-primary: #0f172a;
+      --bg-secondary: #1e293b;
+      --bg-tertiary: #334155;
+      --surface: rgba(255, 255, 255, 0.05);
+      --surface-hover: rgba(255, 255, 255, 0.1);
+      --border: rgba(255, 255, 255, 0.1);
+      --border-hover: rgba(255, 255, 255, 0.2);
+      
+      /* Text */
+      --text-primary: #ffffff;
+      --text-secondary: #cbd5e1;
+      --text-muted: #94a3b8;
+      
+      /* Shadows */
+      --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+      --shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+      --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+      --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+      --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+      
+      /* Typography */
+      --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+      --font-mono: 'JetBrains Mono', 'Fira Code', 'SF Mono', Consolas, monospace;
+      
+      /* Spacing */
+      --spacing-xs: 0.25rem;
+      --spacing-sm: 0.5rem;
+      --spacing-md: 1rem;
+      --spacing-lg: 1.5rem;
+      --spacing-xl: 2rem;
+      --spacing-2xl: 3rem;
+      
+      /* Border Radius */
+      --radius-sm: 0.25rem;
+      --radius: 0.5rem;
+      --radius-md: 0.75rem;
+      --radius-lg: 1rem;
+      --radius-xl: 1.5rem;
+      
+      /* Transitions */
+      --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+      --transition: 250ms cubic-bezier(0.4, 0, 0.2, 1);
+      --transition-slow: 350ms cubic-bezier(0.4, 0, 0.2, 1);
     }
-    header#terminal-header h1 {
-      margin: 0; padding: 0; line-height: 1.1;
-    }
-    header#terminal-header p {
+
+    /* Reset & Base */
+    *, *::before, *::after {
+      box-sizing: border-box;
       margin: 0;
-      padding-top: 1.0em;
-      padding-bottom: 0.5em;
-      font-size: 1.1em;
-      line-height: 1.4;
-      max-width: 42em;
-      margin-inline: auto;
+      padding: 0;
     }
-    main.module-content { margin-top: 0em; }
-    .nav-button-container {
+
+    html {
+      scroll-behavior: smooth;
+      background: var(--bg-primary);
+      height: 100%;
+    }
+
+    body {
+      font-family: var(--font-sans);
+      line-height: 1.6;
+      color: var(--text-primary);
+      background: 
+        radial-gradient(circle at 20% 30%, rgba(99, 102, 241, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 80% 70%, rgba(139, 92, 246, 0.08) 0%, transparent 50%),
+        radial-gradient(circle at 50% 50%, rgba(6, 182, 212, 0.05) 0%, transparent 50%),
+        var(--bg-primary);
+      min-height: 100vh;
+      overflow-x: hidden;
+      background-attachment: fixed;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    /* Container System */
+    .container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 var(--spacing-xl);
+    }
+
+    /* Header */
+    .header {
+      padding: var(--spacing-2xl) 0 var(--spacing-xl);
+      text-align: center;
+      position: relative;
+    }
+
+    .header::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100%;
+      height: 100%;
+      background: 
+        radial-gradient(ellipse at center, rgba(6, 182, 212, 0.1) 0%, transparent 70%);
+      z-index: -1;
+    }
+
+    .title {
+      position: relative;
+      font-size: clamp(3rem, 8vw, 4rem);
+      font-weight: 900;
+      color: var(--text-primary);
+      margin-bottom: var(--spacing-md);
+      letter-spacing: -0.02em;
+      font-family: var(--font-sans);
+      display: inline-block;
+    }
+
+    .title-text {
+      background: linear-gradient(135deg, 
+        var(--text-primary) 0%, 
+        var(--accent) 40%, 
+        var(--primary-light) 80%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .subtitle {
+      font-size: 1.25rem;
+      color: var(--text-secondary);
+      max-width: 600px;
+      margin: 0 auto var(--spacing-2xl);
+      font-weight: 400;
+    }
+
+    /* Content Sections */
+    .content {
+      padding: var(--spacing-2xl) 0;
+    }
+
+    .section {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-xl);
+      padding: var(--spacing-2xl);
+      margin-bottom: var(--spacing-2xl);
+      transition: all var(--transition);
+      position: relative;
+      overflow: hidden;
+      backdrop-filter: blur(12px);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .section::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, transparent, var(--accent), transparent);
+      opacity: 0;
+      transition: opacity var(--transition);
+    }
+
+    .section:hover {
+      transform: translateY(-8px);
+      background: var(--surface-hover);
+      border-color: var(--border-hover);
+      box-shadow: var(--shadow-xl), 0 0 0 1px rgba(6, 182, 212, 0.2);
+    }
+
+    .section:hover::before {
+      opacity: 1;
+    }
+
+    .section-title {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: var(--spacing-lg);
+      font-family: var(--font-sans);
+      position: relative;
+      padding-bottom: var(--spacing-sm);
+      border-bottom: 2px solid var(--border);
+    }
+
+    .section-title::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      width: 60px;
+      height: 2px;
+      background: var(--accent);
+      border-radius: var(--radius-sm);
+    }
+
+    .section p {
+      color: var(--text-secondary);
+      margin-bottom: var(--spacing-lg);
+      line-height: 1.7;
+      font-size: 1.05rem;
+    }
+
+    .section p:last-child {
+      margin-bottom: 0;
+    }
+
+    /* Enhanced Key Concepts */
+    .key-concepts {
+      background: linear-gradient(135deg, 
+        rgba(6, 182, 212, 0.1), 
+        rgba(99, 102, 241, 0.08));
+      border: 2px solid rgba(6, 182, 212, 0.2);
+      margin: var(--spacing-2xl) 0;
+    }
+
+    .key-concepts:hover {
+      border-color: rgba(6, 182, 212, 0.4);
+      box-shadow: 
+        var(--shadow-xl), 
+        0 0 0 1px rgba(6, 182, 212, 0.3),
+        0 0 40px rgba(6, 182, 212, 0.2);
+    }
+
+    .key-pair-visual {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: var(--spacing-lg);
+      margin: var(--spacing-xl) 0;
+    }
+
+    .key-item {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: var(--spacing-xl);
+      transition: all var(--transition);
+      position: relative;
+      overflow: hidden;
+      backdrop-filter: blur(12px);
+      box-shadow: var(--shadow);
+    }
+
+    .key-item::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      width: 4px;
+      opacity: 0;
+      transition: opacity var(--transition);
+    }
+
+    .key-item.public::before {
+      background: linear-gradient(180deg, var(--success), var(--accent));
+    }
+
+    .key-item.private::before {
+      background: linear-gradient(180deg, var(--error), var(--warning));
+    }
+
+    .key-item:hover {
+      transform: translateY(-4px);
+      background: var(--surface-hover);
+      border-color: var(--border-hover);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .key-item:hover::before {
+      opacity: 1;
+    }
+
+    .key-item h3 {
+      font-size: 1.25rem;
+      font-weight: 700;
+      margin-bottom: var(--spacing-sm);
+      font-family: var(--font-sans);
+      display: flex;
+      align-items: center;
+      gap: var(--spacing-sm);
+    }
+
+    .key-item.public h3 {
+      color: var(--success);
+    }
+
+    .key-item.private h3 {
+      color: var(--error);
+    }
+
+    .key-item p {
+      color: var(--text-secondary);
+      margin: 0;
+      font-size: 0.95rem;
+    }
+
+    /* Trust Issues Visual */
+    .trust-flow {
+      background: linear-gradient(135deg, 
+        rgba(245, 158, 11, 0.1), 
+        rgba(239, 68, 68, 0.08));
+      border: 2px solid rgba(245, 158, 11, 0.2);
+      border-radius: var(--radius-xl);
+      padding: var(--spacing-xl);
+      margin: var(--spacing-xl) 0;
+      backdrop-filter: blur(12px);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .trust-flow:hover {
+      border-color: rgba(245, 158, 11, 0.4);
+      box-shadow: 
+        var(--shadow-xl), 
+        0 0 0 1px rgba(245, 158, 11, 0.3),
+        0 0 40px rgba(245, 158, 11, 0.15);
+    }
+
+    .trust-flow h3 {
+      color: var(--warning);
+      font-size: 1.25rem;
+      font-weight: 700;
+      margin-bottom: var(--spacing-lg);
+      display: flex;
+      align-items: center;
+      gap: var(--spacing-sm);
+    }
+
+    .trust-flow h3::before {
+      content: '⚠️';
+      font-size: 1.2em;
+    }
+
+    /* Lists */
+    .section ul {
+      list-style: none;
+      padding: 0;
+      margin: var(--spacing-lg) 0;
+    }
+
+    .section li {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: var(--spacing-md) var(--spacing-lg);
+      margin-bottom: var(--spacing-sm);
+      color: var(--text-secondary);
+      transition: all var(--transition-fast);
+      position: relative;
+      padding-left: var(--spacing-2xl);
+    }
+
+    .section li::before {
+      content: '🔑';
+      position: absolute;
+      left: var(--spacing-lg);
+      font-weight: bold;
+    }
+
+    .section li:hover {
+      background: var(--surface-hover);
+      border-color: var(--border-hover);
+      transform: translateX(4px);
+    }
+
+    .section li strong {
+      color: var(--accent);
+      font-weight: 700;
+    }
+
+    /* CONSISTENT GLOSSARY LINKS */
+    .glossary-link {
+      color: var(--primary-light);
+      text-decoration: none;
+      padding: var(--spacing-xs) var(--spacing-sm);
+      border-radius: var(--radius-sm);
+      background: rgba(99, 102, 241, 0.1);
+      border: 1px solid rgba(99, 102, 241, 0.2);
+      transition: all var(--transition-fast);
+      font-weight: 600;
+      display: inline-block;
+      margin: 0 0.125rem;
+    }
+
+    .glossary-link:hover {
+      background: rgba(99, 102, 241, 0.2);
+      border-color: var(--primary);
+      transform: translateY(-1px);
+      box-shadow: var(--shadow-sm);
+    }
+
+    /* Callout */
+    .callout {
+      background: linear-gradient(135deg, 
+        rgba(6, 182, 212, 0.1), 
+        rgba(99, 102, 241, 0.08));
+      border-left: 4px solid var(--accent);
+      padding: var(--spacing-xl);
+      margin: var(--spacing-xl) 0;
+      border-radius: 0 var(--radius-lg) var(--radius-lg) 0;
+      font-style: italic;
+      color: var(--text-primary);
+      font-size: 1.125rem;
+      font-weight: 500;
+      backdrop-filter: blur(12px);
+      box-shadow: var(--shadow-md);
+    }
+
+    /* Navigation */
+    .nav-container {
       display: flex;
       justify-content: center;
-      gap: 1.25em;
-      margin-top: 2em;
+      gap: var(--spacing-lg);
+      margin: var(--spacing-2xl) 0;
       flex-wrap: wrap;
     }
-    .nav-back {
-      width: 100%;
-      text-align: center;
-      margin-top: 1.5em;
+
+    .nav-button {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--spacing-sm);
+      background: var(--primary);
+      color: white;
+      padding: var(--spacing-lg) var(--spacing-xl);
+      border: none;
+      border-radius: var(--radius);
+      font-weight: 600;
+      text-decoration: none;
+      transition: all var(--transition-fast);
+      font-size: 1rem;
+      font-family: var(--font-sans);
+    }
+
+    .nav-button:hover {
+      background: var(--primary-dark);
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .nav-button:active {
+      transform: translateY(0);
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .container {
+        padding: 0 var(--spacing-md);
+      }
+      
+      .section {
+        padding: var(--spacing-xl);
+        margin-bottom: var(--spacing-xl);
+      }
+      
+      .key-pair-visual {
+        grid-template-columns: 1fr;
+        gap: var(--spacing-md);
+      }
+      
+      .nav-container {
+        flex-direction: column;
+        align-items: center;
+        gap: var(--spacing-md);
+      }
+      
+      .nav-button {
+        width: 100%;
+        max-width: 300px;
+        justify-content: center;
+      }
+    }
+
+    /* Focus States */
+    .section:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 2px;
+    }
+
+    .nav-button:focus-visible {
+      outline: 2px solid var(--primary-light);
+      outline-offset: 2px;
+    }
+
+    .glossary-link:focus-visible {
+      outline: 2px solid var(--primary);
+      outline-offset: 2px;
+    }
+
+    /* Selection */
+    ::selection {
+      background: rgba(6, 182, 212, 0.3);
+      color: var(--text-primary);
+    }
+
+    /* Scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: var(--bg-secondary);
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: var(--gray-600);
+      border-radius: var(--radius);
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: var(--gray-500);
+    }
+
+    /* Loading Animation */
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .section {
+      animation: fadeInUp 0.6s ease-out;
+    }
+
+    .section:nth-child(1) { animation-delay: 0.1s; }
+    .section:nth-child(2) { animation-delay: 0.2s; }
+    .section:nth-child(3) { animation-delay: 0.3s; }
+    .section:nth-child(4) { animation-delay: 0.4s; }
+    .section:nth-child(5) { animation-delay: 0.5s; }
+    .section:nth-child(6) { animation-delay: 0.6s; }
+    .section:nth-child(7) { animation-delay: 0.7s; }
+
+    /* Performance */
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+
+    /* High contrast */
+    @media (prefers-contrast: high) {
+      .section {
+        border-width: 2px;
+      }
     }
   </style>
 </head>
 <body>
-  <div class="shell">
-    <header id="terminal-header">
-      <h1>Asymmetric Encryption <span style="color: var(--accent);">(KEYPAIR)</span></h1>
-      <p>How do you talk securely with someone you’ve never met? Keypairs make it possible — no shared secret required.</p>
+  <div class="container">
+    <header class="header">
+      <h1 class="title">
+        <span class="title-text">Public-Key Cryptography</span>
+      </h1>
+      <p class="subtitle">How do you talk securely with someone you've never met? Keypairs make it possible — no shared secret required.</p>
     </header>
 
-    <main class="module-content">
-
-      <section class="fade-in-up">
-        <h2 class="section-heading">Why Keypairs?</h2>
+    <main class="content">
+      <section class="section">
+        <h2 class="section-title">Why Keypairs?</h2>
         <p>
-          In Module 1, we learned about symmetric encryption — where the same key locks and unlocks a message. It’s fast, but it only works if you’ve already agreed on a shared key.
+          In the first module, we learned about <a href="../glossary/glossary.html#symmetric-encryption" class="glossary-link">symmetric encryption</a> — where the same key locks and unlocks a message. It's fast, but it only works if you've already agreed on a shared key.
         </p>
         <p>
-          But what if you’re starting from scratch? That’s where keypairs come in. Instead of one secret, you have two:
+          But what if you're starting from scratch? That's where <a href="../glossary/glossary.html#keypair" class="glossary-link">keypairs</a> come in. Instead of one secret, you have two:
+        </p>
+        
+        <div class="key-pair-visual">
+          <div class="key-item public">
+            <h3>
+              🌐 Public Key
+            </h3>
+            <p>Can be shared with anyone. Used to encrypt messages or verify your digital signature.</p>
+          </div>
+          <div class="key-item private">
+            <h3>
+              🔐 Private Key
+            </h3>
+            <p>Kept secret. Used to decrypt messages or create a digital signature.</p>
+          </div>
+        </div>
+        
+        <div class="callout">
+          These keys are mathematically linked. What one locks, only the other can unlock. But knowing one doesn't reveal the other.
+        </div>
+      </section>
+
+      <section class="section">
+        <h2 class="section-title">What Makes This Powerful?</h2>
+        <p>
+          With a keypair, you don't need to secretly exchange passwords ahead of time. You just publish your public key.
+        </p>
+        <p>
+          Anyone can encrypt a message to you, but only you can read it. That's how <a href="../glossary/glossary.html#public-key-cryptography" class="glossary-link">public-key cryptography</a> works. It's how Signal secures your chats and how HTTPS protects web traffic.
+        </p>
+        
+        <div class="key-concepts section">
+          <h2 class="section-title">🔄 The Asymmetric Advantage</h2>
+          <p>
+            Unlike symmetric systems, asymmetric encryption solves the key distribution problem. You can start secure communication with anyone, anywhere, without meeting in person or using a secure channel to exchange secrets.
+          </p>
+          <p>
+            This breakthrough enabled the modern internet. Without it, online banking, shopping, and secure messaging would be impossible at scale.
+          </p>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2 class="section-title">Where It Comes From</h2>
+        <p>
+          This revolutionary idea first appeared in 1976, when Diffie and Hellman proposed public key exchange. Then in 1978, Rivest, Shamir, and Adleman developed <a href="../glossary/glossary.html#rsa" class="glossary-link">RSA</a> to show how to use it in practice.
+        </p>
+        <p>
+          Today, keypairs power nearly all secure communication — web browsers, email, cryptocurrency wallets, software updates, and secure messaging apps. Modern variants like <a href="../glossary/glossary.html#ecc" class="glossary-link">ECC</a> (Elliptic Curve Cryptography) offer the same security with smaller, faster keys.
+        </p>
+      </section>
+
+      <section class="section">
+        <h2 class="section-title">But Who Do You Trust?</h2>
+        <div class="trust-flow">
+          <h3>The Trust Problem</h3>
+          <p>
+            If someone sends you a public key and says, "This is your bank," how do you know it's true? What if an attacker intercepts the key and substitutes their own?
+          </p>
+        </div>
+        <p>
+          This is called a <a href="../glossary/glossary.html#man-in-the-middle" class="glossary-link">man-in-the-middle attack</a>. To defend against it, we use systems like <a href="../glossary/glossary.html#certificate-authority" class="glossary-link">certificate authorities</a> — trusted organizations that vouch for keys. But they reintroduce centralized control and single points of failure.
+        </p>
+        <p>
+          Alternative approaches include web-of-trust models (like PGP), blockchain-based identity systems, and out-of-band verification methods. Each has tradeoffs between security, usability, and decentralization.
+        </p>
+      </section>
+
+      <section class="section">
+        <h2 class="section-title">What Can Go Wrong?</h2>
+        <p>
+          The mathematics of public-key cryptography is sound, but real-world implementations face many challenges:
         </p>
         <ul>
-          <li><strong>Public Key:</strong> Can be shared with anyone. Used to encrypt messages or verify your digital signature.</li>
-          <li><strong>Private Key:</strong> Kept secret. Used to decrypt messages or create a digital signature.</li>
+          <li><strong>Key Reuse:</strong> Using the same key on multiple platforms can leak data and create correlation attacks</li>
+          <li><strong>Poor Randomness:</strong> Bad randomness during key generation can make keys predictable or weak</li>
+          <li><strong>Implementation Flaws:</strong> Skipping verification checks, side-channel attacks, or timing vulnerabilities</li>
+          <li><strong>Weak Key Sizes:</strong> Using keys that are too small for current computational power</li>
+          <li><strong>Algorithm Aging:</strong> Older systems like 1024-bit RSA are now considered vulnerable</li>
         </ul>
         <p>
-          These keys are mathematically linked. What one locks, only the other can unlock. But knowing one doesn’t reveal the other.
+          The math is solid. But cryptography lives inside software — and that's where things often break. <a href="../glossary/glossary.html#cryptographic-failure" class="glossary-link">Cryptographic failures</a> typically happen in the implementation, not the theory.
         </p>
       </section>
 
-      <section class="fade-in-up">
-        <h2 class="section-heading">What Makes This Powerful?</h2>
+      <section class="section">
+        <h2 class="section-title">Digital Signatures: The Other Half</h2>
         <p>
-          With a keypair, you don’t need to secretly exchange passwords ahead of time. You just publish your public key.
+          Keypairs enable more than just encryption. <a href="../glossary/glossary.html#digital-signature" class="glossary-link">Digital signatures</a> use your private key to prove that a message came from you and hasn't been tampered with.
         </p>
         <p>
-          Anyone can encrypt a message to you, but only you can read it. That’s how public-key cryptography works. It’s how Signal secures your chats.
-        </p>
-      </section>
-
-      <section class="fade-in-up">
-        <h2 class="section-heading">Where It Comes From</h2>
-        <p>
-          This idea first appeared in 1976, when Diffie and Hellman proposed public key exchange. Then in 1978, Rivest, Shamir, and Adleman (RSA) showed how to use it in practice.
-        </p>
-        <p>
-          Today, keypairs power nearly all secure communication — web browsers, email, cryptocurrency wallets, even software updates.
+          This is crucial for software updates, financial transactions, legal documents, and any situation where authenticity matters as much as privacy. Digital signatures provide non-repudiation — you can't later deny that you signed something.
         </p>
       </section>
 
-      <section class="fade-in-up">
-        <h2 class="section-heading">But Who Do You Trust?</h2>
-        <p>
-          If someone sends you a public key and says, “This is your bank,” how do you know it’s true?
-        </p>
-        <p>
-          This is called a man-in-the-middle attack. To defend against it, we use things like certificate authorities — trusted organizations that vouch for keys. But they reintroduce centralized control.
-        </p>
-      </section>
-
-      <section class="fade-in-up">
-        <h2 class="section-heading">What Can Go Wrong?</h2>
-        <ul>
-          <li>Using the same key on multiple platforms can leak data.</li>
-          <li>Bad randomness during key generation can make keys guessable.</li>
-          <li>Poor implementation — like skipping verification checks — opens holes.</li>
-        </ul>
-        <p>
-          The math is solid. But cryptography lives inside software — and that’s where things often break.
-        </p>
-      </section>
-
-      <section class="fade-in-up">
-        <h2 class="section-heading">Further Reading</h2>
-        <ul>
-          <li>Diffie &amp; Hellman, “New Directions in Cryptography” (1976)</li>
-          <li>Rivest, Shamir, Adleman, “A Method for Obtaining Digital Signatures” (1978)</li>
-          <li>Katz &amp; Lindell, <em>Introduction to Modern Cryptography</em></li>
-          <li>Smart, <em>Cryptography Made Simple</em></li>
+      <section class="section">
+        <h2 class="section-title">Further Reading</h2>
+        <ul style="list-style: none; padding: 0;">
+          <li style="margin: 1em 0;">📄 Diffie & Hellman, "New Directions in Cryptography" (1976)</li>
+          <li style="margin: 1em 0;">🔐 Rivest, Shamir, Adleman, "A Method for Obtaining Digital Signatures" (1978)</li>
+          <li style="margin: 1em 0;">📚 Katz & Lindell, <em>Introduction to Modern Cryptography</em></li>
+          <li style="margin: 1em 0;">🧮 Smart, <em>Cryptography Made Simple</em></li>
+          <li style="margin: 1em 0;">⚡ Schneier, <em>Applied Cryptography</em></li>
+          <li style="margin: 1em 0;">🌐 Ferguson, Schneier & Kohno, <em>Cryptography Engineering</em></li>
         </ul>
       </section>
 
-      <div class="nav-button-container">
-        <a href="../cpu/sec.html" class="nav-button">← Previous Module</a>
-        <a href="cypher.html" class="nav-button">Next Module →</a>
+      <div class="nav-container">
+        <a href="../cpu/sec.html" class="nav-button">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+            <path d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0zM4.5 7.5a.5.5 0 0 0 0 1h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H4.5z"/>
+          </svg>
+          Previous Module
+        </a>
+        <a href="cypher.html" class="nav-button">
+          Next Module
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+            <path d="M3.5 8a.5.5 0 0 1 .5-.5h6.793L8.146 5.854a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.793 8.5H4a.5.5 0 0 1-.5-.5z"/>
+          </svg>
+        </a>
       </div>
 
-      <div class="nav-back">
-        <a href="../../index.html" class="nav-button">← Back to Obfuscate-OS</a>
+      <div style="text-align: center; margin-top: var(--spacing-xl);">
+        <a href="../../index.html" class="nav-button">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+            <path d="M8.707 1.5a1 1 0 0 0-1.414 0L2.343 6.45a.5.5 0 0 0 .707.707L8 2.207l4.95 4.95a.5.5 0 0 0 .707-.707L8.707 1.5z"/>
+          </svg>
+          Back to Obfuscate-OS
+        </a>
       </div>
 
     </main>
   </div>
+
+  <script src="../../js/modules/glossary.js" defer></script>
+  <script>
+    // Enhanced Keypair Module with Professional Commercial Styling
+    document.addEventListener('DOMContentLoaded', function() {
+      console.log('[keypair-v3] Professional Keypair module loading...');
+
+      // Enhanced interactions
+      function enhanceInteractions() {
+        // Section hover effects
+        document.querySelectorAll('.section').forEach(section => {
+          section.addEventListener('mouseenter', function() {
+            this.style.transform = 'translateY(-8px)';
+          });
+          
+          section.addEventListener('mouseleave', function() {
+            this.style.transform = 'translateY(0)';
+          });
+        });
+
+        // Key item interactions
+        document.querySelectorAll('.key-item').forEach(item => {
+          item.style.cursor = 'pointer';
+          item.setAttribute('tabindex', '0');
+          item.setAttribute('role', 'button');
+          
+          const keyType = item.classList.contains('public') ? 'public' : 'private';
+          item.setAttribute('aria-label', `Learn about ${keyType} keys`);
+          
+          item.addEventListener('mouseenter', function() {
+            this.style.transform = 'translateY(-4px)';
+          });
+          
+          item.addEventListener('mouseleave', function() {
+            this.style.transform = 'translateY(0)';
+          });
+
+          item.addEventListener('click', function() {
+            // Pulse effect
+            this.style.transform = 'scale(0.98)';
+            setTimeout(() => {
+              this.style.transform = 'translateY(-4px)';
+            }, 150);
+            
+            // Optional: Could link to glossary or show more info
+            console.log(`[keypair-v3] ${keyType} key clicked`);
+          });
+        });
+
+        // Trust flow interaction
+        document.querySelectorAll('.trust-flow').forEach(flow => {
+          flow.style.cursor = 'pointer';
+          
+          flow.addEventListener('mouseenter', function() {
+            this.style.transform = 'translateY(-4px)';
+          });
+          
+          flow.addEventListener('mouseleave', function() {
+            this.style.transform = 'translateY(0)';
+          });
+        });
+
+        // Enhanced glossary link interactions
+        document.querySelectorAll('.glossary-link').forEach(link => {
+          const term = link.textContent.trim();
+          link.setAttribute('aria-label', `Learn more about ${term} in glossary`);
+          link.setAttribute('title', `View ${term} definition`);
+          
+          // Smart prefetching
+          link.addEventListener('mouseenter', function() {
+            if (!this.dataset.prefetched) {
+              const prefetchLink = document.createElement('link');
+              prefetchLink.rel = 'prefetch';
+              prefetchLink.href = this.href;
+              document.head.appendChild(prefetchLink);
+              this.dataset.prefetched = 'true';
+            }
+          });
+        });
+
+        // List item interactions
+        document.querySelectorAll('.section li').forEach(item => {
+          item.style.cursor = 'pointer';
+          
+          item.addEventListener('click', function() {
+            // Pulse effect
+            this.style.transform = 'scale(0.98)';
+            setTimeout(() => {
+              this.style.transform = 'translateX(4px)';
+            }, 150);
+          });
+        });
+      }
+
+      // Keyboard navigation
+      function setupKeyboardNavigation() {
+        document.addEventListener('keydown', function(event) {
+          // Alt + N for next module
+          if (event.altKey && event.key === 'n') {
+            event.preventDefault();
+            const nextButton = document.querySelector('a[href*="cypher.html"]');
+            if (nextButton) {
+              nextButton.click();
+            }
+          }
+          
+          // Alt + P for previous module
+          if (event.altKey && event.key === 'p') {
+            event.preventDefault();
+            const prevButton = document.querySelector('a[href*="sec.html"]');
+            if (prevButton) {
+              prevButton.click();
+            }
+          }
+          
+          // Alt + H for home
+          if (event.altKey && event.key === 'h') {
+            event.preventDefault();
+            const homeButton = document.querySelector('a[href*="index.html"]');
+            if (homeButton) {
+              homeButton.click();
+            }
+          }
+          
+          // Escape to scroll to top
+          if (event.key === 'Escape') {
+            event.preventDefault();
+            window.scrollTo({ 
+              top: 0, 
+              behavior: 'smooth' 
+            });
+          }
+          
+          // Ctrl/Cmd + K for glossary
+          if ((event.ctrlKey || event.metaKey) && event.key === 'k') {
+            event.preventDefault();
+            window.open('../glossary/glossary.html', '_blank');
+          }
+
+          // Number keys to focus sections
+          if (event.key >= '1' && event.key <= '9') {
+            const sections = document.querySelectorAll('.section');
+            const index = parseInt(event.key) - 1;
+            if (sections[index]) {
+              event.preventDefault();
+              sections[index].scrollIntoView({ 
+                behavior: 'smooth', 
+                block: 'center' 
+              });
+              sections[index].focus();
+            }
+          }
+
+          // K key to focus on key items
+          if (event.key === 'k' && !event.ctrlKey && !event.metaKey) {
+            const keyItems = document.querySelectorAll('.key-item');
+            if (keyItems.length > 0) {
+              event.preventDefault();
+              keyItems[0].focus();
+              keyItems[0].scrollIntoView({ 
+                behavior: 'smooth', 
+                block: 'center' 
+              });
+            }
+          }
+        });
+      }
+
+      // Intersection Observer for animations
+      function setupAnimations() {
+        const observerOptions = {
+          threshold: 0.1,
+          rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach((entry, index) => {
+            if (entry.isIntersecting) {
+              setTimeout(() => {
+                entry.target.style.opacity = '1';
+                entry.target.style.transform = 'translateY(0)';
+                entry.target.classList.add('visible');
+              }, index * 100);
+            }
+          });
+        }, observerOptions);
+
+        // Observe all sections
+        document.querySelectorAll('.section, .key-item, .trust-flow').forEach(element => {
+          observer.observe(element);
+        });
+      }
+
+      // Performance monitoring
+      function setupPerformanceMonitoring() {
+        if ('performance' in window) {
+          window.addEventListener('load', function() {
+            setTimeout(() => {
+              const perfData = performance.getEntriesByType('navigation')[0];
+              if (perfData) {
+                const loadTime = perfData.loadEventEnd - perfData.loadEventStart;
+                console.log(`[keypair-v3] Page loaded in ${loadTime.toFixed(2)}ms`);
+              }
+            }, 0);
+          });
+        }
+
+        // Preload next page
+        const nextPageLink = document.querySelector('a[href*="cypher.html"]');
+        if (nextPageLink) {
+          const link = document.createElement('link');
+          link.rel = 'prefetch';
+          link.href = nextPageLink.href;
+          document.head.appendChild(link);
+        }
+      }
+
+      // Accessibility enhancements
+      function setupAccessibility() {
+        // Focus management
+        document.addEventListener('focusin', function(event) {
+          if (event.target.classList.contains('glossary-link')) {
+            event.target.style.outline = '2px solid var(--primary)';
+            event.target.style.outlineOffset = '2px';
+          }
+        });
+        
+        document.addEventListener('focusout', function(event) {
+          if (event.target.classList.contains('glossary-link')) {
+            event.target.style.outline = '';
+            event.target.style.outlineOffset = '';
+          }
+        });
+
+        // Key item keyboard support
+        document.querySelectorAll('.key-item').forEach(item => {
+          item.addEventListener('keydown', function(event) {
+            if (event.key === 'Enter' || event.key === ' ') {
+              event.preventDefault();
+              this.click();
+            }
+          });
+        });
+
+        // Reduced motion support
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+          document.body.classList.add('reduced-motion');
+          const style = document.createElement('style');
+          style.textContent = `
+            .reduced-motion * {
+              animation-duration: 0.01ms !important;
+              animation-iteration-count: 1 !important;
+              transition-duration: 0.01ms !important;
+            }
+          `;
+          document.head.appendChild(style);
+        }
+
+        // High contrast support
+        if (window.matchMedia('(prefers-contrast: high)').matches) {
+          document.body.classList.add('high-contrast');
+        }
+      }
+
+      // Error handling
+      function setupErrorHandling() {
+        window.addEventListener('error', function(event) {
+          console.warn('[keypair-v3] JavaScript error caught:', event.error?.message || event.message);
+        });
+
+        window.addEventListener('unhandledrejection', function(event) {
+          console.warn('[keypair-v3] Unhandled promise rejection:', event.reason);
+        });
+      }
+
+      // Initialize all enhancements
+      function initialize() {
+        try {
+          enhanceInteractions();
+          setupKeyboardNavigation();
+          setupAnimations();
+          setupPerformanceMonitoring();
+          setupAccessibility();
+          setupErrorHandling();
+
+          console.log('[keypair-v3] Professional Keypair module loaded successfully');
+          console.log('[keypair-v3] Features: key visualization, trust flow, consistent glossary styling');
+          console.log('[keypair-v3] Keyboard shortcuts: Alt+N (next), Alt+P (prev), Alt+H (home), Esc (top), Ctrl+K (glossary), K (keys), 1-9 (sections)');
+          
+          // Mark as fully loaded
+          document.body.classList.add('keypair-v3-professional');
+          
+        } catch (error) {
+          console.error('[keypair-v3] Initialization error:', error);
+        }
+      }
+
+      // Export utilities to global scope
+      window.ObfuscateOS = window.ObfuscateOS || {};
+      Object.assign(window.ObfuscateOS, {
+        version: '3.0-professional',
+        module: 'keypair',
+        scrollToTop: () => window.scrollTo({ top: 0, behavior: 'smooth' }),
+        scrollToSection: (index) => {
+          const sections = document.querySelectorAll('.section');
+          if (sections[index]) {
+            sections[index].scrollIntoView({ 
+              behavior: 'smooth', 
+              block: 'center' 
+            });
+            sections[index].focus();
+          }
+        },
+        focusKeys: () => {
+          const keyItems = document.querySelectorAll('.key-item');
+          if (keyItems.length > 0) {
+            keyItems[0].focus();
+            keyItems[0].scrollIntoView({ 
+              behavior: 'smooth', 
+              block: 'center' 
+            });
+          }
+        },
+        toggleAccessibility: () => {
+          document.body.classList.toggle('accessibility-mode');
+          console.log('[keypair-v3] Accessibility mode toggled');
+        },
+        getPerformanceMetrics: () => {
+          if ('performance' in window) {
+            return {
+              navigation: performance.getEntriesByType('navigation')[0],
+              resources: performance.getEntriesByType('resource'),
+              measures: performance.getEntriesByType('measure')
+            };
+          }
+          return null;
+        },
+        enableDebugMode: () => {
+          document.body.classList.add('debug-mode');
+          console.log('[keypair-v3] Debug mode enabled');
+        }
+      });
+
+      // Start initialization
+      initialize();
+    });
+
+    // Auto-save scroll position
+    window.addEventListener('beforeunload', function() {
+      sessionStorage.setItem('keypair-scroll-position', window.pageYOffset);
+    });
+
+    window.addEventListener('load', function() {
+      const savedScroll = sessionStorage.getItem('keypair-scroll-position');
+      if (savedScroll) {
+        window.scrollTo(0, parseInt(savedScroll));
+        sessionStorage.removeItem('keypair-scroll-position');
+      }
+    });
+
+    // Global keyboard shortcuts info
+    console.log(`
+    🔑 Obfuscate-OS Keypair Module v3.0 Professional
+    
+    📋 Keyboard Shortcuts:
+    • Alt + N: Next Module
+    • Alt + P: Previous Module  
+    • Alt + H: Home
+    • Escape: Scroll to Top
+    • Ctrl/Cmd + K: Open Glossary
+    • K: Focus Key Items
+    • 1-9: Jump to Section
+    
+    🎨 Professional commercial design system applied
+    🔗 Consistent glossary link styling
+    🔑 Interactive key visualization
+    ⚠️ Trust problem visualization
+    ⚡ Performance optimized
+    `);
+  </script>
 </body>
 </html>

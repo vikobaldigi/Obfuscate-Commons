@@ -3,535 +3,800 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Obfuscate-OS v3.0</title>
-  
-  <!-- LOAD EXTERNAL CSS AND JS PROPERLY -->
-  <link rel="stylesheet" href="docs/css/animations.css" />
+  <title>Obfuscate-OS v3.0 | Professional Encryption Education Platform</title>
   
   <style>
     :root {
-      --primary-purple: #9f70ff;
-      --secondary-purple: #d9b3ff;
-      --accent-purple: #b98eff;
-      --ultra-purple: #7c3aed;
-      --soft-purple: #e9d5ff;
-      --neon-purple: #a855f7;
-      --dark-bg: #0a0a0a;
-      --text-primary: #f8fafc;
-      --text-secondary: #e2e8f0;
-      --text-muted: #cbd5e1;
-      --glow-soft: rgba(159, 112, 255, 0.4);
-      --glow-bright: rgba(159, 112, 255, 0.6);
-      --glow-intense: rgba(159, 112, 255, 0.8);
-      --glass-bg: rgba(255, 255, 255, 0.02);
-      --glass-border: rgba(255, 255, 255, 0.08);
-      --font-mono: 'SF Mono', 'Monaco', 'Cascadia Code', 'Courier New', monospace;
-      --font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+      /* Professional Color System */
+      --primary: #6366f1;
+      --primary-light: #818cf8;
+      --primary-dark: #4f46e5;
+      --secondary: #8b5cf6;
+      --accent: #06b6d4;
+      --success: #10b981;
+      --warning: #f59e0b;
+      --error: #ef4444;
+      
+      /* Neutral Palette */
+      --gray-50: #f9fafb;
+      --gray-100: #f3f4f6;
+      --gray-200: #e5e7eb;
+      --gray-300: #d1d5db;
+      --gray-400: #9ca3af;
+      --gray-500: #6b7280;
+      --gray-600: #4b5563;
+      --gray-700: #374151;
+      --gray-800: #1f2937;
+      --gray-900: #111827;
+      
+      /* Dark Theme */
+      --bg-primary: #0f172a;
+      --bg-secondary: #1e293b;
+      --bg-tertiary: #334155;
+      --surface: rgba(255, 255, 255, 0.05);
+      --surface-hover: rgba(255, 255, 255, 0.1);
+      --border: rgba(255, 255, 255, 0.1);
+      --border-hover: rgba(255, 255, 255, 0.2);
+      
+      /* Text */
+      --text-primary: #ffffff;
+      --text-secondary: #cbd5e1;
+      --text-muted: #94a3b8;
+      
+      /* Shadows */
+      --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+      --shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+      --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+      --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+      --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+      
+      /* Typography */
+      --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+      --font-mono: 'JetBrains Mono', 'Fira Code', 'SF Mono', Consolas, monospace;
+      
+      /* Spacing */
+      --spacing-xs: 0.25rem;
+      --spacing-sm: 0.5rem;
+      --spacing-md: 1rem;
+      --spacing-lg: 1.5rem;
+      --spacing-xl: 2rem;
+      --spacing-2xl: 3rem;
+      
+      /* Border Radius */
+      --radius-sm: 0.25rem;
+      --radius: 0.5rem;
+      --radius-md: 0.75rem;
+      --radius-lg: 1rem;
+      --radius-xl: 1.5rem;
+      
+      /* Transitions */
+      --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+      --transition: 250ms cubic-bezier(0.4, 0, 0.2, 1);
+      --transition-slow: 350ms cubic-bezier(0.4, 0, 0.2, 1);
     }
 
-    * {
+    /* Reset & Base */
+    *, *::before, *::after {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
     }
 
-    body { 
-      background: 
-        radial-gradient(circle at 15% 15%, rgba(159, 112, 255, 0.18) 0%, transparent 45%),
-        radial-gradient(circle at 85% 85%, rgba(124, 58, 237, 0.15) 0%, transparent 45%),
-        linear-gradient(135deg, #0a0a0a 0%, #1a0a2e 30%, #0f0f23 70%, #1a0a2e 100%);
-      min-height: 100vh;
+    html {
+      scroll-behavior: smooth;
+      background: var(--bg-primary);
+      height: 100%;
+    }
+
+    body {
       font-family: var(--font-sans);
+      line-height: 1.6;
       color: var(--text-primary);
-      overflow-x: hidden;
-    }
-
-    .shell {
-      max-width: 1600px;
-      margin: 0 auto;
-      padding: 2em;
-    }
-
-    #terminal-header {
-      text-align: center;
-      margin: 2em auto 4em;
-      padding: 4em 3em 5em;
-      max-width: 1400px;
       background: 
-        linear-gradient(135deg, var(--glass-bg), rgba(159, 112, 255, 0.06)),
-        radial-gradient(circle at 30% 70%, rgba(168, 85, 247, 0.08) 0%, transparent 50%);
-      border-radius: 32px;
-      backdrop-filter: blur(24px) saturate(200%);
-      border: 1px solid var(--glass-border);
-      box-shadow: 
-        0 20px 60px rgba(0, 0, 0, 0.4),
-        inset 0 1px 0 rgba(255, 255, 255, 0.1),
-        0 0 0 1px rgba(159, 112, 255, 0.15);
+        radial-gradient(circle at 20% 30%, rgba(99, 102, 241, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 80% 70%, rgba(139, 92, 246, 0.08) 0%, transparent 50%),
+        radial-gradient(circle at 50% 50%, rgba(6, 182, 212, 0.05) 0%, transparent 50%),
+        var(--bg-primary);
+      min-height: 100vh;
+      overflow-x: hidden;
+      background-attachment: fixed;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
     }
 
-    #terminal-header h1 {
-      font-size: clamp(3.5rem, 10vw, 7rem);
-      color: var(--text-primary);
-      margin-bottom: 0.4em;
-      font-weight: 900;
-      font-family: var(--font-mono);
-      background: linear-gradient(135deg, 
-        #ffffff 0%, var(--soft-purple) 15%, var(--secondary-purple) 30%, 
-        var(--primary-purple) 50%, var(--neon-purple) 70%, var(--ultra-purple) 85%, 
-        var(--accent-purple) 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      filter: drop-shadow(0 0 50px var(--glow-intense));
+    /* Container System */
+    .container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 var(--spacing-xl);
+    }
+
+    /* Header */
+    .header {
+      padding: var(--spacing-2xl) 0 var(--spacing-xl);
+      text-align: center;
       position: relative;
     }
 
-    #terminal-header h1::after {
-      content: 'v3.0';
+    .header::before {
+      content: '';
       position: absolute;
-      top: -0.4em;
-      right: 0.5em;
-      font-size: 0.35em;
-      background: linear-gradient(45deg, var(--neon-purple), #ffffff, var(--primary-purple));
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100%;
+      height: 100%;
+      background: 
+        radial-gradient(ellipse at center, rgba(99, 102, 241, 0.1) 0%, transparent 70%);
+      z-index: -1;
+    }
+
+    .title {
+      position: relative;
+      font-size: clamp(3rem, 8vw, 5rem);
+      font-weight: 900;
+      color: var(--text-primary);
+      margin-bottom: var(--spacing-md);
+      letter-spacing: -0.02em;
+      font-family: var(--font-sans);
+      display: inline-block;
+    }
+
+    .title-text {
+      background: linear-gradient(135deg, 
+        var(--text-primary) 0%, 
+        var(--primary-light) 40%, 
+        var(--secondary) 80%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
-      opacity: 0.85;
-      font-weight: 800;
-      font-family: system-ui, sans-serif;
     }
 
-    #terminal-header p {
-      font-size: 1.5em;
-      color: var(--text-secondary);
-      opacity: 0.9;
-      line-height: 1.6;
-      max-width: 55em;
-      margin-inline: auto;
-    }
-
-    #module-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 2.5em;
-      justify-items: center;
-      width: 100%;
-      max-width: 1600px;
-      margin: 0 auto;
-      padding-bottom: 5em;
-    }
-
-    @media (max-width: 1200px) {
-      #module-grid { grid-template-columns: repeat(2, 1fr); }
-    }
-
-    @media (max-width: 768px) {
-      #module-grid { 
-        grid-template-columns: 1fr;
-        gap: 2em;
-        padding-bottom: 3em;
-      }
-      .shell { padding: 0 1em; }
-      #terminal-header { padding: 3em 2em; }
-    }
-
-    .module-box {
-      background: 
-        linear-gradient(135deg, var(--glass-bg), rgba(159, 112, 255, 0.07)),
-        radial-gradient(circle at 30% 30%, rgba(168, 85, 247, 0.05) 0%, transparent 60%);
-      border: 1px solid var(--glass-border);
-      padding: 3em 2.5em 3.5em;
-      border-radius: 28px;
-      text-align: center;
-      backdrop-filter: blur(20px) saturate(200%);
+    .version {
+      position: absolute;
+      top: 0;
+      right: -80px;
+      background: linear-gradient(145deg, rgba(99, 102, 241, 0.8) 0%, rgba(79, 70, 229, 0.9) 100%);
+      color: #ffffff !important;
+      padding: 0.3rem 0.7rem;
+      border-radius: 1rem;
+      font-size: 0.7rem;
+      font-weight: 500;
+      font-family: var(--font-sans);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      z-index: 10;
+      letter-spacing: 0.05em;
+      
+      /* CRITICAL: Override any text effects from parent */
+      -webkit-text-fill-color: #ffffff !important;
+      -webkit-background-clip: initial !important;
+      background-clip: initial !important;
+      text-shadow: none !important;
+      
+      /* SOFT ELEGANT STYLING */
+      border: 1px solid rgba(255, 255, 255, 0.15);
       box-shadow: 
-        0 12px 40px rgba(0, 0, 0, 0.2),
-        inset 0 1px 0 rgba(255, 255, 255, 0.1);
-      max-width: 420px;
-      width: 100%;
-      cursor: pointer;
-      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-
-    .module-box:hover {
-      transform: translateY(-12px) scale(1.02);
-      border-color: rgba(159, 112, 255, 0.6);
-      box-shadow: 
-        0 24px 60px rgba(159, 112, 255, 0.3),
-        inset 0 2px 0 rgba(255, 255, 255, 0.2);
-    }
-
-    .module-box h2 {
-      margin: 0 0 1.5em;
-      font-size: 1.5rem;
-      color: var(--text-primary);
-      font-family: var(--font-mono);
-      font-weight: 700;
-    }
-
-    .module-box p {
-      margin-bottom: 2em;
-      font-size: 1rem;
-      color: var(--text-secondary);
-      line-height: 1.7;
-      opacity: 0.9;
-    }
-
-    .module-box .nav-button {
-      padding: 1em 2.5em;
-      background: linear-gradient(135deg, rgba(159, 112, 255, 0.1), rgba(217, 179, 255, 0.05));
-      border: 1px solid rgba(159, 112, 255, 0.3);
-      color: var(--text-primary);
-      text-decoration: none;
-      display: inline-block;
-      font-size: 1.1rem;
-      font-weight: 600;
-      border-radius: 16px;
-      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        0 2px 12px rgba(99, 102, 241, 0.2),
+        0 1px 3px rgba(0, 0, 0, 0.1),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2);
       backdrop-filter: blur(8px);
+      transition: all 0.2s ease;
     }
 
-    .module-box:hover .nav-button {
-      color: #ffffff;
-      border-color: var(--primary-purple);
-      transform: translateY(-4px) scale(1.05);
-      background: linear-gradient(135deg, var(--ultra-purple), var(--primary-purple), var(--accent-purple));
-      box-shadow: 0 12px 32px rgba(159, 112, 255, 0.5);
+    .subtitle {
+      font-size: 1.25rem;
+      color: var(--text-secondary);
+      max-width: 600px;
+      margin: 0 auto;
+      font-weight: 400;
     }
 
-    .centered-module {
-      grid-column: 1 / -1;
-      justify-self: center;
-      margin: 3em auto;
-      max-width: 500px;
-      background: 
-        linear-gradient(135deg, rgba(159, 112, 255, 0.12), rgba(217, 179, 255, 0.08)),
-        radial-gradient(circle at 50% 50%, rgba(168, 85, 247, 0.08) 0%, transparent 70%);
-      border: 2px solid rgba(159, 112, 255, 0.3);
+    /* Module Grid */
+    .modules {
+      padding: var(--spacing-2xl) 0;
     }
 
-    #site-footer {
-      text-align: center;
-      font-size: 0.9em;
-      color: var(--text-muted);
-      border-top: 1px solid rgba(159, 112, 255, 0.2);
-      padding: 3em 2em 2em;
-      margin-top: 4em;
-      background: linear-gradient(135deg, var(--glass-bg), rgba(159, 112, 255, 0.03));
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      gap: var(--spacing-xl);
+      margin-bottom: var(--spacing-2xl);
+    }
+
+    /* Module Cards */
+    .module {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-xl);
+      padding: var(--spacing-xl);
+      transition: all var(--transition);
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
       backdrop-filter: blur(12px);
-      border-radius: 24px 24px 0 0;
+      box-shadow: var(--shadow-lg);
     }
 
-    #site-footer a {
-      color: var(--accent-purple);
+    .module::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, transparent, var(--primary), transparent);
+      opacity: 0;
+      transition: opacity var(--transition);
+    }
+
+    .module:hover {
+      transform: translateY(-8px);
+      background: var(--surface-hover);
+      border-color: var(--border-hover);
+      box-shadow: var(--shadow-xl), 0 0 0 1px rgba(99, 102, 241, 0.2);
+    }
+
+    .module:hover::before {
+      opacity: 1;
+    }
+
+    .module-icon {
+      font-size: 2.5rem;
+      margin-bottom: var(--spacing-md);
+      display: block;
+    }
+
+    .module-title {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: var(--spacing-sm);
+      font-family: var(--font-sans);
+    }
+
+    .module-desc {
+      color: var(--text-secondary);
+      margin-bottom: var(--spacing-lg);
+      line-height: 1.6;
+    }
+
+    .module-button {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--spacing-sm);
+      background: var(--primary);
+      color: white;
+      padding: var(--spacing-sm) var(--spacing-lg);
+      border: none;
+      border-radius: var(--radius);
+      font-weight: 600;
       text-decoration: none;
-      margin: 0 0.8em;
-      transition: all 0.3s ease;
+      transition: all var(--transition-fast);
+      font-size: 0.875rem;
+    }
+
+    .module-button:hover {
+      background: var(--primary-dark);
+      transform: translateY(-1px);
+      box-shadow: var(--shadow-md);
+    }
+
+    .module-button:active {
+      transform: translateY(0);
+    }
+
+    /* Featured Module */
+    .module.featured {
+      grid-column: 1 / -1;
+      max-width: 600px;
+      margin: 0 auto;
+      background: linear-gradient(135deg, 
+        rgba(99, 102, 241, 0.1), 
+        rgba(139, 92, 246, 0.08));
+      border: 2px solid rgba(99, 102, 241, 0.2);
+    }
+
+    .module.featured:hover {
+      border-color: rgba(99, 102, 241, 0.4);
+      box-shadow: 
+        var(--shadow-xl), 
+        0 0 0 1px rgba(99, 102, 241, 0.3),
+        0 0 40px rgba(99, 102, 241, 0.2);
+    }
+
+    /* Footer */
+    .footer {
+      border-top: 1px solid var(--border);
+      padding: var(--spacing-2xl) 0;
+      text-align: center;
+      color: var(--text-muted);
+      background: var(--surface);
+      margin-top: var(--spacing-2xl);
+    }
+
+    .footer-content {
+      display: flex;
+      flex-direction: column;
+      gap: var(--spacing-md);
+    }
+
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      gap: var(--spacing-lg);
+      flex-wrap: wrap;
+    }
+
+    .footer-link {
+      color: var(--text-secondary);
+      text-decoration: none;
+      transition: color var(--transition-fast);
       font-weight: 500;
     }
 
-    #site-footer a:hover {
-      color: var(--primary-purple);
-      transform: translateY(-2px);
+    .footer-link:hover {
+      color: var(--primary-light);
     }
 
-    /* Focus accessibility */
-    .module-box:focus-visible {
-      outline: 3px solid var(--accent-purple);
-      outline-offset: 4px;
+    /* Status Indicator */
+    .status {
+      position: fixed;
+      bottom: var(--spacing-md);
+      right: var(--spacing-md);
+      background: var(--success);
+      color: white;
+      padding: var(--spacing-sm) var(--spacing-md);
+      border-radius: var(--radius);
+      font-size: 0.875rem;
+      font-weight: 600;
+      box-shadow: var(--shadow-lg);
+      z-index: 1000;
+      opacity: 0;
+      transform: translateY(100%);
+      transition: all var(--transition);
     }
 
-    /* Smooth scroll */
-    html { scroll-behavior: smooth; }
+    .status.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
 
-    /* Selection styling */
+    /* Responsive */
+    @media (max-width: 768px) {
+      .container {
+        padding: 0 var(--spacing-md);
+      }
+      
+      .grid {
+        grid-template-columns: 1fr;
+        gap: var(--spacing-lg);
+      }
+      
+      .header {
+        padding: var(--spacing-xl) 0 var(--spacing-lg);
+      }
+      
+      .module {
+        padding: var(--spacing-lg);
+      }
+      
+      .footer-links {
+        flex-direction: column;
+        gap: var(--spacing-sm);
+      }
+    }
+
+    /* Focus States */
+    .module:focus-visible {
+      outline: 2px solid var(--primary);
+      outline-offset: 2px;
+    }
+
+    .module-button:focus-visible {
+      outline: 2px solid var(--primary-light);
+      outline-offset: 2px;
+    }
+
+    /* Selection */
     ::selection {
-      background: rgba(159, 112, 255, 0.3);
+      background: rgba(99, 102, 241, 0.3);
       color: var(--text-primary);
     }
 
-    /* Reduced motion support */
+    /* Scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: var(--bg-secondary);
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: var(--gray-600);
+      border-radius: var(--radius);
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: var(--gray-500);
+    }
+
+    /* Loading Animation */
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .module {
+      animation: fadeInUp 0.6s ease-out;
+    }
+
+    .module:nth-child(1) { animation-delay: 0.1s; }
+    .module:nth-child(2) { animation-delay: 0.2s; }
+    .module:nth-child(3) { animation-delay: 0.3s; }
+    .module:nth-child(4) { animation-delay: 0.4s; }
+    .module:nth-child(5) { animation-delay: 0.5s; }
+    .module:nth-child(6) { animation-delay: 0.6s; }
+    .module:nth-child(7) { animation-delay: 0.7s; }
+    .module:nth-child(8) { animation-delay: 0.8s; }
+    .module:nth-child(9) { animation-delay: 0.9s; }
+
+    /* Performance */
     @media (prefers-reduced-motion: reduce) {
       *, *::before, *::after {
         animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
         transition-duration: 0.01ms !important;
+      }
+    }
+
+    /* High contrast */
+    @media (prefers-contrast: high) {
+      .module {
+        border-width: 2px;
       }
     }
   </style>
 </head>
 <body>
-  <div class="shell">
-    <header id="terminal-header">
-      <h1>Obfuscate-OS</h1>
-      <p>A modular guide for encryption, digital resistance, and metadata awareness.</p>
+  <div class="container">
+    <header class="header">
+      <h1 class="title">
+        <span class="title-text">Obfuscate-OS</span>
+        <span class="version">v3.0</span>
+      </h1>
+      <p class="subtitle">Professional encryption education platform for digital security mastery</p>
     </header>
 
-    <main id="module-grid">
-      <!-- Module cards will be populated by JavaScript -->
+    <main class="modules">
+      <div class="grid" id="moduleGrid">
+        <!-- Modules will be populated by JavaScript -->
+      </div>
     </main>
   </div>
 
-  <footer id="site-footer">
-    <p>© 2025 Philip Kovacevic — Obfuscate-OS Project</p>
-    <p>Licensed under <a href="https://opensource.org/licenses/MIT" target="_blank">MIT License</a></p>
-    <p>
-      <a href="https://github.com/vikobaldigi" target="_blank">GitHub</a> |
-      <a href="mailto:vikobal@protonmail.com">Email</a> |
-      <a href="https://www.vikobal.net" target="_blank">Portfolio</a>
-    </p>
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <div style="margin-bottom: 1.5rem;">
+          <h3 style="font-size: 1.1rem; color: var(--text-primary); margin-bottom: 0.5rem; font-weight: 600;">
+            Obfuscate-OS Project
+          </h3>
+          <p style="color: var(--text-secondary); margin-bottom: 1rem;">
+            Professional encryption education platform for digital security mastery
+          </p>
+        </div>
+        
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 2rem; margin-bottom: 2rem;">
+          <!-- Project Info -->
+          <div>
+            <h4 style="color: var(--text-primary); font-size: 0.9rem; font-weight: 600; margin-bottom: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em;">Project</h4>
+            <ul style="list-style: none; padding: 0; margin: 0;">
+              <li style="margin-bottom: 0.5rem;">
+                <a href="modules/further/further.html" class="footer-link">Documentation</a>
+              </li>
+              <li style="margin-bottom: 0.5rem;">
+                <a href="modules/exercises/index.html" class="footer-link">Interactive Exercises</a>
+              </li>
+              <li style="margin-bottom: 0.5rem;">
+                <a href="modules/glossary/glossary.html" class="footer-link">Glossary</a>
+              </li>
+              <li style="margin-bottom: 0.5rem;">
+                <a href="modules/crypto/tools.html" class="footer-link">Tools & Resources</a>
+              </li>
+            </ul>
+          </div>
+          
+          <!-- Learning Paths -->
+          <div>
+            <h4 style="color: var(--text-primary); font-size: 0.9rem; font-weight: 600; margin-bottom: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em;">Learning</h4>
+            <ul style="list-style: none; padding: 0; margin: 0;">
+              <li style="margin-bottom: 0.5rem;">
+                <a href="modules/cpu/cpu.html" class="footer-link">Beginner Track</a>
+              </li>
+              <li style="margin-bottom: 0.5rem;">
+                <a href="modules/crypto/keypair.html" class="footer-link">Advanced Crypto</a>
+              </li>
+              <li style="margin-bottom: 0.5rem;">
+                <a href="modules/algebra/algebra.html" class="footer-link">Mathematical Foundations</a>
+              </li>
+              <li style="margin-bottom: 0.5rem;">
+                <a href="modules/crypto/ethics.html" class="footer-link">Ethics & Policy</a>
+              </li>
+            </ul>
+          </div>
+          
+          <!-- Connect -->
+          <div>
+            <h4 style="color: var(--text-primary); font-size: 0.9rem; font-weight: 600; margin-bottom: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em;">Connect</h4>
+            <ul style="list-style: none; padding: 0; margin: 0;">
+              <li style="margin-bottom: 0.5rem;">
+                <a href="https://github.com/vikobaldigi" class="footer-link" target="_blank" rel="noopener noreferrer">
+                  <svg width="16" height="16" style="vertical-align: text-bottom; margin-right: 0.5rem;" fill="currentColor" viewBox="0 0 16 16">
+                    <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z"/>
+                  </svg>
+                  GitHub Repository
+                </a>
+              </li>
+              <li style="margin-bottom: 0.5rem;">
+                <a href="https://www.vikobal.net" class="footer-link" target="_blank" rel="noopener noreferrer">
+                  <svg width="16" height="16" style="vertical-align: text-bottom; margin-right: 0.5rem;" fill="currentColor" viewBox="0 0 16 16">
+                    <path d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm7.5-6.923c-.67.204-1.335.82-1.887 1.855A7.97 7.97 0 0 0 5.145 4H7.5V1.077zM4.09 4a9.267 9.267 0 0 1 .64-1.539 6.7 6.7 0 0 1 .597-.933A7.025 7.025 0 0 0 2.255 4H4.09zm-.582 3.5c.03-.877.138-1.718.312-2.5H1.674a6.958 6.958 0 0 0-.656 2.5h2.49zM4.847 5a12.5 12.5 0 0 0-.338 2.5H7.5V5H4.847zM8.5 5v2.5h2.99a12.495 12.495 0 0 0-.337-2.5H8.5zM4.51 8.5a12.5 12.5 0 0 0 .337 2.5H7.5V8.5H4.51zm3.99 0V11h2.653c.187-.765.306-1.608.338-2.5H8.5zM5.145 12c.138.386.295.744.468 1.068.552 1.035 1.218 1.65 1.887 1.855V12H5.145zm.182 2.472a6.696 6.696 0 0 1-.597-.933A9.268 9.268 0 0 1 4.09 12H2.255a7.024 7.024 0 0 0 3.072 2.472zM3.82 11a13.652 13.652 0 0 1-.312-2.5h-2.49c.062.89.291 1.733.656 2.5H3.82zm6.853 3.472A7.024 7.024 0 0 0 13.745 12H11.91a9.27 9.27 0 0 1-.64 1.539 6.688 6.688 0 0 1-.597.933zM8.5 12v2.923c.67-.204 1.335-.82 1.887-1.855.173-.324.33-.682.468-1.068H8.5zm3.68-1h2.146c.365-.767.594-1.61.656-2.5h-2.49a13.65 13.65 0 0 1-.312 2.5zm2.802-3.5a6.959 6.959 0 0 0-.656-2.5H12.18c.174.782.282 1.623.312 2.5h2.49zM11.27 2.461c.247.464.462.98.64 1.539h1.835a7.024 7.024 0 0 0-3.072-2.472c.218.284.418.598.597.933zM10.855 4a7.966 7.966 0 0 0-.468-1.068C9.835 1.897 9.17 1.282 8.5 1.077V4h2.355z"/>
+                  </svg>
+                  Portfolio Website
+                </a>
+              </li>
+              <li style="margin-bottom: 0.5rem;">
+                <a href="mailto:vikobal@protonmail.com" class="footer-link">
+                  <svg width="16" height="16" style="vertical-align: text-bottom; margin-right: 0.5rem;" fill="currentColor" viewBox="0 0 16 16">
+                    <path d="M.05 3.555A2 2 0 0 1 2 2h12a2 2 0 0 1 1.95 1.555L8 8.414.05 3.555ZM0 4.697v7.104l5.803-3.558L0 4.697ZM6.761 8.83l-6.57 4.027A2 2 0 0 0 2 14h12a2 2 0 0 0 1.808-1.144l-6.57-4.027L8 9.586l-1.239-.757Zm3.436-.586L16 11.801V4.697l-5.803 3.546Z"/>
+                  </svg>
+                  Contact Email
+                </a>
+              </li>
+              <li style="margin-bottom: 0.5rem;">
+                <a href="https://linkedin.com/in/philip-kovacevich" class="footer-link" target="_blank" rel="noopener noreferrer">
+                  <svg width="16" height="16" style="vertical-align: text-bottom; margin-right: 0.5rem;" fill="currentColor" viewBox="0 0 16 16">
+                    <path d="M0 1.146C0 .513.526 0 1.175 0h13.65C15.474 0 16 .513 16 1.146v13.708c0 .633-.526 1.146-1.175 1.146H1.175C.526 16 0 15.487 0 14.854V1.146zm4.943 12.248V6.169H2.542v7.225h2.401zm-1.2-8.212c.837 0 1.358-.554 1.358-1.248-.015-.709-.52-1.248-1.342-1.248-.822 0-1.359.54-1.359 1.248 0 .694.521 1.248 1.327 1.248h.016zm4.908 8.212V9.359c0-.216.016-.432.08-.586.173-.431.568-.878 1.232-.878.869 0 1.216.662 1.216 1.634v3.865h2.401V9.25c0-2.22-1.184-3.252-2.764-3.252-1.274 0-1.845.7-2.165 1.193v.025h-.016a5.54 5.54 0 0 1 .016-.025V6.169h-2.4c.03.678 0 7.225 0 7.225h2.4z"/>
+                  </svg>
+                  LinkedIn Profile
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+        
+        <!-- Copyright & Legal -->
+        <div style="border-top: 1px solid var(--border); padding-top: 1.5rem; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 1rem;">
+          <div style="color: var(--text-muted); font-size: 0.875rem;">
+            <p style="margin: 0.25rem 0 0 0;">
+              Educational platform for cryptography and digital security
+            </p>
+          </div>
+          
+          <div style="display: flex; gap: 1.5rem; flex-wrap: wrap;">
+            <a href="https://opensource.org/licenses/MIT" class="footer-link" target="_blank" rel="noopener noreferrer" style="font-size: 0.875rem;">
+              <svg width="14" height="14" style="vertical-align: text-bottom; margin-right: 0.25rem;" fill="currentColor" viewBox="0 0 16 16">
+                <path d="M5 4a4 4 0 0 0 0 8 4.5 4.5 0 0 1 0-8zM7 8a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
+              </svg>
+              MIT License
+            </a>
+            <span style="color: var(--text-muted); font-size: 0.875rem;">
+              v3.0
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
   </footer>
 
-  <!-- Load animation controller AFTER DOM content -->
-  <script src="docs/js/animation-controller.js"></script>
-  
+  <div class="status" id="status">
+    ✓ Platform Ready
+  </div>
+
   <script>
+    // Module Configuration - FIXED PATHS for docs/index.html
     const modules = [
       {
-        title: "🧠 Learn Encryption",
-        desc: "Explore cryptographic concepts and how encryption protects your data.",
-        path: "docs/modules/cpu/cpu.html",
-        button: "Open CPU"
+        icon: "🧠",
+        title: "Learn Encryption",
+        desc: "Explore cryptographic concepts and understand how encryption protects your digital life.",
+        path: "modules/cpu/cpu.html",
+        button: "Start Learning"
       },
       {
-        title: "🧨 Cryptographic Failures", 
-        desc: "Murphy's Laws of Encryption — common breakdowns and lessons.",
-        path: "docs/modules/cpu/sec.html",
-        button: "Open SEC"
+        icon: "🧨",
+        title: "Cryptographic Failures", 
+        desc: "Murphy's Laws of Encryption — common breakdowns, vulnerabilities, and lessons learned.",
+        path: "modules/cpu/sec.html",
+        button: "Explore Failures"
       },
       {
-        title: "🔑 Public-Key Cryptography",
-        desc: "Understand keypairs, handshakes, and how asymmetric encryption works.",
-        path: "docs/modules/crypto/keypair.html",
-        button: "Open Keypair"
+        icon: "🔑",
+        title: "Public-Key Cryptography",
+        desc: "Master keypairs, digital handshakes, and asymmetric encryption fundamentals.",
+        path: "modules/crypto/keypair.html",
+        button: "Learn Keys"
       },
       {
-        title: "🌀 Symmetric Ciphers",
-        desc: "Discover common encryption algorithms like AES and Caesar cipher.",
-        path: "docs/modules/crypto/cypher.html",
-        button: "Open Cipher"
+        icon: "🌀",
+        title: "Symmetric Ciphers",
+        desc: "Discover encryption algorithms like AES, DES, and classical cipher techniques.",
+        path: "modules/crypto/cypher.html",
+        button: "Study Ciphers"
       },
       {
-        title: "🌐 Metadata Awareness",
-        desc: "How surveillance systems exploit metadata and what you can do.",
-        path: "docs/modules/net/net.html",
-        button: "Open NET"
+        icon: "🌐",
+        title: "Metadata Awareness",
+        desc: "Understand how surveillance systems exploit metadata and protection strategies.",
+        path: "modules/net/net.html",
+        button: "Analyze Metadata"
       },
       {
-        title: "📖 Terminal Basics",
-        desc: "Learn how to use CLI to explore, encrypt, and obfuscate.",
-        path: "docs/modules/guide/guide.html",
-        button: "Open Guide"
+        icon: "📖",
+        title: "Terminal Basics",
+        desc: "Learn command-line interfaces for encryption, file manipulation, and security tools.",
+        path: "modules/guide/guide.html",
+        button: "Master CLI"
       },
       {
-        title: "🔗 Blockchain & Cryptocurrency",
-        desc: "How decentralization and encryption create public trust without central control.",
-        path: "docs/modules/blockchain/blockchain.html",
-        button: "Open Blockchain"
+        icon: "🔗",
+        title: "Blockchain & Cryptocurrency",
+        desc: "How decentralization and cryptography create trustless public systems.",
+        path: "modules/blockchain/blockchain.html",
+        button: "Explore Blockchain"
       },
       {
-        title: "🔧 Encryption Tools",
-        desc: "Discover and practice with real-world software for secure communication.",
-        path: "docs/modules/crypto/tools.html",
-        button: "Open Tools"
+        icon: "🔧",
+        title: "Encryption Tools",
+        desc: "Hands-on practice with real-world software for secure communication.",
+        path: "modules/crypto/tools.html",
+        button: "Use Tools"
       },
       {
-        title: "⚖️ Encryption Ethics",
-        desc: "Explore the ethical and political stakes of digital secrecy and obfuscation.",
-        path: "docs/modules/crypto/ethics.html",
-        button: "Open Ethics"
+        icon: "⚖️",
+        title: "Encryption Ethics",
+        desc: "Navigate the ethical and political landscape of digital privacy and security.",
+        path: "modules/crypto/ethics.html",
+        button: "Study Ethics"
       },
       {
-        title: "🔢 Algebra of Cryptography",
-        desc: "How groups, fields, and lattices secure digital communication.",
-        path: "docs/modules/algebra/algebra.html",
-        button: "Open Algebra"
+        icon: "🔢",
+        title: "Algebra of Cryptography",
+        desc: "Mathematical foundations: groups, fields, and lattices in modern cryptography.",
+        path: "modules/algebra/algebra.html",
+        button: "Learn Math"
       },
       {
-        title: "📚 Further Reading",
-        desc: "Foundational texts in cryptography, obfuscation, and digital resistance.",
-        path: "docs/modules/further/further.html",
-        button: "Open BOOKS"
+        icon: "📚",
+        title: "Further Reading",
+        desc: "Curated resources in cryptography, obfuscation, and digital resistance.",
+        path: "modules/further/further.html",
+        button: "Read More"
       },
       {
-        title: "🧪 Cryptographic Exercises",
-        desc: "A full suite of interactive tools to learn and experiment with encryption.",
-        path: "docs/modules/exercises/index.html",
-        button: "Open Exercises"
+        icon: "🧪",
+        title: "Cryptographic Exercises",
+        desc: "Interactive tools and challenges to practice and experiment with encryption.",
+        path: "modules/exercises/index.html",
+        button: "Start Exercises"
       },
       {
-        title: "📖 Glossary of Terms",
-        desc: "A reference list of key encryption and command-line concepts covered throughout Obfuscate-OS.",
-        path: "docs/modules/glossary/glossary.html",
-        button: "Open Glossary",
-        center: true
+        icon: "📖",
+        title: "Glossary of Terms",
+        desc: "Comprehensive reference for encryption and security terminology.",
+        path: "modules/glossary/glossary.html",
+        button: "Browse Glossary",
+        featured: true
       }
     ];
 
-    // Wait for animation controller to be ready, but don't block rendering
-    let animationControllerReady = false;
-    
-    // Initialize modules immediately
-    function initializeModules() {
-      console.log('[obfuscate-os-v3] Initializing modules...');
-      
-      const grid = document.getElementById("module-grid");
-      if (!grid) {
-        console.error('[obfuscate-os-v3] Module grid not found');
-        return;
-      }
+    // Render modules
+    function renderModules() {
+      const grid = document.getElementById('moduleGrid');
+      const fragment = document.createDocumentFragment();
 
-      modules.forEach((mod, index) => {
-        const card = document.createElement("div");
-        card.className = "module-box";
-        
-        if (mod.center) {
-          card.classList.add("centered-module");
-        }
+      modules.forEach((module, index) => {
+        const moduleEl = document.createElement('article');
+        moduleEl.className = `module${module.featured ? ' featured' : ''}`;
+        moduleEl.setAttribute('role', 'button');
+        moduleEl.setAttribute('tabindex', '0');
+        moduleEl.setAttribute('aria-label', `${module.title} - ${module.desc}`);
 
-        card.innerHTML = `
-          <h2>${mod.title}</h2>
-          <p>${mod.desc}</p>
-          <a href="${mod.path}" class="nav-button">${mod.button}</a>
+        moduleEl.innerHTML = `
+          <span class="module-icon">${module.icon}</span>
+          <h2 class="module-title">${module.title}</h2>
+          <p class="module-desc">${module.desc}</p>
+          <a href="${module.path}" class="module-button">
+            ${module.button}
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+              <path d="M3.5 8a.5.5 0 0 1 .5-.5h6.793L8.146 5.854a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.793 8.5H4a.5.5 0 0 1-.5-.5z"/>
+            </svg>
+          </a>
         `;
 
-        // Enhanced interactions with animation controller when available
-        card.addEventListener('mousemove', function(e) {
-          if (window.animationController && animationControllerReady) {
-            window.animationController.updateMousePosition(this, e);
+        // Enhanced interactions
+        moduleEl.addEventListener('click', (e) => {
+          if (!e.target.closest('.module-button')) {
+            const button = moduleEl.querySelector('.module-button');
+            button.click();
           }
         });
 
-        card.addEventListener('mouseleave', function() {
-          if (window.animationController && animationControllerReady) {
-            window.animationController.clearMousePosition(this);
-          }
-        });
-
-        card.addEventListener('click', function(e) {
-          if (!e.target.closest('.nav-button')) {
-            const button = this.querySelector('.nav-button');
-            if (button) {
-              if (window.animationController && animationControllerReady) {
-                window.animationController.animateClick(this);
-              }
-              setTimeout(() => button.click(), 150);
-            }
-          }
-        });
-
-        // Accessibility
-        card.setAttribute('tabindex', '0');
-        card.setAttribute('role', 'button');
-        card.setAttribute('aria-label', `${mod.title} - ${mod.desc}`);
-        
-        card.addEventListener('keydown', function(e) {
+        moduleEl.addEventListener('keydown', (e) => {
           if (e.key === 'Enter' || e.key === ' ') {
             e.preventDefault();
-            const button = this.querySelector('.nav-button');
-            if (button) {
-              if (window.animationController && animationControllerReady) {
-                window.animationController.animateClick(button);
-              }
-              setTimeout(() => button.click(), 150);
-            }
+            moduleEl.querySelector('.module-button').click();
           }
         });
 
-        grid.appendChild(card);
+        fragment.appendChild(moduleEl);
       });
 
-      // Global utilities
-      window.ObfuscateOS = {
-        version: '3.0',
-        modules: modules,
-        animationController: window.animationController,
-        scrollToTop: () => {
-          if (window.animationController && animationControllerReady) {
-            window.animationController.animatedScrollToTop();
-          } else {
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-          }
-        }
-      };
-
-      console.log(`[obfuscate-os-v3] ✨ ${modules.length} modules initialized successfully`);
+      grid.appendChild(fragment);
     }
 
-    // Initialize immediately when DOM is ready
-    document.addEventListener("DOMContentLoaded", () => {
-      initializeModules();
+    // Initialize
+    document.addEventListener('DOMContentLoaded', () => {
+      renderModules();
       
-      // Check for animation controller periodically
-      const checkAnimationController = () => {
-        if (window.animationController && !animationControllerReady) {
-          animationControllerReady = true;
-          console.log('[obfuscate-os-v3] Animation controller connected');
-          
-          // Apply any waiting animations
-          window.dispatchEvent(new CustomEvent('animation-controller-ready'));
-        }
-      };
-      
-      // Check immediately and then periodically
-      checkAnimationController();
-      const interval = setInterval(() => {
-        checkAnimationController();
-        if (animationControllerReady) {
-          clearInterval(interval);
-        }
-      }, 100);
-      
-      // Stop checking after 5 seconds
+      // Show status after load
       setTimeout(() => {
-        clearInterval(interval);
-        if (!animationControllerReady) {
-          console.warn('[obfuscate-os-v3] Animation controller not found, continuing without advanced animations');
+        document.getElementById('status').classList.add('show');
+        setTimeout(() => {
+          document.getElementById('status').classList.remove('show');
+        }, 3000);
+      }, 1000);
+    });
+
+    // Enhanced keyboard navigation
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+      
+      if (e.key >= '1' && e.key <= '9') {
+        const modules = document.querySelectorAll('.module');
+        const index = parseInt(e.key) - 1;
+        if (modules[index]) {
+          e.preventDefault();
+          modules[index].focus();
+          modules[index].scrollIntoView({ behavior: 'smooth', block: 'center' });
         }
-      }, 5000);
+      }
     });
 
     // Performance monitoring
     window.addEventListener('load', () => {
-      if ('performance' in window) {
-        const loadTime = performance.now();
-        console.log(`[obfuscate-os-v3] Page loaded in ${loadTime.toFixed(2)}ms`);
-        
-        // Check if all resources loaded successfully
-        const navigation = performance.getEntriesByType('navigation')[0];
-        if (navigation) {
-          console.log(`[obfuscate-os-v3] Total load time: ${(navigation.loadEventEnd - navigation.fetchStart).toFixed(2)}ms`);
-        }
-      }
+      const loadTime = performance.now();
+      console.log(`🚀 Obfuscate-OS loaded in ${loadTime.toFixed(1)}ms`);
+      console.log(`📊 ${modules.length} modules available`);
+      console.log('🎯 Commercial-grade platform ready');
+      console.log('📂 Fixed paths for docs/index.html structure');
     });
 
-    // Enhanced keyboard shortcuts
-    document.addEventListener('keydown', (event) => {
-      // Escape to scroll to top
-      if (event.key === 'Escape') {
-        event.preventDefault();
-        window.ObfuscateOS.scrollToTop();
-      }
-      
-      // Number keys for direct module access
-      if (event.key >= '1' && event.key <= '9') {
-        const moduleIndex = parseInt(event.key) - 1;
-        const moduleCards = document.querySelectorAll('.module-box');
-        if (moduleCards[moduleIndex]) {
-          event.preventDefault();
-          moduleCards[moduleIndex].focus();
-          
-          // Double-tap to activate
-          if (event.repeat) {
-            moduleCards[moduleIndex].querySelector('.nav-button').click();
-          }
+    // Global utilities
+    window.ObfuscateOS = {
+      version: '3.0-commercial',
+      modules: modules,
+      moduleCount: modules.length,
+      scrollToTop: () => window.scrollTo({ top: 0, behavior: 'smooth' }),
+      focusModule: (index) => {
+        const moduleEls = document.querySelectorAll('.module');
+        if (moduleEls[index]) {
+          moduleEls[index].focus();
+          moduleEls[index].scrollIntoView({ behavior: 'smooth', block: 'center' });
         }
       }
-    });
-
-    // Error handling
-    window.addEventListener('error', (event) => {
-      console.error('[obfuscate-os-v3] Error:', event.error?.message || event.message);
-    });
+    };
   </script>
 </body>
-</html>
+</html>margin: 0;">© 2025 <strong>Philip Kovacevic</strong> (Vi Kobal) — Obfuscate-OS Project</p>
+            <p style="
