@@ -4,29 +4,26 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Substitution Ciphers — Obfuscate-OS</title>
+
+  <!-- Identify this module to glossary.js -->
+  <meta name="module" content="cypher" />
+
   <link rel="stylesheet" href="../../css/style.css" />
   <link rel="stylesheet" href="../../css/modules.css" />
   <link rel="stylesheet" href="../../css/animations.css" />
-  <script src="../../js/glossary.js" defer></script>
+
+  <!-- Unified glossary linking logic -->
+  <script src="../../js/modules/glossary.js" defer></script>
   <script>
     if (localStorage.getItem("theme") === "light") {
       document.documentElement.classList.add("light-mode");
     }
   </script>
+
   <style>
-    body {
-      padding-top: 3.0em;
-    }
-    header#terminal-header {
-      margin-bottom: 0;
-      padding-bottom: 0;
-      text-align: center;
-    }
-    header#terminal-header h1 {
-      margin: 0;
-      padding: 0;
-      line-height: 1.1;
-    }
+    body { padding-top: 3.0em; }
+    header#terminal-header { margin-bottom: 0; padding-bottom: 0; text-align: center; }
+    header#terminal-header h1 { margin: 0; padding: 0; line-height: 1.1; }
     header#terminal-header p {
       margin: 0;
       padding-top: 1.0em;
@@ -36,9 +33,7 @@
       max-width: 42em;
       margin-inline: auto;
     }
-    main.module-content {
-      margin-top: 0em;
-    }
+    main.module-content { margin-top: 0em; }
     .nav-button-container {
       display: flex;
       justify-content: center;
@@ -46,11 +41,7 @@
       margin-top: 2em;
       flex-wrap: wrap;
     }
-    .nav-back {
-      width: 100%;
-      text-align: center;
-      margin-top: 1.5em;
-    }
+    .nav-back { width: 100%; text-align: center; margin-top: 1.5em; }
   </style>
 </head>
 <body>
@@ -128,7 +119,7 @@
           <li>Holden, <em>The Mathematics of Secrets</em></li>
           <li>Simon Singh, <em>The Code Book</em></li>
           <li>Smart, <em>Cryptography Made Simple</em></li>
-          <li>Katz & Lindell, <em>Introduction to Modern Cryptography</em></li>
+          <li>Katz &amp; Lindell, <em>Introduction to Modern Cryptography</em></li>
         </ul>
       </section>
 

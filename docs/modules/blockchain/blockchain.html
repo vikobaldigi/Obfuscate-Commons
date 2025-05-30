@@ -3,53 +3,31 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Blockchain & Cryptocurrency</title>
+  <!-- identify module for glossary linking -->
+  <meta name="module" content="blockchain">
+
+  <title>🔗 Blockchain & Cryptocurrency</title>
   <link rel="stylesheet" href="../../css/style.css" />
   <link rel="stylesheet" href="../../css/modules.css" />
   <link rel="stylesheet" href="../../css/animations.css" />
+
+  <!-- persist theme preference -->
   <script>
     if (localStorage.getItem("theme") === "light") {
       document.documentElement.classList.add("light-mode");
     }
   </script>
+  <!-- glossary linking logic -->
+  <script src="../../js/modules/glossary.js" defer></script>
+
   <style>
-    body {
-      padding-top: 3.0em;
-    }
-    header#terminal-header {
-      margin-bottom: 0;
-      padding-bottom: 0;
-      text-align: center;
-    }
-    header#terminal-header h1 {
-      margin: 0;
-      padding: 0;
-      line-height: 1.1;
-    }
-    header#terminal-header p {
-      margin: 0;
-      padding-top: 1.0em;
-      padding-bottom: 0.5em;
-      font-size: 1.1em;
-      line-height: 1.4;
-      max-width: 42em;
-      margin-inline: auto;
-    }
-    main.module-content {
-      margin-top: 0em;
-    }
-    .nav-button-container {
-      display: flex;
-      justify-content: center;
-      gap: 1.25em;
-      margin-top: 2em;
-      flex-wrap: wrap;
-    }
-    .nav-back {
-      width: 100%;
-      text-align: center;
-      margin-top: 1.5em;
-    }
+    body { padding-top: 3.0em; }
+    header#terminal-header { margin-bottom: 0; padding-bottom: 0; text-align: center; }
+    header#terminal-header h1 { margin: 0; padding: 0; line-height: 1.1; }
+    header#terminal-header p { margin: 0; padding-top: 1.0em; padding-bottom: 0.5em; font-size: 1.1em; line-height: 1.4; max-width: 42em; margin-inline: auto; }
+    main.module-content { margin-top: 0em; }
+    .nav-button-container { display: flex; justify-content: center; gap: 1.25em; margin-top: 2em; flex-wrap: wrap; }
+    .nav-back { width: 100%; text-align: center; margin-top: 1.5em; }
   </style>
 </head>
 <body>
@@ -74,7 +52,7 @@
       <section class="fade-in-up">
         <h2 class="section-heading">Why Use It?</h2>
         <p>
-          Blockchain systems try to avoid centralized control. Instead of trusting a single authority, participants rely on <span data-tooltip="Algorithms that let distributed systems agree on a single data value.">consensus mechanisms</span> like Proof of Work or Proof of Stake to decide what counts as truth.
+          Blockchain systems try to avoid centralized control. Instead of trusting a single authority, participants rely on <span data-tooltip="Algorithms that let distributed systems agree on a single data value">consensus mechanisms</span> like Proof of Work or Proof of Stake to decide what counts as truth.
         </p>
         <p>
           This lets people or systems interact securely — even when they don’t know or trust each other.
@@ -128,9 +106,9 @@
       <section class="fade-in-up">
         <h2 class="section-heading">Current Events: Crypto in 401(k)s</h2>
         <p>
-          In May 2025, the Trump administration took steps to ease restrictions on including private cryptocurrency assets in retirement plans like 401(k)s. According to reporting by 
-          <a href="https://www.bloomberg.com/news/articles/2025-05-28/trump-crypto-stance-paves-way-for-private-assets-in-401-k-s" target="_blank">Bloomberg</a>, 
-          <a href="https://www.cnbc.com/2025/05/28/crypto-in-401k-plans-trump-administration-eases-rules.html" target="_blank">CNBC</a>, and the 
+          In May 2025, the Trump administration took steps to ease restrictions on including private cryptocurrency assets in retirement plans like 401(k)s. According to reporting by
+          <a href="https://www.bloomberg.com/news/articles/2025-05-28/trump-crypto-stance-paves-way-for-private-assets-in-401-k-s" target="_blank">Bloomberg</a>,
+          <a href="https://www.cnbc.com/2025/05/28/crypto-in-401k-plans-trump-administration-eases-rules.html" target="_blank">CNBC</a>, and the
           <a href="https://www.ft.com/content/cc55d091-0b28-40bb-a11c-e32d4e121ca3" target="_blank">Financial Times</a>, this deregulatory move was framed as empowering individual investors.
         </p>
         <p>
@@ -142,8 +120,8 @@
         <h2 class="section-heading">Further Reading</h2>
         <ul>
           <li>Imran Bashir, <em>Mastering Blockchain</em></li>
-          <li>Katz & Lindell, <em>Introduction to Modern Cryptography</em></li>
-          <li>Rogaway, <em>The Moral Character of Cryptographic Work</em></li>
+          <li>Jonathan Katz &amp; Yehuda Lindell, <em>Introduction to Modern Cryptography</em></li>
+          <li>Phillip Rogaway, <em>The Moral Character of Cryptographic Work</em></li>
         </ul>
       </section>
 

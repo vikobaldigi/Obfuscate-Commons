@@ -4,23 +4,14 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Keypair — Asymmetry and Trust</title>
+  <!-- Tell glossary.js which module we’re in -->
+  <meta name="module" content="keypair" />
+
   <link rel="stylesheet" href="../../css/style.css" />
   <link rel="stylesheet" href="../../css/modules.css" />
   <link rel="stylesheet" href="../../css/animations.css" />
 
-  <script>
-    // ✅ Define glossary terms relevant to this page
-    window.allowedGlossaryTerms = [
-      "keypair",
-      "public-key cryptography",
-      "digital signature",
-      "certificate authority",
-      "man-in-the-middle"
-    ];
-    if (localStorage.getItem("theme") === "light") {
-      document.documentElement.classList.add("light-mode");
-    }
-  </script>
+  <!-- load the unified glossary.js that uses termOwnership + meta["module"] -->
   <script src="../../js/modules/glossary.js" defer></script>
 
   <style>
@@ -126,9 +117,9 @@
       <section class="fade-in-up">
         <h2 class="section-heading">Further Reading</h2>
         <ul>
-          <li>Diffie & Hellman, “New Directions in Cryptography” (1976)</li>
+          <li>Diffie &amp; Hellman, “New Directions in Cryptography” (1976)</li>
           <li>Rivest, Shamir, Adleman, “A Method for Obtaining Digital Signatures” (1978)</li>
-          <li>Katz & Lindell, <em>Introduction to Modern Cryptography</em></li>
+          <li>Katz &amp; Lindell, <em>Introduction to Modern Cryptography</em></li>
           <li>Smart, <em>Cryptography Made Simple</em></li>
         </ul>
       </section>
