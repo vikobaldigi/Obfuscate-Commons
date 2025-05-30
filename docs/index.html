@@ -4,6 +4,10 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Obfuscate-OS v3.0</title>
+  
+  <!-- INTEGRATED: External animation CSS -->
+  <link rel="stylesheet" href="css/animations.css" />
+  
   <style>
     :root {
       /* Enhanced Color Palette */
@@ -51,7 +55,7 @@
       position: relative;
     }
 
-    /* Enhanced floating particles */
+    /* Enhanced floating particles with better timing */
     body::before {
       content: '';
       position: fixed;
@@ -64,24 +68,15 @@
         radial-gradient(circle at 80% 70%, rgba(217, 179, 255, 0.025) 1px, transparent 1px),
         radial-gradient(circle at 45% 20%, rgba(124, 58, 237, 0.02) 1px, transparent 1px);
       background-size: 60px 60px, 90px 90px, 120px 120px;
-      animation: float-particles 25s ease-in-out infinite;
+      animation: float-particles 30s ease-in-out infinite;
       pointer-events: none;
       z-index: -1;
+      opacity: 0;
+      transition: opacity 2s ease;
     }
 
-    @keyframes float-particles {
-      0%, 100% { 
-        transform: translateY(0px) rotate(0deg);
-        opacity: 0.4;
-      }
-      33% { 
-        transform: translateY(-15px) rotate(120deg);
-        opacity: 0.2;
-      }
-      66% { 
-        transform: translateY(-8px) rotate(240deg);
-        opacity: 0.3;
-      }
+    body.loaded::before {
+      opacity: 1;
     }
 
     /* Container */
@@ -128,7 +123,7 @@
         var(--accent-purple), 
         var(--secondary-purple), 
         transparent);
-      animation: shimmer-header 4s ease-in-out infinite;
+      animation: shimmer-header 6s ease-in-out infinite;
     }
 
     #terminal-header::after {
@@ -142,7 +137,7 @@
         rgba(159, 112, 255, 0.06) 0%, 
         transparent 60%);
       opacity: 0;
-      transition: opacity 0.4s ease;
+      transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1);
       pointer-events: none;
     }
 
@@ -151,8 +146,14 @@
     }
 
     @keyframes shimmer-header {
-      0%, 100% { opacity: 0.4; }
-      50% { opacity: 1; }
+      0%, 100% { 
+        opacity: 0.3; 
+        transform: scaleX(1);
+      }
+      50% { 
+        opacity: 1; 
+        transform: scaleX(1.02);
+      }
     }
 
     #terminal-header h1 {
@@ -174,7 +175,7 @@
       -webkit-text-fill-color: transparent;
       background-clip: text;
       filter: drop-shadow(0 0 50px var(--glow-intense)) drop-shadow(0 0 100px rgba(159, 112, 255, 0.3));
-      animation: mega-pulse-glow 8s ease-in-out infinite;
+      animation: mega-pulse-glow 10s ease-in-out infinite;
       position: relative;
       overflow: visible;
       display: block;
@@ -206,39 +207,7 @@
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
       letter-spacing: 0.08em;
       filter: drop-shadow(0 0 20px rgba(159, 112, 255, 0.6));
-      animation: version-pulse 4s ease-in-out infinite;
-    }
-
-    @keyframes mega-pulse-glow {
-      0%, 100% { 
-        filter: drop-shadow(0 0 40px var(--glow-soft)) drop-shadow(0 0 80px rgba(159, 112, 255, 0.2));
-        transform: scale(1);
-      }
-      25% {
-        filter: drop-shadow(0 0 60px var(--glow-bright)) drop-shadow(0 0 120px rgba(159, 112, 255, 0.4));
-        transform: scale(1.005);
-      }
-      50% { 
-        filter: drop-shadow(0 0 80px var(--glow-intense)) drop-shadow(0 0 160px rgba(159, 112, 255, 0.5));
-        transform: scale(1.01);
-      }
-      75% {
-        filter: drop-shadow(0 0 60px var(--glow-bright)) drop-shadow(0 0 120px rgba(159, 112, 255, 0.4));
-        transform: scale(1.005);
-      }
-    }
-
-    @keyframes version-pulse {
-      0%, 100% { 
-        opacity: 0.8;
-        filter: drop-shadow(0 0 15px rgba(159, 112, 255, 0.6));
-        transform: scale(1);
-      }
-      50% { 
-        opacity: 1;
-        filter: drop-shadow(0 0 25px rgba(159, 112, 255, 1));
-        transform: scale(1.05);
-      }
+      animation: version-pulse 10s ease-in-out infinite;
     }
 
     #terminal-header p {
@@ -297,7 +266,7 @@
       padding: 3em 2.5em 3.5em;
       border-radius: 28px;
       text-align: center;
-      transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+      transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
       backdrop-filter: blur(20px) saturate(200%);
       box-shadow: 
         0 12px 40px rgba(0, 0, 0, 0.2),
@@ -326,7 +295,8 @@
         var(--accent-purple), 
         transparent);
       opacity: 0;
-      transition: opacity 0.5s ease;
+      transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1), transform 0.6s ease;
+      transform: scaleX(0);
     }
 
     .module-box::after {
@@ -340,22 +310,24 @@
         rgba(159, 112, 255, 0.08) 0%, 
         transparent 65%);
       opacity: 0;
-      transition: opacity 0.4s ease;
+      transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1);
       pointer-events: none;
     }
 
     .module-box:hover {
-      transform: translateY(-12px) scale(1.02) rotateX(2deg);
-      border-color: rgba(159, 112, 255, 0.5);
+      transform: translateY(-16px) scale(1.02) rotateX(3deg) rotateY(-1deg);
+      border-color: rgba(159, 112, 255, 0.6);
       box-shadow: 
-        0 25px 70px rgba(159, 112, 255, 0.25),
-        inset 0 1px 0 rgba(255, 255, 255, 0.2),
-        0 0 0 1px rgba(159, 112, 255, 0.4),
-        0 0 60px rgba(159, 112, 255, 0.15);
+        0 30px 80px rgba(159, 112, 255, 0.3),
+        inset 0 2px 0 rgba(255, 255, 255, 0.2),
+        0 0 0 1px rgba(159, 112, 255, 0.5),
+        0 0 80px rgba(159, 112, 255, 0.2);
+      transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
     .module-box:hover::before {
       opacity: 1;
+      transform: scaleX(1);
     }
 
     .module-box:hover::after {
@@ -363,8 +335,8 @@
     }
 
     .module-box:active {
-      transform: translateY(-8px) scale(1.01) rotateX(1deg);
-      transition: transform 0.2s ease;
+      transform: translateY(-12px) scale(1.01) rotateX(2deg);
+      transition: transform 0.15s cubic-bezier(0.4, 0, 0.6, 1);
     }
 
     .module-box h2 {
@@ -392,11 +364,12 @@
         var(--primary-purple));
       border-radius: 1px;
       opacity: 0;
-      transition: opacity 0.3s ease;
+      transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1), width 0.4s ease;
     }
 
     .module-box:hover h2::after {
       opacity: 1;
+      width: 80px;
     }
 
     .module-box p {
@@ -428,7 +401,7 @@
       font-size: 1.1rem;
       font-weight: 600;
       border-radius: 16px;
-      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
       position: relative;
       overflow: hidden;
       backdrop-filter: blur(8px);
@@ -451,7 +424,7 @@
         var(--neon-purple),
         var(--accent-purple));
       opacity: 0;
-      transition: opacity 0.3s ease;
+      transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1);
       z-index: -1;
     }
 
@@ -466,16 +439,16 @@
         transparent, 
         rgba(255, 255, 255, 0.15), 
         transparent);
-      transition: left 0.6s ease;
+      transition: left 0.8s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
     .module-box:hover .nav-button {
       color: #ffffff;
       border-color: var(--primary-purple);
-      transform: translateY(-2px);
+      transform: translateY(-4px) scale(1.05);
       box-shadow: 
-        0 8px 24px rgba(159, 112, 255, 0.4),
-        inset 0 1px 0 rgba(255, 255, 255, 0.2);
+        0 12px 32px rgba(159, 112, 255, 0.5),
+        inset 0 1px 0 rgba(255, 255, 255, 0.3);
     }
 
     .module-box:hover .nav-button::before {
@@ -504,10 +477,10 @@
 
     .centered-module:hover {
       box-shadow: 
-        0 30px 80px rgba(159, 112, 255, 0.3),
-        inset 0 2px 0 rgba(255, 255, 255, 0.2),
-        0 0 0 2px rgba(159, 112, 255, 0.5),
-        0 0 80px rgba(159, 112, 255, 0.2);
+        0 35px 90px rgba(159, 112, 255, 0.35),
+        inset 0 2px 0 rgba(255, 255, 255, 0.25),
+        0 0 0 2px rgba(159, 112, 255, 0.6),
+        0 0 100px rgba(159, 112, 255, 0.25);
     }
 
     /* Enhanced Footer */
@@ -530,46 +503,31 @@
       color: var(--accent-purple);
       text-decoration: none;
       margin: 0 0.8em;
-      transition: all 0.3s ease;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
       font-weight: 500;
+      position: relative;
+    }
+
+    #site-footer a::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      width: 0;
+      height: 1px;
+      background: var(--primary-purple);
+      transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
     #site-footer a:hover {
       color: var(--primary-purple);
-      text-shadow: 0 0 8px var(--glow-soft);
-      text-decoration: underline;
+      text-shadow: 0 0 12px var(--glow-soft);
+      transform: translateY(-1px);
     }
 
-    /* Loading and entrance animations */
-    @keyframes fadeInUp {
-      from {
-        opacity: 0;
-        transform: translateY(50px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
+    #site-footer a:hover::after {
+      width: 100%;
     }
-
-    .module-box {
-      animation: fadeInUp 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-
-    /* Stagger animation for module boxes */
-    .module-box:nth-child(1) { animation-delay: 0.1s; }
-    .module-box:nth-child(2) { animation-delay: 0.2s; }
-    .module-box:nth-child(3) { animation-delay: 0.3s; }
-    .module-box:nth-child(4) { animation-delay: 0.4s; }
-    .module-box:nth-child(5) { animation-delay: 0.5s; }
-    .module-box:nth-child(6) { animation-delay: 0.6s; }
-    .module-box:nth-child(7) { animation-delay: 0.7s; }
-    .module-box:nth-child(8) { animation-delay: 0.8s; }
-    .module-box:nth-child(9) { animation-delay: 0.9s; }
-    .module-box:nth-child(10) { animation-delay: 1.0s; }
-    .module-box:nth-child(11) { animation-delay: 1.1s; }
-    .module-box:nth-child(12) { animation-delay: 1.2s; }
-    .module-box:nth-child(13) { animation-delay: 1.3s; }
 
     /* Scroll progress bar */
     #scroll-progress {
@@ -584,7 +542,7 @@
         var(--accent-purple), 
         var(--secondary-purple));
       z-index: 9999;
-      transition: width 0.1s ease;
+      transition: width 0.15s cubic-bezier(0.4, 0, 0.2, 1);
       box-shadow: 
         0 0 16px var(--glow-bright),
         0 4px 8px rgba(159, 112, 255, 0.3);
@@ -643,7 +601,16 @@
       * {
         animation-duration: 0.01ms !important;
         animation-iteration-count: 1 !important;
-        transition-duration: 0.01ms !important;
+        transition-duration: 0.15ms !important;
+      }
+      
+      .module-box,
+      #terminal-header,
+      .shell,
+      #module-grid,
+      #site-footer {
+        transform: none !important;
+        opacity: 1 !important;
       }
     }
 
@@ -658,18 +625,77 @@
       }
     }
 
-    /* Loading animation */
-    body {
-      animation: fadeIn 1s ease-out;
+    /* Smooth scroll behavior */
+    html {
+      scroll-behavior: smooth;
     }
 
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
+    /* Selection styling */
+    ::selection {
+      background: rgba(159, 112, 255, 0.3);
+      color: var(--text-primary);
+    }
+
+    ::-moz-selection {
+      background: rgba(159, 112, 255, 0.3);
+      color: var(--text-primary);
+    }
+
+    /* Focus indicators */
+    .module-box:focus-visible {
+      outline: 3px solid var(--accent-purple);
+      outline-offset: 4px;
+    }
+
+    .nav-button:focus-visible {
+      outline: 2px solid var(--accent-purple);
+      outline-offset: 2px;
+    }
+
+    /* Performance optimizations */
+    .module-box,
+    #terminal-header,
+    .shell {
+      will-change: transform, opacity;
+      backface-visibility: hidden;
+    }
+
+    .module-box:hover {
+      will-change: transform, box-shadow;
+    }
+
+    /* Loading spinner for initial load */
+    .loading-spinner {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 60px;
+      height: 60px;
+      border: 3px solid rgba(159, 112, 255, 0.3);
+      border-top: 3px solid var(--primary-purple);
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      z-index: 10000;
+      opacity: 1;
+      transition: opacity 0.5s ease;
+    }
+
+    .loading-spinner.hidden {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    @keyframes spin {
+      0% { transform: translate(-50%, -50%) rotate(0deg); }
+      100% { transform: translate(-50%, -50%) rotate(360deg); }
     }
   </style>
 </head>
 <body>
+  <!-- Loading spinner -->
+  <div class="loading-spinner" id="loading-spinner"></div>
+  
   <div id="scroll-progress"></div>
   
   <div class="shell">
@@ -693,620 +719,594 @@
     </p>
   </footer>
 
+  <!-- INTEGRATED: External animation controller -->
+  <script src="js/animation-controller.js"></script>
+  
   <script>
     // CORRECTED MODULE DATA WITH PROPER PATHS
     const modules = [
       {
         title: "🧠 Learn Encryption",
         desc: "Explore cryptographic concepts and how encryption protects your data.",
-        path: "modules/cpu/cpu.html",  // REMOVED 'docs/' PREFIX
+        path: "modules/cpu/cpu.html",
         button: "Open CPU"
       },
       {
         title: "🧨 Cryptographic Failures", 
         desc: "Murphy's Laws of Encryption — common breakdowns and lessons.",
-        path: "modules/cpu/sec.html",  // REMOVED 'docs/' PREFIX
+        path: "modules/cpu/sec.html",
         button: "Open SEC"
       },
       {
         title: "🔑 Public-Key Cryptography",
         desc: "Understand keypairs, handshakes, and how asymmetric encryption works.",
-        path: "modules/crypto/keypair.html",  // REMOVED 'docs/' PREFIX
+        path: "modules/crypto/keypair.html",
         button: "Open Keypair"
       },
       {
         title: "🌀 Symmetric Ciphers",
         desc: "Discover common encryption algorithms like AES and Caesar cipher.",
-        path: "modules/crypto/cypher.html",  // REMOVED 'docs/' PREFIX
+        path: "modules/crypto/cypher.html",
         button: "Open Cipher"
       },
       {
         title: "🌐 Metadata Awareness",
         desc: "How surveillance systems exploit metadata and what you can do.",
-        path: "modules/net/net.html",  // REMOVED 'docs/' PREFIX
+        path: "modules/net/net.html",
         button: "Open NET"
       },
       {
         title: "📖 Terminal Basics",
         desc: "Learn how to use CLI to explore, encrypt, and obfuscate.",
-        path: "modules/guide/guide.html",  // REMOVED 'docs/' PREFIX
+        path: "modules/guide/guide.html",
         button: "Open Guide"
       },
       {
         title: "🔗 Blockchain & Cryptocurrency",
         desc: "How decentralization and encryption create public trust without central control.",
-        path: "modules/blockchain/blockchain.html",  // REMOVED 'docs/' PREFIX
+        path: "modules/blockchain/blockchain.html",
         button: "Open Blockchain"
       },
       {
         title: "🔧 Encryption Tools",
         desc: "Discover and practice with real-world software for secure communication.",
-        path: "modules/crypto/tools.html",  // REMOVED 'docs/' PREFIX
+        path: "modules/crypto/tools.html",
         button: "Open Tools"
       },
       {
         title: "⚖️ Encryption Ethics",
         desc: "Explore the ethical and political stakes of digital secrecy and obfuscation.",
-        path: "modules/crypto/ethics.html",  // REMOVED 'docs/' PREFIX
+        path: "modules/crypto/ethics.html",
         button: "Open Ethics"
       },
       {
         title: "🔢 Algebra of Cryptography",
         desc: "How groups, fields, and lattices secure digital communication.",
-        path: "modules/algebra/algebra.html",  // REMOVED 'docs/' PREFIX
+        path: "modules/algebra/algebra.html",
         button: "Open Algebra"
       },
       {
         title: "📚 Further Reading",
         desc: "Foundational texts in cryptography, obfuscation, and digital resistance.",
-        path: "modules/further/further.html",  // REMOVED 'docs/' PREFIX
+        path: "modules/further/further.html",
         button: "Open BOOKS"
       },
       {
         title: "🧪 Cryptographic Exercises",
         desc: "A full suite of interactive tools to learn and experiment with encryption.",
-        path: "modules/exercises/index.html",  // REMOVED 'docs/' PREFIX
+        path: "modules/exercises/index.html",
         button: "Open Exercises"
       },
       {
         title: "📖 Glossary of Terms",
         desc: "A reference list of key encryption and command-line concepts covered throughout Obfuscate-OS.",
-        path: "modules/glossary/glossary.html",  // REMOVED 'docs/' PREFIX
+        path: "modules/glossary/glossary.html",
         button: "Open Glossary",
         center: true
       }
     ];
 
+    // STREAMLINED: Main initialization with external animation controller integration
     document.addEventListener("DOMContentLoaded", () => {
-      console.log('[obfuscate-os] Ultra-glossy homepage initializing...');
+      console.log('[obfuscate-os-v3] Streamlined homepage initializing...');
       
-      const grid = document.getElementById("module-grid");
-      const scrollProgress = document.getElementById("scroll-progress");
-      
-      if (!grid) return;
-
-      // === SCROLL PROGRESS BAR ===
-      function updateScrollProgress() {
-        const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
-        const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-        const scrolled = (winScroll / height) * 100;
-        scrollProgress.style.width = scrolled + '%';
-      }
-
-      // === MODULE CARD CREATION ===
-      modules.forEach((mod, index) => {
-        const card = document.createElement("div");
-        card.className = "module-box";
-        
-        if (mod.center) {
-          card.classList.add("centered-module");
+      // Wait for external animation controller to load
+      const waitForAnimationController = () => {
+        if (window.animationController) {
+          initializeModules();
+        } else {
+          setTimeout(waitForAnimationController, 50);
         }
+      };
+      
+      const initializeModules = () => {
+        const grid = document.getElementById("module-grid");
+        if (!grid) return;
 
-        card.innerHTML = `
-          <h2>${mod.title}</h2>
-          <p>${mod.desc}</p>
-          <a href="${mod.path}" class="nav-button">${mod.button}</a>
-        `;
-
-        // === MOUSE TRACKING FOR CARDS ===
-        card.addEventListener('mousemove', function(e) {
-          const rect = this.getBoundingClientRect();
-          const x = ((e.clientX - rect.left) / rect.width) * 100;
-          const y = ((e.clientY - rect.top) / rect.height) * 100;
+        // Create modules with streamlined interactions
+        modules.forEach((mod, index) => {
+          const card = document.createElement("div");
+          card.className = "module-box";
           
-          this.style.setProperty('--mouse-x', x + '%');
-          this.style.setProperty('--mouse-y', y + '%');
-        });
-
-        card.addEventListener('mouseleave', function() {
-          this.style.removeProperty('--mouse-x');
-          this.style.removeProperty('--mouse-y');
-        });
-
-        // === RIPPLE EFFECT ON CLICK ===
-        card.addEventListener('click', function(e) {
-          if (!e.target.closest('.nav-button')) {
-            const button = this.querySelector('.nav-button');
-            if (button) {
-              // Add click animation
-              this.style.transform = 'translateY(-8px) scale(0.98) rotateX(1deg)';
-              setTimeout(() => {
-                this.style.transform = '';
-                button.click();
-              }, 150);
-            }
+          if (mod.center) {
+            card.classList.add("centered-module");
           }
-        });
 
-        // === ADD RIPPLE EFFECT ===
-        card.addEventListener('click', function(e) {
-          const ripple = document.createElement('span');
-          const rect = this.getBoundingClientRect();
-          const size = Math.max(rect.width, rect.height);
-          const x = e.clientX - rect.left - size / 2;
-          const y = e.clientY - rect.top - size / 2;
-          
-          ripple.style.cssText = `
-            position: absolute;
-            width: ${size}px;
-            height: ${size}px;
-            left: ${x}px;
-            top: ${y}px;
-            background: radial-gradient(circle, rgba(159, 112, 255, 0.3) 0%, transparent 70%);
-            border-radius: 50%;
-            transform: scale(0);
-            animation: ripple 0.8s ease-out;
-            pointer-events: none;
-            z-index: 1000;
+          card.innerHTML = `
+            <h2>${mod.title}</h2>
+            <p>${mod.desc}</p>
+            <a href="${mod.path}" class="nav-button">${mod.button}</a>
           `;
-          
-          // Add ripple styles if not exist
-          if (!document.querySelector('#ripple-styles')) {
-            const style = document.createElement('style');
-            style.id = 'ripple-styles';
-            style.textContent = `
-              @keyframes ripple {
-                to {
-                  transform: scale(4);
-                  opacity: 0;
+
+          // STREAMLINED: Use external animation controller for interactions
+          if (window.animationController) {
+            // Mouse tracking
+            card.addEventListener('mousemove', function(e) {
+              window.animationController.updateMousePosition(this, e);
+            });
+
+            card.addEventListener('mouseleave', function() {
+              window.animationController.clearMousePosition(this);
+            });
+
+            // Click handling with animation
+            card.addEventListener('click', function(e) {
+              if (!e.target.closest('.nav-button')) {
+                const button = this.querySelector('.nav-button');
+                if (button) {
+                  window.animationController.animateClick(this);
+                  setTimeout(() => button.click(), 150);
                 }
               }
-            `;
-            document.head.appendChild(style);
-          }
-          
-          this.style.position = 'relative';
-          this.appendChild(ripple);
-          setTimeout(() => ripple.remove(), 800);
-        });
-
-        // === ACCESSIBILITY ENHANCEMENTS ===
-        card.setAttribute('tabindex', '0');
-        card.setAttribute('role', 'button');
-        card.setAttribute('aria-label', `${mod.title} - ${mod.desc}`);
-        
-        card.addEventListener('focus', function() {
-          this.style.outline = '3px solid var(--accent-purple)';
-          this.style.outlineOffset = '4px';
-        });
-        
-        card.addEventListener('blur', function() {
-          this.style.outline = '';
-          this.style.outlineOffset = '';
-        });
-        
-        card.addEventListener('keydown', function(e) {
-          if (e.key === 'Enter' || e.key === ' ') {
-            e.preventDefault();
-            const button = this.querySelector('.nav-button');
-            if (button) {
-              button.click();
-            }
-          }
-        });
-
-        grid.appendChild(card);
-      });
-
-      // === HEADER MOUSE TRACKING ===
-      const header = document.getElementById('terminal-header');
-      header.addEventListener('mousemove', function(e) {
-        const rect = this.getBoundingClientRect();
-        const x = ((e.clientX - rect.left) / rect.width) * 100;
-        const y = ((e.clientY - rect.top) / rect.height) * 100;
-        
-        this.style.setProperty('--mouse-x', x + '%');
-        this.style.setProperty('--mouse-y', y + '%');
-      });
-
-      header.addEventListener('mouseleave', function() {
-        this.style.removeProperty('--mouse-x');
-        this.style.removeProperty('--mouse-y');
-      });
-
-      // === SCROLL HANDLERS ===
-      let scrollTimeout;
-      window.addEventListener('scroll', function() {
-        if (scrollTimeout) {
-          clearTimeout(scrollTimeout);
-        }
-        
-        scrollTimeout = setTimeout(() => {
-          updateScrollProgress();
-          
-          // Add subtle parallax to header
-          const scrolled = window.pageYOffset;
-          const rate = scrolled * -0.1;
-          header.style.transform = `translateY(${rate}px)`;
-          
-          // Subtle parallax on particles
-          document.body.style.setProperty('--scroll-offset', `${scrolled * 0.3}px`);
-        }, 10);
-      }, { passive: true });
-
-      // === KEYBOARD SHORTCUTS ===
-      document.addEventListener('keydown', function(event) {
-        // Ctrl/Cmd + K for first module
-        if ((event.ctrlKey || event.metaKey) && event.key === 'k') {
-          event.preventDefault();
-          const firstModule = document.querySelector('.module-box .nav-button');
-          if (firstModule) {
-            firstModule.click();
-          }
-        }
-
-        // Escape to scroll to top
-        if (event.key === 'Escape') {
-          event.preventDefault();
-          window.scrollTo({ 
-            top: 0, 
-            behavior: 'smooth' 
-          });
-        }
-
-        // Arrow key navigation for modules
-        if (['ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown'].includes(event.key)) {
-          const modules = Array.from(document.querySelectorAll('.module-box'));
-          const focused = document.activeElement;
-          const currentIndex = modules.findIndex(module => 
-            module === focused || module.contains(focused)
-          );
-
-          if (currentIndex !== -1) {
-            event.preventDefault();
-            let nextIndex;
-            
-            switch(event.key) {
-              case 'ArrowRight':
-              case 'ArrowDown':
-                nextIndex = (currentIndex + 1) % modules.length;
-                break;
-              case 'ArrowLeft':
-              case 'ArrowUp':
-                nextIndex = (currentIndex - 1 + modules.length) % modules.length;
-                break;
-            }
-            
-            modules[nextIndex].focus();
-            modules[nextIndex].scrollIntoView({ 
-              behavior: 'smooth', 
-              block: 'center' 
             });
           }
-        }
-      });
 
-      // === INTERSECTION OBSERVER FOR STAGGERED ANIMATIONS ===
-      if ('IntersectionObserver' in window) {
-        const observerOptions = {
-          threshold: 0.1,
-          rootMargin: '0px 0px -50px 0px'
-        };
-
-        const observer = new IntersectionObserver((entries) => {
-          entries.forEach((entry, index) => {
-            if (entry.isIntersecting) {
-              setTimeout(() => {
-                entry.target.style.opacity = '1';
-                entry.target.style.transform = 'translateY(0)';
-                entry.target.classList.add('visible');
-              }, index * 100);
+          // Accessibility
+          card.setAttribute('tabindex', '0');
+          card.setAttribute('role', 'button');
+          card.setAttribute('aria-label', `${mod.title} - ${mod.desc}`);
+          
+          card.addEventListener('focus', function() {
+            this.style.outline = '3px solid var(--accent-purple)';
+            this.style.outlineOffset = '4px';
+          });
+          
+          card.addEventListener('blur', function() {
+            this.style.outline = '';
+            this.style.outlineOffset = '';
+          });
+          
+          card.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter' || e.key === ' ') {
+              e.preventDefault();
+              const button = this.querySelector('.nav-button');
+              if (button) {
+                if (window.animationController) {
+                  window.animationController.animateClick(button);
+                }
+                setTimeout(() => button.click(), 150);
+              }
             }
           });
-        }, observerOptions);
 
-        // Observe module cards
-        document.querySelectorAll('.module-box').forEach(module => {
-          observer.observe(module);
+          grid.appendChild(card);
         });
-      }
 
-      // === PERFORMANCE MONITORING ===
-      if ('performance' in window) {
-        window.addEventListener('load', function() {
-          setTimeout(() => {
-            const perfData = performance.getEntriesByType('navigation')[0];
-            if (perfData) {
-              const loadTime = perfData.loadEventEnd - perfData.loadEventStart;
-              console.log(`[obfuscate-os] Page loaded in ${loadTime.toFixed(2)}ms`);
+        // Export utilities for debugging and extension
+        window.ObfuscateOS = window.ObfuscateOS || {};
+        Object.assign(window.ObfuscateOS, {
+          version: '3.0',
+          page: 'index',
+          modules: modules,
+          animationController: window.animationController,
+          scrollToTop: () => {
+            if (window.animationController) {
+              window.animationController.animatedScrollToTop();
+            } else {
+              window.scrollTo({ top: 0, behavior: 'smooth' });
             }
-          }, 0);
+          },
+          focusFirstModule: () => {
+            const firstModule = document.querySelector('.module-box');
+            if (firstModule) {
+              firstModule.focus();
+              if (window.animationController) {
+                window.animationController.highlightElement(firstModule);
+              }
+            }
+          },
+          getModuleCount: () => document.querySelectorAll('.module-box').length,
+          enableDebugMode: () => {
+            document.body.classList.add('debug-mode');
+            console.log('[obfuscate-os-v3] Debug mode enabled');
+            
+            const debugStyle = document.createElement('style');
+            debugStyle.textContent = `
+              .debug-mode .module-box {
+                border: 2px dashed rgba(255, 100, 100, 0.5) !important;
+                position: relative;
+              }
+              .debug-mode .module-box::after {
+                content: attr(aria-label);
+                position: absolute;
+                top: -3em;
+                left: 0;
+                font-size: 0.7em;
+                color: #ff6b6b;
+                background: rgba(0, 0, 0, 0.9);
+                padding: 0.3em 0.6em;
+                border-radius: 6px;
+                z-index: 1000;
+                max-width: 250px;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+              }
+              .debug-mode #terminal-header {
+                border: 2px dashed rgba(100, 255, 100, 0.5) !important;
+              }
+              .debug-mode .shell {
+                border: 2px dashed rgba(100, 100, 255, 0.5) !important;
+              }
+            `;
+            document.head.appendChild(debugStyle);
+          },
+          getPerformanceMetrics: () => {
+            if ('performance' in window) {
+              return {
+                navigation: performance.getEntriesByType('navigation')[0],
+                resources: performance.getEntriesByType('resource'),
+                measures: performance.getEntriesByType('measure'),
+                animationMode: window.animationController?.performanceMode || 'unknown',
+                reducedMotion: window.animationController?.reducedMotion || false
+              };
+            }
+            return null;
+          },
+          togglePerformanceMode: () => {
+            if (window.animationController) {
+              window.animationController.performanceMode = 
+                window.animationController.performanceMode === 'high' ? 'low' : 'high';
+              if (window.animationController.performanceMode === 'low') {
+                window.animationController.optimizeForLowPerformance();
+              }
+              console.log(`[obfuscate-os-v3] Performance mode: ${window.animationController.performanceMode}`);
+            }
+          },
+          createTestRipple: (x = 400, y = 300) => {
+            if (window.animationController) {
+              window.animationController.createTestRipple(x, y);
+            }
+          }
         });
-      }
 
-      // === PRELOAD OPTIMIZATION ===
-      // Preload critical CSS for module pages
-      const preloadLink = document.createElement('link');
-      preloadLink.rel = 'prefetch';
-      preloadLink.href = 'css/style.css';
-      document.head.appendChild(preloadLink);
-
-      // === ADVANCED PARTICLE SYSTEM ===
-      function createAdvancedParticles() {
-        const particleContainer = document.createElement('div');
-        particleContainer.id = 'advanced-particles';
-        particleContainer.style.cssText = `
-          position: fixed;
-          top: 0;
-          left: 0;
-          width: 100%;
-          height: 100%;
-          pointer-events: none;
-          z-index: -2;
-          overflow: hidden;
-        `;
-
-        // Create floating particles
-        for (let i = 0; i < 12; i++) {
-          const particle = document.createElement('div');
-          particle.style.cssText = `
-            position: absolute;
-            width: ${Math.random() * 4 + 2}px;
-            height: ${Math.random() * 4 + 2}px;
-            background: radial-gradient(circle, rgba(159, 112, 255, ${Math.random() * 0.4 + 0.1}), transparent);
-            border-radius: 50%;
-            left: ${Math.random() * 100}%;
-            top: ${Math.random() * 100}%;
-            animation: float-particle ${Math.random() * 25 + 20}s ease-in-out infinite;
-            animation-delay: ${Math.random() * 8}s;
-          `;
-          particleContainer.appendChild(particle);
-        }
-
-        // Add particle animation styles
-        if (!document.querySelector('#particle-styles')) {
-          const style = document.createElement('style');
-          style.id = 'particle-styles';
-          style.textContent = `
-            @keyframes float-particle {
-              0%, 100% {
-                transform: translateY(0px) translateX(0px) rotate(0deg) scale(1);
-                opacity: 0.3;
+        // STREAMLINED: Enhanced context menu
+        document.addEventListener('contextmenu', function(e) {
+          if (e.target.closest('.module-box')) {
+            e.preventDefault();
+            
+            const moduleBox = e.target.closest('.module-box');
+            const moduleTitle = moduleBox.querySelector('h2').textContent;
+            const modulePath = moduleBox.querySelector('.nav-button').href;
+            
+            const contextMenu = document.createElement('div');
+            contextMenu.style.cssText = `
+              position: fixed;
+              left: ${e.clientX}px;
+              top: ${e.clientY}px;
+              background: linear-gradient(135deg, var(--glass-bg), rgba(159, 112, 255, 0.1));
+              border: 1px solid var(--glass-border);
+              border-radius: 12px;
+              padding: 0.8em;
+              backdrop-filter: blur(20px);
+              z-index: 10000;
+              font-size: 0.9em;
+              box-shadow: 0 12px 48px rgba(0, 0, 0, 0.4);
+              min-width: 200px;
+              animation: contextMenuAppear 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            `;
+            
+            if (!document.querySelector('#context-menu-styles')) {
+              const style = document.createElement('style');
+              style.id = 'context-menu-styles';
+              style.textContent = `
+                @keyframes contextMenuAppear {
+                  from {
+                    opacity: 0;
+                    transform: scale(0.9) translateY(-10px);
+                  }
+                  to {
+                    opacity: 1;
+                    transform: scale(1) translateY(0);
+                  }
+                }
+                .context-menu-item {
+                  padding: 0.7em 1em;
+                  color: var(--text-primary);
+                  cursor: pointer;
+                  border-radius: 8px;
+                  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+                  display: flex;
+                  align-items: center;
+                  gap: 0.8em;
+                }
+                .context-menu-item:hover {
+                  background: rgba(159, 112, 255, 0.2);
+                  transform: translateX(4px);
+                }
+              `;
+              document.head.appendChild(style);
+            }
+            
+            contextMenu.innerHTML = `
+              <div class="context-menu-item" data-action="copy-title">
+                📋 Copy Module Name
+              </div>
+              <div class="context-menu-item" data-action="open-new-tab">
+                🔗 Open in New Tab
+              </div>
+              <div class="context-menu-item" data-action="copy-link">
+                🌐 Copy Module Link
+              </div>
+              <div class="context-menu-item" data-action="focus-module">
+                🎯 Focus Module
+              </div>
+            `;
+            
+            contextMenu.addEventListener('click', function(event) {
+              const action = event.target.getAttribute('data-action');
+              
+              switch(action) {
+                case 'copy-title':
+                  navigator.clipboard.writeText(moduleTitle).then(() => {
+                    console.log('Module title copied:', moduleTitle);
+                  });
+                  break;
+                case 'open-new-tab':
+                  window.open(modulePath, '_blank');
+                  break;
+                case 'copy-link':
+                  navigator.clipboard.writeText(window.location.origin + '/' + moduleBox.querySelector('.nav-button').getAttribute('href')).then(() => {
+                    console.log('Module link copied');
+                  });
+                  break;
+                case 'focus-module':
+                  moduleBox.focus();
+                  if (window.animationController) {
+                    window.animationController.highlightElement(moduleBox);
+                  }
+                  break;
               }
-              25% {
-                transform: translateY(-120px) translateX(60px) rotate(90deg) scale(1.2);
-                opacity: 0.7;
+              
+              this.remove();
+            });
+            
+            document.body.appendChild(contextMenu);
+            
+            setTimeout(() => {
+              document.addEventListener('click', function removeMenu(e) {
+                if (!contextMenu.contains(e.target)) {
+                  contextMenu.remove();
+                  document.removeEventListener('click', removeMenu);
+                }
+              });
+            }, 100);
+          }
+        });
+
+        // STREAMLINED: Enhanced keyboard shortcuts
+        document.addEventListener('keydown', function(event) {
+          // Alt + D for debug mode
+          if (event.altKey && event.key === 'd') {
+            event.preventDefault();
+            window.ObfuscateOS.enableDebugMode();
+          }
+          
+          // Alt + P for performance toggle
+          if (event.altKey && event.key === 'p') {
+            event.preventDefault();
+            window.ObfuscateOS.togglePerformanceMode();
+          }
+          
+          // Alt + R for test ripple
+          if (event.altKey && event.key === 'r') {
+            event.preventDefault();
+            const x = Math.random() * window.innerWidth;
+            const y = Math.random() * window.innerHeight;
+            window.ObfuscateOS.createTestRipple(x, y);
+          }
+          
+          // Number keys 1-9 for direct module access
+          if (event.key >= '1' && event.key <= '9') {
+            const moduleIndex = parseInt(event.key) - 1;
+            const modules = document.querySelectorAll('.module-box');
+            if (modules[moduleIndex]) {
+              event.preventDefault();
+              modules[moduleIndex].focus();
+              if (window.animationController) {
+                window.animationController.highlightElement(modules[moduleIndex]);
               }
-              50% {
-                transform: translateY(-60px) translateX(-40px) rotate(180deg) scale(0.8);
-                opacity: 0.4;
+              
+              // Double-tap to activate
+              if (event.repeat) {
+                modules[moduleIndex].querySelector('.nav-button').click();
               }
-              75% {
-                transform: translateY(-100px) translateX(30px) rotate(270deg) scale(1.1);
-                opacity: 0.6;
+            }
+          }
+        });
+
+        // STREAMLINED: Konami code with enhanced effects
+        let konamiCode = [];
+        const konamiSequence = [
+          'ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown',
+          'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight',
+          'KeyB', 'KeyA'
+        ];
+
+        document.addEventListener('keydown', function(e) {
+          konamiCode.push(e.code);
+          if (konamiCode.length > konamiSequence.length) {
+            konamiCode.shift();
+          }
+          
+          if (konamiCode.join(',') === konamiSequence.join(',')) {
+            document.body.style.filter = 'hue-rotate(0deg) saturate(2) brightness(1.2)';
+            document.body.style.animation = 'rainbow-mode 3s ease-in-out';
+            
+            const rainbowStyle = document.createElement('style');
+            rainbowStyle.textContent = `
+              @keyframes rainbow-mode {
+                0% { filter: hue-rotate(0deg) saturate(2) brightness(1.2); }
+                25% { filter: hue-rotate(90deg) saturate(2.5) brightness(1.3); }
+                50% { filter: hue-rotate(180deg) saturate(3) brightness(1.4); }
+                75% { filter: hue-rotate(270deg) saturate(2.5) brightness(1.3); }
+                100% { filter: hue-rotate(360deg) saturate(2) brightness(1.2); }
+              }
+            `;
+            document.head.appendChild(rainbowStyle);
+            
+            // Create celebratory particles
+            if (window.animationController) {
+              for (let i = 0; i < 20; i++) {
+                setTimeout(() => {
+                  window.animationController.createFloatingParticle(
+                    document.getElementById('advanced-particles') || document.body
+                  );
+                }, i * 100);
               }
             }
             
-            @media (prefers-reduced-motion: reduce) {
-              #advanced-particles * {
-                animation: none !important;
-              }
-            }
-          `;
-          document.head.appendChild(style);
-        }
-
-        document.body.appendChild(particleContainer);
-      }
-
-      // === ERROR HANDLING ===
-      window.addEventListener('error', function(event) {
-        console.warn('[obfuscate-os] JavaScript error caught:', event.error?.message || event.message);
-      });
-
-      window.addEventListener('unhandledrejection', function(event) {
-        console.warn('[obfuscate-os] Unhandled promise rejection:', event.reason);
-      });
-
-      // === SERVICE WORKER REGISTRATION ===
-      if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('/sw.js')
-          .then(function(registration) {
-            console.log('[obfuscate-os] ServiceWorker registered successfully');
-          })
-          .catch(function(error) {
-            // Normal if no service worker file exists
-          });
-      }
-
-      // === THEME DETECTION ===
-      function detectPreferences() {
-        // Dark mode preference
-        if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-          document.body.classList.add('dark-mode-preferred');
-        }
-
-        // High contrast mode
-        if (window.matchMedia && window.matchMedia('(prefers-contrast: high)').matches) {
-          document.body.classList.add('high-contrast-mode');
-        }
-
-        // Reduced motion
-        if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-          document.body.classList.add('reduced-motion');
-          console.log('[obfuscate-os] Reduced motion mode detected');
-        }
-      }
-
-      // === EXPORT UTILITIES ===
-      window.ObfuscateOS = window.ObfuscateOS || {};
-      Object.assign(window.ObfuscateOS, {
-        version: '3.0',
-        page: 'index',
-        modules: modules,
-        scrollToTop: () => window.scrollTo({ top: 0, behavior: 'smooth' }),
-        focusFirstModule: () => {
-          const firstModule = document.querySelector('.module-box');
-          if (firstModule) firstModule.focus();
-        },
-        getModuleCount: () => document.querySelectorAll('.module-box').length,
-        enableDebugMode: () => {
-          document.body.classList.add('debug-mode');
-          console.log('[obfuscate-os] Debug mode enabled');
-          
-          // Add debug styles
-          const debugStyle = document.createElement('style');
-          debugStyle.textContent = `
-            .debug-mode .module-box {
-              border: 2px dashed rgba(255, 0, 0, 0.3) !important;
-            }
-            .debug-mode .module-box::before {
-              content: attr(aria-label);
-              position: absolute;
-              top: -2em;
-              left: 0;
-              font-size: 0.8em;
-              color: #ff6b6b;
-              background: rgba(0, 0, 0, 0.8);
-              padding: 0.2em 0.5em;
-              border-radius: 4px;
-              z-index: 1000;
-            }
-          `;
-          document.head.appendChild(debugStyle);
-        },
-        getPerformanceMetrics: () => {
-          if ('performance' in window) {
-            return {
-              navigation: performance.getEntriesByType('navigation')[0],
-              resources: performance.getEntriesByType('resource'),
-              measures: performance.getEntriesByType('measure')
-            };
+            setTimeout(() => {
+              document.body.style.filter = '';
+              document.body.style.animation = '';
+              rainbowStyle.remove();
+            }, 3000);
+            
+            console.log('🎉 KONAMI CODE ACTIVATED! Ultra-rainbow mode engaged! 🌈');
+            konamiCode = [];
           }
-          return null;
-        }
-      });
+        });
 
-      // === INITIALIZATION COMPLETE ===
-      detectPreferences();
-      createAdvancedParticles();
-      
-      console.log('[obfuscate-os] Ultra-glossy homepage loaded successfully');
-      console.log(`[obfuscate-os] ${modules.length} modules initialized`);
-      console.log('[obfuscate-os] Keyboard shortcuts: Ctrl+K (first module), Esc (top), Arrow keys (navigate)');
-      console.log('[obfuscate-os] Type ObfuscateOS.enableDebugMode() for debug view');
-      
-      // Mark as fully loaded
-      document.body.classList.add('obfuscate-os-enhanced');
-      
-      // Dispatch custom event for extension points
-      window.dispatchEvent(new CustomEvent('obfuscate-os-loaded', {
-        detail: { version: '3.0', modules: modules.length }
-      }));
-    });
+        // Auto-save and restore state
+        window.addEventListener('beforeunload', function() {
+          const state = {
+            scrollPosition: window.pageYOffset,
+            timestamp: Date.now(),
+            performanceMode: window.animationController?.performanceMode || 'high'
+          };
+          sessionStorage.setItem('obfuscate-os-state', JSON.stringify(state));
+        });
 
-    // === ADVANCED FEATURES ===
-    
-    // Context menu enhancement
-    document.addEventListener('contextmenu', function(e) {
-      if (e.target.closest('.module-box')) {
-        e.preventDefault();
-        
-        // Create custom context menu
-        const contextMenu = document.createElement('div');
-        contextMenu.style.cssText = `
-          position: fixed;
-          left: ${e.clientX}px;
-          top: ${e.clientY}px;
-          background: linear-gradient(135deg, var(--glass-bg), rgba(159, 112, 255, 0.1));
-          border: 1px solid var(--glass-border);
-          border-radius: 12px;
-          padding: 0.5em;
-          backdrop-filter: blur(16px);
-          z-index: 10000;
-          font-size: 0.9em;
-          box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-        `;
-        
-        const moduleBox = e.target.closest('.module-box');
-        const moduleTitle = moduleBox.querySelector('h2').textContent;
-        
-        contextMenu.innerHTML = `
-          <div style="padding: 0.5em; color: var(--text-primary); cursor: pointer; border-radius: 8px; transition: background 0.2s;" 
-               onmouseover="this.style.background='rgba(159, 112, 255, 0.2)'" 
-               onmouseout="this.style.background='transparent'"
-               onclick="navigator.clipboard.writeText('${moduleTitle}'); this.parentElement.remove();">
-            📋 Copy Module Name
-          </div>
-          <div style="padding: 0.5em; color: var(--text-primary); cursor: pointer; border-radius: 8px; transition: background 0.2s;"
-               onmouseover="this.style.background='rgba(159, 112, 255, 0.2)'" 
-               onmouseout="this.style.background='transparent'"
-               onclick="window.open('${moduleBox.querySelector('.nav-button').href}', '_blank'); this.parentElement.remove();">
-            🔗 Open in New Tab
-          </div>
-        `;
-        
-        document.body.appendChild(contextMenu);
-        
-        // Remove context menu on click elsewhere
-        setTimeout(() => {
-          document.addEventListener('click', function removeMenu() {
-            if (contextMenu.parentElement) {
-              contextMenu.remove();
+        window.addEventListener('load', function() {
+          const savedState = sessionStorage.getItem('obfuscate-os-state');
+          if (savedState) {
+            try {
+              const state = JSON.parse(savedState);
+              
+              if (Date.now() - state.timestamp < 300000) {
+                window.scrollTo(0, state.scrollPosition);
+              }
+              
+              if (state.performanceMode && window.animationController) {
+                window.animationController.performanceMode = state.performanceMode;
+              }
+              
+              sessionStorage.removeItem('obfuscate-os-state');
+            } catch (error) {
+              console.warn('[obfuscate-os-v3] Failed to restore state:', error);
             }
-            document.removeEventListener('click', removeMenu);
+          }
+        });
+
+        // Performance and error monitoring
+        if ('performance' in window) {
+          window.addEventListener('load', function() {
+            setTimeout(() => {
+              const perfData = performance.getEntriesByType('navigation')[0];
+              if (perfData) {
+                const loadTime = perfData.loadEventEnd - perfData.loadEventStart;
+                const totalTime = perfData.loadEventEnd - perfData.fetchStart;
+                console.log(`[obfuscate-os-v3] Load sequence completed in ${loadTime.toFixed(2)}ms`);
+                console.log(`[obfuscate-os-v3] Total page load time: ${totalTime.toFixed(2)}ms`);
+                
+                if (totalTime > 3000) {
+                  console.warn('[obfuscate-os-v3] Slow load detected, consider optimization');
+                }
+              }
+            }, 0);
           });
-        }, 100);
-      }
-    });
+        }
 
-    // Konami code easter egg
-    let konamiCode = [];
-    const konamiSequence = [
-      'ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown',
-      'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight',
-      'KeyB', 'KeyA'
-    ];
+        // Error handling
+        window.addEventListener('error', function(event) {
+          console.error('[obfuscate-os-v3] JavaScript error:', event.error?.message || event.message);
+        });
 
-    document.addEventListener('keydown', function(e) {
-      konamiCode.push(e.code);
-      if (konamiCode.length > konamiSequence.length) {
-        konamiCode.shift();
-      }
-      
-      if (konamiCode.join(',') === konamiSequence.join(',')) {
-        // Easter egg activated
-        document.body.style.filter = 'hue-rotate(180deg) saturate(2)';
+        window.addEventListener('unhandledrejection', function(event) {
+          console.warn('[obfuscate-os-v3] Unhandled promise rejection:', event.reason);
+        });
+
+        // Accessibility announcements
+        function announceToScreenReader(message) {
+          const announcement = document.createElement('div');
+          announcement.setAttribute('aria-live', 'polite');
+          announcement.setAttribute('aria-atomic', 'true');
+          announcement.style.cssText = `
+            position: absolute;
+            left: -10000px;
+            width: 1px;
+            height: 1px;
+            overflow: hidden;
+          `;
+          announcement.textContent = message;
+          document.body.appendChild(announcement);
+          
+          setTimeout(() => announcement.remove(), 1000);
+        }
+
         setTimeout(() => {
-          document.body.style.filter = '';
-        }, 3000);
+          announceToScreenReader('Obfuscate-OS homepage loaded. Navigate with arrow keys or tab through modules.');
+        }, 2000);
+
+        // Final initialization logging
+        console.log('[obfuscate-os-v3] ✨ Streamlined homepage loaded successfully');
+        console.log(`[obfuscate-os-v3] 📊 ${modules.length} modules initialized`);
+        console.log('[obfuscate-os-v3] ⚡ Animation controller:', window.animationController ? 'loaded' : 'loading...');
+        console.log('[obfuscate-os-v3] 🎮 Keyboard shortcuts:');
+        console.log('  • Ctrl+K: First module');
+        console.log('  • Esc: Scroll to top');
+        console.log('  • 1-9: Direct module access');
+        console.log('  • Alt+D: Debug mode');
+        console.log('  • Alt+P: Performance toggle');
+        console.log('  • Alt+R: Test ripple effect');
+        console.log('  • Arrow keys: Navigate modules');
+        console.log('  • Konami code: Rainbow surprise 🌈');
+        console.log('[obfuscate-os-v3] 🔧 Debug: ObfuscateOS object available in console');
         
-        console.log('🎉 Konami code activated! Ultra-rainbow mode engaged!');
-        konamiCode = [];
-      }
-    });
+        document.body.classList.add('obfuscate-os-v3-enhanced');
+        
+        window.dispatchEvent(new CustomEvent('obfuscate-os-loaded', {
+          detail: { 
+            version: '3.0', 
+            modules: modules.length,
+            performanceMode: window.animationController?.performanceMode || 'high',
+            features: [
+              'streamlined-integration',
+              'external-animation-controller',
+              'performance-monitoring',
+              'accessibility-enhanced',
+              'advanced-interactions',
+              'keyboard-shortcuts',
+              'context-menus',
+              'error-handling',
+              'state-persistence'
+            ]
+          }
+        }));
+      };
 
-    // Auto-save scroll position
-    window.addEventListener('beforeunload', function() {
-      sessionStorage.setItem('obfuscate-os-scroll', window.pageYOffset);
-    });
-
-    window.addEventListener('load', function() {
-      const savedScroll = sessionStorage.getItem('obfuscate-os-scroll');
-      if (savedScroll) {
-        window.scrollTo(0, parseInt(savedScroll));
-        sessionStorage.removeItem('obfuscate-os-scroll');
-      }
+      // Start the initialization process
+      waitForAnimationController();
     });
   </script>
 </body>
