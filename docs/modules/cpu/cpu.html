@@ -3,177 +3,1495 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Learn Encryption — Obfuscate-OS</title>
+  <title>Learn Encryption — Obfuscate-OS v3.0</title>
   <meta name="module" content="cpu" />
-  <link rel="stylesheet" href="../../css/style.css" />
-  <link rel="stylesheet" href="../../css/modules.css" />
-  <link rel="stylesheet" href="../../css/animations.css" />
-  <script>
-    if (localStorage.getItem("theme") === "light") {
-      document.documentElement.classList.add("light-mode");
-    }
-  </script>
-  <script src="../../js/modules/glossary.js" defer></script>
   <style>
-    body { padding-top: 3.0em; }
-    header#terminal-header {
-      margin-bottom: 0;
-      padding-bottom: 0;
-      text-align: center;
+    :root {
+      /* Enhanced Color Palette - Matching Index */
+      --primary-purple: #9f70ff;
+      --secondary-purple: #d9b3ff;
+      --accent-purple: #b98eff;
+      --ultra-purple: #7c3aed;
+      --soft-purple: #e9d5ff;
+      --neon-purple: #a855f7;
+      --dark-bg: #0a0a0a;
+      --card-bg: rgba(159, 112, 255, 0.08);
+      --border-subtle: rgba(159, 112, 255, 0.25);
+      --text-primary: #f8fafc;
+      --text-secondary: #e2e8f0;
+      --text-muted: #cbd5e1;
+      --glow-soft: rgba(159, 112, 255, 0.4);
+      --glow-bright: rgba(159, 112, 255, 0.6);
+      --glow-intense: rgba(159, 112, 255, 0.8);
+      --glass-bg: rgba(255, 255, 255, 0.02);
+      --glass-border: rgba(255, 255, 255, 0.08);
+      --glass-hover: rgba(255, 255, 255, 0.05);
+      
+      /* Typography */
+      --font-mono: 'SF Mono', 'Monaco', 'Cascadia Code', 'Courier New', monospace;
+      --font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
     }
-    header#terminal-header h1 {
+
+    * {
+      box-sizing: border-box;
       margin: 0;
       padding: 0;
-      line-height: 1.1;
     }
-    header#terminal-header p {
+
+    body { 
+      background: 
+        radial-gradient(circle at 15% 15%, rgba(159, 112, 255, 0.18) 0%, transparent 45%),
+        radial-gradient(circle at 85% 85%, rgba(124, 58, 237, 0.15) 0%, transparent 45%),
+        radial-gradient(circle at 50% 30%, rgba(217, 179, 255, 0.08) 0%, transparent 40%),
+        radial-gradient(circle at 30% 70%, rgba(168, 85, 247, 0.12) 0%, transparent 35%),
+        linear-gradient(135deg, #0a0a0a 0%, #1a0a2e 30%, #0f0f23 70%, #1a0a2e 100%);
+      min-height: 100vh;
+      font-family: var(--font-sans);
+      color: var(--text-primary);
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    /* Enhanced floating particles - matching index */
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: 
+        radial-gradient(circle at 20% 30%, rgba(159, 112, 255, 0.03) 1px, transparent 1px),
+        radial-gradient(circle at 80% 70%, rgba(217, 179, 255, 0.025) 1px, transparent 1px),
+        radial-gradient(circle at 45% 20%, rgba(124, 58, 237, 0.02) 1px, transparent 1px);
+      background-size: 60px 60px, 90px 90px, 120px 120px;
+      animation: float-particles 25s ease-in-out infinite;
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    @keyframes float-particles {
+      0%, 100% { 
+        transform: translateY(0px) rotate(0deg);
+        opacity: 0.4;
+      }
+      33% { 
+        transform: translateY(-15px) rotate(120deg);
+        opacity: 0.2;
+      }
+      66% { 
+        transform: translateY(-8px) rotate(240deg);
+        opacity: 0.3;
+      }
+    }
+
+    /* Container */
+    .shell {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 2em;
+      position: relative;
+    }
+
+    /* Ultra-Modern Hero Header - Matching Index Style */
+    #terminal-header {
+      text-align: center;
+      margin: 2em auto 4em;
+      padding: 4em 3em 5em;
+      max-width: 1200px;
+      background: 
+        linear-gradient(135deg, var(--glass-bg), rgba(159, 112, 255, 0.06)),
+        linear-gradient(225deg, transparent, rgba(255, 255, 255, 0.02)),
+        radial-gradient(circle at 30% 70%, rgba(168, 85, 247, 0.08) 0%, transparent 50%);
+      border-radius: 32px;
+      backdrop-filter: blur(24px) saturate(200%);
+      border: 1px solid var(--glass-border);
+      position: relative;
+      overflow: visible;
+      box-shadow: 
+        0 20px 60px rgba(0, 0, 0, 0.4),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1),
+        0 0 0 1px rgba(159, 112, 255, 0.15);
+    }
+
+    #terminal-header::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, 
+        transparent, 
+        var(--ultra-purple), 
+        var(--primary-purple), 
+        var(--neon-purple),
+        var(--accent-purple), 
+        var(--secondary-purple), 
+        transparent);
+      animation: shimmer-header 4s ease-in-out infinite;
+    }
+
+    #terminal-header::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), 
+        rgba(159, 112, 255, 0.06) 0%, 
+        transparent 60%);
+      opacity: 0;
+      transition: opacity 0.4s ease;
+      pointer-events: none;
+    }
+
+    #terminal-header:hover::after {
+      opacity: 1;
+    }
+
+    @keyframes shimmer-header {
+      0%, 100% { opacity: 0.4; }
+      50% { opacity: 1; }
+    }
+
+    #terminal-header h1 {
+      font-size: clamp(2.5rem, 8vw, 5rem);
+      color: var(--text-primary);
+      margin-bottom: 0.4em;
+      font-weight: 900;
+      letter-spacing: -0.02em;
+      font-family: var(--font-mono);
+      background: linear-gradient(135deg, 
+        #ffffff 0%,
+        var(--soft-purple) 15%, 
+        var(--secondary-purple) 30%, 
+        var(--primary-purple) 50%, 
+        var(--neon-purple) 70%,
+        var(--ultra-purple) 85%, 
+        var(--accent-purple) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      filter: drop-shadow(0 0 50px var(--glow-intense)) drop-shadow(0 0 100px rgba(159, 112, 255, 0.3));
+      animation: mega-pulse-glow 8s ease-in-out infinite;
+      position: relative;
+      overflow: visible;
+    }
+
+    @keyframes mega-pulse-glow {
+      0%, 100% { 
+        filter: drop-shadow(0 0 40px var(--glow-soft)) drop-shadow(0 0 80px rgba(159, 112, 255, 0.2));
+        transform: scale(1);
+      }
+      25% {
+        filter: drop-shadow(0 0 60px var(--glow-bright)) drop-shadow(0 0 120px rgba(159, 112, 255, 0.4));
+        transform: scale(1.005);
+      }
+      50% { 
+        filter: drop-shadow(0 0 80px var(--glow-intense)) drop-shadow(0 0 160px rgba(159, 112, 255, 0.5));
+        transform: scale(1.01);
+      }
+      75% {
+        filter: drop-shadow(0 0 60px var(--glow-bright)) drop-shadow(0 0 120px rgba(159, 112, 255, 0.4));
+        transform: scale(1.005);
+      }
+    }
+
+    #terminal-header p {
+      font-size: 1.4em;
+      color: var(--text-secondary);
       margin: 0;
-      padding-top: 1.0em;
-      padding-bottom: 0.5em;
-      font-size: 1.1em;
-      line-height: 1.4;
-      max-width: 42em;
+      opacity: 0.9;
+      font-weight: 400;
+      line-height: 1.6;
+      max-width: 50em;
       margin-inline: auto;
+      text-shadow: 0 2px 12px rgba(0, 0, 0, 0.4);
+      letter-spacing: 0.01em;
     }
+
+    /* Scroll progress bar */
+    #scroll-progress {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 0%;
+      height: 4px;
+      background: linear-gradient(90deg, 
+        var(--ultra-purple), 
+        var(--primary-purple), 
+        var(--accent-purple), 
+        var(--secondary-purple));
+      z-index: 9999;
+      transition: width 0.1s ease;
+      box-shadow: 
+        0 0 16px var(--glow-bright),
+        0 4px 8px rgba(159, 112, 255, 0.3);
+    }
+
+    /* Enhanced Content Sections */
     main.module-content {
-      margin-top: 0em;
+      margin-top: 0;
+      padding: 0;
     }
+
+    .content-section {
+      background: 
+        linear-gradient(135deg, 
+          var(--glass-bg), 
+          rgba(159, 112, 255, 0.06)),
+        linear-gradient(225deg, 
+          transparent, 
+          rgba(255, 255, 255, 0.02)),
+        radial-gradient(circle at 30% 30%, 
+          rgba(168, 85, 247, 0.04) 0%, 
+          transparent 60%);
+      border: 1px solid var(--glass-border);
+      border-radius: 28px;
+      padding: 3em 2.5em;
+      margin: 3em 0;
+      backdrop-filter: blur(20px) saturate(200%);
+      transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      overflow: hidden;
+      box-shadow: 
+        0 12px 40px rgba(0, 0, 0, 0.2),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1),
+        0 0 0 1px rgba(159, 112, 255, 0.1);
+      transform-style: preserve-3d;
+    }
+
+    .content-section::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, 
+        transparent, 
+        var(--accent-purple), 
+        var(--primary-purple), 
+        var(--neon-purple),
+        var(--accent-purple), 
+        transparent);
+      opacity: 0;
+      transition: opacity 0.5s ease;
+    }
+
+    .content-section::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), 
+        rgba(159, 112, 255, 0.08) 0%, 
+        transparent 65%);
+      opacity: 0;
+      transition: opacity 0.4s ease;
+      pointer-events: none;
+    }
+
+    .content-section:hover {
+      transform: translateY(-8px) scale(1.01);
+      border-color: rgba(159, 112, 255, 0.5);
+      box-shadow: 
+        0 25px 70px rgba(159, 112, 255, 0.25),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2),
+        0 0 0 1px rgba(159, 112, 255, 0.4),
+        0 0 60px rgba(159, 112, 255, 0.15);
+    }
+
+    .content-section:hover::before {
+      opacity: 1;
+    }
+
+    .content-section:hover::after {
+      opacity: 1;
+    }
+
+    /* Enhanced Section Headings */
+    .section-heading {
+      margin-top: 0;
+      margin-bottom: 2em;
+      font-size: 1.8em;
+      font-weight: 700;
+      color: var(--text-primary);
+      position: relative;
+      padding-bottom: 0.75em;
+      border-bottom: 2px solid var(--border-subtle);
+      letter-spacing: -0.02em;
+      font-family: var(--font-mono);
+    }
+
+    .section-heading::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      width: 100px;
+      height: 2px;
+      background: linear-gradient(90deg, 
+        var(--ultra-purple), 
+        var(--primary-purple), 
+        var(--accent-purple));
+      border-radius: 1px;
+      box-shadow: 0 0 12px var(--glow-soft);
+    }
+
+    /* Ultra-Modern Key Concepts */
+    .key-concepts {
+      background: 
+        linear-gradient(135deg, 
+          rgba(159, 112, 255, 0.15), 
+          rgba(217, 179, 255, 0.08)),
+        radial-gradient(circle at 50% 50%, 
+          rgba(168, 85, 247, 0.12) 0%, 
+          transparent 70%);
+      border: 2px solid rgba(159, 112, 255, 0.3);
+      border-radius: 28px;
+      padding: 3em;
+      margin: 4em 0;
+      position: relative;
+      overflow: hidden;
+      backdrop-filter: blur(16px);
+      box-shadow: 
+        0 20px 60px rgba(159, 112, 255, 0.2),
+        inset 0 2px 0 rgba(255, 255, 255, 0.1);
+    }
+
+    .key-concepts::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, 
+        var(--ultra-purple), 
+        var(--primary-purple), 
+        var(--neon-purple),
+        var(--accent-purple), 
+        var(--secondary-purple));
+      box-shadow: 0 0 16px var(--glow-bright);
+    }
+
+    .key-concepts h3 {
+      margin-top: 0;
+      margin-bottom: 2.5em;
+      color: var(--text-primary);
+      font-size: 1.8em;
+      text-align: center;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      font-family: var(--font-mono);
+      text-shadow: 0 0 20px rgba(159, 112, 255, 0.3);
+    }
+
+    .concept-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 2em;
+      margin-top: 2em;
+    }
+
+    .concept-item {
+      background: 
+        linear-gradient(135deg, 
+          rgba(0, 0, 0, 0.5), 
+          rgba(159, 112, 255, 0.1)),
+        linear-gradient(225deg, 
+          transparent, 
+          rgba(255, 255, 255, 0.03));
+      padding: 2.5em;
+      border-radius: 20px;
+      border: 1px solid var(--glass-border);
+      transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      overflow: hidden;
+      backdrop-filter: blur(12px);
+      box-shadow: 
+        0 8px 32px rgba(0, 0, 0, 0.2),
+        inset 0 1px 0 rgba(255, 255, 255, 0.08);
+      cursor: pointer;
+    }
+
+    .concept-item::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      width: 4px;
+      background: linear-gradient(180deg, 
+        var(--ultra-purple), 
+        var(--primary-purple), 
+        var(--accent-purple));
+      box-shadow: 0 0 12px var(--glow-soft);
+    }
+
+    .concept-item:hover {
+      border-color: var(--primary-purple);
+      transform: translateY(-8px) scale(1.02);
+      box-shadow: 
+        0 25px 50px rgba(159, 112, 255, 0.3),
+        inset 0 2px 0 rgba(255, 255, 255, 0.15),
+        0 0 0 1px rgba(159, 112, 255, 0.4);
+    }
+
+    .concept-item strong {
+      color: var(--secondary-purple);
+      display: block;
+      margin-bottom: 1.2em;
+      font-size: 1.3em;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      font-family: var(--font-mono);
+    }
+
+    .concept-item p {
+      margin: 0;
+      color: var(--text-secondary);
+      line-height: 1.7;
+      font-weight: 400;
+      font-size: 1.05em;
+    }
+
+    /* Enhanced Table */
     .encryption-table {
       width: 100%;
-      border-collapse: collapse;
-      margin: 1.5em 0;
+      border-collapse: separate;
+      border-spacing: 0;
+      margin: 3em 0;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 
+        0 20px 60px rgba(0, 0, 0, 0.4),
+        0 0 0 1px rgba(159, 112, 255, 0.2);
+      backdrop-filter: blur(20px);
     }
-    .encryption-table th,
-    .encryption-table td {
-      text-align: left;
-      padding: 0.75em 1em;
-      border-bottom: 1px solid #555;
-    }
+
     .encryption-table thead th {
-      border-bottom: 2px solid #aaa;
-      background-color: rgba(255,255,255,0.05);
+      background: linear-gradient(135deg, 
+        var(--ultra-purple), 
+        var(--primary-purple), 
+        var(--neon-purple),
+        var(--accent-purple));
+      color: #ffffff;
+      padding: 2em;
+      font-weight: 700;
+      text-align: left;
+      font-size: 1.2em;
+      border: none;
+      position: relative;
+      letter-spacing: -0.01em;
+      font-family: var(--font-mono);
     }
-    .encryption-table tbody tr:hover {
-      background-color: rgba(255,255,255,0.03);
+
+    .encryption-table thead th::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: rgba(255, 255, 255, 0.3);
     }
+
+    .encryption-table tbody td {
+      padding: 2em;
+      border-bottom: 1px solid rgba(159, 112, 255, 0.15);
+      background: 
+        linear-gradient(135deg, 
+          var(--glass-bg), 
+          rgba(159, 112, 255, 0.04));
+      color: var(--text-primary);
+      transition: all 0.4s ease;
+      position: relative;
+      font-weight: 500;
+      font-size: 1.05em;
+    }
+
+    .encryption-table tbody tr:hover td {
+      background: 
+        linear-gradient(135deg, 
+          rgba(159, 112, 255, 0.12), 
+          rgba(217, 179, 255, 0.06));
+      box-shadow: inset 0 0 0 1px rgba(159, 112, 255, 0.3);
+      transform: translateX(8px);
+    }
+
+    .encryption-table tbody tr:last-child td {
+      border-bottom: none;
+    }
+
+    /* Enhanced Callout */
+    .callout {
+      background: 
+        linear-gradient(135deg, 
+          rgba(217, 179, 255, 0.15), 
+          rgba(159, 112, 255, 0.08)),
+        radial-gradient(circle at 20% 80%, 
+          rgba(124, 58, 237, 0.1) 0%, 
+          transparent 50%);
+      border-left: 6px solid var(--accent-purple);
+      padding: 3em;
+      margin: 4em 0;
+      border-radius: 0 20px 20px 0;
+      font-style: italic;
+      color: var(--text-primary);
+      font-size: 1.3em;
+      font-weight: 500;
+      backdrop-filter: blur(12px);
+      box-shadow: 
+        0 12px 32px rgba(159, 112, 255, 0.2),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+      position: relative;
+    }
+
+    .callout::before {
+      content: '"';
+      position: absolute;
+      top: 0.2em;
+      left: 0.8em;
+      font-size: 5em;
+      color: var(--accent-purple);
+      opacity: 0.4;
+      font-family: Georgia, serif;
+      line-height: 0.8;
+    }
+
+    /* Enhanced Code Styling */
+    code {
+      background: 
+        linear-gradient(135deg, 
+          rgba(159, 112, 255, 0.2), 
+          rgba(217, 179, 255, 0.1));
+      color: var(--accent-purple);
+      padding: 0.5em 1em;
+      border-radius: 12px;
+      font-family: var(--font-mono);
+      border: 1px solid rgba(159, 112, 255, 0.4);
+      font-weight: 600;
+      font-size: 0.95em;
+      backdrop-filter: blur(8px);
+      box-shadow: 
+        0 4px 12px rgba(159, 112, 255, 0.15),
+        inset 0 1px 0 rgba(255, 255, 255, 0.15);
+    }
+
+    /* Enhanced Navigation */
     .nav-button-container {
       display: flex;
       justify-content: center;
-      gap: 1.25em;
-      margin-top: 2em;
+      gap: 2.5em;
+      margin: 5em 0 4em;
+      flex-wrap: wrap;
+    }
+
+    .nav-button {
+      padding: 1.5em 3em;
+      background: 
+        linear-gradient(135deg, 
+          var(--glass-bg), 
+          rgba(159, 112, 255, 0.1)),
+        linear-gradient(225deg, 
+          transparent, 
+          rgba(255, 255, 255, 0.03));
+      border: 1px solid var(--glass-border);
+      color: var(--text-primary);
+      text-decoration: none;
+      border-radius: 20px;
+      font-weight: 600;
+      font-size: 1.2em;
+      transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      overflow: hidden;
+      backdrop-filter: blur(20px);
+      box-shadow: 
+        0 8px 32px rgba(0, 0, 0, 0.2),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+      letter-spacing: -0.01em;
+      font-family: var(--font-mono);
+    }
+
+    .nav-button::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, 
+        transparent, 
+        rgba(255, 255, 255, 0.15), 
+        transparent);
+      transition: left 0.6s ease;
+    }
+
+    .nav-button::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(135deg, 
+        var(--ultra-purple), 
+        var(--primary-purple), 
+        var(--neon-purple),
+        var(--accent-purple));
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      z-index: -1;
+    }
+
+    .nav-button:hover {
+      color: #ffffff;
+      border-color: var(--primary-purple);
+      transform: translateY(-4px) scale(1.02);
+      box-shadow: 
+        0 20px 50px rgba(159, 112, 255, 0.4),
+        inset 0 2px 0 rgba(255, 255, 255, 0.2);
+    }
+
+    .nav-button:hover::before {
+      left: 100%;
+    }
+
+    .nav-button:hover::after {
+      opacity: 0.9;
+    }
+
+    /* Enhanced Typography */
+    p {
+      line-height: 1.8;
+      color: var(--text-secondary);
+      margin-bottom: 1.8em;
+      font-weight: 400;
+      font-size: 1.1em;
+    }
+
+    /* Mobile Responsiveness */
+    @media (max-width: 768px) {
+      .shell {
+        padding: 1em;
+      }
+
+      #terminal-header {
+        margin-bottom: 3em;
+        padding: 3em 2em;
+      }
+
+      #terminal-header h1 {
+        font-size: clamp(2rem, 10vw, 3rem);
+      }
+
+      #terminal-header p {
+        font-size: 1.2em;
+      }
+
+      .content-section {
+        padding: 2em 1.5em;
+        margin: 2em 0;
+      }
+
+      .concept-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5em;
+      }
+
+      .nav-button-container {
+        flex-direction: column;
+        align-items: center;
+        gap: 1.5em;
+      }
+
+      .nav-button {
+        width: 100%;
+        max-width: 320px;
+        text-align: center;
+        padding: 1.2em 2em;
+      }
+
+      .encryption-table {
+        font-size: 0.9em;
+      }
+
+      .encryption-table thead th,
+      .encryption-table tbody td {
+        padding: 1.2em;
+      }
+
+      .callout {
+        padding: 2em 1.5em;
+        font-size: 1.1em;
+      }
+    }
+
+    /* Loading animations */
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(60px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .content-section {
+      animation: fadeInUp 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    /* Stagger animation for sections */
+    .content-section:nth-child(1) { animation-delay: 0.1s; }
+    .content-section:nth-child(2) { animation-delay: 0.2s; }
+    .content-section:nth-child(3) { animation-delay: 0.3s; }
+    .content-section:nth-child(4) { animation-delay: 0.4s; }
+    .content-section:nth-child(5) { animation-delay: 0.5s; }
+    .content-section:nth-child(6) { animation-delay: 0.6s; }
+    .content-section:nth-child(7) { animation-delay: 0.7s; }
+    .content-section:nth-child(8) { animation-delay: 0.8s; }
+
+    /* Accessibility */
+    @media (prefers-reduced-motion: reduce) {
+      * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+
+    @media (prefers-contrast: high) {
+      :root {
+        --text-primary: #ffffff;
+        --text-secondary: #e0e0e0;
+        --primary-purple: #bb88ff;
+        --accent-purple: #cc99ff;
+        --border-subtle: rgba(255, 255, 255, 0.4);
+      }
+    }
+
+    /* Interactive Glossary Links */
+    .glossary-link {
+      color: var(--accent-purple);
+      text-decoration: none;
+      padding: 0.3em 0.6em;
+      border-radius: 8px;
+      background: 
+        linear-gradient(135deg, 
+          rgba(159, 112, 255, 0.15), 
+          rgba(217, 179, 255, 0.08));
+      border: 1px solid rgba(159, 112, 255, 0.3);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      font-weight: 600;
+      display: inline-block;
+      margin: 0 0.2em;
+      backdrop-filter: blur(8px);
+      box-shadow: 
+        0 2px 8px rgba(159, 112, 255, 0.15),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    }
+
+    .glossary-link::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(135deg, 
+        var(--primary-purple), 
+        var(--accent-purple), 
+        var(--ultra-purple));
+      opacity: 0;
+      border-radius: 8px;
+      transition: opacity 0.3s ease;
+      z-index: -1;
+    }
+
+    .glossary-link:hover {
+      color: #ffffff;
+      border-color: var(--primary-purple);
+      transform: translateY(-2px) scale(1.05);
+      box-shadow: 
+        0 8px 24px rgba(159, 112, 255, 0.4),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    }
+
+    .glossary-link:hover::before {
+      opacity: 0.8;
     }
   </style>
 </head>
 <body>
+  <div id="scroll-progress"></div>
+  
   <div class="shell">
     <header id="terminal-header">
-      <h1>Learn Encryption <span style="color: var(--accent);">(CPU)</span></h1>
+      <h1>Learn Encryption <span style="opacity: 0.7; font-size: 0.6em;">(CPU)</span></h1>
       <p>Encryption as autonomy, not industry. Learn the foundations — not just the tools, but the stakes.</p>
     </header>
 
     <main class="module-content">
-
-      <section class="fade-in-up">
+      <section class="content-section">
         <h2 class="section-heading">Why Encryption?</h2>
         <p>
           Encryption is how we defend autonomy in a digital world. It protects not just against hackers, but from surveillance, profiling, and institutional control.
         </p>
         <p>
-          Whether you’re sharing sensitive research or just texting without being tracked, encryption gives you the power to choose who sees what.
+          Whether you're sharing sensitive research or just texting without being tracked, <a href="../glossary/glossary.html#encryption" class="glossary-link">encryption</a> gives you the power to choose who sees what. This is <a href="../glossary/glossary.html#digital-resistance" class="glossary-link">digital resistance</a> in its most fundamental form.
         </p>
+        <div class="callout">
+          The ability to communicate privately is fundamental to human dignity and democratic society.
+        </div>
       </section>
 
-      <section class="fade-in-up">
+      <section class="content-section">
         <h2 class="section-heading">What Is Encryption?</h2>
         <p>
           At its core, encryption transforms readable text (plaintext) into unreadable data (ciphertext) using a mathematical rule and a secret key.
         </p>
         <p>
-          For example, Julius Caesar encrypted his military messages by shifting letters three steps forward. This early cipher was breakable — but it planted the seed for centuries of cryptographic thinking.
+          For example, Julius Caesar encrypted his military messages by shifting letters three steps forward. This early <a href="../glossary/glossary.html#cipher" class="glossary-link">cipher</a> was breakable — but it planted the seed for centuries of cryptographic thinking.
         </p>
+        
+        <div class="key-concepts">
+          <h3>🔑 Core Concepts</h3>
+          <div class="concept-grid">
+            <div class="concept-item">
+              <strong>Plaintext</strong>
+              <p>The original, readable message before encryption</p>
+            </div>
+            <div class="concept-item">
+              <strong>Ciphertext</strong>
+              <p>The scrambled, unreadable result after encryption</p>
+            </div>
+            <div class="concept-item">
+              <strong>Key</strong>
+              <p>The secret information needed to encrypt or decrypt</p>
+            </div>
+            <div class="concept-item">
+              <strong>Algorithm</strong>
+              <p>The mathematical process that transforms data</p>
+            </div>
+          </div>
+        </div>
       </section>
 
-      <section class="fade-in-up">
+      <section class="content-section">
         <h2 class="section-heading">Encryption vs Obfuscation</h2>
         <p>
-          Encryption locks meaning behind a key. Obfuscation drowns meaning in noise. The first makes data unreadable without permission. The second overwhelms watchers with plausible alternatives.
+          Encryption locks meaning behind a key. <a href="../glossary/glossary.html#obfuscation" class="glossary-link">Obfuscation</a> drowns meaning in noise. The first makes data unreadable without permission. The second overwhelms watchers with plausible alternatives.
         </p>
         <p>
-          Both resist surveillance — not just technically, but politically.
+          Both resist surveillance — not just technically, but politically. They represent different philosophies of digital resistance.
         </p>
       </section>
 
-      <section class="fade-in-up">
+      <section class="content-section">
         <h2 class="section-heading">Symmetric vs. Asymmetric Encryption</h2>
         <p>
-          Encryption systems manage keys differently. Who holds them — and how they’re exchanged — determines how secure and usable the system is.
+          Encryption systems manage keys differently. Who holds them — and how they're exchanged — determines how secure and usable the system is.
         </p>
 
         <table class="encryption-table">
           <thead>
             <tr>
-              <th style="width: 20%">Type</th>
+              <th style="width: 25%">Type</th>
               <th style="width: 40%">How It Works</th>
-              <th style="width: 40%">Used In</th>
+              <th style="width: 35%">Used In</th>
             </tr>
           </thead>
           <tbody>
             <tr>
-              <td>Symmetric</td>
+              <td><strong>Symmetric Encryption</strong></td>
               <td>One shared key encrypts and decrypts</td>
               <td>Wi-Fi, file encryption, password managers</td>
             </tr>
             <tr>
-              <td>Asymmetric</td>
+              <td><strong>Asymmetric Encryption</strong></td>
               <td>Public key encrypts, private key decrypts</td>
               <td>Secure messaging, HTTPS, digital signatures</td>
             </tr>
           </tbody>
         </table>
 
-        <p>AES is the default cipher used to secure files, hard drives, and network traffic. It's efficient and time-tested.</p>
-        <p>ChaCha20 is a fast, secure alternative designed for phones and low-power devices — used by Signal and Google.</p>
-        <p>RSA is a foundational public-key system that allows people to share secrets over the open internet without having met.</p>
-        <p>ECC offers the same protections as RSA but with smaller keys and better performance — ideal for mobile apps and blockchain systems.</p>
+        <div class="concept-grid" style="margin-top: 3em;">
+          <div class="concept-item">
+            <strong>AES (Advanced Encryption Standard)</strong>
+            <p>The default cipher used to secure files, hard drives, and network traffic. Efficient and time-tested.</p>
+          </div>
+          <div class="concept-item">
+            <strong>ChaCha20</strong>
+            <p>A fast, secure alternative designed for phones and low-power devices — used by Signal and Google.</p>
+          </div>
+          <div class="concept-item">
+            <strong>RSA</strong>
+            <p>A foundational public-key system that allows people to share secrets over the open internet.</p>
+          </div>
+          <div class="concept-item">
+            <strong>ECC (Elliptic Curve Cryptography)</strong>
+            <p>Offers the same protections as RSA but with smaller keys — ideal for mobile apps and blockchain systems.</p>
+          </div>
+        </div>
       </section>
 
-      <section class="fade-in-up">
+      <section class="content-section">
         <h2 class="section-heading">Beyond Corporate Security</h2>
         <p>
           Encryption is often marketed as a way to protect your bank account. But its deeper value lies in protecting digital resistance — activists, artists, whistleblowers, and everyday people resisting overreach.
         </p>
         <p>
-          It’s a right — not a luxury.
+          It's a right — not a luxury. The ability to communicate privately is fundamental to human dignity and democratic society.
         </p>
       </section>
 
-      <section class="fade-in-up">
-        <h2 class="section-heading">Frequency Analysis and Cipher Cracking</h2>
+      <section class="content-section">
+        <h2 class="section-heading">Frequency Analysis and Cipher Breaking</h2>
         <p>
-          Older ciphers like Caesar and Vigenère were broken by noticing patterns in letter frequency. This gave rise to cryptanalysis — the study of codebreaking.
+          Older ciphers like Caesar and Vigenère were broken by noticing patterns in letter frequency. This gave rise to <a href="../glossary/glossary.html#cryptanalysis" class="glossary-link">cryptanalysis</a> — the study of codebreaking.
         </p>
         <p>
-          Modern encryption systems are built to resist these attacks using randomness, complexity, and massive keyspaces. Still, any pattern left exposed can become a vulnerability.
+          Modern encryption systems are built to resist these attacks using randomness, complexity, and massive keyspaces. Still, any pattern left exposed can become a vulnerability. The history of cryptographic failure teaches us that implementation matters as much as mathematical theory.
         </p>
       </section>
 
-      <section class="fade-in-up">
+      <section class="content-section">
+        <h2 class="section-heading">The Mathematics of Security</h2>
+        <p>
+          Strong encryption relies on mathematical problems that are easy to do in one direction but extremely difficult to reverse. These <a href="../glossary/glossary.html#one-way-function" class="glossary-link">one-way functions</a> form the foundation of modern cryptography.
+        </p>
+        <p>
+          For example, it's easy to multiply two large prime numbers together, but factoring their product back into the original primes can take longer than the age of the universe with current technology.
+        </p>
+      </section>
+
+      <section class="content-section">
         <h2 class="section-heading">Further Reading</h2>
-        <ul>
-          <li>Brunton & Nissenbaum, <em>Obfuscation</em> — MIT Press</li>
-          <li>Simon Singh, <em>The Code Book</em></li>
-          <li>Holden, <em>The Mathematics of Secrets</em></li>
-          <li>Katz & Lindell, <em>Introduction to Modern Cryptography</em></li>
-          <li>Rosulek, <em>The Joy of Cryptography</em></li>
+        <ul style="list-style: none; padding: 0;">
+          <li style="margin: 1em 0;">📚 Brunton & Nissenbaum, <em>Obfuscation</em> — MIT Press</li>
+          <li style="margin: 1em 0;">📖 Simon Singh, <em>The Code Book</em></li>
+          <li style="margin: 1em 0;">🔢 Holden, <em>The Mathematics of Secrets</em></li>
+          <li style="margin: 1em 0;">🎓 Katz & Lindell, <em>Introduction to Modern Cryptography</em></li>
+          <li style="margin: 1em 0;">✨ Rosulek, <em>The Joy of Cryptography</em></li>
+          <li style="margin: 1em 0;">⚡ Schneier, <em>Applied Cryptography</em></li>
         </ul>
       </section>
 
       <div class="nav-button-container">
         <a href="../../index.html" class="nav-button">← Back to Obfuscate-OS</a>
-        <a href="../cpu/sec.html" class="nav-button">Next Module →</a>
+        <a href="sec.html" class="nav-button">Next Module →</a>
       </div>
 
     </main>
   </div>
+
+  <script>
+    // Enhanced CPU Module with Ultra-Modern Interactions
+    document.addEventListener('DOMContentLoaded', function() {
+      console.log('[cpu-v3] Ultra-modern CPU module initializing...');
+
+      // === SCROLL PROGRESS BAR ===
+      function updateScrollProgress() {
+        const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+        const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        const scrolled = (winScroll / height) * 100;
+        
+        let progressBar = document.getElementById('scroll-progress');
+        if (!progressBar) {
+          progressBar = document.createElement('div');
+          progressBar.id = 'scroll-progress';
+          progressBar.style.cssText = `
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 0%;
+            height: 4px;
+            background: linear-gradient(90deg, 
+              var(--ultra-purple), 
+              var(--primary-purple), 
+              var(--accent-purple), 
+              var(--secondary-purple));
+            z-index: 9999;
+            transition: width 0.1s ease;
+            box-shadow: 
+              0 0 16px var(--glow-bright),
+              0 4px 8px rgba(159, 112, 255, 0.3);
+          `;
+          document.body.appendChild(progressBar);
+        }
+        progressBar.style.width = scrolled + '%';
+      }
+
+      // === MOUSE TRACKING FOR ALL SECTIONS ===
+      function setupMouseTracking() {
+        // Header tracking
+        const header = document.getElementById('terminal-header');
+        header.addEventListener('mousemove', function(e) {
+          const rect = this.getBoundingClientRect();
+          const x = ((e.clientX - rect.left) / rect.width) * 100;
+          const y = ((e.clientY - rect.top) / rect.height) * 100;
+          
+          this.style.setProperty('--mouse-x', x + '%');
+          this.style.setProperty('--mouse-y', y + '%');
+        });
+
+        header.addEventListener('mouseleave', function() {
+          this.style.removeProperty('--mouse-x');
+          this.style.removeProperty('--mouse-y');
+        });
+
+        // Content sections tracking
+        document.querySelectorAll('.content-section').forEach(section => {
+          section.addEventListener('mousemove', function(e) {
+            const rect = this.getBoundingClientRect();
+            const x = ((e.clientX - rect.left) / rect.width) * 100;
+            const y = ((e.clientY - rect.top) / rect.height) * 100;
+            
+            this.style.setProperty('--mouse-x', x + '%');
+            this.style.setProperty('--mouse-y', y + '%');
+          });
+          
+          section.addEventListener('mouseleave', function() {
+            this.style.removeProperty('--mouse-x');
+            this.style.removeProperty('--mouse-y');
+          });
+        });
+      }
+
+      // === RIPPLE EFFECT SYSTEM ===
+      function addRippleEffect(element, event) {
+        const ripple = document.createElement('span');
+        const rect = element.getBoundingClientRect();
+        const size = Math.max(rect.width, rect.height);
+        const x = event.clientX - rect.left - size / 2;
+        const y = event.clientY - rect.top - size / 2;
+        
+        ripple.style.cssText = `
+          position: absolute;
+          width: ${size}px;
+          height: ${size}px;
+          left: ${x}px;
+          top: ${y}px;
+          background: radial-gradient(circle, rgba(159, 112, 255, 0.4) 0%, transparent 70%);
+          border-radius: 50%;
+          transform: scale(0);
+          animation: ripple 0.8s ease-out;
+          pointer-events: none;
+          z-index: 1000;
+        `;
+        
+        // Ensure ripple styles exist
+        if (!document.querySelector('#ripple-styles')) {
+          const style = document.createElement('style');
+          style.id = 'ripple-styles';
+          style.textContent = `
+            @keyframes ripple {
+              to {
+                transform: scale(4);
+                opacity: 0;
+              }
+            }
+          `;
+          document.head.appendChild(style);
+        }
+        
+        element.style.position = 'relative';
+        element.appendChild(ripple);
+        setTimeout(() => ripple.remove(), 800);
+      }
+
+      // === ENHANCED GLOSSARY LINKS ===
+      function enhanceGlossaryLinks() {
+        document.querySelectorAll('.glossary-link').forEach(link => {
+          const term = link.textContent.trim();
+          link.setAttribute('aria-label', `Learn more about ${term} in glossary`);
+          link.setAttribute('data-term', term);
+          link.setAttribute('role', 'button');
+          link.setAttribute('tabindex', '0');
+
+          // Enhanced hover effects with sound
+          link.addEventListener('mouseenter', function() {
+            this.style.transform = 'translateY(-2px) scale(1.05)';
+            this.style.boxShadow = '0 8px 24px rgba(159, 112, 255, 0.4)';
+            this.style.zIndex = '10';
+            
+            // Subtle audio feedback
+            if (document.hasFocus() && window.AudioContext) {
+              try {
+                const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                const oscillator = audioContext.createOscillator();
+                const gainNode = audioContext.createGain();
+                
+                oscillator.connect(gainNode);
+                gainNode.connect(audioContext.destination);
+                
+                oscillator.frequency.setValueAtTime(800, audioContext.currentTime);
+                gainNode.gain.setValueAtTime(0.005, audioContext.currentTime);
+                gainNode.gain.exponentialRampToValueAtTime(0.001, audioContext.currentTime + 0.1);
+                
+                oscillator.start(audioContext.currentTime);
+                oscillator.stop(audioContext.currentTime + 0.1);
+              } catch (e) {
+                // Audio not available, continue silently
+              }
+            }
+          });
+          
+          link.addEventListener('mouseleave', function() {
+            this.style.transform = 'translateY(0) scale(1)';
+            this.style.boxShadow = '';
+            this.style.zIndex = '';
+          });
+
+          // Smart prefetching
+          link.addEventListener('mouseenter', function() {
+            if (!this.dataset.prefetched) {
+              const prefetchLink = document.createElement('link');
+              prefetchLink.rel = 'prefetch';
+              prefetchLink.href = this.href;
+              document.head.appendChild(prefetchLink);
+              this.dataset.prefetched = 'true';
+            }
+          });
+
+          // Keyboard navigation
+          link.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter' || e.key === ' ') {
+              e.preventDefault();
+              this.click();
+            }
+          });
+        });
+      }
+
+      // === CONCEPT ITEM INTERACTIONS ===
+      function enhanceConceptItems() {
+        document.querySelectorAll('.concept-item').forEach((item, index) => {
+          item.setAttribute('tabindex', '0');
+          item.setAttribute('role', 'button');
+          
+          item.addEventListener('mouseenter', function() {
+            this.style.transform = 'translateY(-8px) scale(1.02)';
+            this.style.transition = 'transform 0.3s cubic-bezier(0.4, 0, 0.2, 1)';
+          });
+          
+          item.addEventListener('mouseleave', function() {
+            this.style.transform = 'translateY(0) scale(1)';
+          });
+
+          item.addEventListener('click', function(e) {
+            addRippleEffect(this, e);
+            
+            // Pulse animation
+            this.style.transform = 'scale(0.98)';
+            setTimeout(() => {
+              this.style.transform = 'translateY(-8px) scale(1.02)';
+            }, 150);
+          });
+
+          item.addEventListener('focus', function() {
+            this.style.outline = '2px solid var(--accent-purple)';
+            this.style.outlineOffset = '4px';
+          });
+          
+          item.addEventListener('blur', function() {
+            this.style.outline = '';
+            this.style.outlineOffset = '';
+          });
+        });
+      }
+
+      // === TABLE ENHANCEMENTS ===
+      function enhanceTables() {
+        const tableRows = document.querySelectorAll('.encryption-table tbody tr');
+        tableRows.forEach((row, index) => {
+          row.style.cursor = 'pointer';
+          row.setAttribute('tabindex', '0');
+          row.setAttribute('role', 'button');
+          
+          row.addEventListener('mouseenter', function() {
+            this.style.transform = 'translateX(8px)';
+            this.style.transition = 'transform 0.3s ease';
+          });
+          
+          row.addEventListener('mouseleave', function() {
+            this.style.transform = 'translateX(0)';
+          });
+
+          row.addEventListener('click', function(e) {
+            addRippleEffect(this, e);
+            this.style.transform = 'scale(0.98)';
+            setTimeout(() => {
+              this.style.transform = 'translateX(8px)';
+            }, 150);
+          });
+        });
+      }
+
+      // === KEYBOARD SHORTCUTS ===
+      document.addEventListener('keydown', function(event) {
+        // Alt + N for next module
+        if (event.altKey && event.key === 'n') {
+          event.preventDefault();
+          const nextButton = document.querySelector('a[href*="sec.html"]');
+          if (nextButton) {
+            nextButton.style.transform = 'scale(0.95)';
+            setTimeout(() => {
+              nextButton.style.transform = 'scale(1)';
+              nextButton.click();
+            }, 100);
+          }
+        }
+        
+        // Alt + H for home
+        if (event.altKey && event.key === 'h') {
+          event.preventDefault();
+          const homeButton = document.querySelector('a[href*="index.html"]');
+          if (homeButton) {
+            homeButton.style.transform = 'scale(0.95)';
+            setTimeout(() => {
+              homeButton.style.transform = 'scale(1)';
+              homeButton.click();
+            }, 100);
+          }
+        }
+        
+        // Escape to scroll to top
+        if (event.key === 'Escape') {
+          event.preventDefault();
+          window.scrollTo({ 
+            top: 0, 
+            behavior: 'smooth' 
+          });
+        }
+        
+        // Ctrl/Cmd + K for glossary
+        if ((event.ctrlKey || event.metaKey) && event.key === 'k') {
+          event.preventDefault();
+          const glossaryLink = document.querySelector('a[href*="glossary"]');
+          if (glossaryLink) {
+            glossaryLink.click();
+          } else {
+            window.open('../glossary/glossary.html', '_blank');
+          }
+        }
+
+        // Arrow key navigation for sections
+        if (['ArrowDown', 'ArrowUp'].includes(event.key)) {
+          const sections = Array.from(document.querySelectorAll('.content-section'));
+          const focused = document.activeElement;
+          const currentIndex = sections.findIndex(section => 
+            section === focused || section.contains(focused)
+          );
+
+          if (currentIndex !== -1) {
+            event.preventDefault();
+            let nextIndex;
+            
+            if (event.key === 'ArrowDown') {
+              nextIndex = (currentIndex + 1) % sections.length;
+            } else {
+              nextIndex = (currentIndex - 1 + sections.length) % sections.length;
+            }
+            
+            sections[nextIndex].scrollIntoView({ 
+              behavior: 'smooth', 
+              block: 'center' 
+            });
+            sections[nextIndex].focus();
+          }
+        }
+      });
+
+      // === INTERSECTION OBSERVER FOR ANIMATIONS ===
+      const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+      };
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry, index) => {
+          if (entry.isIntersecting) {
+            setTimeout(() => {
+              entry.target.style.opacity = '1';
+              entry.target.style.transform = 'translateY(0)';
+              entry.target.classList.add('visible');
+            }, index * 100);
+          }
+        });
+      }, observerOptions);
+
+      // Observe content sections
+      document.querySelectorAll('.content-section').forEach(section => {
+        observer.observe(section);
+      });
+
+      // === SCROLL HANDLERS ===
+      let scrollTimeout;
+      function setupScrollHandlers() {
+        window.addEventListener('scroll', function() {
+          if (scrollTimeout) {
+            clearTimeout(scrollTimeout);
+          }
+          
+          scrollTimeout = setTimeout(() => {
+            updateScrollProgress();
+            
+            // Subtle parallax to header
+            const header = document.querySelector('#terminal-header');
+            if (header) {
+              const scrolled = window.pageYOffset;
+              const rate = scrolled * -0.05;
+              header.style.transform = `translateY(${rate}px)`;
+            }
+          }, 10);
+        }, { passive: true });
+      }
+
+      // === ACCESSIBILITY ENHANCEMENTS ===
+      function setupAccessibility() {
+        // Focus management
+        document.addEventListener('focusin', function(event) {
+          if (event.target.classList.contains('glossary-link')) {
+            event.target.style.outline = '2px solid var(--accent-purple)';
+            event.target.style.outlineOffset = '2px';
+          }
+        });
+        
+        document.addEventListener('focusout', function(event) {
+          if (event.target.classList.contains('glossary-link')) {
+            event.target.style.outline = '';
+            event.target.style.outlineOffset = '';
+          }
+        });
+
+        // Reduced motion support
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+          document.body.classList.add('reduced-motion');
+          const style = document.createElement('style');
+          style.textContent = `
+            .reduced-motion * {
+              animation-duration: 0.01ms !important;
+              animation-iteration-count: 1 !important;
+              transition-duration: 0.01ms !important;
+            }
+          `;
+          document.head.appendChild(style);
+        }
+      }
+
+      // === PERFORMANCE MONITORING ===
+      function setupPerformanceMonitoring() {
+        if ('performance' in window) {
+          window.addEventListener('load', function() {
+            setTimeout(() => {
+              const perfData = performance.getEntriesByType('navigation')[0];
+              if (perfData) {
+                const loadTime = perfData.loadEventEnd - perfData.loadEventStart;
+                console.log(`[cpu-v3] Page loaded in ${loadTime.toFixed(2)}ms`);
+              }
+            }, 0);
+          });
+        }
+
+        // Preload next page
+        const nextPageLink = document.querySelector('a[href*="sec.html"]');
+        if (nextPageLink) {
+          const link = document.createElement('link');
+          link.rel = 'prefetch';
+          link.href = nextPageLink.href;
+          document.head.appendChild(link);
+        }
+      }
+
+      // === ERROR HANDLING ===
+      function setupErrorHandling() {
+        window.addEventListener('error', function(event) {
+          console.warn('[cpu-v3] JavaScript error caught:', event.error?.message || event.message);
+        });
+
+        window.addEventListener('unhandledrejection', function(event) {
+          console.warn('[cpu-v3] Unhandled promise rejection:', event.reason);
+        });
+      }
+
+      // === MAIN INITIALIZATION ===
+      function initialize() {
+        console.log('[cpu-v3] Starting ultra-modern initialization...');
+        
+        try {
+          setupMouseTracking();
+          enhanceGlossaryLinks();
+          enhanceConceptItems();
+          enhanceTables();
+          setupScrollHandlers();
+          setupAccessibility();
+          setupPerformanceMonitoring();
+          setupErrorHandling();
+
+          console.log('[cpu-v3] Ultra-modern CPU module loaded successfully');
+          console.log('[cpu-v3] Features: mouse tracking, ripple effects, audio feedback, smart prefetching');
+          console.log('[cpu-v3] Keyboard shortcuts: Alt+N (next), Alt+H (home), Esc (top), Ctrl+K (glossary), ↑↓ (navigate)');
+          
+          // Mark as fully loaded
+          document.body.classList.add('cpu-v3-enhanced');
+          
+        } catch (error) {
+          console.error('[cpu-v3] Initialization error:', error);
+        }
+      }
+
+      // === EXPORT UTILITIES ===
+      window.ObfuscateOS = window.ObfuscateOS || {};
+      Object.assign(window.ObfuscateOS, {
+        version: '3.0',
+        module: 'cpu',
+        scrollToTop: () => window.scrollTo({ top: 0, behavior: 'smooth' }),
+        toggleAccessibility: () => {
+          document.body.classList.toggle('accessibility-mode');
+          console.log('[cpu-v3] Accessibility mode toggled');
+        },
+        getPerformanceMetrics: () => {
+          if ('performance' in window) {
+            return {
+              navigation: performance.getEntriesByType('navigation')[0],
+              resources: performance.getEntriesByType('resource'),
+              measures: performance.getEntriesByType('measure')
+            };
+          }
+          return null;
+        },
+        enableDebugMode: () => {
+          document.body.classList.add('debug-mode');
+          console.log('[cpu-v3] Debug mode enabled');
+        }
+      });
+
+      // Start everything
+      initialize();
+    });
+
+    // Auto-save scroll position
+    window.addEventListener('beforeunload', function() {
+      sessionStorage.setItem('cpu-scroll-position', window.pageYOffset);
+    });
+
+    window.addEventListener('load', function() {
+      const savedScroll = sessionStorage.getItem('cpu-scroll-position');
+      if (savedScroll) {
+        window.scrollTo(0, parseInt(savedScroll));
+        sessionStorage.removeItem('cpu-scroll-position');
+      }
+    });
+  </script>
 </body>
 </html>

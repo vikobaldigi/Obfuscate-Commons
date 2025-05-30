@@ -3,19 +3,684 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Obfuscate-OS v2.0</title>
-  <link rel="stylesheet" href="css/style.css" />
-  <link rel="stylesheet" href="css/modules.css" />
-  <link rel="stylesheet" href="css/animations.css" />
+  <title>Obfuscate-OS v3.0</title>
+  <style>
+    :root {
+      /* Enhanced Color Palette */
+      --primary-purple: #9f70ff;
+      --secondary-purple: #d9b3ff;
+      --accent-purple: #b98eff;
+      --ultra-purple: #7c3aed;
+      --soft-purple: #e9d5ff;
+      --neon-purple: #a855f7;
+      --dark-bg: #0a0a0a;
+      --card-bg: rgba(159, 112, 255, 0.08);
+      --border-subtle: rgba(159, 112, 255, 0.25);
+      --text-primary: #f8fafc;
+      --text-secondary: #e2e8f0;
+      --text-muted: #cbd5e1;
+      --glow-soft: rgba(159, 112, 255, 0.4);
+      --glow-bright: rgba(159, 112, 255, 0.6);
+      --glow-intense: rgba(159, 112, 255, 0.8);
+      --glass-bg: rgba(255, 255, 255, 0.02);
+      --glass-border: rgba(255, 255, 255, 0.08);
+      --glass-hover: rgba(255, 255, 255, 0.05);
+      
+      /* Typography */
+      --font-mono: 'SF Mono', 'Monaco', 'Cascadia Code', 'Courier New', monospace;
+      --font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body { 
+      background: 
+        radial-gradient(circle at 15% 15%, rgba(159, 112, 255, 0.18) 0%, transparent 45%),
+        radial-gradient(circle at 85% 85%, rgba(124, 58, 237, 0.15) 0%, transparent 45%),
+        radial-gradient(circle at 50% 30%, rgba(217, 179, 255, 0.08) 0%, transparent 40%),
+        radial-gradient(circle at 30% 70%, rgba(168, 85, 247, 0.12) 0%, transparent 35%),
+        linear-gradient(135deg, #0a0a0a 0%, #1a0a2e 30%, #0f0f23 70%, #1a0a2e 100%);
+      min-height: 100vh;
+      font-family: var(--font-sans);
+      color: var(--text-primary);
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    /* Enhanced floating particles */
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: 
+        radial-gradient(circle at 20% 30%, rgba(159, 112, 255, 0.03) 1px, transparent 1px),
+        radial-gradient(circle at 80% 70%, rgba(217, 179, 255, 0.025) 1px, transparent 1px),
+        radial-gradient(circle at 45% 20%, rgba(124, 58, 237, 0.02) 1px, transparent 1px);
+      background-size: 60px 60px, 90px 90px, 120px 120px;
+      animation: float-particles 25s ease-in-out infinite;
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    @keyframes float-particles {
+      0%, 100% { 
+        transform: translateY(0px) rotate(0deg);
+        opacity: 0.4;
+      }
+      33% { 
+        transform: translateY(-15px) rotate(120deg);
+        opacity: 0.2;
+      }
+      66% { 
+        transform: translateY(-8px) rotate(240deg);
+        opacity: 0.3;
+      }
+    }
+
+    /* Container */
+    .shell {
+      max-width: 1600px;
+      margin: 0 auto;
+      padding: 2em;
+      position: relative;
+    }
+
+    /* Ultra-Modern Hero Header */
+    #terminal-header {
+      text-align: center;
+      margin: 2em auto 4em;
+      padding: 4em 3em 5em;
+      max-width: 1400px;
+      background: 
+        linear-gradient(135deg, var(--glass-bg), rgba(159, 112, 255, 0.06)),
+        linear-gradient(225deg, transparent, rgba(255, 255, 255, 0.02)),
+        radial-gradient(circle at 30% 70%, rgba(168, 85, 247, 0.08) 0%, transparent 50%);
+      border-radius: 32px;
+      backdrop-filter: blur(24px) saturate(200%);
+      border: 1px solid var(--glass-border);
+      position: relative;
+      overflow: visible;
+      box-shadow: 
+        0 20px 60px rgba(0, 0, 0, 0.4),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1),
+        0 0 0 1px rgba(159, 112, 255, 0.15);
+    }
+
+    #terminal-header::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, 
+        transparent, 
+        var(--ultra-purple), 
+        var(--primary-purple), 
+        var(--neon-purple),
+        var(--accent-purple), 
+        var(--secondary-purple), 
+        transparent);
+      animation: shimmer-header 4s ease-in-out infinite;
+    }
+
+    #terminal-header::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), 
+        rgba(159, 112, 255, 0.06) 0%, 
+        transparent 60%);
+      opacity: 0;
+      transition: opacity 0.4s ease;
+      pointer-events: none;
+    }
+
+    #terminal-header:hover::after {
+      opacity: 1;
+    }
+
+    @keyframes shimmer-header {
+      0%, 100% { opacity: 0.4; }
+      50% { opacity: 1; }
+    }
+
+    #terminal-header h1 {
+      font-size: clamp(3.5rem, 10vw, 7rem);
+      color: var(--text-primary);
+      margin-bottom: 0.4em;
+      font-weight: 900;
+      letter-spacing: -0.02em;
+      font-family: var(--font-mono);
+      background: linear-gradient(135deg, 
+        #ffffff 0%,
+        var(--soft-purple) 15%, 
+        var(--secondary-purple) 30%, 
+        var(--primary-purple) 50%, 
+        var(--neon-purple) 70%,
+        var(--ultra-purple) 85%, 
+        var(--accent-purple) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      filter: drop-shadow(0 0 50px var(--glow-intense)) drop-shadow(0 0 100px rgba(159, 112, 255, 0.3));
+      animation: mega-pulse-glow 8s ease-in-out infinite;
+      position: relative;
+      overflow: visible;
+      display: block;
+      width: 100%;
+      text-align: center;
+      text-shadow: 0 0 60px rgba(159, 112, 255, 0.5);
+      line-height: 0.9;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    #terminal-header h1::after {
+      content: 'v3.0';
+      position: absolute;
+      top: -0.4em;
+      right: 0.5em;
+      font-size: 0.35em;
+      background: linear-gradient(45deg, 
+        var(--neon-purple), 
+        #ffffff, 
+        var(--primary-purple));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      opacity: 0.85;
+      font-weight: 800;
+      white-space: nowrap;
+      z-index: 10;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+      letter-spacing: 0.08em;
+      filter: drop-shadow(0 0 20px rgba(159, 112, 255, 0.6));
+      animation: version-pulse 4s ease-in-out infinite;
+    }
+
+    @keyframes mega-pulse-glow {
+      0%, 100% { 
+        filter: drop-shadow(0 0 40px var(--glow-soft)) drop-shadow(0 0 80px rgba(159, 112, 255, 0.2));
+        transform: scale(1);
+      }
+      25% {
+        filter: drop-shadow(0 0 60px var(--glow-bright)) drop-shadow(0 0 120px rgba(159, 112, 255, 0.4));
+        transform: scale(1.005);
+      }
+      50% { 
+        filter: drop-shadow(0 0 80px var(--glow-intense)) drop-shadow(0 0 160px rgba(159, 112, 255, 0.5));
+        transform: scale(1.01);
+      }
+      75% {
+        filter: drop-shadow(0 0 60px var(--glow-bright)) drop-shadow(0 0 120px rgba(159, 112, 255, 0.4));
+        transform: scale(1.005);
+      }
+    }
+
+    @keyframes version-pulse {
+      0%, 100% { 
+        opacity: 0.8;
+        filter: drop-shadow(0 0 15px rgba(159, 112, 255, 0.6));
+        transform: scale(1);
+      }
+      50% { 
+        opacity: 1;
+        filter: drop-shadow(0 0 25px rgba(159, 112, 255, 1));
+        transform: scale(1.05);
+      }
+    }
+
+    #terminal-header p {
+      font-size: 1.5em;
+      color: var(--text-secondary);
+      margin: 0;
+      opacity: 0.9;
+      font-weight: 400;
+      line-height: 1.6;
+      max-width: 55em;
+      margin-inline: auto;
+      text-shadow: 0 2px 12px rgba(0, 0, 0, 0.4);
+      letter-spacing: 0.01em;
+      font-family: var(--font-sans);
+    }
+
+    /* Ultra-Modern Module Grid */
+    #module-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2.5em;
+      justify-items: center;
+      width: 100%;
+      max-width: 1600px;
+      margin: 0 auto;
+      padding-bottom: 5em;
+    }
+
+    @media (max-width: 1200px) {
+      #module-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 768px) {
+      #module-grid {
+        grid-template-columns: 1fr;
+        gap: 2em;
+        padding-bottom: 3em;
+      }
+    }
+
+    /* Ultra-Glossy Module Cards */
+    .module-box {
+      background: 
+        linear-gradient(135deg, 
+          var(--glass-bg), 
+          rgba(159, 112, 255, 0.07)),
+        linear-gradient(225deg, 
+          transparent, 
+          rgba(255, 255, 255, 0.03)),
+        radial-gradient(circle at 30% 30%, 
+          rgba(168, 85, 247, 0.05) 0%, 
+          transparent 60%);
+      border: 1px solid var(--glass-border);
+      padding: 3em 2.5em 3.5em;
+      border-radius: 28px;
+      text-align: center;
+      transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+      backdrop-filter: blur(20px) saturate(200%);
+      box-shadow: 
+        0 12px 40px rgba(0, 0, 0, 0.2),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1),
+        0 0 0 1px rgba(159, 112, 255, 0.1);
+      max-width: 420px;
+      width: 100%;
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+      transform-style: preserve-3d;
+    }
+
+    .module-box::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, 
+        transparent, 
+        var(--accent-purple), 
+        var(--primary-purple), 
+        var(--neon-purple),
+        var(--accent-purple), 
+        transparent);
+      opacity: 0;
+      transition: opacity 0.5s ease;
+    }
+
+    .module-box::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), 
+        rgba(159, 112, 255, 0.08) 0%, 
+        transparent 65%);
+      opacity: 0;
+      transition: opacity 0.4s ease;
+      pointer-events: none;
+    }
+
+    .module-box:hover {
+      transform: translateY(-12px) scale(1.02) rotateX(2deg);
+      border-color: rgba(159, 112, 255, 0.5);
+      box-shadow: 
+        0 25px 70px rgba(159, 112, 255, 0.25),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2),
+        0 0 0 1px rgba(159, 112, 255, 0.4),
+        0 0 60px rgba(159, 112, 255, 0.15);
+    }
+
+    .module-box:hover::before {
+      opacity: 1;
+    }
+
+    .module-box:hover::after {
+      opacity: 1;
+    }
+
+    .module-box:active {
+      transform: translateY(-8px) scale(1.01) rotateX(1deg);
+      transition: transform 0.2s ease;
+    }
+
+    .module-box h2 {
+      margin: 0 0 1.5em;
+      font-size: 1.5rem;
+      color: var(--text-primary);
+      font-family: var(--font-mono);
+      line-height: 1.3;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+      position: relative;
+    }
+
+    .module-box h2::after {
+      content: '';
+      position: absolute;
+      bottom: -0.5em;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 60px;
+      height: 2px;
+      background: linear-gradient(90deg, 
+        var(--accent-purple), 
+        var(--primary-purple));
+      border-radius: 1px;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .module-box:hover h2::after {
+      opacity: 1;
+    }
+
+    .module-box p {
+      margin-top: 0;
+      margin-bottom: 2em;
+      font-size: 1rem;
+      color: var(--text-secondary);
+      line-height: 1.7;
+      font-weight: 400;
+      opacity: 0.9;
+    }
+
+    .module-box .nav-button {
+      margin-top: 1.5em;
+      padding: 1em 2.5em;
+      background: 
+        linear-gradient(135deg, 
+          rgba(159, 112, 255, 0.1), 
+          rgba(217, 179, 255, 0.05)),
+        linear-gradient(225deg, 
+          transparent, 
+          rgba(255, 255, 255, 0.02));
+      border: 1px solid rgba(159, 112, 255, 0.3);
+      color: var(--text-primary);
+      font-family: inherit;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 1.1rem;
+      font-weight: 600;
+      border-radius: 16px;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      overflow: hidden;
+      backdrop-filter: blur(8px);
+      box-shadow: 
+        0 4px 16px rgba(159, 112, 255, 0.1),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+      letter-spacing: -0.01em;
+    }
+
+    .module-box .nav-button::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(135deg, 
+        var(--ultra-purple), 
+        var(--primary-purple), 
+        var(--neon-purple),
+        var(--accent-purple));
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      z-index: -1;
+    }
+
+    .module-box .nav-button::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, 
+        transparent, 
+        rgba(255, 255, 255, 0.15), 
+        transparent);
+      transition: left 0.6s ease;
+    }
+
+    .module-box:hover .nav-button {
+      color: #ffffff;
+      border-color: var(--primary-purple);
+      transform: translateY(-2px);
+      box-shadow: 
+        0 8px 24px rgba(159, 112, 255, 0.4),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    }
+
+    .module-box:hover .nav-button::before {
+      opacity: 0.9;
+    }
+
+    .module-box:hover .nav-button::after {
+      left: 100%;
+    }
+
+    /* Special styling for centered modules */
+    .centered-module {
+      grid-column: 1 / -1;
+      justify-self: center;
+      margin: 3em auto;
+      max-width: 500px;
+      background: 
+        linear-gradient(135deg, 
+          rgba(159, 112, 255, 0.12), 
+          rgba(217, 179, 255, 0.08)),
+        radial-gradient(circle at 50% 50%, 
+          rgba(168, 85, 247, 0.08) 0%, 
+          transparent 70%);
+      border: 2px solid rgba(159, 112, 255, 0.3);
+    }
+
+    .centered-module:hover {
+      box-shadow: 
+        0 30px 80px rgba(159, 112, 255, 0.3),
+        inset 0 2px 0 rgba(255, 255, 255, 0.2),
+        0 0 0 2px rgba(159, 112, 255, 0.5),
+        0 0 80px rgba(159, 112, 255, 0.2);
+    }
+
+    /* Enhanced Footer */
+    #site-footer {
+      text-align: center;
+      font-size: 0.9em;
+      color: var(--text-muted);
+      border-top: 1px solid rgba(159, 112, 255, 0.2);
+      padding: 3em 2em 2em;
+      margin-top: 4em;
+      width: 100%;
+      background: 
+        linear-gradient(135deg, var(--glass-bg), rgba(159, 112, 255, 0.03)),
+        linear-gradient(225deg, transparent, rgba(255, 255, 255, 0.01));
+      backdrop-filter: blur(12px);
+      border-radius: 24px 24px 0 0;
+    }
+
+    #site-footer a {
+      color: var(--accent-purple);
+      text-decoration: none;
+      margin: 0 0.8em;
+      transition: all 0.3s ease;
+      font-weight: 500;
+    }
+
+    #site-footer a:hover {
+      color: var(--primary-purple);
+      text-shadow: 0 0 8px var(--glow-soft);
+      text-decoration: underline;
+    }
+
+    /* Loading and entrance animations */
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(50px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .module-box {
+      animation: fadeInUp 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    /* Stagger animation for module boxes */
+    .module-box:nth-child(1) { animation-delay: 0.1s; }
+    .module-box:nth-child(2) { animation-delay: 0.2s; }
+    .module-box:nth-child(3) { animation-delay: 0.3s; }
+    .module-box:nth-child(4) { animation-delay: 0.4s; }
+    .module-box:nth-child(5) { animation-delay: 0.5s; }
+    .module-box:nth-child(6) { animation-delay: 0.6s; }
+    .module-box:nth-child(7) { animation-delay: 0.7s; }
+    .module-box:nth-child(8) { animation-delay: 0.8s; }
+    .module-box:nth-child(9) { animation-delay: 0.9s; }
+    .module-box:nth-child(10) { animation-delay: 1.0s; }
+    .module-box:nth-child(11) { animation-delay: 1.1s; }
+    .module-box:nth-child(12) { animation-delay: 1.2s; }
+    .module-box:nth-child(13) { animation-delay: 1.3s; }
+
+    /* Scroll progress bar */
+    #scroll-progress {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 0%;
+      height: 4px;
+      background: linear-gradient(90deg, 
+        var(--ultra-purple), 
+        var(--primary-purple), 
+        var(--accent-purple), 
+        var(--secondary-purple));
+      z-index: 9999;
+      transition: width 0.1s ease;
+      box-shadow: 
+        0 0 16px var(--glow-bright),
+        0 4px 8px rgba(159, 112, 255, 0.3);
+    }
+
+    /* Mobile Responsiveness */
+    @media (max-width: 768px) {
+      body {
+        padding: 1em 0.5em;
+      }
+
+      .shell {
+        padding: 0 1em;
+      }
+
+      #terminal-header {
+        margin-bottom: 3em;
+        padding: 3em 2em;
+      }
+
+      #terminal-header h1 {
+        font-size: clamp(2.5rem, 12vw, 4rem);
+      }
+
+      #terminal-header p {
+        font-size: 1.2em;
+      }
+
+      #module-grid {
+        grid-template-columns: 1fr;
+        gap: 2em;
+        padding-bottom: 3em;
+      }
+
+      .module-box {
+        padding: 2.5em 2em;
+        max-width: 100%;
+      }
+
+      .module-box h2 {
+        font-size: 1.3rem;
+      }
+
+      .module-box .nav-button {
+        padding: 1em 2em;
+        font-size: 1rem;
+      }
+
+      #site-footer {
+        padding: 2em 1em;
+      }
+    }
+
+    /* Accessibility - Reduced motion support */
+    @media (prefers-reduced-motion: reduce) {
+      * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+
+    /* High contrast mode support */
+    @media (prefers-contrast: high) {
+      :root {
+        --text-primary: #ffffff;
+        --text-secondary: #e0e0e0;
+        --primary-purple: #bb88ff;
+        --accent-purple: #cc99ff;
+        --border-subtle: rgba(255, 255, 255, 0.4);
+      }
+    }
+
+    /* Loading animation */
+    body {
+      animation: fadeIn 1s ease-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+  </style>
 </head>
 <body>
+  <div id="scroll-progress"></div>
+  
   <div class="shell">
     <header id="terminal-header">
-      <h1>Obfuscate-OS v2.0</h1>
+      <h1>Obfuscate-OS</h1>
       <p>A modular guide for encryption, digital resistance, and metadata awareness.</p>
     </header>
 
-    <main id="module-grid"></main>
+    <main id="module-grid">
+      <!-- Module cards will be populated by JavaScript -->
+    </main>
   </div>
 
   <footer id="site-footer">
@@ -28,17 +693,111 @@
     </p>
   </footer>
 
-  <!-- Working Scripts -->
-  <script src="js/modules/module-data.js"></script>
   <script>
-    document.addEventListener("DOMContentLoaded", () => {
-      const grid = document.getElementById("module-grid");
-      if (!grid || !window.modules || !Array.isArray(window.modules)) return;
+    // CORRECTED MODULE DATA WITH PROPER PATHS
+    const modules = [
+      {
+        title: "🧠 Learn Encryption",
+        desc: "Explore cryptographic concepts and how encryption protects your data.",
+        path: "modules/cpu/cpu.html",  // REMOVED 'docs/' PREFIX
+        button: "Open CPU"
+      },
+      {
+        title: "🧨 Cryptographic Failures", 
+        desc: "Murphy's Laws of Encryption — common breakdowns and lessons.",
+        path: "modules/cpu/sec.html",  // REMOVED 'docs/' PREFIX
+        button: "Open SEC"
+      },
+      {
+        title: "🔑 Public-Key Cryptography",
+        desc: "Understand keypairs, handshakes, and how asymmetric encryption works.",
+        path: "modules/crypto/keypair.html",  // REMOVED 'docs/' PREFIX
+        button: "Open Keypair"
+      },
+      {
+        title: "🌀 Symmetric Ciphers",
+        desc: "Discover common encryption algorithms like AES and Caesar cipher.",
+        path: "modules/crypto/cypher.html",  // REMOVED 'docs/' PREFIX
+        button: "Open Cipher"
+      },
+      {
+        title: "🌐 Metadata Awareness",
+        desc: "How surveillance systems exploit metadata and what you can do.",
+        path: "modules/net/net.html",  // REMOVED 'docs/' PREFIX
+        button: "Open NET"
+      },
+      {
+        title: "📖 Terminal Basics",
+        desc: "Learn how to use CLI to explore, encrypt, and obfuscate.",
+        path: "modules/guide/guide.html",  // REMOVED 'docs/' PREFIX
+        button: "Open Guide"
+      },
+      {
+        title: "🔗 Blockchain & Cryptocurrency",
+        desc: "How decentralization and encryption create public trust without central control.",
+        path: "modules/blockchain/blockchain.html",  // REMOVED 'docs/' PREFIX
+        button: "Open Blockchain"
+      },
+      {
+        title: "🔧 Encryption Tools",
+        desc: "Discover and practice with real-world software for secure communication.",
+        path: "modules/crypto/tools.html",  // REMOVED 'docs/' PREFIX
+        button: "Open Tools"
+      },
+      {
+        title: "⚖️ Encryption Ethics",
+        desc: "Explore the ethical and political stakes of digital secrecy and obfuscation.",
+        path: "modules/crypto/ethics.html",  // REMOVED 'docs/' PREFIX
+        button: "Open Ethics"
+      },
+      {
+        title: "🔢 Algebra of Cryptography",
+        desc: "How groups, fields, and lattices secure digital communication.",
+        path: "modules/algebra/algebra.html",  // REMOVED 'docs/' PREFIX
+        button: "Open Algebra"
+      },
+      {
+        title: "📚 Further Reading",
+        desc: "Foundational texts in cryptography, obfuscation, and digital resistance.",
+        path: "modules/further/further.html",  // REMOVED 'docs/' PREFIX
+        button: "Open BOOKS"
+      },
+      {
+        title: "🧪 Cryptographic Exercises",
+        desc: "A full suite of interactive tools to learn and experiment with encryption.",
+        path: "modules/exercises/index.html",  // REMOVED 'docs/' PREFIX
+        button: "Open Exercises"
+      },
+      {
+        title: "📖 Glossary of Terms",
+        desc: "A reference list of key encryption and command-line concepts covered throughout Obfuscate-OS.",
+        path: "modules/glossary/glossary.html",  // REMOVED 'docs/' PREFIX
+        button: "Open Glossary",
+        center: true
+      }
+    ];
 
-      window.modules.forEach(mod => {
+    document.addEventListener("DOMContentLoaded", () => {
+      console.log('[obfuscate-os] Ultra-glossy homepage initializing...');
+      
+      const grid = document.getElementById("module-grid");
+      const scrollProgress = document.getElementById("scroll-progress");
+      
+      if (!grid) return;
+
+      // === SCROLL PROGRESS BAR ===
+      function updateScrollProgress() {
+        const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+        const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        const scrolled = (winScroll / height) * 100;
+        scrollProgress.style.width = scrolled + '%';
+      }
+
+      // === MODULE CARD CREATION ===
+      modules.forEach((mod, index) => {
         const card = document.createElement("div");
         card.className = "module-box";
-
+        
         if (mod.center) {
           card.classList.add("centered-module");
         }
@@ -49,8 +808,505 @@
           <a href="${mod.path}" class="nav-button">${mod.button}</a>
         `;
 
+        // === MOUSE TRACKING FOR CARDS ===
+        card.addEventListener('mousemove', function(e) {
+          const rect = this.getBoundingClientRect();
+          const x = ((e.clientX - rect.left) / rect.width) * 100;
+          const y = ((e.clientY - rect.top) / rect.height) * 100;
+          
+          this.style.setProperty('--mouse-x', x + '%');
+          this.style.setProperty('--mouse-y', y + '%');
+        });
+
+        card.addEventListener('mouseleave', function() {
+          this.style.removeProperty('--mouse-x');
+          this.style.removeProperty('--mouse-y');
+        });
+
+        // === RIPPLE EFFECT ON CLICK ===
+        card.addEventListener('click', function(e) {
+          if (!e.target.closest('.nav-button')) {
+            const button = this.querySelector('.nav-button');
+            if (button) {
+              // Add click animation
+              this.style.transform = 'translateY(-8px) scale(0.98) rotateX(1deg)';
+              setTimeout(() => {
+                this.style.transform = '';
+                button.click();
+              }, 150);
+            }
+          }
+        });
+
+        // === ADD RIPPLE EFFECT ===
+        card.addEventListener('click', function(e) {
+          const ripple = document.createElement('span');
+          const rect = this.getBoundingClientRect();
+          const size = Math.max(rect.width, rect.height);
+          const x = e.clientX - rect.left - size / 2;
+          const y = e.clientY - rect.top - size / 2;
+          
+          ripple.style.cssText = `
+            position: absolute;
+            width: ${size}px;
+            height: ${size}px;
+            left: ${x}px;
+            top: ${y}px;
+            background: radial-gradient(circle, rgba(159, 112, 255, 0.3) 0%, transparent 70%);
+            border-radius: 50%;
+            transform: scale(0);
+            animation: ripple 0.8s ease-out;
+            pointer-events: none;
+            z-index: 1000;
+          `;
+          
+          // Add ripple styles if not exist
+          if (!document.querySelector('#ripple-styles')) {
+            const style = document.createElement('style');
+            style.id = 'ripple-styles';
+            style.textContent = `
+              @keyframes ripple {
+                to {
+                  transform: scale(4);
+                  opacity: 0;
+                }
+              }
+            `;
+            document.head.appendChild(style);
+          }
+          
+          this.style.position = 'relative';
+          this.appendChild(ripple);
+          setTimeout(() => ripple.remove(), 800);
+        });
+
+        // === ACCESSIBILITY ENHANCEMENTS ===
+        card.setAttribute('tabindex', '0');
+        card.setAttribute('role', 'button');
+        card.setAttribute('aria-label', `${mod.title} - ${mod.desc}`);
+        
+        card.addEventListener('focus', function() {
+          this.style.outline = '3px solid var(--accent-purple)';
+          this.style.outlineOffset = '4px';
+        });
+        
+        card.addEventListener('blur', function() {
+          this.style.outline = '';
+          this.style.outlineOffset = '';
+        });
+        
+        card.addEventListener('keydown', function(e) {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            const button = this.querySelector('.nav-button');
+            if (button) {
+              button.click();
+            }
+          }
+        });
+
         grid.appendChild(card);
       });
+
+      // === HEADER MOUSE TRACKING ===
+      const header = document.getElementById('terminal-header');
+      header.addEventListener('mousemove', function(e) {
+        const rect = this.getBoundingClientRect();
+        const x = ((e.clientX - rect.left) / rect.width) * 100;
+        const y = ((e.clientY - rect.top) / rect.height) * 100;
+        
+        this.style.setProperty('--mouse-x', x + '%');
+        this.style.setProperty('--mouse-y', y + '%');
+      });
+
+      header.addEventListener('mouseleave', function() {
+        this.style.removeProperty('--mouse-x');
+        this.style.removeProperty('--mouse-y');
+      });
+
+      // === SCROLL HANDLERS ===
+      let scrollTimeout;
+      window.addEventListener('scroll', function() {
+        if (scrollTimeout) {
+          clearTimeout(scrollTimeout);
+        }
+        
+        scrollTimeout = setTimeout(() => {
+          updateScrollProgress();
+          
+          // Add subtle parallax to header
+          const scrolled = window.pageYOffset;
+          const rate = scrolled * -0.1;
+          header.style.transform = `translateY(${rate}px)`;
+          
+          // Subtle parallax on particles
+          document.body.style.setProperty('--scroll-offset', `${scrolled * 0.3}px`);
+        }, 10);
+      }, { passive: true });
+
+      // === KEYBOARD SHORTCUTS ===
+      document.addEventListener('keydown', function(event) {
+        // Ctrl/Cmd + K for first module
+        if ((event.ctrlKey || event.metaKey) && event.key === 'k') {
+          event.preventDefault();
+          const firstModule = document.querySelector('.module-box .nav-button');
+          if (firstModule) {
+            firstModule.click();
+          }
+        }
+
+        // Escape to scroll to top
+        if (event.key === 'Escape') {
+          event.preventDefault();
+          window.scrollTo({ 
+            top: 0, 
+            behavior: 'smooth' 
+          });
+        }
+
+        // Arrow key navigation for modules
+        if (['ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown'].includes(event.key)) {
+          const modules = Array.from(document.querySelectorAll('.module-box'));
+          const focused = document.activeElement;
+          const currentIndex = modules.findIndex(module => 
+            module === focused || module.contains(focused)
+          );
+
+          if (currentIndex !== -1) {
+            event.preventDefault();
+            let nextIndex;
+            
+            switch(event.key) {
+              case 'ArrowRight':
+              case 'ArrowDown':
+                nextIndex = (currentIndex + 1) % modules.length;
+                break;
+              case 'ArrowLeft':
+              case 'ArrowUp':
+                nextIndex = (currentIndex - 1 + modules.length) % modules.length;
+                break;
+            }
+            
+            modules[nextIndex].focus();
+            modules[nextIndex].scrollIntoView({ 
+              behavior: 'smooth', 
+              block: 'center' 
+            });
+          }
+        }
+      });
+
+      // === INTERSECTION OBSERVER FOR STAGGERED ANIMATIONS ===
+      if ('IntersectionObserver' in window) {
+        const observerOptions = {
+          threshold: 0.1,
+          rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach((entry, index) => {
+            if (entry.isIntersecting) {
+              setTimeout(() => {
+                entry.target.style.opacity = '1';
+                entry.target.style.transform = 'translateY(0)';
+                entry.target.classList.add('visible');
+              }, index * 100);
+            }
+          });
+        }, observerOptions);
+
+        // Observe module cards
+        document.querySelectorAll('.module-box').forEach(module => {
+          observer.observe(module);
+        });
+      }
+
+      // === PERFORMANCE MONITORING ===
+      if ('performance' in window) {
+        window.addEventListener('load', function() {
+          setTimeout(() => {
+            const perfData = performance.getEntriesByType('navigation')[0];
+            if (perfData) {
+              const loadTime = perfData.loadEventEnd - perfData.loadEventStart;
+              console.log(`[obfuscate-os] Page loaded in ${loadTime.toFixed(2)}ms`);
+            }
+          }, 0);
+        });
+      }
+
+      // === PRELOAD OPTIMIZATION ===
+      // Preload critical CSS for module pages
+      const preloadLink = document.createElement('link');
+      preloadLink.rel = 'prefetch';
+      preloadLink.href = 'css/style.css';
+      document.head.appendChild(preloadLink);
+
+      // === ADVANCED PARTICLE SYSTEM ===
+      function createAdvancedParticles() {
+        const particleContainer = document.createElement('div');
+        particleContainer.id = 'advanced-particles';
+        particleContainer.style.cssText = `
+          position: fixed;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          pointer-events: none;
+          z-index: -2;
+          overflow: hidden;
+        `;
+
+        // Create floating particles
+        for (let i = 0; i < 12; i++) {
+          const particle = document.createElement('div');
+          particle.style.cssText = `
+            position: absolute;
+            width: ${Math.random() * 4 + 2}px;
+            height: ${Math.random() * 4 + 2}px;
+            background: radial-gradient(circle, rgba(159, 112, 255, ${Math.random() * 0.4 + 0.1}), transparent);
+            border-radius: 50%;
+            left: ${Math.random() * 100}%;
+            top: ${Math.random() * 100}%;
+            animation: float-particle ${Math.random() * 25 + 20}s ease-in-out infinite;
+            animation-delay: ${Math.random() * 8}s;
+          `;
+          particleContainer.appendChild(particle);
+        }
+
+        // Add particle animation styles
+        if (!document.querySelector('#particle-styles')) {
+          const style = document.createElement('style');
+          style.id = 'particle-styles';
+          style.textContent = `
+            @keyframes float-particle {
+              0%, 100% {
+                transform: translateY(0px) translateX(0px) rotate(0deg) scale(1);
+                opacity: 0.3;
+              }
+              25% {
+                transform: translateY(-120px) translateX(60px) rotate(90deg) scale(1.2);
+                opacity: 0.7;
+              }
+              50% {
+                transform: translateY(-60px) translateX(-40px) rotate(180deg) scale(0.8);
+                opacity: 0.4;
+              }
+              75% {
+                transform: translateY(-100px) translateX(30px) rotate(270deg) scale(1.1);
+                opacity: 0.6;
+              }
+            }
+            
+            @media (prefers-reduced-motion: reduce) {
+              #advanced-particles * {
+                animation: none !important;
+              }
+            }
+          `;
+          document.head.appendChild(style);
+        }
+
+        document.body.appendChild(particleContainer);
+      }
+
+      // === ERROR HANDLING ===
+      window.addEventListener('error', function(event) {
+        console.warn('[obfuscate-os] JavaScript error caught:', event.error?.message || event.message);
+      });
+
+      window.addEventListener('unhandledrejection', function(event) {
+        console.warn('[obfuscate-os] Unhandled promise rejection:', event.reason);
+      });
+
+      // === SERVICE WORKER REGISTRATION ===
+      if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('/sw.js')
+          .then(function(registration) {
+            console.log('[obfuscate-os] ServiceWorker registered successfully');
+          })
+          .catch(function(error) {
+            // Normal if no service worker file exists
+          });
+      }
+
+      // === THEME DETECTION ===
+      function detectPreferences() {
+        // Dark mode preference
+        if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+          document.body.classList.add('dark-mode-preferred');
+        }
+
+        // High contrast mode
+        if (window.matchMedia && window.matchMedia('(prefers-contrast: high)').matches) {
+          document.body.classList.add('high-contrast-mode');
+        }
+
+        // Reduced motion
+        if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+          document.body.classList.add('reduced-motion');
+          console.log('[obfuscate-os] Reduced motion mode detected');
+        }
+      }
+
+      // === EXPORT UTILITIES ===
+      window.ObfuscateOS = window.ObfuscateOS || {};
+      Object.assign(window.ObfuscateOS, {
+        version: '3.0',
+        page: 'index',
+        modules: modules,
+        scrollToTop: () => window.scrollTo({ top: 0, behavior: 'smooth' }),
+        focusFirstModule: () => {
+          const firstModule = document.querySelector('.module-box');
+          if (firstModule) firstModule.focus();
+        },
+        getModuleCount: () => document.querySelectorAll('.module-box').length,
+        enableDebugMode: () => {
+          document.body.classList.add('debug-mode');
+          console.log('[obfuscate-os] Debug mode enabled');
+          
+          // Add debug styles
+          const debugStyle = document.createElement('style');
+          debugStyle.textContent = `
+            .debug-mode .module-box {
+              border: 2px dashed rgba(255, 0, 0, 0.3) !important;
+            }
+            .debug-mode .module-box::before {
+              content: attr(aria-label);
+              position: absolute;
+              top: -2em;
+              left: 0;
+              font-size: 0.8em;
+              color: #ff6b6b;
+              background: rgba(0, 0, 0, 0.8);
+              padding: 0.2em 0.5em;
+              border-radius: 4px;
+              z-index: 1000;
+            }
+          `;
+          document.head.appendChild(debugStyle);
+        },
+        getPerformanceMetrics: () => {
+          if ('performance' in window) {
+            return {
+              navigation: performance.getEntriesByType('navigation')[0],
+              resources: performance.getEntriesByType('resource'),
+              measures: performance.getEntriesByType('measure')
+            };
+          }
+          return null;
+        }
+      });
+
+      // === INITIALIZATION COMPLETE ===
+      detectPreferences();
+      createAdvancedParticles();
+      
+      console.log('[obfuscate-os] Ultra-glossy homepage loaded successfully');
+      console.log(`[obfuscate-os] ${modules.length} modules initialized`);
+      console.log('[obfuscate-os] Keyboard shortcuts: Ctrl+K (first module), Esc (top), Arrow keys (navigate)');
+      console.log('[obfuscate-os] Type ObfuscateOS.enableDebugMode() for debug view');
+      
+      // Mark as fully loaded
+      document.body.classList.add('obfuscate-os-enhanced');
+      
+      // Dispatch custom event for extension points
+      window.dispatchEvent(new CustomEvent('obfuscate-os-loaded', {
+        detail: { version: '3.0', modules: modules.length }
+      }));
+    });
+
+    // === ADVANCED FEATURES ===
+    
+    // Context menu enhancement
+    document.addEventListener('contextmenu', function(e) {
+      if (e.target.closest('.module-box')) {
+        e.preventDefault();
+        
+        // Create custom context menu
+        const contextMenu = document.createElement('div');
+        contextMenu.style.cssText = `
+          position: fixed;
+          left: ${e.clientX}px;
+          top: ${e.clientY}px;
+          background: linear-gradient(135deg, var(--glass-bg), rgba(159, 112, 255, 0.1));
+          border: 1px solid var(--glass-border);
+          border-radius: 12px;
+          padding: 0.5em;
+          backdrop-filter: blur(16px);
+          z-index: 10000;
+          font-size: 0.9em;
+          box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        `;
+        
+        const moduleBox = e.target.closest('.module-box');
+        const moduleTitle = moduleBox.querySelector('h2').textContent;
+        
+        contextMenu.innerHTML = `
+          <div style="padding: 0.5em; color: var(--text-primary); cursor: pointer; border-radius: 8px; transition: background 0.2s;" 
+               onmouseover="this.style.background='rgba(159, 112, 255, 0.2)'" 
+               onmouseout="this.style.background='transparent'"
+               onclick="navigator.clipboard.writeText('${moduleTitle}'); this.parentElement.remove();">
+            📋 Copy Module Name
+          </div>
+          <div style="padding: 0.5em; color: var(--text-primary); cursor: pointer; border-radius: 8px; transition: background 0.2s;"
+               onmouseover="this.style.background='rgba(159, 112, 255, 0.2)'" 
+               onmouseout="this.style.background='transparent'"
+               onclick="window.open('${moduleBox.querySelector('.nav-button').href}', '_blank'); this.parentElement.remove();">
+            🔗 Open in New Tab
+          </div>
+        `;
+        
+        document.body.appendChild(contextMenu);
+        
+        // Remove context menu on click elsewhere
+        setTimeout(() => {
+          document.addEventListener('click', function removeMenu() {
+            if (contextMenu.parentElement) {
+              contextMenu.remove();
+            }
+            document.removeEventListener('click', removeMenu);
+          });
+        }, 100);
+      }
+    });
+
+    // Konami code easter egg
+    let konamiCode = [];
+    const konamiSequence = [
+      'ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown',
+      'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight',
+      'KeyB', 'KeyA'
+    ];
+
+    document.addEventListener('keydown', function(e) {
+      konamiCode.push(e.code);
+      if (konamiCode.length > konamiSequence.length) {
+        konamiCode.shift();
+      }
+      
+      if (konamiCode.join(',') === konamiSequence.join(',')) {
+        // Easter egg activated
+        document.body.style.filter = 'hue-rotate(180deg) saturate(2)';
+        setTimeout(() => {
+          document.body.style.filter = '';
+        }, 3000);
+        
+        console.log('🎉 Konami code activated! Ultra-rainbow mode engaged!');
+        konamiCode = [];
+      }
+    });
+
+    // Auto-save scroll position
+    window.addEventListener('beforeunload', function() {
+      sessionStorage.setItem('obfuscate-os-scroll', window.pageYOffset);
+    });
+
+    window.addEventListener('load', function() {
+      const savedScroll = sessionStorage.getItem('obfuscate-os-scroll');
+      if (savedScroll) {
+        window.scrollTo(0, parseInt(savedScroll));
+        sessionStorage.removeItem('obfuscate-os-scroll');
+      }
     });
   </script>
 </body>

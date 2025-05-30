@@ -37,6 +37,8 @@
       color: #e2d3ff;
       line-height: 1.6em;
     }
+
+    /* Enhanced search box */
     #search-box {
       display: block;
       width: 100%;
@@ -49,38 +51,194 @@
       border: 1px solid #9f70ff;
       color: #e2d3ff;
       border-radius: 6px;
+      transition: all 0.3s ease;
     }
+    
+    #search-box:focus {
+      outline: none;
+      border-color: #d9b3ff;
+      box-shadow: 0 0 10px rgba(159, 112, 255, 0.3);
+      background-color: #2a1040;
+    }
+
+    /* Enhanced term styling */
     dl {
       margin-top: 2em;
     }
+    
     dt {
       font-weight: bold;
       font-size: 1.05em;
       margin-top: 1.25em;
       color: #d9b3ff;
       letter-spacing: 0.03em;
+      padding: 0.5em 0;
+      border-bottom: 1px solid rgba(159, 112, 255, 0.2);
+      transition: all 0.3s ease;
+      cursor: pointer;
     }
+    
+    dt:hover {
+      color: #ffffff;
+      border-bottom-color: #d9b3ff;
+      transform: translateX(5px);
+    }
+    
     dd {
       margin-left: 1em;
       margin-bottom: 0.75em;
       color: #cabafc;
       font-size: 0.95em;
+      padding: 0.5em 0;
+      transition: all 0.3s ease;
     }
+
+    /* Enhanced highlight animations */
     .highlighted {
-      animation: highlight-glow 2s ease-out;
+      animation: highlight-glow 3s ease-out;
+      transform: scale(1.02);
     }
+    
     @keyframes highlight-glow {
-      0%   { background-color: #9f70ff40; }
-      100% { background-color: transparent; }
+      0% { 
+        background-color: #9f70ff80; 
+        box-shadow: 0 0 20px rgba(159, 112, 255, 0.6);
+        border-radius: 8px;
+      }
+      50% {
+        background-color: #9f70ff40;
+        box-shadow: 0 0 15px rgba(159, 112, 255, 0.4);
+      }
+      100% { 
+        background-color: transparent; 
+        box-shadow: none;
+      }
     }
-    .nav-button-container {
+
+    /* Pulse animation for linked terms */
+    .term-pulse {
+      animation: term-pulse 2s ease-in-out;
+    }
+    
+    @keyframes term-pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.7; transform: scale(1.05); }
+    }
+
+    /* Enhanced filter animation */
+    .term-hidden {
+      opacity: 0;
+      max-height: 0;
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      transition: all 0.3s ease;
+    }
+    
+    .term-visible {
+      opacity: 1;
+      max-height: 200px;
+      transition: all 0.3s ease;
+    }
+
+    /* Search result counter */
+    #search-results {
       text-align: center;
-      margin-top: 3em;
+      color: #9f70ff;
+      font-size: 0.9em;
+      margin: 1em 0;
+      opacity: 0;
+      transition: opacity 0.3s ease;
     }
+    
+    #search-results.visible {
+      opacity: 1;
+    }
+
+    /* Category headers */
     h2.section-heading {
       margin-top: 2em;
       border-bottom: 1px solid #9f70ff;
       padding-bottom: 0.25em;
+      position: relative;
+    }
+    
+    h2.section-heading::after {
+      content: '';
+      position: absolute;
+      bottom: -1px;
+      left: 0;
+      width: 0;
+      height: 1px;
+      background-color: #d9b3ff;
+      transition: width 0.5s ease;
+    }
+    
+    h2.section-heading:hover::after {
+      width: 100%;
+    }
+
+    .nav-button-container {
+      text-align: center;
+      margin-top: 3em;
+    }
+
+    /* Back to top button */
+    #back-to-top {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background-color: #9f70ff;
+      color: #000;
+      border: none;
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      cursor: pointer;
+      opacity: 0;
+      transition: all 0.3s ease;
+      z-index: 1000;
+      font-family: var(--font);
+      font-size: 1.2em;
+    }
+    
+    #back-to-top.visible {
+      opacity: 0.8;
+    }
+    
+    #back-to-top:hover {
+      opacity: 1;
+      transform: scale(1.1);
+    }
+
+    /* Module indicators */
+    .module-tag {
+      display: inline-block;
+      background-color: rgba(159, 112, 255, 0.2);
+      color: #d9b3ff;
+      padding: 0.2em 0.5em;
+      border-radius: 4px;
+      font-size: 0.8em;
+      margin-left: 1em;
+      font-family: var(--font);
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+      #search-box {
+        max-width: 90%;
+      }
+      
+      dt {
+        font-size: 1em;
+      }
+      
+      #back-to-top {
+        bottom: 15px;
+        right: 15px;
+        width: 45px;
+        height: 45px;
+      }
     }
   </style>
 </head>
@@ -92,179 +250,147 @@
     </header>
 
     <main class="module-content">
-      <input type="text" id="search-box" placeholder="Search terms..." onkeyup="filterGlossary()" />
+      <input type="text" id="search-box" placeholder="Search terms..." />
+      <div id="search-results"></div>
 
       <h2 class="section-heading">📘 Technical Terms (A–Z)</h2>
-      <dl>
-        <dt id="aes">AES (Advanced Encryption Standard)</dt>
+      <dl id="technical-terms">
+        <dt id="aes" data-module="cpu">AES (Advanced Encryption Standard) <span class="module-tag">CPU</span></dt>
         <dd>Symmetric cipher widely used in digital security, known for speed and resilience.</dd>
 
-        <dt id="asymmetric-encryption">Asymmetric Encryption</dt>
+        <dt id="asymmetric-encryption" data-module="cpu">Asymmetric Encryption <span class="module-tag">CPU</span></dt>
         <dd>Uses a public/private keypair to allow secure communication without a pre-shared secret.</dd>
 
-        <dt id="block-cipher">Block Cipher</dt>
+        <dt id="block-cipher" data-module="cypher">Block Cipher <span class="module-tag">CYPHER</span></dt>
         <dd>Encrypts data in fixed-size blocks rather than one bit or byte at a time.</dd>
 
-        <dt id="blockchain">Blockchain</dt>
+        <dt id="blockchain" data-module="blockchain">Blockchain <span class="module-tag">BLOCKCHAIN</span></dt>
         <dd>A tamper-resistant digital ledger built from cryptographically linked blocks.</dd>
 
-        <dt id="certificate-authority">Certificate Authority (CA)</dt>
+        <dt id="certificate-authority" data-module="keypair">Certificate Authority (CA) <span class="module-tag">KEYPAIR</span></dt>
         <dd>An entity that issues digital certificates to confirm identities in public-key infrastructures.</dd>
 
-        <dt id="chacha20">ChaCha20</dt>
+        <dt id="chacha20" data-module="cpu">ChaCha20 <span class="module-tag">CPU</span></dt>
         <dd>A stream cipher known for its speed and use in mobile-friendly encryption systems.</dd>
 
-        <dt id="cipher">Cipher</dt>
+        <dt id="cipher" data-module="cpu">Cipher <span class="module-tag">CPU</span></dt>
         <dd>An algorithm or technique that transforms plaintext into ciphertext — the core mechanism behind encryption.</dd>
 
-        <dt id="cli">CLI (Command-Line Interface)</dt>
+        <dt id="cli" data-module="guide">CLI (Command-Line Interface) <span class="module-tag">GUIDE</span></dt>
         <dd>Text-based environment for issuing commands directly to a system.</dd>
 
-        <dt id="code-vs-cipher">Code vs. Cipher</dt>
-        <dd>Codes substitute entire words or phrases; ciphers operate on letters or bits.</dd>
-
-        <dt id="consensus-mechanism">Consensus Mechanism</dt>
+        <dt id="consensus-mechanism" data-module="blockchain">Consensus Mechanism <span class="module-tag">BLOCKCHAIN</span></dt>
         <dd>System for agreeing on blockchain data (e.g., Proof of Work or Proof of Stake).</dd>
 
-        <dt id="cryptanalysis">Cryptanalysis</dt>
+        <dt id="cryptanalysis" data-module="cpu">Cryptanalysis <span class="module-tag">CPU</span></dt>
         <dd>The study of breaking or weakening encryption systems.</dd>
 
-        <dt id="cryptographic-failure">Cryptographic Failure</dt>
+        <dt id="cryptographic-failure" data-module="sec">Cryptographic Failure <span class="module-tag">SEC</span></dt>
         <dd>When encryption fails due to poor implementation, not flaws in the math itself.</dd>
 
-        <dt id="cryptographic-hash">Cryptographic Hash</dt>
+        <dt id="cryptographic-hash" data-module="blockchain">Cryptographic Hash <span class="module-tag">BLOCKCHAIN</span></dt>
         <dd>Function that maps input data to a fixed output — used for integrity checks and chaining blocks.</dd>
 
-        <dt id="dao">DAO (Decentralized Autonomous Organization)</dt>
+        <dt id="dao" data-module="blockchain">DAO (Decentralized Autonomous Organization) <span class="module-tag">BLOCKCHAIN</span></dt>
         <dd>A self-governing group coordinated via smart contracts on a blockchain.</dd>
 
-        <dt id="des">DES (Data Encryption Standard)</dt>
+        <dt id="des" data-module="sec">DES (Data Encryption Standard) <span class="module-tag">SEC</span></dt>
         <dd>An obsolete encryption algorithm vulnerable to brute force attacks.</dd>
 
-        <dt id="digital-identity">Digital Identity</dt>
+        <dt id="digital-identity" data-module="blockchain">Digital Identity <span class="module-tag">BLOCKCHAIN</span></dt>
         <dd>Online identity credentials secured with cryptographic keys or blockchain systems.</dd>
 
-        <dt id="digital-signature">Digital Signature</dt>
+        <dt id="digital-signature" data-module="keypair">Digital Signature <span class="module-tag">KEYPAIR</span></dt>
         <dd>A cryptographic marker verifying the authenticity of a message or transaction.</dd>
 
-        <dt id="ecc">ECC (Elliptic Curve Cryptography)</dt>
+        <dt id="ecc" data-module="cpu">ECC (Elliptic Curve Cryptography) <span class="module-tag">CPU</span></dt>
         <dd>A compact, efficient form of public-key encryption based on algebraic curves.</dd>
 
-        <dt id="encryption">Encryption</dt>
+        <dt id="encryption" data-module="cpu">Encryption <span class="module-tag">CPU</span></dt>
         <dd>Conversion of readable data (plaintext) into unreadable form (ciphertext).</dd>
 
-        <dt id="enigma">Enigma</dt>
+        <dt id="enigma" data-module="cypher">Enigma <span class="module-tag">CYPHER</span></dt>
         <dd>WWII-era rotor-based cipher machine used by Germany; famously broken by Allied cryptanalysis at Bletchley Park.</dd>
 
-        <dt id="frequency-analysis">Frequency Analysis</dt>
+        <dt id="frequency-analysis" data-module="cypher">Frequency Analysis <span class="module-tag">CYPHER</span></dt>
         <dd>A method to break ciphers by analyzing character occurrence patterns.</dd>
 
-        <dt id="gpg">GPG</dt>
-        <dd>GNU Privacy Guard — open-source tool for encrypting, signing, and verifying messages.</dd>
-
-        <dt id="group">Group (Algebra)</dt>
-        <dd>A set with an operation that combines elements, with identity and inverses.</dd>
-
-        <dt id="hash-function">Hash Function</dt>
+        <dt id="hash-function" data-module="blockchain">Hash Function <span class="module-tag">BLOCKCHAIN</span></dt>
         <dd>Generates a short string (hash) from data; used in integrity checks and blockchains.</dd>
 
-        <dt id="keypair">Keypair</dt>
+        <dt id="keypair" data-module="keypair">Keypair <span class="module-tag">KEYPAIR</span></dt>
         <dd>One public key and one private key used in asymmetric encryption.</dd>
 
-        <dt id="man-in-the-middle">Man-in-the-Middle Attack</dt>
+        <dt id="man-in-the-middle" data-module="keypair">Man-in-the-Middle Attack <span class="module-tag">KEYPAIR</span></dt>
         <dd>When an attacker intercepts communication between two parties without detection.</dd>
 
-        <dt id="md5">MD5</dt>
+        <dt id="md5" data-module="sec">MD5 <span class="module-tag">SEC</span></dt>
         <dd>Deprecated hash function with known vulnerabilities; avoid in new projects.</dd>
 
-        <dt id="merkle-tree">Merkle Tree</dt>
+        <dt id="merkle-tree" data-module="blockchain">Merkle Tree <span class="module-tag">BLOCKCHAIN</span></dt>
         <dd>A hash-based structure that efficiently verifies data consistency in blockchains.</dd>
 
-        <dt id="metadata">Metadata</dt>
+        <dt id="metadata" data-module="net">Metadata <span class="module-tag">NET</span></dt>
         <dd>Descriptive information about data — like time, sender, and location.</dd>
 
-        <dt id="modular-arithmetic">Modular Arithmetic</dt>
-        <dd>Math where numbers loop around after reaching a limit (modulus). Used in cryptography.</dd>
-
-        <dt id="obfuscation">Obfuscation</dt>
+        <dt id="obfuscation" data-module="cpu">Obfuscation <span class="module-tag">CPU</span></dt>
         <dd>The deliberate introduction of ambiguity to resist analysis or surveillance.</dd>
 
-        <dt id="one-way-function">One-Way Function</dt>
-        <dd>Easy to compute, hard to reverse — a core idea behind modern encryption.</dd>
-
-        <dt id="posix">POSIX</dt>
-        <dd>A set of standards that define Unix-like command-line behavior and file structure.</dd>
-
-        <dt id="prime-field">Prime Field</dt>
-        <dd>A finite field using a prime modulus. Preferred in cryptographic algorithms.</dd>
-
-        <dt id="proof-of-stake">Proof of Stake</dt>
+        <dt id="proof-of-stake" data-module="blockchain">Proof of Stake <span class="module-tag">BLOCKCHAIN</span></dt>
         <dd>Consensus model where users stake tokens to validate blockchain transactions.</dd>
 
-        <dt id="proof-of-work">Proof of Work</dt>
+        <dt id="proof-of-work" data-module="blockchain">Proof of Work <span class="module-tag">BLOCKCHAIN</span></dt>
         <dd>Consensus model requiring computation to validate blockchain transactions.</dd>
 
-        <dt id="public-key-cryptography">Public-Key Cryptography</dt>
+        <dt id="public-key-cryptography" data-module="keypair">Public-Key Cryptography <span class="module-tag">KEYPAIR</span></dt>
         <dd>Encryption system using public/private keypairs to share secrets securely.</dd>
 
-        <dt id="rsa">RSA</dt>
+        <dt id="rsa" data-module="cpu">RSA <span class="module-tag">CPU</span></dt>
         <dd>Early public-key encryption system based on prime factorization.</dd>
 
-        <dt id="smart-contract">Smart Contract</dt>
+        <dt id="smart-contract" data-module="blockchain">Smart Contract <span class="module-tag">BLOCKCHAIN</span></dt>
         <dd>Code that executes on a blockchain when conditions are met — used in DAOs and apps.</dd>
 
-        <dt id="stream-cipher">Stream Cipher</dt>
-        <dd>Encrypts data one unit at a time — ideal for live communications.</dd>
-
-        <dt id="symmetric-encryption">Symmetric Encryption</dt>
+        <dt id="symmetric-encryption" data-module="cpu">Symmetric Encryption <span class="module-tag">CPU</span></dt>
         <dd>Uses a single key to both encrypt and decrypt data. Requires secure key sharing.</dd>
 
-        <dt id="terminal">Terminal</dt>
+        <dt id="terminal" data-module="guide">Terminal <span class="module-tag">GUIDE</span></dt>
         <dd>A command-line interface to control and inspect systems without a GUI.</dd>
 
-        <dt id="transparency">Transparency (Blockchain)</dt>
-        <dd>The state of blockchain data being visible and verifiable by all participants.</dd>
-
-        <dt id="vigenere-cipher">Vigenère Cipher</dt>
+        <dt id="vigenere-cipher" data-module="cypher">Vigenère Cipher <span class="module-tag">CYPHER</span></dt>
         <dd>A substitution cipher that uses a repeating keyword to vary letter shifts.</dd>
 
-        <dt id="zero-knowledge-proof">Zero-Knowledge Proof</dt>
+        <dt id="zero-knowledge-proof" data-module="blockchain">Zero-Knowledge Proof <span class="module-tag">BLOCKCHAIN</span></dt>
         <dd>Cryptographic method that proves knowledge without revealing the actual information.</dd>
       </dl>
 
       <h2 class="section-heading">📙 Social + Political Concepts (A–Z)</h2>
-      <dl>
-        <dt id="access">Access</dt>
+      <dl id="social-terms">
+        <dt id="access" data-module="net">Access <span class="module-tag">NET</span></dt>
         <dd>Refers to the usability and inclusiveness of encryption tools. Barriers to access create unequal digital protection.</dd>
 
-        <dt id="backdoor">Backdoor</dt>
+        <dt id="backdoor" data-module="net">Backdoor <span class="module-tag">NET</span></dt>
         <dd>A hidden method of bypassing encryption, often demanded by governments or embedded by corporations.</dd>
 
-        <dt id="decentralization">Decentralization</dt>
+        <dt id="decentralization" data-module="net">Decentralization <span class="module-tag">NET</span></dt>
         <dd>The redistribution of control away from central authorities toward users or networks.</dd>
 
-        <dt id="digital-resistance">Digital Resistance</dt>
+        <dt id="digital-resistance" data-module="cpu">Digital Resistance <span class="module-tag">CPU</span></dt>
         <dd>Using encryption, obfuscation, and privacy tools to resist surveillance and corporate control.</dd>
 
-        <dt id="ethical-encryption">Ethical Encryption</dt>
+        <dt id="ethical-encryption" data-module="net">Ethical Encryption <span class="module-tag">NET</span></dt>
         <dd>Encryption practices that prioritize users' rights, usability, transparency, and autonomy over corporate profit or government control.</dd>
 
-        <dt id="infrastructure">Infrastructure</dt>
+        <dt id="infrastructure" data-module="sec">Infrastructure <span class="module-tag">SEC</span></dt>
         <dd>The underlying systems — technical, legal, and economic — that shape digital access and control.</dd>
 
-        <dt id="manovich-layer">Manovich Layer</dt>
-        <dd>Lev Manovich's idea of metadata as the “second layer” of digital experience — invisible, yet powerful.</dd>
-
-        <dt id="obfuscation-vs-secrecy">Obfuscation vs. Secrecy</dt>
-        <dd>Secrecy hides; obfuscation confuses. Both resist surveillance, but with different strategies and power dynamics.</dd>
-
-        <dt id="privacy">Privacy</dt>
+        <dt id="privacy" data-module="net">Privacy <span class="module-tag">NET</span></dt>
         <dd>The right to control who sees your data, when, and why. Includes both content and metadata.</dd>
 
-        <dt id="surveillance-capitalism">Surveillance Capitalism</dt>
+        <dt id="surveillance-capitalism" data-module="net">Surveillance Capitalism <span class="module-tag">NET</span></dt>
         <dd>Business model where companies profit from monitoring, predicting, and influencing user behavior.</dd>
 
-        <dt id="trust">Trust</dt>
+        <dt id="trust" data-module="net">Trust <span class="module-tag">NET</span></dt>
         <dd>In cryptography, trust is distributed — ideally through math, not institutions. Who you trust determines your risk.</dd>
       </dl>
 
@@ -272,29 +398,269 @@
         <a href="../../index.html" class="nav-button">← Back to Obfuscate-OS</a>
       </div>
     </main>
+
+    <!-- Back to top button -->
+    <button id="back-to-top" title="Back to top">↑</button>
   </div>
 
   <script>
+    // Enhanced glossary functionality with animations
+    
+    let searchTimeout;
+    const searchBox = document.getElementById("search-box");
+    const searchResults = document.getElementById("search-results");
+    const backToTopBtn = document.getElementById("back-to-top");
+    
+    // Enhanced search functionality
     function filterGlossary() {
-      const input = document.getElementById("search-box").value.toLowerCase();
-      const terms = document.querySelectorAll("dt");
-
-      terms.forEach(dt => {
-        const dd = dt.nextElementSibling;
-        const match = dt.textContent.toLowerCase().includes(input);
-        dt.style.display = match ? "block" : "none";
-        if (dd) dd.style.display = match ? "block" : "none";
-      });
+      clearTimeout(searchTimeout);
+      searchTimeout = setTimeout(() => {
+        const input = searchBox.value.toLowerCase();
+        const terms = document.querySelectorAll("dt");
+        let visibleCount = 0;
+        
+        terms.forEach(dt => {
+          const dd = dt.nextElementSibling;
+          const termText = dt.textContent.toLowerCase();
+          const descText = dd ? dd.textContent.toLowerCase() : '';
+          const match = termText.includes(input) || descText.includes(input);
+          
+          if (match) {
+            dt.classList.remove('term-hidden');
+            dt.classList.add('term-visible');
+            if (dd) {
+              dd.classList.remove('term-hidden');
+              dd.classList.add('term-visible');
+            }
+            visibleCount++;
+          } else {
+            dt.classList.add('term-hidden');
+            dt.classList.remove('term-visible');
+            if (dd) {
+              dd.classList.add('term-hidden');
+              dd.classList.remove('term-visible');
+            }
+          }
+        });
+        
+        // Update search results counter
+        if (input.length > 0) {
+          searchResults.textContent = `${visibleCount} term${visibleCount !== 1 ? 's' : ''} found`;
+          searchResults.classList.add('visible');
+        } else {
+          searchResults.classList.remove('visible');
+        }
+      }, 200);
     }
-
-    window.addEventListener("DOMContentLoaded", () => {
+    
+    // Enhanced URL hash handling with smooth animation
+    function handleHashNavigation() {
       const hash = window.location.hash;
       if (hash) {
         const target = document.querySelector(hash);
         if (target) {
-          target.scrollIntoView({ behavior: "smooth", block: "start" });
-          target.classList.add("highlighted");
-          setTimeout(() => target.classList.remove("highlighted"), 2000);
+          // Smooth scroll to target
+          setTimeout(() => {
+            target.scrollIntoView({ 
+              behavior: "smooth", 
+              block: "center" 
+            });
+            
+            // Enhanced highlight animation
+            target.classList.add("highlighted");
+            
+            // Add pulse effect to related terms
+            const module = target.dataset.module;
+            if (module) {
+              document.querySelectorAll(`[data-module="${module}"]`).forEach(term => {
+                if (term !== target) {
+                  term.classList.add("term-pulse");
+                  setTimeout(() => term.classList.remove("term-pulse"), 2000);
+                }
+              });
+            }
+            
+            // Remove highlight after animation
+            setTimeout(() => {
+              target.classList.remove("highlighted");
+            }, 3000);
+          }, 100);
+        }
+      }
+    }
+    
+    // Back to top functionality
+    function handleScroll() {
+      if (window.pageYOffset > 300) {
+        backToTopBtn.classList.add('visible');
+      } else {
+        backToTopBtn.classList.remove('visible');
+      }
+    }
+    
+    function scrollToTop() {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    }
+    
+    // Term interaction enhancements
+    function enhanceTermInteractions() {
+      document.querySelectorAll('dt').forEach(term => {
+        term.addEventListener('click', function() {
+          // Add click animation
+          this.style.transform = 'scale(0.98)';
+          setTimeout(() => {
+            this.style.transform = '';
+          }, 150);
+          
+          // Update URL hash
+          if (this.id) {
+            history.pushState(null, null, `#${this.id}`);
+          }
+        });
+        
+        // Add hover effects for module grouping
+        term.addEventListener('mouseenter', function() {
+          const module = this.dataset.module;
+          if (module) {
+            document.querySelectorAll(`[data-module="${module}"]`).forEach(relatedTerm => {
+              relatedTerm.style.opacity = '1';
+            });
+            document.querySelectorAll('dt:not([data-module="' + module + '"])').forEach(otherTerm => {
+              otherTerm.style.opacity = '0.6';
+            });
+          }
+        });
+        
+        term.addEventListener('mouseleave', function() {
+          document.querySelectorAll('dt').forEach(allTerms => {
+            allTerms.style.opacity = '';
+          });
+        });
+      });
+    }
+    
+    // Keyboard navigation
+    function handleKeyboardNavigation(event) {
+      if (event.ctrlKey || event.metaKey) {
+        switch(event.key) {
+          case 'k':
+            event.preventDefault();
+            searchBox.focus();
+            break;
+          case 'Home':
+            event.preventDefault();
+            scrollToTop();
+            break;
+        }
+      }
+      
+      if (event.key === 'Escape') {
+        searchBox.value = '';
+        filterGlossary();
+        searchBox.blur();
+      }
+    }
+    
+    // Module filter functionality
+    function createModuleFilters() {
+      const modules = [...new Set(Array.from(document.querySelectorAll('[data-module]')).map(el => el.dataset.module))];
+      
+      if (modules.length > 1) {
+        const filterContainer = document.createElement('div');
+        filterContainer.id = 'module-filters';
+        filterContainer.innerHTML = `
+          <div style="text-align: center; margin: 1em 0;">
+            <span style="color: #9f70ff; font-size: 0.9em; margin-right: 1em;">Filter by module:</span>
+            <button class="filter-btn active" data-filter="all">All</button>
+            ${modules.map(module => 
+              `<button class="filter-btn" data-filter="${module}">${module.toUpperCase()}</button>`
+            ).join('')}
+          </div>
+        `;
+        
+        // Add filter styles
+        const style = document.createElement('style');
+        style.textContent = `
+          .filter-btn {
+            background: transparent;
+            border: 1px solid #9f70ff;
+            color: #9f70ff;
+            padding: 0.3em 0.8em;
+            margin: 0 0.2em;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.8em;
+            transition: all 0.3s ease;
+          }
+          .filter-btn:hover, .filter-btn.active {
+            background-color: #9f70ff;
+            color: #000;
+          }
+        `;
+        document.head.appendChild(style);
+        
+        searchBox.parentNode.insertBefore(filterContainer, searchBox.nextSibling);
+        
+        // Add filter functionality
+        document.querySelectorAll('.filter-btn').forEach(btn => {
+          btn.addEventListener('click', function() {
+            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+            this.classList.add('active');
+            
+            const filter = this.dataset.filter;
+            document.querySelectorAll('dt').forEach(term => {
+              const dd = term.nextElementSibling;
+              if (filter === 'all' || term.dataset.module === filter) {
+                term.style.display = 'block';
+                if (dd) dd.style.display = 'block';
+              } else {
+                term.style.display = 'none';
+                if (dd) dd.style.display = 'none';
+              }
+            });
+          });
+        });
+      }
+    }
+    
+    // Initialize everything when DOM is loaded
+    window.addEventListener("DOMContentLoaded", () => {
+      // Set up event listeners
+      searchBox.addEventListener('input', filterGlossary);
+      searchBox.addEventListener('keyup', filterGlossary);
+      backToTopBtn.addEventListener('click', scrollToTop);
+      window.addEventListener('scroll', handleScroll);
+      window.addEventListener('keydown', handleKeyboardNavigation);
+      window.addEventListener('hashchange', handleHashNavigation);
+      
+      // Initialize features
+      handleHashNavigation();
+      enhanceTermInteractions();
+      createModuleFilters();
+      
+      // Add search shortcut hint
+      searchBox.placeholder = "Search terms... (Ctrl+K)";
+      
+      console.log('[glossary] Enhanced glossary page loaded successfully');
+    });
+    
+    // Handle external links from other pages
+    window.addEventListener('message', function(event) {
+      if (event.data.type === 'glossary-link-clicked') {
+        const term = event.data.term;
+        const anchor = event.data.anchor;
+        
+        console.log(`[glossary] External link clicked for term: ${term}`);
+        
+        // Scroll to term and highlight
+        const target = document.getElementById(anchor);
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          target.classList.add('highlighted');
+          setTimeout(() => target.classList.remove('highlighted'), 3000);
         }
       }
     });
